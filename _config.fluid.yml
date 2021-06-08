@@ -308,7 +308,7 @@ navbar:
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
-    #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
+    - { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
 # Search feature, based on hexo-generator-search. If you have installed other search plugins, please disable this feature to avoid generating redundant index files
@@ -817,7 +817,7 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: /img/tag.png
+  banner_img: /img/tag.jpg
   banner_img_height: 80
   banner_mask_alpha: 0.3
   subtitle:
@@ -879,30 +879,18 @@ page404:
 #---------------------------
 links:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/links.jpg
   banner_img_height: 60
-  banner_mask_alpha: 0.3
+  banner_mask_alpha: 0.1
   subtitle:
   # 友链的成员项
   # Member item of page
   items:
     - {
-      title: "Fluid Blog",
-      intro: "主题博客",
-      link: "https://hexo.fluid-dev.com/",
-      avatar: "/img/favicon.png"
-    }
-    - {
-      title: "Fluid Docs",
-      intro: "主题使用指南",
-      link: "https://hexo.fluid-dev.com/docs/",
-      avatar: "/img/favicon.png"
-    }
-    - {
-      title: "Fluid Repo",
-      intro: "主题 GitHub 仓库",
-      link: "https://github.com/fluid-dev/hexo-theme-fluid",
-      avatar: "/img/favicon.png"
+      title: "惜时如命",
+      intro: "盛年不重来，一日难再晨。及时当勉励，岁月不待人。",
+      link: "https://iamazing.cn/",
+      avatar: "https://iamazing.cn/upload/547238f0-b9f5-11eb-ab29-c99b187d6698.webp"
     }
 
   # 当成员头像加载失败时，替换为指定图片
