@@ -6,28 +6,37 @@ on:
       - source  # default branch
 
 jobs:
-  pages:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 12.x
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: source
+
+      - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - name: Cache NPM dependencies
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-npm-cache
-          restore-keys: |
-            ${{ runner.OS }}-npm-cache
-      - name: Install Dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: master  # deploying branch
+
+      - name: Hexo Generate
+        run: |
+          rm -f .yarnclean
+          yarn --frozen-lockfile --ignore-engines --ignore-optional --non-interactive --silent --ignore-scripts --production=false
+          rm -rf ./public
+          yarn run hexo clean
+          yarn run hexo generate
+
+      - name: Hexo Deploy
+        env:
+          SSH_PRIVATE: ${{ secrets.SSH_PRIVATE }}
+          GIT_NAME: LeeJiangWei
+          GIT_EMAIL: ljwskrskr@outlook.com
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config --global user.name "$GIT_NAME"
+          git config --global user.email "$GIT_EMAIL"
+          yarn run hexo deploy
