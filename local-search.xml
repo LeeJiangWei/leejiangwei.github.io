@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>买卖股票的最佳时机 II</title>
+    <link href="/2021/06/16/best-time-to-buy-and-sell-stock-ii/"/>
+    <url>/2021/06/16/best-time-to-buy-and-sell-stock-ii/</url>
+    
+    <content type="html"><![CDATA[<h1 id="买卖股票的最佳时机-II"><a href="#买卖股票的最佳时机-II" class="headerlink" title="买卖股票的最佳时机 II"></a>买卖股票的最佳时机 II</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2zsx1/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2zsx1/</a><br><a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/">https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/</a></p><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h3><p>只看相邻的两天，只要后一天比前一天高，就是收益，非常简单。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; prices)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> curr = prices.<span class="hljs-built_in">begin</span>() + <span class="hljs-number">1</span>; curr != prices.<span class="hljs-built_in">end</span>(); ++curr) &#123;<br>        <span class="hljs-keyword">if</span> (*curr &gt; *(curr - <span class="hljs-number">1</span>))<br>            result += *curr - *(curr - <span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="我的解法"><a href="#我的解法" class="headerlink" title="我的解法"></a>我的解法</h3><p>刚做完一个双指针，指魔怔了，嗯是搞了个双指针。其实就是找到每一段递增区间的起点和终点。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; prices)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (prices.<span class="hljs-built_in">size</span>() &lt;= <span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">auto</span> min = prices.<span class="hljs-built_in">begin</span>();<br>    <span class="hljs-keyword">auto</span> max = min;<br>    <span class="hljs-keyword">auto</span> end = prices.<span class="hljs-built_in">end</span>();<br>    <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">while</span> (min != end &amp;&amp; max != end) &#123;<br>        <span class="hljs-keyword">while</span> ((min+<span class="hljs-number">1</span>) != end &amp;&amp; *min &gt; *(min + <span class="hljs-number">1</span>))<br>            ++min;<br>        max = min;<br>        <span class="hljs-keyword">while</span> ((max+<span class="hljs-number">1</span>) != end &amp;&amp; *max &lt; *(max + <span class="hljs-number">1</span>))<br>            ++max;<br>        result += *(max) - *(min);<br>        <span class="hljs-keyword">if</span> (min != end &amp;&amp; max != end) &#123;<br>            ++max;<br>            min = max;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数组</tag>
+      
+      <tag>贪心算法</tag>
+      
+      <tag>C++</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>如何制作Unravel和damedane的Deepfake换脸视频</title>
     <link href="/2021/06/16/make-deepfake-meme/"/>
     <url>/2021/06/16/make-deepfake-meme/</url>
@@ -43,9 +74,9 @@
       
       <tag>数组</tag>
       
-      <tag>双指针</tag>
-      
       <tag>C++</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
