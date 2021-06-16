@@ -14,11 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="自己搞了有一小会儿，写一下过程防止以后忘了">
+  <meta name="description" content="就是随便写写">
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>将Hexo部署到Github上 - Be Happy</title>
+  <title>第一篇博客，不知道起什么标题好 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="将Hexo部署到Github上">
+            <span class="h2" id="subtitle" title="第一篇博客，不知道起什么标题好">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-06-08 17:51" pubdate>
+      <time datetime="2021-06-08 16:18" pubdate>
         2021年6月8日 下午
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      266 字
+      602 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      6
        分钟
     </span>
   
@@ -245,22 +245,19 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">将Hexo部署到Github上</h1>
+            <h1 style="display: none">第一篇博客，不知道起什么标题好</h1>
             
             <div class="markdown-body">
-              <h2 id="主要参考"><a href="#主要参考" class="headerlink" title="主要参考"></a>主要参考</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://hexo.io/docs/github-pages">GitHub Pages</a></li>
-</ul>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h4 id="博客目录创建git仓库，推送至source分支"><a href="#博客目录创建git仓库，推送至source分支" class="headerlink" title="博客目录创建git仓库，推送至source分支"></a>博客目录创建git仓库，推送至source分支</h4><figure class="highlight ps"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ps">git init<br>git add .<br>git commit<br>git branch <span class="hljs-literal">-M</span> source<br>git push origin source<br></code></pre></td></tr></table></figure>
-
-<h4 id="更改-github-workflows-pages-yml"><a href="#更改-github-workflows-pages-yml" class="headerlink" title="更改.github/workflows/pages.yml"></a>更改<code>.github/workflows/pages.yml</code></h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">name:</span> <span class="hljs-string">Pages</span><br><br><span class="hljs-attr">on:</span><br>  <span class="hljs-attr">push:</span><br>    <span class="hljs-attr">branches:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">source</span>  <span class="hljs-comment"># 监听push事件的分支，是博客源文件的分支</span><br><br><span class="hljs-attr">jobs:</span><br>  <span class="hljs-attr">pages:</span><br>    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span><br>    <span class="hljs-attr">steps:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v2</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Use</span> <span class="hljs-string">Node.js</span> <span class="hljs-number">12.</span><span class="hljs-string">x</span><br>        <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/setup-node@v1</span><br>        <span class="hljs-attr">with:</span><br>          <span class="hljs-attr">node-version:</span> <span class="hljs-string">&#x27;12.x&#x27;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Cache</span> <span class="hljs-string">NPM</span> <span class="hljs-string">dependencies</span><br>        <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/cache@v2</span><br>        <span class="hljs-attr">with:</span><br>          <span class="hljs-attr">path:</span> <span class="hljs-string">node_modules</span><br>          <span class="hljs-attr">key:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">runner.OS</span> <span class="hljs-string">&#125;&#125;-npm-cache</span><br>          <span class="hljs-attr">restore-keys:</span> <span class="hljs-string">|</span><br><span class="hljs-string">            $&#123;&#123; runner.OS &#125;&#125;-npm-cache</span><br><span class="hljs-string"></span>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Install</span> <span class="hljs-string">Dependencies</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-string">npm</span> <span class="hljs-string">install</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Build</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-string">npm</span> <span class="hljs-string">run</span> <span class="hljs-string">build</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Deploy</span><br>        <span class="hljs-attr">uses:</span> <span class="hljs-string">peaceiris/actions-gh-pages@v3</span><br>        <span class="hljs-attr">with:</span><br>          <span class="hljs-attr">github_token:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">secrets.GITHUB_TOKEN</span> <span class="hljs-string">&#125;&#125;</span><br>          <span class="hljs-attr">publish_dir:</span> <span class="hljs-string">./public</span><br>          <span class="hljs-attr">publish_branch:</span> <span class="hljs-string">master</span>  <span class="hljs-comment"># 部署的分支，是Github Pages对应的目录</span><br></code></pre></td></tr></table></figure>
-<p>注意一下分支名字即可。</p>
-<h4 id="更改项目Github-Pages的源目录"><a href="#更改项目Github-Pages的源目录" class="headerlink" title="更改项目Github Pages的源目录"></a>更改项目Github Pages的源目录</h4><p>在项目的<code>Settings</code>页的<code>Pages</code>标签里，将源目录改为<code>master</code>，保存就好了。</p>
-<h2 id="其他参考"><a href="#其他参考" class="headerlink" title="其他参考"></a>其他参考</h2><p>这两个是Fluid主题给的教程，但是不太看得懂到底部署到哪儿去了，最后没有用。</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/posts/actions-deploy/">利用 GitHub Actions 自动部署 Hexo 博客</a></li>
-<li><a target="_blank" rel="noopener" href="https://zkqiang.cn/posts/e8ed6836/">编写自己的 GitHub Action，体验自动化部署</a></li>
-</ul>
+              <h1 id="第一篇博客，不知道起什么标题好"><a href="#第一篇博客，不知道起什么标题好" class="headerlink" title="第一篇博客，不知道起什么标题好"></a>第一篇博客，不知道起什么标题好</h1><p>总之就先随便写写吧。</p>
+<h2 id="2021年6月8日"><a href="#2021年6月8日" class="headerlink" title="2021年6月8日"></a>2021年6月8日</h2><p>今天是2021年6月8日，是高考的最后一天。1461天之前的我，现在可能正在考场里检查着自己的英语试卷吧。四年时光如同白驹过隙，转眼间就已经快要毕业了。</p>
+<h2 id="突然开始写博客"><a href="#突然开始写博客" class="headerlink" title="突然开始写博客"></a>突然开始写博客</h2><p>作为一个计算机系的学生，居然在临近毕业的时候才开始捣鼓博客，属实有些贻笑大方。无论如何，算是个开始吧。研究生的生活已经开始，希望这个博客能够多少留下一点印迹吧。</p>
+<h2 id="Be-Happy"><a href="#Be-Happy" class="headerlink" title="Be Happy"></a>Be Happy</h2><p>算是人生信条吧，做人最重要就是开心。当然，也要为了以后能一直开心下去。</p>
+<h2 id="遗憾"><a href="#遗憾" class="headerlink" title="遗憾"></a>遗憾</h2><p>其实本科四年最大的遗憾就是并没有真正地学好一门技术。原以为只需要按部就班做好课内的工作就可以了，结果来说确实做的还可以，各种考试成绩都还行，但是除此以外好像也就没了。要说四年里最大的收获，可能就是我明白了自己真正喜欢什么、不喜欢什么。</p>
+<p>大三与大四之间的暑假，在保研名额还没完全决定的时候，其实为找工作焦虑过一小段时间。编程语言没深入过，没有什么项目，学院给的实习机会也没有报名。</p>
+<p>后来决定要了这个保研名额，其实也是走了一个退路。希望多出来的这两年时间，能够让我为工作做好充足的准备吧。</p>
+<h2 id="未来"><a href="#未来" class="headerlink" title="未来"></a>未来</h2><p>希望以后还是能在离家近的地方工作，所以TX是个不错的目标。由于研究方向与算法岗完全不搭边儿，可以安心地准备找开发岗的工作了。先把C++和Go学好吧。</p>
+<p>当然，考公才是我心中最佳的选择，无奈考公也卷，而且考不上就是考不上了，不像给资本家打工那样可以退而求其次。所以只能做两手准备了，现在先把字练好吧。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>我自认为自己是典型的三分钟热度，只希望这不是最后一篇博客，无论写点什么，都能够坚持下去。就酱。</p>
 
             </div>
             <hr>
@@ -270,7 +267,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/">博客建设</a>
+                      <a class="hover-with-bg" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
                     
                   </div>
                 
@@ -282,15 +279,15 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2021/06/08/deploy-hexo-on-github/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">将Hexo部署到Github上</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/2021/06/08/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%EF%BC%8C%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B5%B7%E4%BB%80%E4%B9%88%E6%A0%87%E9%A2%98%E5%A5%BD/">
-                        <span class="hidden-mobile">第一篇博客，不知道起什么标题好</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>
