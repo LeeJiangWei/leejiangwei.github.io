@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>如何制作Unravel和damedane的Deepfake换脸视频</title>
+    <link href="/2021/06/16/make-deepfake-meme/"/>
+    <url>/2021/06/16/make-deepfake-meme/</url>
+    
+    <content type="html"><![CDATA[<h1 id="如何制作Unravel和damedane换脸视频"><a href="#如何制作Unravel和damedane换脸视频" class="headerlink" title="如何制作Unravel和damedane换脸视频"></a>如何制作Unravel和damedane换脸视频</h1><p>虽然这梗已经火了好久了，但是最近看多了，自己也想试着搞一个。奇怪的是知乎和B站居然搜不到教程，而上外网一下就找到了，于是写一个博客记录一下，顺便帮助有需要的人（虽然应该不会有人看我的博客）。</p><h2 id="准备照片和视频"><a href="#准备照片和视频" class="headerlink" title="准备照片和视频"></a>准备照片和视频</h2><h3 id="人脸照片"><a href="#人脸照片" class="headerlink" title="人脸照片"></a>人脸照片</h3><p>准备一张人脸照片（受害人），裁剪为长宽比例1：1，人脸最好在中间。这里请出明日方舟的制作人海猫络合物先生。<br><img src="/img/deepfake/oceancat.png" alt="Ocean Cat"></p><h3 id="母体视频"><a href="#母体视频" class="headerlink" title="母体视频"></a>母体视频</h3><p>如果是要制作damedane的，就不需要自己准备了，代码里已经预设好了。<br>Unravel的视频模板在这：<a href="https://www.kapwing.com/explore/unravel-tokyo-ghoul-meme-template">Unravel模板</a>，直接下载下来一会儿用。</p><h4 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h4><p>这个翻唱Unravel的小姐姐YouTube视频在<a href="https://www.youtube.com/watch?v=Dsd9X_7WSd4">这里</a>，下面的评论都在感谢她提供了这么好的deepfake模板，真是令人哭笑不得。但是有一说一还是唱的挺好听的，就是不知道为什么一看她闭眼就想笑。<br><img src="/img/deepfake/comment.png" alt="thank you for the great deepfake template"></p><h2 id="运行代码"><a href="#运行代码" class="headerlink" title="运行代码"></a>运行代码</h2><p>打开这个链接：<a href="https://colab.research.google.com/github/AliaksandrSiarohin/first-order-model/blob/master/demo.ipynb">Deepfake代码</a><br>依次点击两个代码块左边的运行按钮，滚动到页面底部，等待一会儿后就会出来图像界面。<br><img src="/img/deepfake/run_script.png" alt="依次点这两个播放按钮"><br>根据图形界面的指示，上传刚才准备好的图片和视频，点击<code>Generate</code>按钮就可以生成换脸视频了，需要等几分钟。如图所示，damedane的原版视频有预设了（奥巴马左边那位）。<br><img src="/img/deepfake/gui2.png" alt="海猫填充完毕"><br>生成完成后，下载下来即可。<br><img src="/img/deepfake/compare.png" alt="海猫的痛，你们懂吗"></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>YouTube一搜Unravel就会有一个教程视频，然后找到了对应的文章。不过这个教程是快一年前的了，现在deepfake的脚本已经更新过了，不用这么麻烦了。<br><a href="https://www.youtube.com/watch?v=MXNBtws35WE&amp;t=518s">https://www.youtube.com/watch?v=MXNBtws35WE&amp;t=518s</a><br><a href="https://www.kapwing.com/resources/how-to-make-the-unravel-tokyo-ghoul-deepfake-meme/">https://www.kapwing.com/resources/how-to-make-the-unravel-tokyo-ghoul-deepfake-meme/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>随笔</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>删除排序数组中的重复项</title>
     <link href="/2021/06/15/remove-duplicates-from-sorted-array/"/>
     <url>/2021/06/15/remove-duplicates-from-sorted-array/</url>
