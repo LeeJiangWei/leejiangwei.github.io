@@ -18,9 +18,25 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>分类 - Be Happy</title>
+  <title>存在重复元素 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -48,7 +64,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -154,14 +170,59 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/category.png') no-repeat center center;
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="分类">
+            <span class="h2" id="subtitle" title="存在重复元素">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-12 22:01" pubdate>
+        2021年7月12日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      177 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      2
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
 
             
           </div>
@@ -174,207 +235,123 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">存在重复元素</h1>
+            
+            <div class="markdown-body">
+              <h1 id="存在重复元素"><a href="#存在重复元素" class="headerlink" title="存在重复元素"></a>存在重复元素</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x248f5/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x248f5/</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/contains-duplicate/">https://leetcode-cn.com/problems/contains-duplicate/</a></p>
+<h2 id="排序后比较"><a href="#排序后比较" class="headerlink" title="排序后比较"></a>排序后比较</h2><p>先排序，然后比较相邻元素即可。使用C++的排序泛型算法<code>sort()</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">containsDuplicate</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (nums.<span class="hljs-built_in">size</span>() &lt;<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-built_in">sort</span>(nums.<span class="hljs-built_in">begin</span>(), nums.<span class="hljs-built_in">end</span>());<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>; ++i) &#123;<br>        <span class="hljs-keyword">if</span> (nums[i] == nums[i+<span class="hljs-number">1</span>]) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>将元素插入哈希表，如果插入时发现重复了，就可以返回了。</p>
+<p>C++中，类似的功能可以用关联容器<code>unordered_set</code>实现。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">containsDuplicate</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    unordered_set&lt;<span class="hljs-keyword">int</span>&gt; s;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> x: nums) &#123;<br>        <span class="hljs-keyword">if</span> (s.<span class="hljs-built_in">find</span>(x) != s.<span class="hljs-built_in">end</span>()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        s.<span class="hljs-built_in">insert</span>(x);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
-
-
-
-
-
-<div class="category-list">
-  
-  
-  
-  
-    
-    
-    <div class="category row">
-      <a
-        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-071fda8ffed879b16c3308d2133bac46" role="tab" data-toggle="collapse" href="#collapse-071fda8ffed879b16c3308d2133bac46"
-        aria-expanded="false"
-      >
-        LeetCode
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      <a href="/categories/LeetCode/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>4</span>
-      </a>
-      <div class="category-collapse">
-        
-        
-          
-          
-  <div id="collapse-071fda8ffed879b16c3308d2133bac46" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-071fda8ffed879b16c3308d2133bac46">
-    
-    
-  </div>
-
-          
-  <div id="collapse-071fda8ffed879b16c3308d2133bac46" class="collapse in " role="tabpanel"
-       aria-labelledby="heading-071fda8ffed879b16c3308d2133bac46">
-    
-  
-  
-    
-    
-    <div class="category-sub row">
-      <a
-        class="category-subitem collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-368cf862597698b51fc763fb64656241" role="tab" data-toggle="collapse" href="#collapse-368cf862597698b51fc763fb64656241"
-        aria-expanded="false"
-      >
-        初级算法
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      <a href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>4</span>
-      </a>
-      <div class="category-collapse">
-        
-        
-          
-  <div id="collapse-368cf862597698b51fc763fb64656241" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-368cf862597698b51fc763fb64656241">
-    
-    
-      
-      
-        <a href="/2021/07/12/contain-duplicates/" class="list-group-item list-group-item-action">
-          <span class="category-post">存在重复元素</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2021/07/12/rotate-array/" class="list-group-item list-group-item-action">
-          <span class="category-post">旋转数组</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2021/06/16/best-time-to-buy-and-sell-stock-ii/" class="list-group-item list-group-item-action">
-          <span class="category-post">买卖股票的最佳时机 II</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2021/06/15/remove-duplicates-from-sorted-array/" class="list-group-item list-group-item-action">
-          <span class="category-post">删除排序数组中的重复项</span>
-        </a>
-      
-    
-  </div>
-
-        
-      </div>
-    </div>
-  
-  </div>
-
-        
-      </div>
-    </div>
-  
-    
-    
-    <div class="category row">
-      <a
-        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-8936f53b23e9dfe2965d9e2ec23a4779" role="tab" data-toggle="collapse" href="#collapse-8936f53b23e9dfe2965d9e2ec23a4779"
-        aria-expanded="false"
-      >
-        随笔
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      <a href="/categories/%E9%9A%8F%E7%AC%94/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>2</span>
-      </a>
-      <div class="category-collapse">
-        
-        
-          
-  <div id="collapse-8936f53b23e9dfe2965d9e2ec23a4779" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-8936f53b23e9dfe2965d9e2ec23a4779">
-    
-    
-      
-      
-        <a href="/2021/06/16/make-deepfake-meme/" class="list-group-item list-group-item-action">
-          <span class="category-post">如何制作Unravel和damedane的Deepfake换脸视频</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2021/06/08/first-blog/" class="list-group-item list-group-item-action">
-          <span class="category-post">第一篇博客，不知道起什么标题好</span>
-        </a>
-      
-    
-  </div>
-
-        
-      </div>
-    </div>
-  
-    
-    
-    <div class="category row">
-      <a
-        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-2bd3ad4f5cb752ef52ac0ddd4304fb01" role="tab" data-toggle="collapse" href="#collapse-2bd3ad4f5cb752ef52ac0ddd4304fb01"
-        aria-expanded="false"
-      >
-        博客建设
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>1</span>
-      </a>
-      <div class="category-collapse">
-        
-        
-          
-  <div id="collapse-2bd3ad4f5cb752ef52ac0ddd4304fb01" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-2bd3ad4f5cb752ef52ac0ddd4304fb01">
-    
-    
-      
-      
-        <a href="/2021/06/08/deploy-hexo-on-github/" class="list-group-item list-group-item-action">
-          <span class="category-post">将Hexo部署到Github上</span>
-        </a>
-      
-    
-  </div>
-
-        
-      </div>
-    </div>
-  
-</div>
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/">初级算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/12/rotate-array/">
+                        <span class="hidden-mobile">旋转数组</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script>
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          Fluid.utils.createCssLink('https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css');
+          Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js', function() {
+            new DisqusJS({
+              shortname: 'leejw',
+              apikey: 'uwgYI8benoAzCV2xA5QFYUv30LJ13QrrQghMfixeBhBnK0XEph0iW7DSTRkHI4Lm'
+            });
+          });
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -478,9 +455,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
 
 
 
