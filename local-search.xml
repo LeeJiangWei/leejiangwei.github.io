@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>只出现一次的数字</title>
+    <link href="/2021/07/13/single-number/"/>
+    <url>/2021/07/13/single-number/</url>
+    
+    <content type="html"><![CDATA[<h1 id="只出现一次的数字"><a href="#只出现一次的数字" class="headerlink" title="只出现一次的数字"></a>只出现一次的数字</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x21ib6/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x21ib6/</a></p><p><a href="https://leetcode-cn.com/problems/single-number/">https://leetcode-cn.com/problems/single-number/</a></p><h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>使用哈希表，如果放入元素时候已经有了，就删掉它。最后剩下的就是只出现一次的元素。时间复杂度是<code>O(n)</code>，空间复杂度也是<code>O(n)</code>。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    unordered_set&lt;<span class="hljs-keyword">int</span>&gt; s;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> x: nums) &#123;<br>        <span class="hljs-keyword">if</span> (s.<span class="hljs-built_in">count</span>(x)) &#123;<br>            s.<span class="hljs-built_in">erase</span>(x);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            s.<span class="hljs-built_in">insert</span>(x);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> *(s.<span class="hljs-built_in">begin</span>());<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><p>数字按位进行异或运算。基于以下几点事实：</p><ul><li>任何数和自己做异或运算，结果为 0，即 a ⊕ a = 0 。</li><li>任何数和 0 做异或运算，结果还是自己，即 a ⊕ 0 = 0 。</li><li>异或运算中，满足交换律和结合律，a ⊕ b ⊕ a = b ⊕ a ⊕ a = b ⊕ ( a ⊕ a ) = b ⊕ 0 = b 。</li></ul><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> ret = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> e: nums) ret ^= e;<br>    <span class="hljs-keyword">return</span> ret;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="C-的位和逻辑运算操作符"><a href="#C-的位和逻辑运算操作符" class="headerlink" title="C++的位和逻辑运算操作符"></a>C++的位和逻辑运算操作符</h2><table><thead><tr><th>运算</th><th>位运算操作符 (bitwise)</th><th>逻辑运算符(logical)</th></tr></thead><tbody><tr><td>AND</td><td>&amp;</td><td>&amp;&amp;</td></tr><tr><td>OR</td><td>|</td><td>||</td></tr><tr><td>XOR</td><td>^</td><td></td></tr><tr><td>NOT</td><td>~</td><td>!</td></tr><tr><td>left shift</td><td>&lt;&lt;</td><td></td></tr><tr><td>right shift</td><td>&gt;&gt;</td><td></td></tr></tbody></table><p>参考链接：<a href="https://www.geeksforgeeks.org/bitwise-operators-in-c-cpp/">https://www.geeksforgeeks.org/bitwise-operators-in-c-cpp/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数组</tag>
+      
+      <tag>C++</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>位运算</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>存在重复元素</title>
     <link href="/2021/07/12/contain-duplicates/"/>
     <url>/2021/07/12/contain-duplicates/</url>
