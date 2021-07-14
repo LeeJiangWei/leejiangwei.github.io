@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>删除排序数组中的重复项 - Be Happy</title>
+  <title>旋转数组 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="删除排序数组中的重复项">
+            <span class="h2" id="subtitle" title="旋转数组">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-06-15 15:53" pubdate>
-        2021年6月15日 下午
+      <time datetime="2021-07-12 18:46" pubdate>
+        2021年7月12日 晚上
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      531 字
+      285 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      3
        分钟
     </span>
   
@@ -245,26 +245,16 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">删除排序数组中的重复项</h1>
+            <h1 style="display: none">旋转数组</h1>
             
             <div class="markdown-body">
-              <h1 id="删除排序数组中的重复项"><a href="#删除排序数组中的重复项" class="headerlink" title="删除排序数组中的重复项"></a>删除排序数组中的重复项</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2gy9m/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2gy9m/</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/</a></p>
-<h2 id="C-基础"><a href="#C-基础" class="headerlink" title="C++基础"></a>C++基础</h2><h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++">vector&lt;<span class="hljs-keyword">int</span>&gt; a = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;;<br><span class="hljs-keyword">auto</span> iter_first = a.<span class="hljs-built_in">begin</span>();<br><span class="hljs-keyword">auto</span> iter_second = iter_first + <span class="hljs-number">1</span>; <span class="hljs-comment">// 可以直接对迭代器加减，得到指向下一个位置的迭代器</span><br><span class="hljs-keyword">auto</span> iter_last = a.<span class="hljs-built_in">end</span>();<br><br><span class="hljs-keyword">int</span> str = *iter_first;             <span class="hljs-comment">// 解引用迭代器得到它指向的值</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="遍历vector容器"><a href="#遍历vector容器" class="headerlink" title="遍历vector容器"></a>遍历<code>vector</code>容器</h3><p>范围<code>for</code>循环</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++">vector&lt;<span class="hljs-keyword">int</span>&gt; nums = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;v: nums) &#123;<br>    v *= <span class="hljs-number">2</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><code>while</code>循环</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++">vector&lt;<span class="hljs-keyword">int</span>&gt; nums = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;;<br><span class="hljs-keyword">auto</span> current = nums.<span class="hljs-built_in">begin</span>();<br><br><span class="hljs-keyword">while</span> (current != nums.<span class="hljs-built_in">end</span>()) &#123;    <span class="hljs-comment">// 使用!=号来比较迭代器，&gt;或&lt;号不一定都有实现</span><br>    ++current;                     <span class="hljs-comment">// 使用前置++来递增迭代器</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h3><p>使用左右两个指针，前后两两比较，在重复值的位置替换成不重复的值。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">removeDuplicates</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span> (nums.<span class="hljs-built_in">size</span>() &lt; <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> nums.<span class="hljs-built_in">size</span>();<br><br>	<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; nums.<span class="hljs-built_in">size</span>(); i++) <span class="hljs-comment">// i是右指针，j是左指针</span><br>		<span class="hljs-keyword">if</span> (nums[j] != nums[i]) nums[++j] = nums[i];<br>	<span class="hljs-keyword">return</span> ++j;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>右指针一直右移，遇到和左指针不同的，就将它的值赋给左指针，并使左指针移动到下一位。</p>
-<h3 id="我的解法"><a href="#我的解法" class="headerlink" title="我的解法"></a>我的解法</h3><p>遇见重复的元素就用<code>erase()</code>直接删除了，也是太简单粗暴了，感觉智商被题解碾压了。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">removeDuplicates</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (nums.<span class="hljs-built_in">size</span>() &lt;= <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">return</span> nums.<span class="hljs-built_in">size</span>();<br>    &#125;<br><br>    <span class="hljs-keyword">auto</span> curr = nums.<span class="hljs-built_in">begin</span>() + <span class="hljs-number">1</span>;<br><br>    <span class="hljs-keyword">while</span> (curr != nums.<span class="hljs-built_in">end</span>()) &#123;<br>        <span class="hljs-keyword">if</span> (*curr == *(curr<span class="hljs-number">-1</span>)) &#123;<br>            curr = nums.<span class="hljs-built_in">erase</span>(curr);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            ++curr;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> nums.<span class="hljs-built_in">size</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>注意增加或删除vector中的元素会改变end迭代器的值，所以<code>nums.end()</code>需要写在循环条件里，每次循环都调用。</p>
-<h3 id="使用标准库函数std-unique-（作弊）"><a href="#使用标准库函数std-unique-（作弊）" class="headerlink" title="使用标准库函数std::unique()（作弊）"></a>使用标准库函数<code>std::unique()</code>（作弊）</h3><p><code>std::unique()</code>接受一对迭代器，将这两个迭代器范围内的元素不重复的排到前面，然后返回不重复区域的下一个位置的迭代器。最后用<code>erase()</code>将此位置到末尾的元素都删除即可。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">removeDuplicates</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    nums.<span class="hljs-built_in">erase</span>(std::<span class="hljs-built_in">unique</span>(nums.<span class="hljs-built_in">begin</span>(), nums.<span class="hljs-built_in">end</span>()), nums.<span class="hljs-built_in">end</span>());<br>    <span class="hljs-keyword">return</span> nums.<span class="hljs-built_in">size</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
-
+              <h1 id="旋转数组"><a href="#旋转数组" class="headerlink" title="旋转数组"></a>旋转数组</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2skh7/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2skh7/</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-array/">https://leetcode-cn.com/problems/rotate-array/</a></p>
+<h2 id="临时数组"><a href="#临时数组" class="headerlink" title="临时数组"></a>临时数组</h2><p>最简单的方法，但是空间复杂为<code>O(n)</code>。</p>
+<h2 id="环状替换"><a href="#环状替换" class="headerlink" title="环状替换"></a>环状替换</h2><p>如果直接将每个数字放至它<strong>最后的位置</strong>，这样被放置位置的元素会被覆盖从而丢失。</p>
+<p>解决方法：从位置 0 开始，将它放到正确的位置（向右 k 位），然后<strong>把被覆盖的元素保存下来</strong>，再将它放到正确的位置（再向右 k 位），循环往复。</p>
+<p>容易发现，当回到初始位置 0 时，有些数字可能还没有遍历到（当 nums.length % k = 0 时，只会遍历偶数位置然后回到开头），此时应该跳到下一个位置然后继续。至于怎么判断该不该跳，我还不是很懂，详见<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leetcode-solution-nipk/">题解</a>。</p>
+<h2 id="数组翻转"><a href="#数组翻转" class="headerlink" title="数组翻转"></a>数组翻转</h2><p><img src="https://pic.leetcode-cn.com/1610072480-yiAYFw-image.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">reverse</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> start, <span class="hljs-keyword">int</span> end)</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (start &lt; end) &#123;<br>            <span class="hljs-built_in">swap</span>(nums[start], nums[end]);<br>            start += <span class="hljs-number">1</span>;<br>            end -= <span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;<br>        k %= nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-built_in">reverse</span>(nums, <span class="hljs-number">0</span>, nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>);<br>        <span class="hljs-built_in">reverse</span>(nums, <span class="hljs-number">0</span>, k - <span class="hljs-number">1</span>);<br>        <span class="hljs-built_in">reverse</span>(nums, k, nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -273,9 +263,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
-                    
-                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/">初级算法</a>
+                      <a class="hover-with-bg" href="/categories/leetcode/">leetcode</a>
                     
                   </div>
                 
@@ -287,8 +275,6 @@
                     
                       <a class="hover-with-bg" href="/tags/C/">C++</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
-                    
                   </div>
                 
               </div>
@@ -298,9 +284,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/06/16/make-deepfake-meme/">
+                      <a href="/leetcode/contain-duplicates/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">如何制作Unravel和damedane的Deepfake换脸视频</span>
+                        <span class="hidden-mobile">存在重复元素</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -308,8 +294,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/06/08/deploy-hexo-on-github/">
-                        <span class="hidden-mobile">将Hexo部署到Github上</span>
+                      <a href="/leetcode/best-time-to-buy-and-sell-stock-ii/">
+                        <span class="hidden-mobile">买卖股票的最佳时机 II</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

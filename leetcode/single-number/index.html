@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>买卖股票的最佳时机 II - Be Happy</title>
+  <title>只出现一次的数字 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="买卖股票的最佳时机 II">
+            <span class="h2" id="subtitle" title="只出现一次的数字">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-06-16 20:26" pubdate>
-        2021年6月16日 晚上
+      <time datetime="2021-07-14 00:41" pubdate>
+        2021年7月14日 凌晨
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      227 字
+      282 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      4
        分钟
     </span>
   
@@ -245,14 +245,63 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">买卖股票的最佳时机 II</h1>
+            <h1 style="display: none">只出现一次的数字</h1>
             
             <div class="markdown-body">
-              <h1 id="买卖股票的最佳时机-II"><a href="#买卖股票的最佳时机-II" class="headerlink" title="买卖股票的最佳时机 II"></a>买卖股票的最佳时机 II</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2zsx1/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2zsx1/</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/">https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/</a></p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h3><p>只看相邻的两天，只要后一天比前一天高，就是收益，非常简单。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; prices)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> curr = prices.<span class="hljs-built_in">begin</span>() + <span class="hljs-number">1</span>; curr != prices.<span class="hljs-built_in">end</span>(); ++curr) &#123;<br>        <span class="hljs-keyword">if</span> (*curr &gt; *(curr - <span class="hljs-number">1</span>))<br>            result += *curr - *(curr - <span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="我的解法"><a href="#我的解法" class="headerlink" title="我的解法"></a>我的解法</h3><p>刚做完一个双指针，指魔怔了，嗯是搞了个双指针。其实就是找到每一段递增区间的起点和终点。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; prices)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (prices.<span class="hljs-built_in">size</span>() &lt;= <span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">auto</span> min = prices.<span class="hljs-built_in">begin</span>();<br>    <span class="hljs-keyword">auto</span> max = min;<br>    <span class="hljs-keyword">auto</span> end = prices.<span class="hljs-built_in">end</span>();<br>    <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">while</span> (min != end &amp;&amp; max != end) &#123;<br>        <span class="hljs-keyword">while</span> ((min+<span class="hljs-number">1</span>) != end &amp;&amp; *min &gt; *(min + <span class="hljs-number">1</span>))<br>            ++min;<br>        max = min;<br>        <span class="hljs-keyword">while</span> ((max+<span class="hljs-number">1</span>) != end &amp;&amp; *max &lt; *(max + <span class="hljs-number">1</span>))<br>            ++max;<br>        result += *(max) - *(min);<br>        <span class="hljs-keyword">if</span> (min != end &amp;&amp; max != end) &#123;<br>            ++max;<br>            min = max;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="只出现一次的数字"><a href="#只出现一次的数字" class="headerlink" title="只出现一次的数字"></a>只出现一次的数字</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x21ib6/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x21ib6/</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number/">https://leetcode-cn.com/problems/single-number/</a></p>
+<h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>使用哈希表，如果放入元素时候已经有了，就删掉它。最后剩下的就是只出现一次的元素。时间复杂度是<code>O(n)</code>，空间复杂度也是<code>O(n)</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    unordered_set&lt;<span class="hljs-keyword">int</span>&gt; s;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> x: nums) &#123;<br>        <span class="hljs-keyword">if</span> (s.<span class="hljs-built_in">count</span>(x)) &#123;<br>            s.<span class="hljs-built_in">erase</span>(x);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            s.<span class="hljs-built_in">insert</span>(x);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> *(s.<span class="hljs-built_in">begin</span>());<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><p>数字按位进行异或运算。基于以下几点事实：</p>
+<ul>
+<li>任何数和自己做异或运算，结果为 0，即 a ⊕ a = 0 。</li>
+<li>任何数和 0 做异或运算，结果还是自己，即 a ⊕ 0 = 0 。</li>
+<li>异或运算中，满足交换律和结合律，a ⊕ b ⊕ a = b ⊕ a ⊕ a = b ⊕ ( a ⊕ a ) = b ⊕ 0 = b 。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> ret = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> e: nums) ret ^= e;<br>    <span class="hljs-keyword">return</span> ret;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="C-的位和逻辑运算操作符"><a href="#C-的位和逻辑运算操作符" class="headerlink" title="C++的位和逻辑运算操作符"></a>C++的位和逻辑运算操作符</h2><table>
+<thead>
+<tr>
+<th>运算</th>
+<th>位运算操作符 (bitwise)</th>
+<th>逻辑运算符(logical)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AND</td>
+<td>&amp;</td>
+<td>&amp;&amp;</td>
+</tr>
+<tr>
+<td>OR</td>
+<td>|</td>
+<td>||</td>
+</tr>
+<tr>
+<td>XOR</td>
+<td>^</td>
+<td></td>
+</tr>
+<tr>
+<td>NOT</td>
+<td>~</td>
+<td>!</td>
+</tr>
+<tr>
+<td>left shift</td>
+<td>&lt;&lt;</td>
+<td></td>
+</tr>
+<tr>
+<td>right shift</td>
+<td>&gt;&gt;</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/bitwise-operators-in-c-cpp/">https://www.geeksforgeeks.org/bitwise-operators-in-c-cpp/</a></p>
+
             </div>
             <hr>
             <div>
@@ -261,9 +310,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
-                    
-                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/">初级算法</a>
+                      <a class="hover-with-bg" href="/categories/leetcode/">leetcode</a>
                     
                   </div>
                 
@@ -273,9 +320,11 @@
                     
                       <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">贪心算法</a>
-                    
                       <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">位运算</a>
                     
                   </div>
                 
@@ -286,9 +335,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/07/12/rotate-array/">
+                      <a href="/leetcode/intersection-of-two-arrays-ii/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">旋转数组</span>
+                        <span class="hidden-mobile">两个数组的交集 II</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -296,8 +345,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/06/16/make-deepfake-meme/">
-                        <span class="hidden-mobile">如何制作Unravel和damedane的Deepfake换脸视频</span>
+                      <a href="/leetcode/contain-duplicates/">
+                        <span class="hidden-mobile">存在重复元素</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
