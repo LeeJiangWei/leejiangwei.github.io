@@ -58,6 +58,10 @@ vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
 1. 遍历较短的数组，依次将数字插入哈希表。
 2. 遍历较长的数组，查询哈希表中是否已有该元素。如果有，就将它加入并集中，并将哈希表中的计数减一；如果没有则无需采取任何操作。
 
+时间复杂度：遍历两个数组所用的时间`O(m + n)`，哈希表的插入和查询平均都是`O(1)`。
+
+空间复杂度：创建了大小为较短数组长度的哈希表，因此是`O(min(m, n))`。
+
 ```c++
 vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
     if (nums1.size() < nums2.size()) return intersect(nums2, nums1);
