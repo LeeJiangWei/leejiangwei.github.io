@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>加一</title>
+    <link href="/leetcode/plus-one/"/>
+    <url>/leetcode/plus-one/</url>
+    
+    <content type="html"><![CDATA[<h1 id="加一"><a href="#加一" class="headerlink" title="加一"></a>加一</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2cv1c/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2cv1c/</a></p><p><a href="https://leetcode-cn.com/problems/plus-one/">https://leetcode-cn.com/problems/plus-one/</a></p><h2 id="严密的逻辑"><a href="#严密的逻辑" class="headerlink" title="严密的逻辑"></a>严密的逻辑</h2><p>考虑所有可能的情况即可：</p><ol><li>不用进位，直接加一</li><li>需要进位，非最高位，则置为 0 并执行高一位的操作</li><li>需要进位，是最高位，则置为 0 并在前面插入一个 1，直接返回</li></ol><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">plusOne</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; digits)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> curr = digits.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>;<br><br>    <span class="hljs-keyword">for</span> (curr; curr &gt;= <span class="hljs-number">0</span>; --curr) &#123;<br>        <span class="hljs-keyword">if</span> (digits[curr] + <span class="hljs-number">1</span> == <span class="hljs-number">10</span>) &#123;<br>            digits[curr] = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">if</span> (curr == <span class="hljs-number">0</span>) &#123;<br>                digits.<span class="hljs-built_in">insert</span>(digits.<span class="hljs-built_in">begin</span>(), <span class="hljs-number">1</span>);<br>                <span class="hljs-keyword">return</span> digits;<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            digits[curr] += <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> digits;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数组</tag>
+      
+      <tag>C++</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>C++常用标准库容器</title>
     <link href="/programming/cpp-stl-containers/"/>
     <url>/programming/cpp-stl-containers/</url>
