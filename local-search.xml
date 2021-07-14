@@ -4,6 +4,93 @@
   
   
   <entry>
+    <title>C++常用标准库容器</title>
+    <link href="/2021/07/14/cpp-stl-containers/"/>
+    <url>/2021/07/14/cpp-stl-containers/</url>
+    
+    <content type="html"><![CDATA[<h1 id="C-常用标准库容器"><a href="#C-常用标准库容器" class="headerlink" title="C++常用标准库容器"></a>C++常用标准库容器</h1><p><a href="https://www.geeksforgeeks.org/containers-cpp-stl/">https://www.geeksforgeeks.org/containers-cpp-stl/</a></p><h2 id="顺序容器-sequence-containers"><a href="#顺序容器-sequence-containers" class="headerlink" title="顺序容器 (sequence containers)"></a>顺序容器 (sequence containers)</h2><h3 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h3><p>可以动态扩展的列表</p><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br>vector&lt;<span class="hljs-keyword">int</span>&gt; v;<br></code></pre></td></tr></table></figure><h4 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h4><table><thead><tr><th>操作</th><th>函数</th></tr></thead><tbody><tr><td>插入</td><td>v.insert(v.begin(), 3)</td></tr><tr><td>插入到最后面<br />插入到最前面</td><td>v.push_back(3)<br />v.push_front(3)</td></tr><tr><td>删除</td><td>v.erase(v.begin())<br />v.erase(v.begin(), v.end())</td></tr><tr><td>删除尾元素<br />删除头元素</td><td>v.pop_back()<br />v.pop_front()</td></tr><tr><td>计数</td><td>v.count(3)</td></tr></tbody></table><h2 id="pair类型"><a href="#pair类型" class="headerlink" title="pair类型"></a>pair类型</h2><p>关联容器可能会使用到的数据类型，定义在头文件<code>utility</code>中。具有两个数据成员，名字为<code>first</code>以及<code>second</code>。</p><h2 id="关联容器-associative-containers"><a href="#关联容器-associative-containers" class="headerlink" title="关联容器 (associative containers)"></a>关联容器 (associative containers)</h2><h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><h4 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br>map&lt;string, <span class="hljs-keyword">int</span>&gt; map;<br></code></pre></td></tr></table></figure><h4 id="常用操作-1"><a href="#常用操作-1" class="headerlink" title="常用操作"></a>常用操作</h4><table><thead><tr><th>操作</th><th>函数</th><th>返回</th></tr></thead><tbody><tr><td>插入</td><td>map.insert({“word”, 1})<br />map.insert(make_pair(“word”, 1))<br />map.insert(pair&lt;string, size_t&gt;(“word”, 1))</td><td></td></tr><tr><td>删除</td><td>map.erase(“word”)<br />map.erase(iterator)</td><td></td></tr><tr><td>查找</td><td>map.find(“word”)</td><td>返回指向第一个找到元素的迭代器<br />迭代器指向的类型为pair<br />若未找到，则返回尾后迭代器</td></tr><tr><td>计数</td><td>map.count(“word”)</td><td>计数值</td></tr></tbody></table><h4 id="下标操作"><a href="#下标操作" class="headerlink" title="下标操作"></a>下标操作</h4><p>map（以及unordered_map）可以使用下标运算符，获取关键字对应的值。</p><p>如果关键字不存在，会用这个关键字创建一个新的元素，并对关联的值初始化。因此不应该直接用下标操作来进行查找，应该使用<code>find()</code>。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">map[<span class="hljs-string">&quot;hello&quot;</span>] = <span class="hljs-number">1</span>;  <span class="hljs-comment">// 会插入一个关键字为hello的元素，且值为1</span><br></code></pre></td></tr></table></figure><h2 id="无序关联容器-unordered-associative-containers"><a href="#无序关联容器-unordered-associative-containers" class="headerlink" title="无序关联容器 (unordered associative containers)"></a>无序关联容器 (unordered associative containers)</h2><p>使用哈希函数组织的关联容器，查找速度更快，时间复杂度平均<code>O(1)</code>，最坏<code>O(n)</code>。在关键字类型元素没有明显有序关系时，可以使用无序容器。</p><h3 id="unordered-set"><a href="#unordered-set" class="headerlink" title="unordered_set"></a>unordered_set</h3><h4 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h4><h3 id="unordered-map"><a href="#unordered-map" class="headerlink" title="unordered_map"></a>unordered_map</h3><p>无序键值对</p><h4 id="创建-3"><a href="#创建-3" class="headerlink" title="创建"></a>创建</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br>unordered_map&lt;string, <span class="hljs-keyword">int</span>&gt; umap;<br></code></pre></td></tr></table></figure><h4 id="常用操作-2"><a href="#常用操作-2" class="headerlink" title="常用操作"></a>常用操作</h4><table><thead><tr><th>操作</th><th>函数</th><th>返回</th></tr></thead><tbody><tr><td>插入</td><td>umap.insert({“word”, 1})<br />umap.insert(make_pair(“word”, 1))<br />umap.insert(pair&lt;string, size_t&gt;(“word”, 1))</td><td></td></tr><tr><td>查询</td><td>umap.find(“word”)</td><td></td></tr><tr><td>计数</td><td>umap.count(“word”)</td><td></td></tr></tbody></table><h2 id="容器适配器-container-adapters"><a href="#容器适配器-container-adapters" class="headerlink" title="容器适配器 (container adapters)"></a>容器适配器 (container adapters)</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+      <category>C++</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>C++常用泛型算法</title>
+    <link href="/2021/07/14/cpp-generic-algorithms/"/>
+    <url>/2021/07/14/cpp-generic-algorithms/</url>
+    
+    <content type="html"><![CDATA[<h1 id="C-常用泛型算法"><a href="#C-常用泛型算法" class="headerlink" title="C++常用泛型算法"></a>C++常用泛型算法</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+      <category>C++</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>两个数组的交集 II</title>
+    <link href="/2021/07/14/intersection-of-two-arrays-ii/"/>
+    <url>/2021/07/14/intersection-of-two-arrays-ii/</url>
+    
+    <content type="html"><![CDATA[<h1 id="两个数组的交集-II"><a href="#两个数组的交集-II" class="headerlink" title="两个数组的交集 II"></a>两个数组的交集 II</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2y0c2/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2y0c2/</a></p><p><a href="https://leetcode-cn.com/problems/intersection-of-two-arrays-ii/">https://leetcode-cn.com/problems/intersection-of-two-arrays-ii/</a></p><h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><p>将数组排序后，使用双指针，值相同则加入并集，否则向后移动<strong>值比较小</strong>的那个指针，直到其中一方越界。</p><p>时间复杂度：排序为<code>O(nlogn + mlogm)</code>，双指针移动为<code>O(n + m)</code>，加起来就是<code>O(nlogn + mlogm)</code></p><p>空间复杂度：由于<code>vector</code>的大小是动态改变的，复杂度为<code>O(1)</code></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">intersect</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums1, vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums2)</span> </span>&#123;<br>    <span class="hljs-built_in">sort</span>(nums1.<span class="hljs-built_in">begin</span>(), nums1.<span class="hljs-built_in">end</span>());<br>    <span class="hljs-built_in">sort</span>(nums2.<span class="hljs-built_in">begin</span>(), nums2.<span class="hljs-built_in">end</span>());<br><br>    vector&lt;<span class="hljs-keyword">int</span>&gt; intersection;<br><br>    <span class="hljs-keyword">int</span> n1 = <span class="hljs-number">0</span>, n2 = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">while</span> ( n1 != nums1.<span class="hljs-built_in">size</span>() &amp;&amp; n2 != nums2.<span class="hljs-built_in">size</span>() ) &#123;<br>        <span class="hljs-keyword">if</span> (nums1[n1] == nums2[n2]) &#123;<br>            intersection.<span class="hljs-built_in">push_back</span>(nums1[n1]);<br>            ++n1;<br>            ++n2;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums1[n1] &gt; nums2[n2]) &#123;<br>            ++n2;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            ++n1;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> intersection;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>使用哈希表来记录数字以及出现的次数。</p><ol><li>遍历较短的数组，依次将数字插入哈希表。</li><li>遍历较长的数组，查询哈希表中是否已有该元素。如果有，就将它加入并集中，并将哈希表中的计数减一；如果没有则无需采取任何操作。</li></ol><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">intersect</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums1, vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums2)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (nums1.<span class="hljs-built_in">size</span>() &lt; nums2.<span class="hljs-built_in">size</span>()) <span class="hljs-keyword">return</span> <span class="hljs-built_in">intersect</span>(nums2, nums1);<br><br>    unordered_map&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; m;<br>    vector&lt;<span class="hljs-keyword">int</span>&gt; intersection;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> x: nums1) &#123;<br>        ++m[x];<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> x: nums2) &#123;<br>        <span class="hljs-keyword">if</span> (m.<span class="hljs-built_in">find</span>(x) != m.<span class="hljs-built_in">end</span>() &amp;&amp; (m.<span class="hljs-built_in">find</span>(x) -&gt; second) &gt; <span class="hljs-number">0</span>) &#123;<br>            --m[x];<br>            intersection.<span class="hljs-built_in">push_back</span>(x);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> intersection;<br>&#125;<br></code></pre></td></tr></table></figure><p>实现时，可以不用<code>find(x)</code>来查找，直接利用<code>count(x)</code>来判断表中是否存该数字，计数减一后判断计数值是不是变成0了，是的话就从表中删去此元素。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数组</tag>
+      
+      <tag>C++</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>只出现一次的数字</title>
     <link href="/2021/07/13/single-number/"/>
     <url>/2021/07/13/single-number/</url>
