@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7 字
+      145 字
     </span>
   
 
@@ -248,7 +248,83 @@
             <h1 style="display: none">C++常用泛型算法</h1>
             
             <div class="markdown-body">
-              <h1 id="C-常用泛型算法"><a href="#C-常用泛型算法" class="headerlink" title="C++常用泛型算法"></a>C++常用泛型算法</h1>
+              <h1 id="C-常用泛型算法"><a href="#C-常用泛型算法" class="headerlink" title="C++常用泛型算法"></a>C++常用泛型算法</h1><p><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/c-magicians-stl-algorithms/">https://www.geeksforgeeks.org/c-magicians-stl-algorithms/</a></p>
+<p><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/cpp/algorithm">https://en.cppreference.com/w/cpp/algorithm</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span> <span class="hljs-comment">// 泛型算法</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;numeric&gt;</span>   <span class="hljs-comment">// 数值泛型算法</span></span><br></code></pre></td></tr></table></figure>
+
+<h2 id="只读算法"><a href="#只读算法" class="headerlink" title="只读算法"></a>只读算法</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>函数</th>
+<th>返回</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查找</td>
+<td>find(v.begin(), v.end(), value)</td>
+<td>满足条件的迭代器，找不到则为尾后</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="写容器算法"><a href="#写容器算法" class="headerlink" title="写容器算法"></a>写容器算法</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>函数</th>
+<th>返回</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>交换元素</td>
+<td>swap(v.begin(), v.end())</td>
+<td>void</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="重排容器算法"><a href="#重排容器算法" class="headerlink" title="重排容器算法"></a>重排容器算法</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>函数</th>
+<th>返回</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>排序</td>
+<td>sort(v.begin(), v.end())</td>
+<td>void</td>
+</tr>
+<tr>
+<td>将不重复的排在前面</td>
+<td>unique(v.begin(), v.end())</td>
+<td>一个指向不重复值范围末尾的迭代器</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
             </div>
             <hr>
             <div>

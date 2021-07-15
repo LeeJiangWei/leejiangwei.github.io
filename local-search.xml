@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>移动零</title>
+    <link href="/leetcode/move-zeros/"/>
+    <url>/leetcode/move-zeros/</url>
+    
+    <content type="html"><![CDATA[<h1 id="移动零"><a href="#移动零" class="headerlink" title="移动零"></a>移动零</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2ba4i/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2ba4i/</a></p><p><a href="https://leetcode-cn.com/problems/move-zeroes/">https://leetcode-cn.com/problems/move-zeroes/</a></p><h2 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h2><p>使用左右两个指针，右指针一直移动，当指向的数非0时，与左指针交换，并移动左指针一次。</p><ul><li>左右指针一开始会在一起，如果当前的数非 0 ，它们交换也不会有变化</li><li>当遇到为 0 的数时，左指针停在 0 上，右指针会继续走，并将另一个非 0 的数交换过来</li></ul><p><strong>不会存在这样的情况</strong>：左右指针都非 0，交换导致相对顺序改变，因为右指针只会在遇到 0 的时候超越左指针，即左指针要么和右指针在一起，要么左指针指的是 0。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">moveZeroes</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>, n = nums.<span class="hljs-built_in">size</span>();<br><br>    <span class="hljs-keyword">while</span> (right &lt; n) &#123;<br>        <span class="hljs-keyword">if</span> (nums[right] != <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-built_in">swap</span>(nums[left], nums[right]);<br>            ++left;<br>        &#125;<br>        ++right;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>加一</title>
     <link href="/leetcode/plus-one/"/>
     <url>/leetcode/plus-one/</url>
@@ -64,7 +93,7 @@
     <link href="/programming/cpp-generic-algorithms/"/>
     <url>/programming/cpp-generic-algorithms/</url>
     
-    <content type="html"><![CDATA[<h1 id="C-常用泛型算法"><a href="#C-常用泛型算法" class="headerlink" title="C++常用泛型算法"></a>C++常用泛型算法</h1>]]></content>
+    <content type="html"><![CDATA[<h1 id="C-常用泛型算法"><a href="#C-常用泛型算法" class="headerlink" title="C++常用泛型算法"></a>C++常用泛型算法</h1><p><a href="https://www.geeksforgeeks.org/c-magicians-stl-algorithms/">https://www.geeksforgeeks.org/c-magicians-stl-algorithms/</a></p><p><a href="https://en.cppreference.com/w/cpp/algorithm">https://en.cppreference.com/w/cpp/algorithm</a></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span> <span class="hljs-comment">// 泛型算法</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;numeric&gt;</span>   <span class="hljs-comment">// 数值泛型算法</span></span><br></code></pre></td></tr></table></figure><h2 id="只读算法"><a href="#只读算法" class="headerlink" title="只读算法"></a>只读算法</h2><table><thead><tr><th>操作</th><th>函数</th><th>返回</th></tr></thead><tbody><tr><td>查找</td><td>find(v.begin(), v.end(), value)</td><td>满足条件的迭代器，找不到则为尾后</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table><h2 id="写容器算法"><a href="#写容器算法" class="headerlink" title="写容器算法"></a>写容器算法</h2><table><thead><tr><th>操作</th><th>函数</th><th>返回</th></tr></thead><tbody><tr><td>交换元素</td><td>swap(v.begin(), v.end())</td><td>void</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table><h2 id="重排容器算法"><a href="#重排容器算法" class="headerlink" title="重排容器算法"></a>重排容器算法</h2><table><thead><tr><th>操作</th><th>函数</th><th>返回</th></tr></thead><tbody><tr><td>排序</td><td>sort(v.begin(), v.end())</td><td>void</td></tr><tr><td>将不重复的排在前面</td><td>unique(v.begin(), v.end())</td><td>一个指向不重复值范围末尾的迭代器</td></tr><tr><td></td><td></td><td></td></tr></tbody></table>]]></content>
     
     
     <categories>
