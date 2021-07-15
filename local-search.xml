@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>两数之和</title>
+    <link href="/leetcode/two-sum/"/>
+    <url>/leetcode/two-sum/</url>
+    
+    <content type="html"><![CDATA[<h1 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2jrse/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2jrse/</a></p><p><a href="https://leetcode-cn.com/problems/two-sum/">https://leetcode-cn.com/problems/two-sum/</a></p><h2 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h2><p>双重循环遍历，时间复杂度显然是<code>O(n^2)</code></p><h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>在暴力法中，对于每一个<code>x</code>，都需要遍历一次整个数组来寻找<code>target - x</code>。</p><p>如何加快<code>target - x</code>的寻找速度？答案就是使用哈希表来储存<code>target - x</code>的值，这样寻找<code>target - x</code>的时间复杂度只有<code>O(1)</code>，总时间复杂度为<code>O(n)</code>。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">twoSum</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> target)</span> </span>&#123;<br>    unordered_map&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; m;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.<span class="hljs-built_in">size</span>(); ++i) &#123;<br>        <span class="hljs-keyword">auto</span> p = m.<span class="hljs-built_in">find</span>(nums[i]);<br>        <span class="hljs-keyword">if</span> (p == m.<span class="hljs-built_in">end</span>()) &#123;<br>            m.<span class="hljs-built_in">insert</span>(&#123;target-nums[i], i&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> &#123;i, p -&gt; second&#125;;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> &#123;&#125;;<br>&#125;<br></code></pre></td></tr></table></figure><h4 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h4><p>这里使用了 C++ 11的新特性列表初始化 (initialiser_list)，可以用花括号来初始化vector、作为函数参数使用、直接返回。例如：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 初始化</span><br>std::vector&lt;std::string&gt; words = &#123;<span class="hljs-string">&quot;the&quot;</span>, <span class="hljs-string">&quot;mortar&quot;</span>, <span class="hljs-string">&quot;holding&quot;</span>, <span class="hljs-string">&quot;code&quot;</span>, <span class="hljs-string">&quot;together&quot;</span>&#125;; <br><br><span class="hljs-built_in">twoSum</span>(&#123;<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;, <span class="hljs-number">7</span>); <span class="hljs-comment">// 作为参数</span><br><br><span class="hljs-function">std::vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">numbers</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;  <span class="hljs-comment">// 作为返回值</span><br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数组</tag>
+      
+      <tag>C++</tag>
+      
+      <tag>哈希表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>移动零</title>
     <link href="/leetcode/move-zeros/"/>
     <url>/leetcode/move-zeros/</url>
@@ -21,6 +52,8 @@
     
     
     <tags>
+      
+      <tag>数组</tag>
       
       <tag>C++</tag>
       

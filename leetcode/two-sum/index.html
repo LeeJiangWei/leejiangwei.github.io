@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>移动零 - Be Happy</title>
+  <title>两数之和 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="移动零">
+            <span class="h2" id="subtitle" title="两数之和">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-15 14:36" pubdate>
+      <time datetime="2021-07-15 15:18" pubdate>
         2021年7月15日 下午
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      230 字
+      293 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      4
        分钟
     </span>
   
@@ -245,18 +245,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">移动零</h1>
+            <h1 style="display: none">两数之和</h1>
             
             <div class="markdown-body">
-              <h1 id="移动零"><a href="#移动零" class="headerlink" title="移动零"></a>移动零</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2ba4i/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2ba4i/</a></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/move-zeroes/">https://leetcode-cn.com/problems/move-zeroes/</a></p>
-<h2 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h2><p>使用左右两个指针，右指针一直移动，当指向的数非0时，与左指针交换，并移动左指针一次。</p>
-<ul>
-<li>左右指针一开始会在一起，如果当前的数非 0 ，它们交换也不会有变化</li>
-<li>当遇到为 0 的数时，左指针停在 0 上，右指针会继续走，并将另一个非 0 的数交换过来</li>
-</ul>
-<p><strong>不会存在这样的情况</strong>：左右指针都非 0，交换导致相对顺序改变，因为右指针只会在遇到 0 的时候超越左指针，即左指针要么和右指针在一起，要么左指针指的是 0。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">moveZeroes</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>, n = nums.<span class="hljs-built_in">size</span>();<br><br>    <span class="hljs-keyword">while</span> (right &lt; n) &#123;<br>        <span class="hljs-keyword">if</span> (nums[right] != <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-built_in">swap</span>(nums[left], nums[right]);<br>            ++left;<br>        &#125;<br>        ++right;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2jrse/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2jrse/</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum/">https://leetcode-cn.com/problems/two-sum/</a></p>
+<h2 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h2><p>双重循环遍历，时间复杂度显然是<code>O(n^2)</code></p>
+<h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>在暴力法中，对于每一个<code>x</code>，都需要遍历一次整个数组来寻找<code>target - x</code>。</p>
+<p>如何加快<code>target - x</code>的寻找速度？答案就是使用哈希表来储存<code>target - x</code>的值，这样寻找<code>target - x</code>的时间复杂度只有<code>O(1)</code>，总时间复杂度为<code>O(n)</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">twoSum</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> target)</span> </span>&#123;<br>    unordered_map&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; m;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.<span class="hljs-built_in">size</span>(); ++i) &#123;<br>        <span class="hljs-keyword">auto</span> p = m.<span class="hljs-built_in">find</span>(nums[i]);<br>        <span class="hljs-keyword">if</span> (p == m.<span class="hljs-built_in">end</span>()) &#123;<br>            m.<span class="hljs-built_in">insert</span>(&#123;target-nums[i], i&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> &#123;i, p -&gt; second&#125;;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> &#123;&#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h4><p>这里使用了 C++ 11的新特性列表初始化 (initialiser_list)，可以用花括号来初始化vector、作为函数参数使用、直接返回。例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 初始化</span><br>std::vector&lt;std::string&gt; words = &#123;<span class="hljs-string">&quot;the&quot;</span>, <span class="hljs-string">&quot;mortar&quot;</span>, <span class="hljs-string">&quot;holding&quot;</span>, <span class="hljs-string">&quot;code&quot;</span>, <span class="hljs-string">&quot;together&quot;</span>&#125;; <br><br><span class="hljs-built_in">twoSum</span>(&#123;<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;, <span class="hljs-number">7</span>); <span class="hljs-comment">// 作为参数	</span><br><br><span class="hljs-function">std::vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">numbers</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;  <span class="hljs-comment">// 作为返回值</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 
             </div>
@@ -281,7 +281,7 @@
                     
                       <a class="hover-with-bg" href="/tags/C/">C++</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
                     
                   </div>
                 
@@ -292,18 +292,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/two-sum/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">两数之和</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/plus-one/">
-                        <span class="hidden-mobile">加一</span>
+                      <a href="/leetcode/move-zeros/">
+                        <span class="hidden-mobile">移动零</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
