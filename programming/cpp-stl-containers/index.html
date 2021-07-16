@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      484 字
+      580 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      7
        分钟
     </span>
   
@@ -317,10 +317,36 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">map[<span class="hljs-string">&quot;hello&quot;</span>] = <span class="hljs-number">1</span>;  <span class="hljs-comment">// 会插入一个关键字为hello的元素，且值为1</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="无序关联容器-unordered-associative-containers"><a href="#无序关联容器-unordered-associative-containers" class="headerlink" title="无序关联容器 (unordered associative containers)"></a>无序关联容器 (unordered associative containers)</h2><p>使用哈希函数组织的关联容器，查找速度更快，时间复杂度平均<code>O(1)</code>，最坏<code>O(n)</code>。在关键字类型元素没有明显有序关系时，可以使用无序容器。</p>
-<h3 id="unordered-set"><a href="#unordered-set" class="headerlink" title="unordered_set"></a>unordered_set</h3><h4 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h4><h3 id="unordered-map"><a href="#unordered-map" class="headerlink" title="unordered_map"></a>unordered_map</h3><p>无序键值对</p>
-<h4 id="创建-3"><a href="#创建-3" class="headerlink" title="创建"></a>创建</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br>unordered_map&lt;string, <span class="hljs-keyword">int</span>&gt; umap;<br></code></pre></td></tr></table></figure>
+<h3 id="unordered-set"><a href="#unordered-set" class="headerlink" title="unordered_set"></a>unordered_set</h3><h4 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">unordered_set&lt;<span class="hljs-keyword">int</span>&gt; uset;<br></code></pre></td></tr></table></figure>
 
 <h4 id="常用操作-2"><a href="#常用操作-2" class="headerlink" title="常用操作"></a>常用操作</h4><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>函数</th>
+<th>返回</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>插入</td>
+<td>uset.insert(5)</td>
+<td>一个pair，first成员为指向插入元素的迭代器；second指示是否成功插入，true为成功插入，false为不成功（已经存在一样的元素）</td>
+</tr>
+<tr>
+<td>清空</td>
+<td>uset.clear()</td>
+<td>void</td>
+</tr>
+<tr>
+<td>查询</td>
+<td>uset.find(key)</td>
+<td>指向找到元素的迭代器，或者尾后迭代器（没找到）</td>
+</tr>
+</tbody></table>
+<h3 id="unordered-map"><a href="#unordered-map" class="headerlink" title="unordered_map"></a>unordered_map</h3><p>无序键值对</p>
+<h4 id="创建-3"><a href="#创建-3" class="headerlink" title="创建"></a>创建</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br>unordered_map&lt;string, <span class="hljs-keyword">int</span>&gt; umap;<br></code></pre></td></tr></table></figure>
+
+<h4 id="常用操作-3"><a href="#常用操作-3" class="headerlink" title="常用操作"></a>常用操作</h4><table>
 <thead>
 <tr>
 <th>操作</th>
