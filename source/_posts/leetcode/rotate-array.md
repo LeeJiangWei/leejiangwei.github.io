@@ -25,7 +25,7 @@ https://leetcode-cn.com/problems/rotate-array/
 容易发现，当回到初始位置 0 时，有些数字可能还没有遍历到（当 nums.length % k = 0 时，只会遍历偶数位置然后回到开头），此时应该跳到下一个位置然后继续。至于怎么判断该不该跳，我还不是很懂，详见[题解](https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leetcode-solution-nipk/)。
 
 ## 数组翻转
-![](https://pic.leetcode-cn.com/1610072480-yiAYFw-image.png)
+![](https://i.loli.net/2021/07/17/xNXsC3YdFDwPa8O.png)
 ```c++
 class Solution {
 public:
