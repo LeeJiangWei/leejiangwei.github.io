@@ -3,6 +3,7 @@ title: 两数之和
 categories:
   - LeetCode
   - 初级算法
+  - 数组
 tags:
   - C++
   - 数组
