@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>存在重复元素 - Be Happy</title>
+  <title>有效的数独 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="存在重复元素">
+            <span class="h2" id="subtitle" title="有效的数独">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-12 22:01" pubdate>
-        2021年7月12日 晚上
+      <time datetime="2021-07-16 16:20" pubdate>
+        2021年7月16日 下午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      177 字
+      480 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      7
        分钟
     </span>
   
@@ -245,16 +245,21 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">存在重复元素</h1>
+            <h1 style="display: none">有效的数独</h1>
             
             <div class="markdown-body">
-              <h1 id="存在重复元素"><a href="#存在重复元素" class="headerlink" title="存在重复元素"></a>存在重复元素</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x248f5/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x248f5/</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/contains-duplicate/">https://leetcode-cn.com/problems/contains-duplicate/</a></p>
-<h2 id="排序后比较"><a href="#排序后比较" class="headerlink" title="排序后比较"></a>排序后比较</h2><p>先排序，然后比较相邻元素即可。使用C++的排序泛型算法<code>sort()</code>。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">containsDuplicate</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (nums.<span class="hljs-built_in">size</span>() &lt;<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-built_in">sort</span>(nums.<span class="hljs-built_in">begin</span>(), nums.<span class="hljs-built_in">end</span>());<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>; ++i) &#123;<br>        <span class="hljs-keyword">if</span> (nums[i] == nums[i+<span class="hljs-number">1</span>]) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="有效的数独"><a href="#有效的数独" class="headerlink" title="有效的数独"></a>有效的数独</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2f9gg/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2f9gg/</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-sudoku">https://leetcode-cn.com/problems/valid-sudoku</a></p>
+<h2 id="我的方法"><a href="#我的方法" class="headerlink" title="我的方法"></a>我的方法</h2><p>容易想到的是使用哈希表来记录一行/一列/一个方格内是否出现了重复值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isValidSudoku</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-keyword">char</span>&gt;&gt;&amp; board)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> n = board.<span class="hljs-built_in">size</span>();<br>    unordered_set&lt;<span class="hljs-keyword">char</span>&gt; row, col, grid;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; ++j) &#123;<br>            <span class="hljs-keyword">if</span> (board[i][j] != <span class="hljs-string">&#x27;.&#x27;</span> &amp;&amp; !(row.<span class="hljs-built_in">insert</span>(board[i][j]).second)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (board[j][i] != <span class="hljs-string">&#x27;.&#x27;</span> &amp;&amp; !(col.<span class="hljs-built_in">insert</span>(board[j][i]).second)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (i%<span class="hljs-number">3</span>==<span class="hljs-number">0</span> &amp;&amp; j%<span class="hljs-number">3</span>==<span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span>; x &lt; <span class="hljs-number">3</span>; ++x) &#123;<br>                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> y = <span class="hljs-number">0</span>; y &lt; <span class="hljs-number">3</span>; ++y) &#123;<br>                        <span class="hljs-keyword">if</span> (board[i+x][j+y] != <span class="hljs-string">&#x27;.&#x27;</span> &amp;&amp; !(grid.<span class="hljs-built_in">insert</span>(board[i+x][j+y]).second)) &#123;<br>                            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>                        &#125;<br>                    &#125;<br>                &#125;<br>            &#125;<br>            grid.<span class="hljs-built_in">clear</span>();<br>        &#125;<br>        row.<span class="hljs-built_in">clear</span>();<br>        col.<span class="hljs-built_in">clear</span>();<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>将元素插入哈希表，如果插入时发现重复了，就可以返回了。</p>
-<p>C++中，类似的功能可以用关联容器<code>unordered_set</code>实现。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">containsDuplicate</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;<br>    unordered_set&lt;<span class="hljs-keyword">int</span>&gt; s;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> x: nums) &#123;<br>        <span class="hljs-keyword">if</span> (s.<span class="hljs-built_in">find</span>(x) != s.<span class="hljs-built_in">end</span>()) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        s.<span class="hljs-built_in">insert</span>(x);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>每一行和每一列是否有重复值比较好搞，但是如何在一次遍历中就记录方格里的值呢？</p>
+<p>我的方法是判断遍历到的值是不是方格左上角的元素，是的话再遍历整个方格。这样实际上多了不必要的访问。</p>
+<h2 id="更好的方法"><a href="#更好的方法" class="headerlink" title="更好的方法"></a>更好的方法</h2><p>如何在一次遍历就访问到方格里的元素呢？大家可能很好奇如何在一次遍历就访问到方格里的元素。方法就是</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> m = j / <span class="hljs-number">3</span> + i / <span class="hljs-number">3</span> * <span class="hljs-number">3</span>;<br><span class="hljs-keyword">int</span> n = j % <span class="hljs-number">3</span> + i % <span class="hljs-number">3</span> * <span class="hljs-number">3</span>;<br></code></pre></td></tr></table></figure>
+
+<p>小编也很奇怪，为什么可以这样呢？</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isValidSudoku</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-keyword">char</span>&gt;&gt;&amp; board)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> n = board.<span class="hljs-built_in">size</span>();<br>    unordered_set&lt;<span class="hljs-keyword">char</span>&gt; row, col, grid;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; ++j) &#123;<br>            <span class="hljs-keyword">if</span> (board[i][j] != <span class="hljs-string">&#x27;.&#x27;</span> &amp;&amp; !(row.<span class="hljs-built_in">insert</span>(board[i][j]).second)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (board[j][i] != <span class="hljs-string">&#x27;.&#x27;</span> &amp;&amp; !(col.<span class="hljs-built_in">insert</span>(board[j][i]).second)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br><br>            <span class="hljs-keyword">int</span> m = j / <span class="hljs-number">3</span> + i / <span class="hljs-number">3</span> * <span class="hljs-number">3</span>;<br>            <span class="hljs-keyword">int</span> n = j % <span class="hljs-number">3</span> + i % <span class="hljs-number">3</span> * <span class="hljs-number">3</span>;<br>            <span class="hljs-keyword">if</span> (board[m][n] != <span class="hljs-string">&#x27;.&#x27;</span> &amp;&amp; !(grid.<span class="hljs-built_in">insert</span>(board[m][n]).second)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>        &#125;<br>        row.<span class="hljs-built_in">clear</span>();<br>        col.<span class="hljs-built_in">clear</span>();<br>        grid.<span class="hljs-built_in">clear</span>();<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
             </div>
@@ -269,15 +274,17 @@
                     
                       <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/">初级算法</a>
                     
+                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/%E6%95%B0%E7%BB%84/">数组</a>
+                    
                   </div>
                 
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
-                    
                       <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
                     
                       <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
                     
@@ -290,9 +297,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/single-number/">
+                      <a href="/leetcode/top-interview-questions-easy/rotate-image/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">只出现一次的数字</span>
+                        <span class="hidden-mobile">旋转图像</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -300,8 +307,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/rotate-array/">
-                        <span class="hidden-mobile">旋转数组</span>
+                      <a href="/leetcode/top-interview-questions-easy/two-sum/">
+                        <span class="hidden-mobile">两数之和</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>买卖股票的最佳时机 II - Be Happy</title>
+  <title>旋转数组 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="买卖股票的最佳时机 II">
+            <span class="h2" id="subtitle" title="旋转数组">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-06-16 20:26" pubdate>
-        2021年6月16日 晚上
+      <time datetime="2021-07-12 18:46" pubdate>
+        2021年7月12日 晚上
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      227 字
+      285 字
     </span>
   
 
@@ -245,14 +245,16 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">买卖股票的最佳时机 II</h1>
+            <h1 style="display: none">旋转数组</h1>
             
             <div class="markdown-body">
-              <h1 id="买卖股票的最佳时机-II"><a href="#买卖股票的最佳时机-II" class="headerlink" title="买卖股票的最佳时机 II"></a>买卖股票的最佳时机 II</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2zsx1/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2zsx1/</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/">https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/</a></p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h3><p>只看相邻的两天，只要后一天比前一天高，就是收益，非常简单。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; prices)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> curr = prices.<span class="hljs-built_in">begin</span>() + <span class="hljs-number">1</span>; curr != prices.<span class="hljs-built_in">end</span>(); ++curr) &#123;<br>        <span class="hljs-keyword">if</span> (*curr &gt; *(curr - <span class="hljs-number">1</span>))<br>            result += *curr - *(curr - <span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="我的解法"><a href="#我的解法" class="headerlink" title="我的解法"></a>我的解法</h3><p>刚做完一个双指针，指魔怔了，嗯是搞了个双指针。其实就是找到每一段递增区间的起点和终点。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; prices)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (prices.<span class="hljs-built_in">size</span>() &lt;= <span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">auto</span> min = prices.<span class="hljs-built_in">begin</span>();<br>    <span class="hljs-keyword">auto</span> max = min;<br>    <span class="hljs-keyword">auto</span> end = prices.<span class="hljs-built_in">end</span>();<br>    <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">while</span> (min != end &amp;&amp; max != end) &#123;<br>        <span class="hljs-keyword">while</span> ((min+<span class="hljs-number">1</span>) != end &amp;&amp; *min &gt; *(min + <span class="hljs-number">1</span>))<br>            ++min;<br>        max = min;<br>        <span class="hljs-keyword">while</span> ((max+<span class="hljs-number">1</span>) != end &amp;&amp; *max &lt; *(max + <span class="hljs-number">1</span>))<br>            ++max;<br>        result += *(max) - *(min);<br>        <span class="hljs-keyword">if</span> (min != end &amp;&amp; max != end) &#123;<br>            ++max;<br>            min = max;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="旋转数组"><a href="#旋转数组" class="headerlink" title="旋转数组"></a>旋转数组</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2skh7/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2skh7/</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-array/">https://leetcode-cn.com/problems/rotate-array/</a></p>
+<h2 id="临时数组"><a href="#临时数组" class="headerlink" title="临时数组"></a>临时数组</h2><p>最简单的方法，但是空间复杂为<code>O(n)</code>。</p>
+<h2 id="环状替换"><a href="#环状替换" class="headerlink" title="环状替换"></a>环状替换</h2><p>如果直接将每个数字放至它<strong>最后的位置</strong>，这样被放置位置的元素会被覆盖从而丢失。</p>
+<p>解决方法：从位置 0 开始，将它放到正确的位置（向右 k 位），然后<strong>把被覆盖的元素保存下来</strong>，再将它放到正确的位置（再向右 k 位），循环往复。</p>
+<p>容易发现，当回到初始位置 0 时，有些数字可能还没有遍历到（当 nums.length % k = 0 时，只会遍历偶数位置然后回到开头），此时应该跳到下一个位置然后继续。至于怎么判断该不该跳，我还不是很懂，详见<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leetcode-solution-nipk/">题解</a>。</p>
+<h2 id="数组翻转"><a href="#数组翻转" class="headerlink" title="数组翻转"></a>数组翻转</h2><p><img src="https://i.loli.net/2021/07/17/xNXsC3YdFDwPa8O.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">reverse</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> start, <span class="hljs-keyword">int</span> end)</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (start &lt; end) &#123;<br>            <span class="hljs-built_in">swap</span>(nums[start], nums[end]);<br>            start += <span class="hljs-number">1</span>;<br>            end -= <span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;<br>        k %= nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-built_in">reverse</span>(nums, <span class="hljs-number">0</span>, nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>);<br>        <span class="hljs-built_in">reverse</span>(nums, <span class="hljs-number">0</span>, k - <span class="hljs-number">1</span>);<br>        <span class="hljs-built_in">reverse</span>(nums, k, nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -265,17 +267,17 @@
                     
                       <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/">初级算法</a>
                     
+                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/%E6%95%B0%E7%BB%84/">数组</a>
+                    
                   </div>
                 
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">贪心算法</a>
-                    
                       <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
                     
                   </div>
                 
@@ -286,9 +288,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/rotate-array/">
+                      <a href="/leetcode/top-interview-questions-easy/contain-duplicates/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">旋转数组</span>
+                        <span class="hidden-mobile">存在重复元素</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -296,8 +298,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/essay/make-deepfake-meme/">
-                        <span class="hidden-mobile">如何制作Unravel和damedane的Deepfake换脸视频</span>
+                      <a href="/leetcode/top-interview-questions-easy/best-time-to-buy-and-sell-stock-ii/">
+                        <span class="hidden-mobile">买卖股票的最佳时机 II</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
