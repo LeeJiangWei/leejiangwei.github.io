@@ -11,6 +11,7 @@ tags:
 - 位运算
 - C++
 index_img: /img/code.jpg
+sticky: -10
 ---
 
 # 只出现一次的数字

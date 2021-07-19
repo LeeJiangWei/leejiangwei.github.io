@@ -10,6 +10,7 @@ tags:
 - 双指针
 - C++
 index_img: /img/code.jpg
+sticky: -10
 ---
 
 # 删除排序数组中的重复项

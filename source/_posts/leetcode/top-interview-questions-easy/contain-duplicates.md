@@ -10,6 +10,7 @@ tags:
 - 哈希表
 - C++
 index_img: /img/code.jpg
+sticky: -10
 ---
 
 # 存在重复元素

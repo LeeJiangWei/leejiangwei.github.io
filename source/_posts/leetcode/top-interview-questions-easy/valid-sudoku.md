@@ -10,6 +10,7 @@ tags:
   - 哈希表
 index_img: /img/code.jpg
 date: 2021-07-16 16:20:49
+sticky: -10
 ---
 
 # 有效的数独

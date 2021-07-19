@@ -17,10 +17,17 @@ banner_img: /img/mc.png
 
 原本在朋友1核1G的服务器上玩，遇到了第三个玩家加入就会被踢出去的问题，而服务器内存和CPU并未过载，推测是带宽不足（为128KB）。
 
+![错误信息](https://i.loli.net/2021/07/19/NsQHjSEZBkLTnOz.png)
+
 为了能愉快地玩耍，在阿里云上买了个所谓的轻量应用服务器，2核2G内存，关键是峰值带宽为5M。搞定以后瞬间解决了所有问题，3个人玩的很流畅。虽然每月限流1000GB，但还是完全够用。一年99，并且再续费一年似乎也是99，感觉挺不错的。
 
 ![我买的服务器的配置](https://i.loli.net/2021/07/19/LaSM8ypwVfiJmAI.png)
 
+## 开放服务器端口
+
+在阿里云的服务器控制台中设置防火墙规则，开放MC要用的`25565`端口。
+
+![不知道用的是TCP还是UDP，那就全部开放](https://i.loli.net/2021/07/19/5x8Vbvz1nkrqmPf.png)
 
 ## 安装相关依赖
 
@@ -78,10 +85,10 @@ java -Xmx1024M -Xms1024M -jar minecraft_server.1.17.1.jar nogui
 screen -r mc
 ```
 
-#### 杀死
+#### 强行杀死
 
 ```bash
-screen -S session_name -X quit
+screen -S mc -X quit
 ```
 
 更多screen的用法详见：[linux中screen命令的用法](https://www.huaweicloud.com/articles/6d91932d9a65d3cb45101886ac6fe53a.html)

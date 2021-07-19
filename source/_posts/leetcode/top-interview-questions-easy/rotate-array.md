@@ -9,6 +9,7 @@ tags:
 - 数组
 - C++
 index_img: /img/code.jpg
+sticky: -10
 ---
 
 # 旋转数组

@@ -9,6 +9,7 @@ tags:
   - 矩阵
 index_img: /img/code.jpg
 date: 2021-07-16 20:38:24
+sticky: -10
 ---
 
 # 旋转图像

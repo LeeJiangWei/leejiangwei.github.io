@@ -10,6 +10,7 @@ tags:
 - 贪心算法
 - C++
 index_img: /img/code.jpg
+sticky: -10
 ---
 # 买卖股票的最佳时机 II
 https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2zsx1/

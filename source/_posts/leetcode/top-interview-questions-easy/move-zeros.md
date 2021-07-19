@@ -10,6 +10,7 @@ tags:
   - 双指针
 index_img: /img/code.jpg
 date: 2021-07-15 14:36:03
+sticky: -10
 ---
 
 # 移动零

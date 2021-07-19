@@ -6,4 +6,5 @@ categories:
 tags:
 - C++
 index_img: /img/code.jpg
+sticky: -10
 ---

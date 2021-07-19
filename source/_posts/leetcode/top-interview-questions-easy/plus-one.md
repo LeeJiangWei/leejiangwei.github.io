@@ -9,6 +9,7 @@ tags:
   - 数组
 index_img: /img/code.jpg
 date: 2021-07-14 21:13:00
+sticky: -10
 ---
 
 # 加一

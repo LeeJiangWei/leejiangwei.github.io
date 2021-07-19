@@ -7,6 +7,7 @@ categories:
 tags:
 - C++
 index_img: /img/cpp.jpg
+sticky: -5
 ---
 
 # C++常用泛型算法
