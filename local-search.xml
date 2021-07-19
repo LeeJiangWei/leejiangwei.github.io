@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>部署自己的MineCraft服务器</title>
+    <link href="/essay/deploy-minecraft-server/"/>
+    <url>/essay/deploy-minecraft-server/</url>
+    
+    <content type="html"><![CDATA[<h1 id="部署自己的MineCraft服务器"><a href="#部署自己的MineCraft服务器" class="headerlink" title="部署自己的MineCraft服务器"></a>部署自己的MineCraft服务器</h1><p>放假在家突然想玩新版MC，买了个Java版和朋友联机玩。记录一下折腾过程。</p><h2 id="服务器的配置要求"><a href="#服务器的配置要求" class="headerlink" title="服务器的配置要求"></a>服务器的配置要求</h2><p>原本在朋友1核1G的服务器上玩，遇到了第三个玩家加入就会被踢出去的问题，而服务器内存和CPU并未过载，推测是带宽不足（为128KB）。</p><p>为了能愉快地玩耍，在阿里云上买了个所谓的轻量应用服务器，2核2G内存，关键是峰值带宽为5M。搞定以后瞬间解决了所有问题，3个人玩的很流畅。虽然每月限流1000GB，但还是完全够用。一年99，并且再续费一年似乎也是99，感觉挺不错的。</p><p><img src="https://i.loli.net/2021/07/19/LaSM8ypwVfiJmAI.png" alt="我买的服务器的配置"></p><h2 id="安装相关依赖"><a href="#安装相关依赖" class="headerlink" title="安装相关依赖"></a>安装相关依赖</h2><h4 id="安装Java"><a href="#安装Java" class="headerlink" title="安装Java"></a>安装Java</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install openjdk-16-jre-headless<br></code></pre></td></tr></table></figure><h4 id="安装screen"><a href="#安装screen" class="headerlink" title="安装screen"></a>安装screen</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install screen<br></code></pre></td></tr></table></figure><h4 id="下载MC服务器程序"><a href="#下载MC服务器程序" class="headerlink" title="下载MC服务器程序"></a>下载MC服务器程序</h4><p>下载地址见：<a href="https://www.minecraft.net/en-us/download/server">DOWNLOAD THE MINECRAFT: JAVA EDITION SERVER</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar<br></code></pre></td></tr></table></figure><p>就是一个jar包，用Java运行这个包就启动了服务器。</p><h2 id="启动游戏服务器"><a href="#启动游戏服务器" class="headerlink" title="启动游戏服务器"></a>启动游戏服务器</h2><h4 id="创建会话"><a href="#创建会话" class="headerlink" title="创建会话"></a>创建会话</h4><p>创建了名为mc的会话。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">screen -S mc<br></code></pre></td></tr></table></figure><h4 id="运行游戏服务器"><a href="#运行游戏服务器" class="headerlink" title="运行游戏服务器"></a>运行游戏服务器</h4><p>两个参数<code>-Xmx</code>和<code>-Xms</code>分别指定了最大内存和最小内存。（均为1024M）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">java -Xmx1024M -Xms1024M -jar minecraft_server.1.17.1.jar nogui<br></code></pre></td></tr></table></figure><p>成功启动后就能看到各种提示信息，此时可以输入各种服务器命令了。</p><p><img src="https://i.loli.net/2021/07/19/MOFGxlQfTH5X3gd.png" alt="启动成功"></p><h4 id="保留Screen并退出"><a href="#保留Screen并退出" class="headerlink" title="保留Screen并退出"></a>保留Screen并退出</h4><p><code>ctrl + A + D</code></p><h4 id="再次进入"><a href="#再次进入" class="headerlink" title="再次进入"></a>再次进入</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">screen -r mc<br></code></pre></td></tr></table></figure><h4 id="杀死"><a href="#杀死" class="headerlink" title="杀死"></a>杀死</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">screen -S session_name -X quit<br></code></pre></td></tr></table></figure><p>更多screen的用法详见：<a href="https://www.huaweicloud.com/articles/6d91932d9a65d3cb45101886ac6fe53a.html">linux中screen命令的用法</a></p><h2 id="MineCraft服务器属性"><a href="#MineCraft服务器属性" class="headerlink" title="MineCraft服务器属性"></a>MineCraft服务器属性</h2><p>详见：<a href="https://minecraft.fandom.com/zh/wiki/Server.properties?variant=zh#Java.E7.89.88_3">Minecraft服务器属性</a></p><p>编辑<code>server.properties</code>文件。</p><h2 id="MineCraft后台命令"><a href="#MineCraft后台命令" class="headerlink" title="MineCraft后台命令"></a>MineCraft后台命令</h2><p>详见：<a href="https://minecraft.fandom.com/zh/wiki/%E5%91%BD%E4%BB%A4?variant=zh#.E5.91.BD.E4.BB.A4.E5.88.97.E8.A1.A8.E5.8F.8A.E5.85.B6.E6.A6.82.E8.BF.B0">命令列表及其概述</a></p><p>启动服务器后直接输入命令即可，无需以<code>/</code>开头。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>随笔</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MineCraft</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>旋转图像</title>
     <link href="/leetcode/top-interview-questions-easy/rotate-image/"/>
     <url>/leetcode/top-interview-questions-easy/rotate-image/</url>
