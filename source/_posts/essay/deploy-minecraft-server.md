@@ -15,11 +15,14 @@ banner_img: /img/mc.png
 
 ## 服务器的配置要求
 
-原本在朋友1核1G的服务器上玩，遇到了第三个玩家加入就会被踢出去的问题，而服务器内存和CPU并未过载，推测是带宽不足（为128KB）。
+原本在朋友1核2G的服务器上玩，遇到了第三个玩家加入就会被踢出去的问题，而服务器内存和CPU并未过载，推测是带宽不足（为128KB）。可能出现的错误信息有：
+
++ 登入失败：身份验证目前正在停机维护
++ lost connection：timed out
 
 ![错误信息](https://i.loli.net/2021/07/19/NsQHjSEZBkLTnOz.png)
 
-为了能愉快地玩耍，在阿里云上买了个所谓的轻量应用服务器，2核2G内存，关键是峰值带宽为5M。搞定以后瞬间解决了所有问题，3个人玩的很流畅。虽然每月限流1000GB，但还是完全够用。一年99，并且再续费一年似乎也是99，感觉挺不错的。
+为了能愉快地玩耍，在阿里云上买了个所谓的轻量应用服务器，2核2G内存，关键是峰值带宽为5M。搞定以后解决了所有问题，3个人玩的很流畅。虽然每月限流1000GB，但还是完全够用。一年99，并且再续费一年似乎也是99，感觉挺不错的。
 
 ![我买的服务器的配置](https://i.loli.net/2021/07/19/LaSM8ypwVfiJmAI.png)
 
@@ -31,19 +34,19 @@ banner_img: /img/mc.png
 
 ## 安装相关依赖
 
-#### 安装Java
+### 安装Java
 
 ```bash
 apt install openjdk-16-jre-headless
 ```
 
-#### 安装screen
+### 安装screen
 
 ```bash
 apt install screen
 ```
 
-#### 下载MC服务器程序
+### 下载MC服务器程序
 
 下载地址见：[DOWNLOAD THE MINECRAFT: JAVA EDITION SERVER](https://www.minecraft.net/en-us/download/server)
 
@@ -55,7 +58,7 @@ wget https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf2022619449
 
 ## 启动游戏服务器
 
-#### 创建会话
+### 创建会话
 
 创建了名为mc的会话。
 
@@ -63,7 +66,7 @@ wget https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf2022619449
 screen -S mc
 ```
 
-#### 运行游戏服务器
+### 运行游戏服务器
 
 两个参数`-Xmx`和`-Xms`分别指定了最大内存和最小内存。（均为1024M）
 
@@ -75,17 +78,17 @@ java -Xmx1024M -Xms1024M -jar minecraft_server.1.17.1.jar nogui
 
 ![启动成功](https://i.loli.net/2021/07/19/MOFGxlQfTH5X3gd.png)
 
-#### 保留Screen并退出
+### 保留Screen并退出
 
 `ctrl + A + D`
 
-#### 再次进入
+### 再次进入
 
 ```bash
 screen -r mc
 ```
 
-#### 强行杀死
+### 强行杀死
 
 ```bash
 screen -S mc -X quit
