@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      482 字
+      510 字
     </span>
   
 
@@ -249,32 +249,36 @@
             
             <div class="markdown-body">
               <h1 id="部署自己的MineCraft服务器"><a href="#部署自己的MineCraft服务器" class="headerlink" title="部署自己的MineCraft服务器"></a>部署自己的MineCraft服务器</h1><p>放假在家突然想玩新版MC，买了个Java版和朋友联机玩。记录一下折腾过程。</p>
-<h2 id="服务器的配置要求"><a href="#服务器的配置要求" class="headerlink" title="服务器的配置要求"></a>服务器的配置要求</h2><p>原本在朋友1核1G的服务器上玩，遇到了第三个玩家加入就会被踢出去的问题，而服务器内存和CPU并未过载，推测是带宽不足（为128KB）。</p>
+<h2 id="服务器的配置要求"><a href="#服务器的配置要求" class="headerlink" title="服务器的配置要求"></a>服务器的配置要求</h2><p>原本在朋友1核2G的服务器上玩，遇到了第三个玩家加入就会被踢出去的问题，而服务器内存和CPU并未过载，推测是带宽不足（为128KB）。可能出现的错误信息有：</p>
+<ul>
+<li>登入失败：身份验证目前正在停机维护</li>
+<li>lost connection：timed out</li>
+</ul>
 <p><img src="https://i.loli.net/2021/07/19/NsQHjSEZBkLTnOz.png" srcset="/img/loading.gif" lazyload alt="错误信息"></p>
-<p>为了能愉快地玩耍，在阿里云上买了个所谓的轻量应用服务器，2核2G内存，关键是峰值带宽为5M。搞定以后瞬间解决了所有问题，3个人玩的很流畅。虽然每月限流1000GB，但还是完全够用。一年99，并且再续费一年似乎也是99，感觉挺不错的。</p>
+<p>为了能愉快地玩耍，在阿里云上买了个所谓的轻量应用服务器，2核2G内存，关键是峰值带宽为5M。搞定以后解决了所有问题，3个人玩的很流畅。虽然每月限流1000GB，但还是完全够用。一年99，并且再续费一年似乎也是99，感觉挺不错的。</p>
 <p><img src="https://i.loli.net/2021/07/19/LaSM8ypwVfiJmAI.png" srcset="/img/loading.gif" lazyload alt="我买的服务器的配置"></p>
 <h2 id="开放服务器端口"><a href="#开放服务器端口" class="headerlink" title="开放服务器端口"></a>开放服务器端口</h2><p>在阿里云的服务器控制台中设置防火墙规则，开放MC要用的<code>25565</code>端口。</p>
 <p><img src="https://i.loli.net/2021/07/19/5x8Vbvz1nkrqmPf.png" srcset="/img/loading.gif" lazyload alt="不知道用的是TCP还是UDP，那就全部开放"></p>
-<h2 id="安装相关依赖"><a href="#安装相关依赖" class="headerlink" title="安装相关依赖"></a>安装相关依赖</h2><h4 id="安装Java"><a href="#安装Java" class="headerlink" title="安装Java"></a>安装Java</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install openjdk-16-jre-headless<br></code></pre></td></tr></table></figure>
+<h2 id="安装相关依赖"><a href="#安装相关依赖" class="headerlink" title="安装相关依赖"></a>安装相关依赖</h2><h3 id="安装Java"><a href="#安装Java" class="headerlink" title="安装Java"></a>安装Java</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install openjdk-16-jre-headless<br></code></pre></td></tr></table></figure>
 
-<h4 id="安装screen"><a href="#安装screen" class="headerlink" title="安装screen"></a>安装screen</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install screen<br></code></pre></td></tr></table></figure>
+<h3 id="安装screen"><a href="#安装screen" class="headerlink" title="安装screen"></a>安装screen</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install screen<br></code></pre></td></tr></table></figure>
 
-<h4 id="下载MC服务器程序"><a href="#下载MC服务器程序" class="headerlink" title="下载MC服务器程序"></a>下载MC服务器程序</h4><p>下载地址见：<a target="_blank" rel="noopener" href="https://www.minecraft.net/en-us/download/server">DOWNLOAD THE MINECRAFT: JAVA EDITION SERVER</a></p>
+<h3 id="下载MC服务器程序"><a href="#下载MC服务器程序" class="headerlink" title="下载MC服务器程序"></a>下载MC服务器程序</h3><p>下载地址见：<a target="_blank" rel="noopener" href="https://www.minecraft.net/en-us/download/server">DOWNLOAD THE MINECRAFT: JAVA EDITION SERVER</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar<br></code></pre></td></tr></table></figure>
 
 <p>就是一个jar包，用Java运行这个包就启动了服务器。</p>
-<h2 id="启动游戏服务器"><a href="#启动游戏服务器" class="headerlink" title="启动游戏服务器"></a>启动游戏服务器</h2><h4 id="创建会话"><a href="#创建会话" class="headerlink" title="创建会话"></a>创建会话</h4><p>创建了名为mc的会话。</p>
+<h2 id="启动游戏服务器"><a href="#启动游戏服务器" class="headerlink" title="启动游戏服务器"></a>启动游戏服务器</h2><h3 id="创建会话"><a href="#创建会话" class="headerlink" title="创建会话"></a>创建会话</h3><p>创建了名为mc的会话。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">screen -S mc<br></code></pre></td></tr></table></figure>
 
-<h4 id="运行游戏服务器"><a href="#运行游戏服务器" class="headerlink" title="运行游戏服务器"></a>运行游戏服务器</h4><p>两个参数<code>-Xmx</code>和<code>-Xms</code>分别指定了最大内存和最小内存。（均为1024M）</p>
+<h3 id="运行游戏服务器"><a href="#运行游戏服务器" class="headerlink" title="运行游戏服务器"></a>运行游戏服务器</h3><p>两个参数<code>-Xmx</code>和<code>-Xms</code>分别指定了最大内存和最小内存。（均为1024M）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">java -Xmx1024M -Xms1024M -jar minecraft_server.1.17.1.jar nogui<br></code></pre></td></tr></table></figure>
 
 <p>成功启动后就能看到各种提示信息，此时可以输入各种服务器命令了。</p>
 <p><img src="https://i.loli.net/2021/07/19/MOFGxlQfTH5X3gd.png" srcset="/img/loading.gif" lazyload alt="启动成功"></p>
-<h4 id="保留Screen并退出"><a href="#保留Screen并退出" class="headerlink" title="保留Screen并退出"></a>保留Screen并退出</h4><p><code>ctrl + A + D</code></p>
-<h4 id="再次进入"><a href="#再次进入" class="headerlink" title="再次进入"></a>再次进入</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">screen -r mc<br></code></pre></td></tr></table></figure>
+<h3 id="保留Screen并退出"><a href="#保留Screen并退出" class="headerlink" title="保留Screen并退出"></a>保留Screen并退出</h3><p><code>ctrl + A + D</code></p>
+<h3 id="再次进入"><a href="#再次进入" class="headerlink" title="再次进入"></a>再次进入</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">screen -r mc<br></code></pre></td></tr></table></figure>
 
-<h4 id="强行杀死"><a href="#强行杀死" class="headerlink" title="强行杀死"></a>强行杀死</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">screen -S mc -X quit<br></code></pre></td></tr></table></figure>
+<h3 id="强行杀死"><a href="#强行杀死" class="headerlink" title="强行杀死"></a>强行杀死</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">screen -S mc -X quit<br></code></pre></td></tr></table></figure>
 
 <p>更多screen的用法详见：<a target="_blank" rel="noopener" href="https://www.huaweicloud.com/articles/6d91932d9a65d3cb45101886ac6fe53a.html">linux中screen命令的用法</a></p>
 <h2 id="MineCraft服务器属性"><a href="#MineCraft服务器属性" class="headerlink" title="MineCraft服务器属性"></a>MineCraft服务器属性</h2><p>详见：<a target="_blank" rel="noopener" href="https://minecraft.fandom.com/zh/wiki/Server.properties?variant=zh#Java.E7.89.88_3">Minecraft服务器属性</a></p>
@@ -308,6 +312,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/leetcode/top-interview-questions-easy/reverse-string/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">反转字符串</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
