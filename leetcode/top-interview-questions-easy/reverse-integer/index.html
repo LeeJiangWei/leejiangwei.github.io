@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>反转字符串 - Be Happy</title>
+  <title>整数反转 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="反转字符串">
+            <span class="h2" id="subtitle" title="整数反转">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-19 17:58" pubdate>
-        2021年7月19日 下午
+      <time datetime="2021-07-19 19:26" pubdate>
+        2021年7月19日 晚上
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      110 字
+      116 字
     </span>
   
 
@@ -245,16 +245,15 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">反转字符串</h1>
+            <h1 style="display: none">整数反转</h1>
             
             <div class="markdown-body">
-              <h1 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnhbqj/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnhbqj/</a></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-string/">https://leetcode-cn.com/problems/reverse-string/</a></p>
-<h2 id="直接交换"><a href="#直接交换" class="headerlink" title="直接交换"></a>直接交换</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">reverseString</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">char</span>&gt;&amp; s)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> n = s.<span class="hljs-built_in">size</span>();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n/<span class="hljs-number">2</span> ; ++i) &#123;<br>        <span class="hljs-built_in">swap</span>(s[i], s[n<span class="hljs-number">-1</span>-i]);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><p>官方题解是双指针，其实是差不多的</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">reverseString</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">char</span>&gt;&amp; s)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> n = s.<span class="hljs-built_in">size</span>();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = n - <span class="hljs-number">1</span>; left &lt; right; ++left, --right) &#123;<br>        <span class="hljs-built_in">swap</span>(s[left], s[right]);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+              <h1 id="整数反转"><a href="#整数反转" class="headerlink" title="整数反转"></a>整数反转</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnx13t/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnx13t/</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-integer/">https://leetcode-cn.com/problems/reverse-integer/</a></p>
+<h2 id="逐位运算"><a href="#逐位运算" class="headerlink" title="逐位运算"></a>逐位运算</h2><p>使用<code>x % 10</code>取得个位数的值，将它加到临时值<code>ret</code>中，并且让<code>ret</code>倍增10。</p>
+<p>使用<code>x /= 10</code>来去掉个位（C++）。</p>
+<p><strong>用<code>INT_MIN / 10</code>和<code>INT_MAX / 10</code>来提前判断是否会越界</strong>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> ret = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">while</span> (x != <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">if</span> (ret &lt; INT_MIN / <span class="hljs-number">10</span> || ret &gt; INT_MAX / <span class="hljs-number">10</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-keyword">int</span> last = x % <span class="hljs-number">10</span>;<br>        x /= <span class="hljs-number">10</span>;<br>        ret = <span class="hljs-number">10</span> * ret + last;<br>    &#125;<br><br><br>    <span class="hljs-keyword">return</span> ret;<br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -278,8 +277,6 @@
                     
                       <a class="hover-with-bg" href="/tags/C/">C++</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
-                    
                   </div>
                 
               </div>
@@ -289,18 +286,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/top-interview-questions-easy/reverse-integer/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">整数反转</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/essay/deploy-minecraft-server/">
-                        <span class="hidden-mobile">部署自己的MineCraft服务器</span>
+                      <a href="/leetcode/top-interview-questions-easy/reverse-string/">
+                        <span class="hidden-mobile">反转字符串</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
