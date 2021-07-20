@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>干掉Disqus评论区广告</title>
+    <link href="/blog/fuck-disqus-ads/"/>
+    <url>/blog/fuck-disqus-ads/</url>
+    
+    <content type="html"><![CDATA[<h1 id="干掉Disqus评论区广告"><a href="#干掉Disqus评论区广告" class="headerlink" title="干掉Disqus评论区广告"></a>干掉Disqus评论区广告</h1><p>这 Disqus 评论区的广告真是越来越离谱了，虽然内容看着还行，但是评论上面六个大图下面也六个大图，都™要比我博客本身的内容还多了，不治治它它就真不知道什么是黑手。</p><p><img src="https://i.loli.net/2021/07/20/ATIczgZXp7SwLPf.png" alt="我啪的一下就点进去看了，很快啊"></p><p>这些广告会延迟加载，直接使用 css 隐藏的方法不好用。一般这个 ID 为 disqus_thread 的 div 通常有 2 到 3 个 iframe，一般第一个和第三个都是广告。这个函数会等待两秒，等广告加载出来后再把它隐藏掉。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> disqus = jQuery(<span class="hljs-string">&#x27;#disqus_thread&#x27;</span>);<br><br>disqus.ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (disqus.children().length &gt;= <span class="hljs-number">2</span>) &#123;<br>      <span class="hljs-keyword">const</span> comments = disqus.find(<span class="hljs-string">&#x27;iframe:nth-child(2)&#x27;</span>).detach();<br>      disqus.empty().append(comments);<br>    &#125;<br>  &#125;, <span class="hljs-number">2000</span>);<br>&#125;);<br></code></pre></td></tr></table></figure><p>最后将这段脚本插入到自定义 js 中。对于我的 Fluid 主题，把 js 文件放在 source 文件夹下的任意地方，然后在配置文件中指定就好了。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>博客建设</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>个人域名绑定Github pages</title>
     <link href="/blog/add-domain/"/>
     <url>/blog/add-domain/</url>
