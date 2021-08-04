@@ -5,7 +5,6 @@ excerpt: 三天之内删了你，DOM节点都给你扬咯
 categories:
     - 博客建设
 index_img: https://i.loli.net/2021/07/20/y9aWrPUZBbsvX5u.png
-banner_img: 
 ---
 
 # 干掉Disqus评论区广告
