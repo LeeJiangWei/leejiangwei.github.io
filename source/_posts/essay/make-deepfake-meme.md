@@ -1,12 +1,12 @@
 ---
-title: 如何制作Unravel和damedane的Deepfake换脸视频
+title: 如何制作 Unravel 和 damedane 的 Deepfake 换脸视频
 date: 2021-06-16 19:01:35
 excerpt: 海猫的痛，你们懂吗
 categories: 随笔
 index_img: /img/deepfake/pain_of_oceancat.png
 ---
 
-# 如何制作Unravel和damedane换脸视频
+# 如何制作 Unravel 和 damedane 换脸视频
 虽然这梗已经火了好久了，但是最近看多了，自己也想试着搞一个。奇怪的是知乎和B站居然搜不到教程，而上外网一下就找到了，于是写一个博客记录一下，顺便帮助有需要的人（虽然应该不会有人看我的博客）。
 
 ## 准备照片和视频

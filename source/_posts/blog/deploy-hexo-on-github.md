@@ -1,5 +1,5 @@
 ---
-title: 将Hexo部署到Github上
+title: 将 Hexo 部署到 Github 上
 excerpt: 自己搞了有一小会儿，写一下过程防止以后忘了
 date: 2021-06-08 17:51:59
 categories:

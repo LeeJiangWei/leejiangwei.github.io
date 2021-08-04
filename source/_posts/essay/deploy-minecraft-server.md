@@ -1,5 +1,5 @@
 ---
-title: 部署自己的MineCraft服务器
+title: 部署自己的 MineCraft 服务器
 date: 2021-07-19 14:04:57
 categories:
     - 随笔
@@ -9,7 +9,7 @@ index_img: /img/mc.jpg
 banner_img: /img/mc.png
 ---
 
-# 部署自己的MineCraft服务器
+# 部署自己的 MineCraft 服务器
 
 放假在家突然想玩新版MC，买了个Java版和朋友联机玩。记录一下折腾过程。
 
