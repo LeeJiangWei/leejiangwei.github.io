@@ -4,6 +4,74 @@
   
   
   <entry>
+    <title>有效字母异位词</title>
+    <link href="/leetcode/top-interview-questions-easy/valid-anagram/"/>
+    <url>/leetcode/top-interview-questions-easy/valid-anagram/</url>
+    
+    <content type="html"><![CDATA[<h1 id="有效字母异位词"><a href="#有效字母异位词" class="headerlink" title="有效字母异位词"></a>有效字母异位词</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xn96us/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xn96us/</a></p><p><a href="https://leetcode-cn.com/problems/valid-anagram/">https://leetcode-cn.com/problems/valid-anagram/</a></p><h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>用一个哈希表储存字母出现次数。在字符串 <code>s</code> 中出现的 +1，在 <code>t</code> 中出现的 -1，最后看是不是全为 0 即可。</p><p>时间复杂度：<code>O(n)</code></p><p>空间复杂度：<code>O(|Σ|)</code></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isAnagram</span><span class="hljs-params">(string s, string t)</span> </span>&#123;<br>    unordered_map&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt; m;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> &amp;c: s) &#123;<br>        m[c] += <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> &amp;c: t) &#123;<br>        m[c] -= <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> curr = m.<span class="hljs-built_in">begin</span>(); curr != m.<span class="hljs-built_in">end</span>(); ++curr) &#123;<br>        <span class="hljs-keyword">if</span> (curr -&gt; second != <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="排序后比较"><a href="#排序后比较" class="headerlink" title="排序后比较"></a>排序后比较</h2><p>排序后比较字符串是否相等。</p><p>时间复杂度：快速排序平均复杂度为 <code>O(nlogn)</code></p><p>空间复杂度：排序所需要的空间为 <code>O(logn)</code></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+      <category>字符串</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>第一个唯一字符</title>
+    <link href="/leetcode/top-interview-questions-easy/first-unique-character-in-a-string/"/>
+    <url>/leetcode/top-interview-questions-easy/first-unique-character-in-a-string/</url>
+    
+    <content type="html"><![CDATA[<h1 id="第一个唯一字符"><a href="#第一个唯一字符" class="headerlink" title="第一个唯一字符"></a>第一个唯一字符</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xn5z8r/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xn5z8r/</a></p><p><a href="https://leetcode-cn.com/problems/first-unique-character-in-a-string/">https://leetcode-cn.com/problems/first-unique-character-in-a-string/</a></p><h2 id="哈希表储存出现次数"><a href="#哈希表储存出现次数" class="headerlink" title="哈希表储存出现次数"></a>哈希表储存出现次数</h2><p>第一次遍历用哈希表统计出现次数，第二次遍历找到第一个出现次数为 1 的字符。</p><p>时间复杂度：<code>O(n)</code></p><p>空间复杂度：<code>O(|Σ|)</code> （需要最大为词表大小的空间来储存哈希表）</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">firstUniqChar</span><span class="hljs-params">(string s)</span> </span>&#123;<br>    unordered_map&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt; m;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">char</span> c: s) &#123;<br>        m[c] += <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; s.<span class="hljs-built_in">length</span>(); ++i) &#123;<br>        <span class="hljs-keyword">if</span> (m[s[i]] == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> i;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="哈希表储存出现的索引"><a href="#哈希表储存出现的索引" class="headerlink" title="哈希表储存出现的索引"></a>哈希表储存出现的索引</h2><p>第一次遍历用哈希表储存索引，如果已经存在，就将索引值设为 -1 。第二次遍历，找出索引值最小的，返回。</p><p>时间、空间复杂度与上一个方法相同。</p><h2 id="哈希表储存出现索引-队列"><a href="#哈希表储存出现索引-队列" class="headerlink" title="哈希表储存出现索引 + 队列"></a>哈希表储存出现索引 + 队列</h2><p>用和方法二一样的哈希表储存索引值，用一个队列来跟踪哪些字符是只出现一次的。</p><p>在插入字符时，如果不存在（第一次出现），将插入的字符及其索引加入到队列尾。而如果插入了一个已经出现过的字符时，从头开始检查队列，如果头元素出现过多次（在哈希表中对应的值为 -1），就弹出。</p><p>其实就是使用队列来维持字符原本的顺序，如果队列头的字符出现了多次就踢掉。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">firstUniqChar</span><span class="hljs-params">(string s)</span> </span>&#123;<br>    unordered_map&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt; position;<br>    queue&lt;pair&lt;<span class="hljs-keyword">char</span>, <span class="hljs-keyword">int</span>&gt;&gt; q;<br>    <span class="hljs-keyword">int</span> n = s.<span class="hljs-built_in">size</span>();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;<br>        <span class="hljs-keyword">if</span> (!position.<span class="hljs-built_in">count</span>(s[i])) &#123;<br>            position[s[i]] = i;<br>            q.<span class="hljs-built_in">emplace</span>(s[i], i);<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            position[s[i]] = <span class="hljs-number">-1</span>;<br>            <span class="hljs-keyword">while</span> (!q.<span class="hljs-built_in">empty</span>() &amp;&amp; position[q.<span class="hljs-built_in">front</span>().first] == <span class="hljs-number">-1</span>) &#123;<br>                q.<span class="hljs-built_in">pop</span>();<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> q.<span class="hljs-built_in">empty</span>() ? <span class="hljs-number">-1</span> : q.<span class="hljs-built_in">front</span>().second;<br>&#125;<br></code></pre></td></tr></table></figure><p>时间复杂度：遍历字符串 <code>O(n)</code> + 队列操作 <code>O(|Σ|)</code>  = <code>O(n)</code></p><p>空间复杂度：<code>O(|Σ|)</code></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+      <category>字符串</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>队列</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>干掉Disqus评论区广告</title>
     <link href="/blog/fuck-disqus-ads/"/>
     <url>/blog/fuck-disqus-ads/</url>
