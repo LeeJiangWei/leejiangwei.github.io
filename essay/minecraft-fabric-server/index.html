@@ -14,13 +14,29 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
+  <meta name="description" content="也就是一般说的 mod 服，可以加各种 mod">
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>归档 - Be Happy</title>
+  <title>玩 MineCraft 的 Fabric 服务器 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -48,7 +64,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -154,14 +170,59 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/archive.jpg') no-repeat center center;
+         style="background: url('/img/mc.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="玩 MineCraft 的 Fabric 服务器">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-04 22:14" pubdate>
+        2021年8月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      499 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
 
             
           </div>
@@ -174,64 +235,135 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 24 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/essay/make-deepfake-meme/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">如何制作Unravel和damedane的Deepfake换脸视频</span>
-      <time style="float: right;">06-16</time>
-    </a>
-  
-    
-    <a href="/leetcode/top-interview-questions-easy/remove-duplicates-from-sorted-array/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">删除排序数组中的重复项</span>
-      <time style="float: right;">06-15</time>
-    </a>
-  
-    
-    <a href="/blog/deploy-hexo-on-github/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">将Hexo部署到Github上</span>
-      <time style="float: right;">06-08</time>
-    </a>
-  
-    
-    <a href="/essay/first-blog/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">第一篇博客，不知道起什么标题好</span>
-      <time style="float: right;">06-08</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">玩 MineCraft 的 Fabric 服务器</h1>
+            
+            <div class="markdown-body">
+              <h1 id="玩-MineCraft-的-Fabric-服务器"><a href="#玩-MineCraft-的-Fabric-服务器" class="headerlink" title="玩 MineCraft 的 Fabric 服务器"></a>玩 MineCraft 的 Fabric 服务器</h1><p>MineCraft Java 版有两种常见的非官方服务器，Forge 和 Fabric，相当于是提供了官方接口之上再次的封装，让 mod 开发者更加方便编程。</p>
+<p>网上有说法称 Fabric 服务器更小巧，且 Forge 已经比较老了，故最终选择了 Fabric。</p>
+<h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><h3 id="安装-Fabric-服务器"><a href="#安装-Fabric-服务器" class="headerlink" title="安装 Fabric 服务器"></a>安装 Fabric 服务器</h3><p>可以完全参照 Fabric 官网的文档：<a target="_blank" rel="noopener" href="https://fabricmc.net/wiki/player:tutorials:install_server">Installing a Fabric Server without a GUI</a>，按部就班即可。</p>
+<p>注意，在按照文档的示例一通命名改名操作后，启动命令是<code>java -jar server.jar</code>，而非<code>java -jar vanilla.jar</code>，后者相当于原版服务器，mod 不会生效。</p>
+<p>可以使用与官方服务器相同的参数来指定使用的内存大小。例如：<code>java -Xms1024M -Xmx1024M -jar server.jar</code></p>
+<h3 id="安装-Mod"><a href="#安装-Mod" class="headerlink" title="安装 Mod"></a>安装 Mod</h3><p>一些 mod 是要求在服务器上安装，另一些则是需要在本地客户端上安装，还有一些是两者都要。安装 mod 时需要看清 mod 本身的说明。</p>
+<p>服务端安装 mod，将 mod 的 jar 包直接放入游戏根目录的 <code>mods</code> 目录下，重启服务器即可。mod 本身可能会有设置，对应的配置文件在 <code>config</code> 目录中。</p>
+<p><img src="https://i.loli.net/2021/08/04/Gh38n2fHJq6d9OK.png" srcset="/img/loading.gif" lazyload alt="mods 和 config 目录示意图"></p>
+<p>目前我在服务端安装的 mod：（1.17.1 版本可用）</p>
+<ul>
+<li>Fabric API</li>
+<li>修改苦力怕爆炸的行为（environmentalcreepers）</li>
+<li>一键砍树（FallingTree）</li>
+<li>连锁挖矿（diggusmaximus）（客户端服务器都要装）</li>
+</ul>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><h3 id="安装-Fabric-客户端"><a href="#安装-Fabric-客户端" class="headerlink" title="安装 Fabric 客户端"></a>安装 Fabric 客户端</h3><p>在这里下载 Fabric Installer：<a target="_blank" rel="noopener" href="https://fabricmc.net/use/">Installation for: Minecraft Launcher</a></p>
+<p>对于我用的 Windows 系统，jar 包和 .exe 文件都可以，运行后按提示安装即可。最好使用默认目录，防止自己忘记。</p>
+<h3 id="安装-Mod-1"><a href="#安装-Mod-1" class="headerlink" title="安装 Mod"></a>安装 Mod</h3><p>直接将jar包放到这个目录中：<code>C:\Users\你的用户名\AppData\Roaming\.minecraft\mods</code></p>
+<p>目前我在客户端安装的 mod：（1.17.1 版本可用）</p>
+<ul>
+<li>Fabric API</li>
+<li>钓鱼自动收杆（Autofish）</li>
+<li>连锁挖矿（diggusmaximus）（客户端服务器都要装）</li>
+<li>小地图（voxel map）（非常好用！！）</li>
+<li>mod 管理菜单（mod menu）</li>
+</ul>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/archives/2021/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/2021/">1</a><a class="page-number" href="/archives/2021/page/2/#board">2</a><span class="page-number current">3</span>
-    </span>
-  </nav>
-
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/MineCraft/">MineCraft</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/leetcode/top-interview-questions-easy/valid-anagram/">
+                        <span class="hidden-mobile">有效字母异位词</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script>
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          Fluid.utils.createCssLink('https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css');
+          Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js', function() {
+            new DisqusJS({
+              shortname: 'leejw',
+              apikey: 'uwgYI8benoAzCV2xA5QFYUv30LJ13QrrQghMfixeBhBnK0XEph0iW7DSTRkHI4Lm'
+            });
+          });
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -335,9 +467,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
 
 
 

@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>玩 MineCraft 的 Fabric 服务器</title>
+    <link href="/essay/minecraft-fabric-server/"/>
+    <url>/essay/minecraft-fabric-server/</url>
+    
+    <content type="html"><![CDATA[<h1 id="玩-MineCraft-的-Fabric-服务器"><a href="#玩-MineCraft-的-Fabric-服务器" class="headerlink" title="玩 MineCraft 的 Fabric 服务器"></a>玩 MineCraft 的 Fabric 服务器</h1><p>MineCraft Java 版有两种常见的非官方服务器，Forge 和 Fabric，相当于是提供了官方接口之上再次的封装，让 mod 开发者更加方便编程。</p><p>网上有说法称 Fabric 服务器更小巧，且 Forge 已经比较老了，故最终选择了 Fabric。</p><h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><h3 id="安装-Fabric-服务器"><a href="#安装-Fabric-服务器" class="headerlink" title="安装 Fabric 服务器"></a>安装 Fabric 服务器</h3><p>可以完全参照 Fabric 官网的文档：<a href="https://fabricmc.net/wiki/player:tutorials:install_server">Installing a Fabric Server without a GUI</a>，按部就班即可。</p><p>注意，在按照文档的示例一通命名改名操作后，启动命令是<code>java -jar server.jar</code>，而非<code>java -jar vanilla.jar</code>，后者相当于原版服务器，mod 不会生效。</p><p>可以使用与官方服务器相同的参数来指定使用的内存大小。例如：<code>java -Xms1024M -Xmx1024M -jar server.jar</code></p><h3 id="安装-Mod"><a href="#安装-Mod" class="headerlink" title="安装 Mod"></a>安装 Mod</h3><p>一些 mod 是要求在服务器上安装，另一些则是需要在本地客户端上安装，还有一些是两者都要。安装 mod 时需要看清 mod 本身的说明。</p><p>服务端安装 mod，将 mod 的 jar 包直接放入游戏根目录的 <code>mods</code> 目录下，重启服务器即可。mod 本身可能会有设置，对应的配置文件在 <code>config</code> 目录中。</p><p><img src="https://i.loli.net/2021/08/04/Gh38n2fHJq6d9OK.png" alt="mods 和 config 目录示意图"></p><p>目前我在服务端安装的 mod：（1.17.1 版本可用）</p><ul><li>Fabric API</li><li>修改苦力怕爆炸的行为（environmentalcreepers）</li><li>一键砍树（FallingTree）</li><li>连锁挖矿（diggusmaximus）（客户端服务器都要装）</li></ul><h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><h3 id="安装-Fabric-客户端"><a href="#安装-Fabric-客户端" class="headerlink" title="安装 Fabric 客户端"></a>安装 Fabric 客户端</h3><p>在这里下载 Fabric Installer：<a href="https://fabricmc.net/use/">Installation for: Minecraft Launcher</a></p><p>对于我用的 Windows 系统，jar 包和 .exe 文件都可以，运行后按提示安装即可。最好使用默认目录，防止自己忘记。</p><h3 id="安装-Mod-1"><a href="#安装-Mod-1" class="headerlink" title="安装 Mod"></a>安装 Mod</h3><p>直接将jar包放到这个目录中：<code>C:\Users\你的用户名\AppData\Roaming\.minecraft\mods</code></p><p>目前我在客户端安装的 mod：（1.17.1 版本可用）</p><ul><li>Fabric API</li><li>钓鱼自动收杆（Autofish）</li><li>连锁挖矿（diggusmaximus）（客户端服务器都要装）</li><li>小地图（voxel map）（非常好用！！）</li><li>mod 管理菜单（mod menu）</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>随笔</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MineCraft</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>有效字母异位词</title>
     <link href="/leetcode/top-interview-questions-easy/valid-anagram/"/>
     <url>/leetcode/top-interview-questions-easy/valid-anagram/</url>
