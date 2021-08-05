@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>验证回文串</title>
+    <link href="/leetcode/top-interview-questions-easy/valid-palindrome/"/>
+    <url>/leetcode/top-interview-questions-easy/valid-palindrome/</url>
+    
+    <content type="html"><![CDATA[<h1 id="验证回文串"><a href="#验证回文串" class="headerlink" title="验证回文串"></a>验证回文串</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xne8id/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xne8id/</a></p><p><a href="https://leetcode-cn.com/problems/valid-palindrome/">https://leetcode-cn.com/problems/valid-palindrome/</a></p><h2 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h2><p>左右指针，移动到合法位置（只能是字母、数字）后比较字符是否相同。</p><p>时间复杂度：<code>O(n)</code></p><p>空间复杂度：<code>O(1)</code></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(string s)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>, r = s.<span class="hljs-built_in">length</span>() - <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (l &lt; r) &#123;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">isalnum</span>(s[l])) &#123;<br>            ++l;<br>            <span class="hljs-keyword">continue</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">isalnum</span>(s[r])) &#123;<br>            --r;<br>            <span class="hljs-keyword">continue</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">tolower</span>(s[l]) != <span class="hljs-built_in">tolower</span>(s[r])) <br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br><br>        ++l;<br>        --r;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="筛选-判断"><a href="#筛选-判断" class="headerlink" title="筛选 + 判断"></a>筛选 + 判断</h2><p>比较蠢的方法，就不谈了。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+      <category>字符串</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>字符串</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>玩 MineCraft 的 Fabric 服务器</title>
     <link href="/essay/minecraft-fabric-server/"/>
     <url>/essay/minecraft-fabric-server/</url>
