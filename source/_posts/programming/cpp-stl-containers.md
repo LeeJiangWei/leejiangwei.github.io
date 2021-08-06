@@ -44,8 +44,6 @@ vector<int> v;
 
 ## 关联容器 (associative containers)
 
-
-
 ### map
 
 #### 创建
@@ -67,13 +65,15 @@ map<string, int> map;
 
 #### 下标操作
 
-map（以及unordered_map）可以使用下标运算符，获取关键字对应的值。
+map（以及unordered_map）可以使用下标运算符，获取关键字对应的**值**。
 
 如果关键字不存在，会用这个关键字创建一个新的元素，并对关联的值初始化。因此不应该直接用下标操作来进行查找，应该使用`find()`。
 
 ```c++
 map["hello"] = 1;  // 会插入一个关键字为hello的元素，且值为1
 ```
+
+**注意**：map 的**下标操作**返回的是关键字对应的值，而**解引用 map 迭代器**返回的是一个 **`pair`** 对象。
 
 ## 无序关联容器 (unordered associative containers)
 
