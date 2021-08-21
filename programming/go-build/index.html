@@ -18,9 +18,25 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>归档 - Be Happy</title>
+  <title>Go build 命令用法 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -48,7 +64,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -154,14 +170,59 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/archive.jpg') no-repeat center center;
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="Go build 命令用法">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-21 22:20" pubdate>
+        2021年8月21日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      164 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      1
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
 
             
           </div>
@@ -174,100 +235,161 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 27 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/essay/deploy-minecraft-server/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">部署自己的 MineCraft 服务器</span>
-      <time style="float: right;">07-19</time>
-    </a>
-  
-    
-    <a href="/leetcode/top-interview-questions-easy/rotate-image/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">旋转图像</span>
-      <time style="float: right;">07-16</time>
-    </a>
-  
-    
-    <a href="/leetcode/top-interview-questions-easy/valid-sudoku/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">有效的数独</span>
-      <time style="float: right;">07-16</time>
-    </a>
-  
-    
-    <a href="/leetcode/top-interview-questions-easy/two-sum/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">两数之和</span>
-      <time style="float: right;">07-15</time>
-    </a>
-  
-    
-    <a href="/leetcode/top-interview-questions-easy/move-zeros/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">移动零</span>
-      <time style="float: right;">07-15</time>
-    </a>
-  
-    
-    <a href="/leetcode/top-interview-questions-easy/plus-one/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">加一</span>
-      <time style="float: right;">07-14</time>
-    </a>
-  
-    
-    <a href="/programming/cpp-stl-containers/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">C++常用标准库容器</span>
-      <time style="float: right;">07-14</time>
-    </a>
-  
-    
-    <a href="/programming/cpp-generic-algorithms/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">C++常用泛型算法</span>
-      <time style="float: right;">07-14</time>
-    </a>
-  
-    
-    <a href="/leetcode/top-interview-questions-easy/intersection-of-two-arrays-ii/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">两个数组的交集 II</span>
-      <time style="float: right;">07-14</time>
-    </a>
-  
-    
-    <a href="/leetcode/top-interview-questions-easy/single-number/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">只出现一次的数字</span>
-      <time style="float: right;">07-14</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Go build 命令用法</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Go-build-命令用法"><a href="#Go-build-命令用法" class="headerlink" title="Go build 命令用法"></a>Go build 命令用法</h1><h2 id="按文件打包"><a href="#按文件打包" class="headerlink" title="按文件打包"></a>按文件打包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">go build main.go utils.go<br></code></pre></td></tr></table></figure>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/archives/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/#board">3</a><a class="extend next" rel="next" href="/archives/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
+<h2 id="按包名打包"><a href="#按包名打包" class="headerlink" title="按包名打包"></a>按包名打包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">go build go-message-pusher<br></code></pre></td></tr></table></figure>
 
+<h2 id="打包到不同操作系统"><a href="#打包到不同操作系统" class="headerlink" title="打包到不同操作系统"></a>打包到不同操作系统</h2><p>设置两个环境变量：</p>
+<ul>
+<li><code>GOARCH</code> = amd64</li>
+<li><code>GOOS</code> = linux | windows</li>
+</ul>
+<h2 id="其他附加参数"><a href="#其他附加参数" class="headerlink" title="其他附加参数"></a>其他附加参数</h2><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-o</td>
+<td>指定编译输出的名称</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>安装作为目标依赖的包</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>编译时显示包名</td>
+</tr>
+<tr>
+<td>-p n</td>
+<td>开启并发编译，默认情况下该值为 CPU 逻辑核数</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>强制重新构建</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>打印编译时会用到的所有命令</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>打印编译时会用到的所有命令，但不真正执行</td>
+</tr>
+<tr>
+<td>-race</td>
+<td>开启竞态检测</td>
+</tr>
+</tbody></table>
+<h2 id="GoLand-中的设置示例"><a href="#GoLand-中的设置示例" class="headerlink" title="GoLand 中的设置示例"></a>GoLand 中的设置示例</h2><p><img src="https://i.loli.net/2021/08/21/peVkNE19O4GwClj.png" srcset="/img/loading.gif" lazyload></p>
 
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/">Go</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Go/">Go</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/leetcode/top-interview-questions-easy/string-to-integer-atoi/">
+                        <span class="hidden-mobile">字符串转换整数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script>
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          Fluid.utils.createCssLink('https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css');
+          Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js', function() {
+            new DisqusJS({
+              shortname: 'leejw',
+              apikey: 'uwgYI8benoAzCV2xA5QFYUv30LJ13QrrQghMfixeBhBnK0XEph0iW7DSTRkHI4Lm'
+            });
+          });
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -371,9 +493,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
 
 
 

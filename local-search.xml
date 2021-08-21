@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Go build 命令用法</title>
+    <link href="/programming/go-build/"/>
+    <url>/programming/go-build/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Go-build-命令用法"><a href="#Go-build-命令用法" class="headerlink" title="Go build 命令用法"></a>Go build 命令用法</h1><h2 id="按文件打包"><a href="#按文件打包" class="headerlink" title="按文件打包"></a>按文件打包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">go build main.go utils.go<br></code></pre></td></tr></table></figure><h2 id="按包名打包"><a href="#按包名打包" class="headerlink" title="按包名打包"></a>按包名打包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">go build go-message-pusher<br></code></pre></td></tr></table></figure><h2 id="打包到不同操作系统"><a href="#打包到不同操作系统" class="headerlink" title="打包到不同操作系统"></a>打包到不同操作系统</h2><p>设置两个环境变量：</p><ul><li><code>GOARCH</code> = amd64</li><li><code>GOOS</code> = linux | windows</li></ul><h2 id="其他附加参数"><a href="#其他附加参数" class="headerlink" title="其他附加参数"></a>其他附加参数</h2><table><thead><tr><th>参数</th><th>备注</th></tr></thead><tbody><tr><td>-o</td><td>指定编译输出的名称</td></tr><tr><td>-i</td><td>安装作为目标依赖的包</td></tr><tr><td>-v</td><td>编译时显示包名</td></tr><tr><td>-p n</td><td>开启并发编译，默认情况下该值为 CPU 逻辑核数</td></tr><tr><td>-a</td><td>强制重新构建</td></tr><tr><td>-x</td><td>打印编译时会用到的所有命令</td></tr><tr><td>-n</td><td>打印编译时会用到的所有命令，但不真正执行</td></tr><tr><td>-race</td><td>开启竞态检测</td></tr></tbody></table><h2 id="GoLand-中的设置示例"><a href="#GoLand-中的设置示例" class="headerlink" title="GoLand 中的设置示例"></a>GoLand 中的设置示例</h2><p><img src="https://i.loli.net/2021/08/21/peVkNE19O4GwClj.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+      <category>Go</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>字符串转换整数</title>
     <link href="/leetcode/top-interview-questions-easy/string-to-integer-atoi/"/>
     <url>/leetcode/top-interview-questions-easy/string-to-integer-atoi/</url>
