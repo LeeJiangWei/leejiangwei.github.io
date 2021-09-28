@@ -338,7 +338,11 @@
 <td>根据指定的字段排序文档</td>
 </tr>
 </tbody></table>
-<p>具体见：<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/aggregation-pipeline/">https://docs.mongodb.com/manual/core/aggregation-pipeline/</a></p>
+<p>具体见：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/aggregation-pipeline/">https://docs.mongodb.com/manual/core/aggregation-pipeline/</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/meta/aggregation-quick-reference/">https://docs.mongodb.com/manual/meta/aggregation-quick-reference/</a></li>
+</ul>
 <h4 id="关联查询-lookup"><a href="#关联查询-lookup" class="headerlink" title="关联查询 $lookup"></a>关联查询 <code>$lookup</code></h4><p>语法：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-string">&quot;$lookup&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;from&quot;</span>: <span class="hljs-string">&quot;candidate&quot;</span>,<br>    <span class="hljs-attr">&quot;localField&quot;</span>: <span class="hljs-string">&quot;candidate_ids&quot;</span>,<br>    <span class="hljs-attr">&quot;foreignField&quot;</span>: <span class="hljs-string">&quot;_id&quot;</span>,<br>    <span class="hljs-attr">&quot;as&quot;</span>: <span class="hljs-string">&quot;candidates&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
