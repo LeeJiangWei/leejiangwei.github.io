@@ -127,7 +127,9 @@ pipeline = [
 | $group   | 根据 key 分组文档          |
 | $sort    | 根据指定的字段排序文档     |
 
-具体见：https://docs.mongodb.com/manual/core/aggregation-pipeline/
+具体见：
++ https://docs.mongodb.com/manual/core/aggregation-pipeline/
++ https://docs.mongodb.com/manual/meta/aggregation-quick-reference/
 
 #### 关联查询 `$lookup`
 
