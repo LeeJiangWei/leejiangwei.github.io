@@ -28,4 +28,5 @@ sticky: -100
 | 10/09 | SimCSE: Simple Contrastive Learning of Sentence Embeddings   | SimCSE    |
 | 10/10 | Structural Pre-training for Dialogue Comprehension           | SPIDER    |
 | 10/11 | What Makes for Good Views for Contrastive Learning?          |           |
+| 10/21 | ConSERT: A Contrastive Framework for Self-Supervised Sentence Representation Transfer | ConSERT   |
 
