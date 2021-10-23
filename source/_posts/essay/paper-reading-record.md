@@ -29,4 +29,5 @@ sticky: -100
 | 10/10 | Structural Pre-training for Dialogue Comprehension           | SPIDER    |
 | 10/11 | What Makes for Good Views for Contrastive Learning?          |           |
 | 10/21 | ConSERT: A Contrastive Framework for Self-Supervised Sentence Representation Transfer | ConSERT   |
+| 10/23 | Fine-grained Post-training for Improving Retrieval-based Dialogue Systems | BERT-FP   |
 
