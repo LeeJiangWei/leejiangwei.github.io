@@ -31,4 +31,5 @@ sticky: -100
 | 10/21 | ConSERT: A Contrastive Framework for Self-Supervised Sentence Representation Transfer | ConSERT   |
 | 10/23 | Fine-grained Post-training for Improving Retrieval-based Dialogue Systems | BERT-FP   |
 | 10/26 | SEMANTIC RE-TUNING WITH CONTRASTIVE TENSION                  | CT        |
+| 10/27 | PRE-TRAINING TASKS FOR EMBEDDING-BASED LARGE-SCALE RETRIEVAL |           |
 
