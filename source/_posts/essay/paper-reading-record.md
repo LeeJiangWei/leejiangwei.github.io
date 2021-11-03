@@ -8,6 +8,8 @@ sticky: -100
 
 # 每日阅读论文记录
 
+## 9 月
+
 | 日期  | 标题                                                         | 备注      |
 | ----- | ------------------------------------------------------------ | --------- |
 | 09/15 | A Short Review: Deep Retrieval-Based Dialogue Systems        |           |
@@ -21,6 +23,11 @@ sticky: -100
 | 09/27 | An Effective Domain Adaptive Post-Training Method for BERT in Response Selection | BERT-VFT  |
 | 09/28 | Sequential Matching Network: A New Architecture for Multi-turn Response Selection in Retrieval-Based Chatbots | SMN       |
 | 09/29 | APPLYING DEEP LEARNING TO ANSWER SELECTION: A STUDY AND AN OPEN TASK | Siam-CNN  |
+
+## 10 月
+
+| 日期  | 标题                                                         | 备注      |
+| ----- | ------------------------------------------------------------ | --------- |
 | 10/06 | Learning an Effective Context-Response Matching Model with Self-Supervised Tasks for Retrieval-based Dialogues | BERT-SL   |
 | 10/07 | Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing |           |
 | 10/08 | Exploiting Cloze Questions for Few Shot Text Classification and Natural Language Inference | PET       |
@@ -32,4 +39,10 @@ sticky: -100
 | 10/23 | Fine-grained Post-training for Improving Retrieval-based Dialogue Systems | BERT-FP   |
 | 10/26 | SEMANTIC RE-TUNING WITH CONTRASTIVE TENSION                  | CT        |
 | 10/27 | PRE-TRAINING TASKS FOR EMBEDDING-BASED LARGE-SCALE RETRIEVAL |           |
+
+## 11 月
+
+| 日期  | 标题                                                         | 备注      |
+| ----- | ------------------------------------------------------------ | --------- |
+| 11/3  | Building an Efficient and Effective Retrieval-based Dialogue System | BE/CE     |
 
