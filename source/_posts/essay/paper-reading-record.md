@@ -49,7 +49,8 @@ sticky: -100
 ## 12 月
 
 才发现自己已经摆烂一个多月了。接下来重点放在代码实现上，读完论文一定要看代码。
+
 | 日期 | 标题                                                         | 备注        |
 | ---- | ------------------------------------------------------------ | ----------- |
-| 12/6 | P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and Tasks | P-Tuning v2 |
+| 12/6 | Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and Tasks | P-Tuning v2 |
 

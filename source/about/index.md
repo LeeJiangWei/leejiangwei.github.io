@@ -8,7 +8,7 @@ layout: about
 这个人很懒，什么都没有留下。
 
 ### 喜欢的事物
-睡觉，动漫，YOASOBI，明日方舟，最终幻想14
+睡觉，动漫，YOASOBI，~~明日方舟~~ 原神，最终幻想14
 
 # 关于博客
 是使用了 [Fluid](https://github.com/fluid-dev/hexo-theme-fluid) 主题的 [Hexo](https://github.com/hexojs/hexo) 博客，感觉还挺好看的。
