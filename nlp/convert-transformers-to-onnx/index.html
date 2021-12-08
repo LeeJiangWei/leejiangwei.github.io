@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>对 HuggingFace Transformers 模型进行后训练 - Be Happy</title>
+  <title>将 transformers 模型转换为 ONNX 格式 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="对 HuggingFace Transformers 模型进行后训练">
+            <span class="h2" id="subtitle" title="将 transformers 模型转换为 ONNX 格式">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-12-07 18:46" pubdate>
-        2021年12月7日 晚上
+      <time datetime="2021-12-08 15:29" pubdate>
+        2021年12月8日 下午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      468 字
+      442 字
     </span>
   
 
@@ -245,39 +245,31 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">对 HuggingFace Transformers 模型进行后训练</h1>
+            <h1 style="display: none">将 transformers 模型转换为 ONNX 格式</h1>
             
             <div class="markdown-body">
-              <h1 id="对-HuggingFace-Transformers-模型进行预训练-post-train-further-pretrain"><a href="#对-HuggingFace-Transformers-模型进行预训练-post-train-further-pretrain" class="headerlink" title="对 HuggingFace Transformers 模型进行预训练 (post-train / further pretrain)"></a>对 HuggingFace Transformers 模型进行预训练 (post-train / further pretrain)</h1><p>这几天需要对 BERT 进行进一步的预训练，而且是 MLM 和 NSP 两个任务一起。但是 transformers 官方只提供了 MLM 任务的训练例子。（可能是因为 RoBERTa 原论文中认为 NSP 任务没用）</p>
-<p>后来终于在 stackoverflow 上找到了<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/65646925/how-to-train-bert-from-scratch-on-a-new-domain-for-both-mlm-and-nsp">解决方法</a>。在自己的数据集上试验有效后记录于此。</p>
-<h2 id="产生任务对应的标注数据"><a href="#产生任务对应的标注数据" class="headerlink" title="产生任务对应的标注数据"></a>产生任务对应的标注数据</h2><h3 id="使用-TextDatasetForNextSentencePrediction-构造-NSP-任务-Dataset"><a href="#使用-TextDatasetForNextSentencePrediction-构造-NSP-任务-Dataset" class="headerlink" title="使用 TextDatasetForNextSentencePrediction 构造 NSP 任务 Dataset"></a>使用 <code>TextDatasetForNextSentencePrediction</code> 构造 NSP 任务 Dataset</h3><p>文档：官方文档没写，需要阅读<a target="_blank" rel="noopener" href="https://github.com/huggingface/transformers/blob/9f72e8f4e1e767c5f608dd135199e592255b8a69/src/transformers/data/datasets/language_modeling.py">源代码</a>。</p>
-<p>数据格式：一行一句话，不同的文档之间空一行。</p>
-<blockquote>
-<ol>
-<li>One sentence per line. These should ideally be actual sentences, not entire paragraphs or arbitrary spans of text. (Because we use the sentence boundaries for the “next sentence prediction” task).</li>
-<li>Blank lines between documents. Document boundaries are needed so that the “next sentence prediction” task doesn’t span between documents.</li>
-</ol>
-</blockquote>
-<p>输入例子：</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs tex">I am very happy.<br>Here is the second sentence.<br><br>A new document.<br></code></pre></td></tr></table></figure>
+              <h1 id="将-transformers-模型转换为-ONNX-格式"><a href="#将-transformers-模型转换为-ONNX-格式" class="headerlink" title="将 transformers 模型转换为 ONNX 格式"></a>将 transformers 模型转换为 ONNX 格式</h1><p>然后就可以优化模型，加速推理了。这里以 BERT 为例。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>torch == 1.8.0</p>
+<p>transformers == 4.12.5</p>
+<p>onnx == 1.10.2</p>
+<p>onnxruntime == 1.10.0</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="转换-ONNX-文件"><a href="#转换-ONNX-文件" class="headerlink" title="转换 ONNX 文件"></a>转换 ONNX 文件</h3><p>运行 transformers 官方提供的脚本 <a target="_blank" rel="noopener" href="https://github.com/huggingface/transformers/blob/master/src/transformers/convert_graph_to_onnx.py">convert_graph_to_onnx.py</a> ，直接得到转换好格式的 ONNX 模型。（或者直接 import 进来，调用里面的 convert() 方法。）</p>
+<p>注意 pipeline 要跟自己的模型任务对应上，否则无法正常工作。例如这里我用的是 <code>BertForSequenceClassification</code> ，pipeline 就选 <code>sentiment-analysis</code> （等价于 <code>TextClassificationPipeline</code>）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">python -m transformers.convert_graph_to_onnx --pipeline sentiment-analysis --model &quot;./models/chinese-bert-wwm-ext_2021-12-06_11-33-24&quot; --framework pt &quot;./models/onnx/chinese-bert-wwm-ext/model.onnx&quot;<br></code></pre></td></tr></table></figure>
 
-<h3 id="使用-DataCollatorForLanguageModeling-对数据进行-MLM-标注"><a href="#使用-DataCollatorForLanguageModeling-对数据进行-MLM-标注" class="headerlink" title="使用 DataCollatorForLanguageModeling 对数据进行 MLM 标注"></a>使用 <code>DataCollatorForLanguageModeling</code> 对数据进行 MLM 标注</h3><p>文档：<a target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/main_classes/data_collator#transformers.DataCollatorForLanguageModeling">DataCollatorForLanguageModeling</a></p>
-<p>注：无法使用 WWM （<a target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/main_classes/data_collator#transformers.DataCollatorForWholeWordMask">DataCollatorForWholeWordMask</a>），因为它的实现中会丢弃掉 NSP Dataset 返回的一些值，只保留了 <code>input_ids</code> 和 <code>labels</code> 。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>模型（使用专门的 <a target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/master/en/model_doc/bert#transformers.BertForPreTraining">BertForPreTraining</a> 预训练类）、分词器定义</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers.models.bert <span class="hljs-keyword">import</span> BertTokenizerFast, BertForPreTraining<br><br>tokenizer = BertTokenizerFast.from_pretrained(model_name)<br>model = BertForPreTraining.from_pretrained(model_name)<br></code></pre></td></tr></table></figure>
+<p>注意模型转换时控制台的打印信息，确定模型的输入输出跟原来的 forward() 函数一致。<code>--model</code> 参数就是用 save_pretrained() 方法保存的模型。我的目录结构如下：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs 1c">models<br>	<span class="hljs-string">| chinese-bert-wwm-ext_2021-12-06_11-33-24</span><br>		<span class="hljs-string">| added_tokens.json</span><br>		<span class="hljs-string">| config.json</span><br>		<span class="hljs-string">| pytorch_model.bin</span><br>		<span class="hljs-string">| tokenizer.json</span><br>		<span class="hljs-string">| tokenizer_config.json</span><br>		<span class="hljs-string">| special_tokens_map.json</span><br>		<span class="hljs-string">| vocab.txt</span><br>	<span class="hljs-string">| onnx</span><br>		<span class="hljs-string">| chinese-bert-wwm-ext</span><br>			<span class="hljs-string">| model.onnx</span><br></code></pre></td></tr></table></figure>
 
-<p>给分词器加入新的 token 并 resize 词表</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">tokenizer.add_tokens([<span class="hljs-string">&quot;[name]&quot;</span>, <span class="hljs-string">&quot;[gender]&quot;</span>])<br>tokenizer.add_special_tokens(&#123;<span class="hljs-string">&quot;eos_token&quot;</span>: <span class="hljs-string">&quot;[EOT]&quot;</span>&#125;)<br>model.resize_token_embeddings(<span class="hljs-built_in">len</span>(tokenizer))<br></code></pre></td></tr></table></figure>
+<h3 id="利用-onnx-session-进行推理"><a href="#利用-onnx-session-进行推理" class="headerlink" title="利用 onnx session 进行推理"></a>利用 onnx session 进行推理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> onnxruntime <span class="hljs-keyword">as</span> ort<br><span class="hljs-keyword">from</span> transformers.models.bert <span class="hljs-keyword">import</span> BertTokenizerFast<br><br>model_path = <span class="hljs-string">&quot;./models/chinese-bert-wwm-ext_2021-12-06_11-33-24&quot;</span><br>onnx_path = <span class="hljs-string">&quot;./models/onnx/chinese-bert-wwm-ext/model.onnx&quot;</span><br>tokenizer = BertTokenizerFast.from_pretrained(model_path)<br><br>ort_session = ort.InferenceSession(onnx_path)<br><br>inputs = tokenizer([<span class="hljs-string">&quot;hello&quot;</span>], [<span class="hljs-string">&quot;motherfucker&quot;</span>])<br>outputs = ort_session.run(<span class="hljs-literal">None</span>, <span class="hljs-built_in">dict</span>(inputs))<br><br><span class="hljs-comment"># outputs: [array([[ 3.5934877, -3.5006552]], dtype=float32)]</span><br></code></pre></td></tr></table></figure>
 
-<p>定义 dataset 和 collator。dataset 返回的样本会以字典形式传入到模型的 <code>__call__()</code> 方法（forward）中，因此需要检查是否构建了正确的数据集。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers.data <span class="hljs-keyword">import</span> DataCollatorForLanguageModeling<br><span class="hljs-keyword">from</span> transformers.data.datasets <span class="hljs-keyword">import</span> TextDatasetForNextSentencePrediction<br><br>dataset = TextDatasetForNextSentencePrediction(tokenizer, <span class="hljs-string">&quot;./dataset_v2/pretrain.txt&quot;</span>, block_size=<span class="hljs-number">256</span>)<br>collator = DataCollatorForLanguageModeling(tokenizer, mlm=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+<p>run() 方法中需要传入对应名字的参数。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>pipeline 有哪些：<a target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/master/en/main_classes/pipelines#pipelines">Pipelines</a> </p>
+<p>哪些 pipeline 可以直接用官方脚本转换（直接看 help 信息）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">SUPPORTED_PIPELINES = [<br>    <span class="hljs-string">&quot;feature-extraction&quot;</span>,<br>    <span class="hljs-string">&quot;ner&quot;</span>,<br>    <span class="hljs-string">&quot;sentiment-analysis&quot;</span>,<br>    <span class="hljs-string">&quot;fill-mask&quot;</span>,<br>    <span class="hljs-string">&quot;question-answering&quot;</span>,<br>    <span class="hljs-string">&quot;text-generation&quot;</span>,<br>    <span class="hljs-string">&quot;translation_en_to_fr&quot;</span>,<br>    <span class="hljs-string">&quot;translation_en_to_de&quot;</span>,<br>    <span class="hljs-string">&quot;translation_en_to_ro&quot;</span>,<br>]<br></code></pre></td></tr></table></figure>
 
-<p>定义 <a target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/master/en/main_classes/trainer#transformers.TrainingArguments">TrainingArgument</a> 以及 <a target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/master/en/main_classes/trainer#transformers.Trainer">Trainer</a> </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers.trainer <span class="hljs-keyword">import</span> TrainingArguments, Trainer<br><br>training_args = TrainingArguments(<br>    output_dir=out_dir,<br>    overwrite_output_dir=<span class="hljs-literal">True</span>,<br>    num_train_epochs=num_epochs,<br>    per_device_train_batch_size=<span class="hljs-number">64</span>,<br>    save_strategy=<span class="hljs-string">&quot;epoch&quot;</span><br>)<br><br>trainer = Trainer(<br>    model=model,<br>    args=training_args,<br>    data_collator=collator,<br>    train_dataset=dataset<br>)<br>trainer.train()<br></code></pre></td></tr></table></figure>
-
-<p>最后保存模型以及分词器就完成了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">tokenizer.save_pretrained(out_dir)<br>trainer.save_model()<br></code></pre></td></tr></table></figure>
-
+<p>transformers 官方文档：<a target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/master/en/serialization#exporting-transformers-models">Exporting transformers models</a></p>
+<p>官方博客：<a target="_blank" rel="noopener" href="https://medium.com/microsoftazure/accelerate-your-nlp-pipelines-using-hugging-face-transformers-and-onnx-runtime-2443578f4333">Accelerate your NLP pipelines using Hugging Face Transformers and ONNX Runtime</a></p>
+<p>一个也许有用的 GitHub issue：<a target="_blank" rel="noopener" href="https://github.com/huggingface/transformers/issues/4825">Onnx converted model has its output shape modified when compared to original (finetuned) model</a></p>
 
             </div>
             <hr>
@@ -310,18 +302,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/nlp/convert-transformers-to-onnx/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">将 transformers 模型转换为 ONNX 格式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/essay/paper-reading-record/">
-                        <span class="hidden-mobile">每日阅读论文记录</span>
+                      <a href="/nlp/postrain_transformers/">
+                        <span class="hidden-mobile">对 HuggingFace Transformers 模型进行后训练</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

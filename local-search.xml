@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>将 transformers 模型转换为 ONNX 格式</title>
+    <link href="/nlp/convert-transformers-to-onnx/"/>
+    <url>/nlp/convert-transformers-to-onnx/</url>
+    
+    <content type="html"><![CDATA[<h1 id="将-transformers-模型转换为-ONNX-格式"><a href="#将-transformers-模型转换为-ONNX-格式" class="headerlink" title="将 transformers 模型转换为 ONNX 格式"></a>将 transformers 模型转换为 ONNX 格式</h1><p>然后就可以优化模型，加速推理了。这里以 BERT 为例。</p><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>torch == 1.8.0</p><p>transformers == 4.12.5</p><p>onnx == 1.10.2</p><p>onnxruntime == 1.10.0</p><h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="转换-ONNX-文件"><a href="#转换-ONNX-文件" class="headerlink" title="转换 ONNX 文件"></a>转换 ONNX 文件</h3><p>运行 transformers 官方提供的脚本 <a href="https://github.com/huggingface/transformers/blob/master/src/transformers/convert_graph_to_onnx.py">convert_graph_to_onnx.py</a> ，直接得到转换好格式的 ONNX 模型。（或者直接 import 进来，调用里面的 convert() 方法。）</p><p>注意 pipeline 要跟自己的模型任务对应上，否则无法正常工作。例如这里我用的是 <code>BertForSequenceClassification</code> ，pipeline 就选 <code>sentiment-analysis</code> （等价于 <code>TextClassificationPipeline</code>）</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">python -m transformers.convert_graph_to_onnx --pipeline sentiment-analysis --model &quot;./models/chinese-bert-wwm-ext_2021-12-06_11-33-24&quot; --framework pt &quot;./models/onnx/chinese-bert-wwm-ext/model.onnx&quot;<br></code></pre></td></tr></table></figure><p>注意模型转换时控制台的打印信息，确定模型的输入输出跟原来的 forward() 函数一致。<code>--model</code> 参数就是用 save_pretrained() 方法保存的模型。我的目录结构如下：</p><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs 1c">models<br><span class="hljs-string">| chinese-bert-wwm-ext_2021-12-06_11-33-24</span><br><span class="hljs-string">| added_tokens.json</span><br><span class="hljs-string">| config.json</span><br><span class="hljs-string">| pytorch_model.bin</span><br><span class="hljs-string">| tokenizer.json</span><br><span class="hljs-string">| tokenizer_config.json</span><br><span class="hljs-string">| special_tokens_map.json</span><br><span class="hljs-string">| vocab.txt</span><br><span class="hljs-string">| onnx</span><br><span class="hljs-string">| chinese-bert-wwm-ext</span><br><span class="hljs-string">| model.onnx</span><br></code></pre></td></tr></table></figure><h3 id="利用-onnx-session-进行推理"><a href="#利用-onnx-session-进行推理" class="headerlink" title="利用 onnx session 进行推理"></a>利用 onnx session 进行推理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> onnxruntime <span class="hljs-keyword">as</span> ort<br><span class="hljs-keyword">from</span> transformers.models.bert <span class="hljs-keyword">import</span> BertTokenizerFast<br><br>model_path = <span class="hljs-string">&quot;./models/chinese-bert-wwm-ext_2021-12-06_11-33-24&quot;</span><br>onnx_path = <span class="hljs-string">&quot;./models/onnx/chinese-bert-wwm-ext/model.onnx&quot;</span><br>tokenizer = BertTokenizerFast.from_pretrained(model_path)<br><br>ort_session = ort.InferenceSession(onnx_path)<br><br>inputs = tokenizer([<span class="hljs-string">&quot;hello&quot;</span>], [<span class="hljs-string">&quot;motherfucker&quot;</span>])<br>outputs = ort_session.run(<span class="hljs-literal">None</span>, <span class="hljs-built_in">dict</span>(inputs))<br><br><span class="hljs-comment"># outputs: [array([[ 3.5934877, -3.5006552]], dtype=float32)]</span><br></code></pre></td></tr></table></figure><p>run() 方法中需要传入对应名字的参数。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>pipeline 有哪些：<a href="https://huggingface.co/docs/transformers/master/en/main_classes/pipelines#pipelines">Pipelines</a> </p><p>哪些 pipeline 可以直接用官方脚本转换（直接看 help 信息）：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">SUPPORTED_PIPELINES = [<br>    <span class="hljs-string">&quot;feature-extraction&quot;</span>,<br>    <span class="hljs-string">&quot;ner&quot;</span>,<br>    <span class="hljs-string">&quot;sentiment-analysis&quot;</span>,<br>    <span class="hljs-string">&quot;fill-mask&quot;</span>,<br>    <span class="hljs-string">&quot;question-answering&quot;</span>,<br>    <span class="hljs-string">&quot;text-generation&quot;</span>,<br>    <span class="hljs-string">&quot;translation_en_to_fr&quot;</span>,<br>    <span class="hljs-string">&quot;translation_en_to_de&quot;</span>,<br>    <span class="hljs-string">&quot;translation_en_to_ro&quot;</span>,<br>]<br></code></pre></td></tr></table></figure><p>transformers 官方文档：<a href="https://huggingface.co/docs/transformers/master/en/serialization#exporting-transformers-models">Exporting transformers models</a></p><p>官方博客：<a href="https://medium.com/microsoftazure/accelerate-your-nlp-pipelines-using-hugging-face-transformers-and-onnx-runtime-2443578f4333">Accelerate your NLP pipelines using Hugging Face Transformers and ONNX Runtime</a></p><p>一个也许有用的 GitHub issue：<a href="https://github.com/huggingface/transformers/issues/4825">Onnx converted model has its output shape modified when compared to original (finetuned) model</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>NLP</category>
+      
+      <category>transformers</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>transformers</tag>
+      
+      <tag>pytorch</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>对 HuggingFace Transformers 模型进行后训练</title>
     <link href="/nlp/postrain_transformers/"/>
     <url>/nlp/postrain_transformers/</url>
