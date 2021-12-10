@@ -1,5 +1,5 @@
 ---
-title: 将 transformers 模型转换为 ONNX 格式
+title: 将 transformers 模型转换为 ONNX 格式并用 TensorRT 加速
 date: 2021-12-08 15:29:04
 categories:
 - NLP
