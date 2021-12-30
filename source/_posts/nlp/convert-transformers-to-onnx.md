@@ -72,14 +72,16 @@ ONNX 本身也会加速推理，但是可以利用 TensorRT 进一步加速 GPU 
 
 去英伟达官网 [NVIDIA TensorRT](https://developer.nvidia.com/zh-cn/tensorrt) 下载 TensorRT。
 
-**重要**：TensorRT 版本要和 CUDA、cudnn、onnx runtime 的版本都对应上，见 [Requirements](https://onnxruntime.ai/docs/execution-providers/TensorRT-ExecutionProvider.html#requirements) 。一个版本号会有两种版本，EA (early access) 和 GA (general availability)，选 GA 就好。这里我的版本是 8.0 GA Update 1，这个版本似乎正好还有专门为 transformers 模型的优化。
+**重要**：TensorRT 版本要和 CUDA、cuBLAS、cuDNN、onnx runtime 的版本都对应上，见 [Requirements](https://onnxruntime.ai/docs/execution-providers/TensorRT-ExecutionProvider.html#requirements) 。一个版本号会有两种版本，EA (early access) 和 GA (general availability)，选 GA 就好。
 
 > Ensure that you have the following dependencies installed.
 >
 > - [CUDA 10.2](https://docs.nvidia.com/cuda/archive/10.2/index.html), [11.0 update 1](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#cuda-whats-new-11Upd1), [11.1 update 1](https://developer.nvidia.com/cuda-toolkit-archive), [11.2 update 2](https://developer.nvidia.com/cuda-toolkit-archive), [11.3 update 1](https://developer.nvidia.com/cuda-toolkit-archive), or [11.4 update 2](https://developer.nvidia.com/cuda-toolkit-archive)
 > - [cuDNN 8.2.1](https://docs.nvidia.com/deeplearning/cudnn/release-notes/rel_8.html#rel-821)
 
-Windows 平台下载下来的是一个 zip 文件，安装说明见 [4.7. Zip File Installation](https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html#installing-zip) 。实际就是把 lib 目录下的一堆 dll 文件扔进 CUDA 的 bin 目录下，然后 pip install 几个本地的包。安装完成后尝试 import tensorrt 验证一下是否安装成功。（官方说是用 visual studio 编译几个示例项目）
+### Windows
+
+这里我的版本是 8.2 GA。Windows 平台下载下来的是一个 zip 文件，安装说明见 [4.7. Zip File Installation](https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html#installing-zip) 。实际就是把 lib 目录下的一堆 dll 文件扔进 CUDA 的 bin 目录下，然后 pip install 几个本地的包。安装完成后尝试 import tensorrt 验证一下是否安装成功。（官方说是用 visual studio 编译几个示例项目）
 
 ## 在 GPU 上进行推理
 
@@ -114,7 +116,15 @@ outputs = ort_session.run(None, dict(inputs))
 2021-12-10 15:13:50.2080023 [W:onnxruntime:Default, tensorrt_execution_provider.h:53 onnxruntime::TensorrtLogger::log] [2021-12-10 07:13:50 WARNING] TensorRT was linked against cuDNN 8.2.1 but loaded cuDNN 8.0.5
 ```
 
-只要不报错误，无视即可，实际上不影响性能。
+只要不报错误，无视即可，实际上不影响性能（大概）。
+
+报了 3 个错误：
+
+1. ONNX 模型由 INT64 生成
+2. cuBLAS 版本不对
+3. cuDNN 版本不对
+
+第 2，3 点原因应该是是跟 pytorch 共用了一个 conda 环境，而 pytorch 本身硬编码了 cudnn 的链接，所以导致 cuda 和 cudnn 版本不符合。建议创建一个推理专用环境，跟 torch 的环境分开。可以在 [archieve](https://docs.nvidia.com/cuda/archive) 的 release note 中查看不同 cuda 版本的子组件版本，例如：[1.1. CUDA Toolkit Major Component Versions](https://docs.nvidia.com/cuda/archive/11.3.1/cuda-toolkit-release-notes/index.html#cuda-major-component-versions) 中的 cuBLAS 版本就是 11.5.1.109，可以根据这个选择合适的 TensorRT 版本。
 
 ### TensorRT 加载、推理速度比 CPU 还慢
 
