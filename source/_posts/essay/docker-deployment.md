@@ -1,11 +1,10 @@
 ---
 title: Docker 部署 pytorch 应用
 date: 2021-12-29 19:45:51
-excerpt:
 categories:
-tags:
-index_img:
-banner_img:
+- 随笔
+index_img: /img/about/avatar.jpg
+banner_img: /img/default.jpg
 ---
 
 # Docker 部署 pytorch 应用 (GPU)
