@@ -4,7 +4,7 @@ date: {{ date }}
 categories:
 - LeetCode
 tags:
-- C++
+- Go
 index_img: /img/code.jpg
 sticky: -10
 ---
