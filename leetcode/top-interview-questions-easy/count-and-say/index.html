@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>Docker 部署 pytorch 应用 - Be Happy</title>
+  <title>外观数列 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -170,12 +170,12 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.jpg') no-repeat center center;
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Docker 部署 pytorch 应用">
+            <span class="h2" id="subtitle" title="外观数列">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-12-29 19:45" pubdate>
-        2021年12月29日 晚上
+      <time datetime="2022-01-04 21:01" pubdate>
+        2022年1月4日 晚上
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      261 字
+      185 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      2
        分钟
     </span>
   
@@ -245,33 +245,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Docker 部署 pytorch 应用</h1>
+            <h1 style="display: none">外观数列</h1>
             
             <div class="markdown-body">
-              <h1 id="Docker-部署-pytorch-应用-GPU"><a href="#Docker-部署-pytorch-应用-GPU" class="headerlink" title="Docker 部署 pytorch 应用 (GPU)"></a>Docker 部署 pytorch 应用 (GPU)</h1><h2 id="拉取-python-3-8-镜像"><a href="#拉取-python-3-8-镜像" class="headerlink" title="拉取 python 3.8 镜像"></a>拉取 python 3.8 镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull python:3.8.12<br></code></pre></td></tr></table></figure>
+              <h1 id="外观数列"><a href="#外观数列" class="headerlink" title="外观数列"></a>外观数列</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnpvdm/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnpvdm/</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-and-say/">https://leetcode-cn.com/problems/count-and-say/</a></p>
+<p>顺带一提，从今天开始用 Golang 刷题，以便掌握算法的同时熟悉语言特性。</p>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">countAndSay</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">string</span></span> &#123;<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;1&quot;</span><br>    &#125;<br><br>    str := countAndSay(n - <span class="hljs-number">1</span>)<br><br>    <span class="hljs-keyword">var</span> sb strings.Builder<br>    <br>    <span class="hljs-keyword">for</span> start, end := <span class="hljs-number">0</span>, <span class="hljs-number">0</span>; start &lt; <span class="hljs-built_in">len</span>(str); start = end &#123;<br>        <span class="hljs-keyword">for</span> end &lt; <span class="hljs-built_in">len</span>(str) &amp;&amp; str[end] == str[start] &#123;<br>            end++<br>        &#125;<br>        sb.WriteString(strconv.Itoa(end - start))<br>        sb.WriteByte(str[start])<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> sb.String()<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>buster, bullseye 等的区别：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/52083380/in-docker-image-names-what-is-the-difference-between-alpine-jessie-stretch-an">In Docker image names what is the difference between Alpine, Jessie, Stretch, and Buster?</a></p>
-<h2 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h2><h3 id="编写-Dockerfile"><a href="#编写-Dockerfile" class="headerlink" title="编写  Dockerfile"></a>编写  Dockerfile</h3><p>RUN 命令可以根据情况随意更改，这里是安装 GPU 版的 pytorch 以及其他 python 依赖。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> python:<span class="hljs-number">3.8</span>.<span class="hljs-number">12</span><br><br><span class="hljs-keyword">WORKDIR</span><span class="bash"> /app</span><br><br><span class="hljs-keyword">ADD</span><span class="bash"> . /app</span><br><br><span class="hljs-keyword">RUN</span><span class="bash"> git reset HEAD --hard</span><br><br><span class="hljs-keyword">RUN</span><span class="bash"> pip config <span class="hljs-built_in">set</span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="hljs-keyword">RUN</span><span class="bash"> pip install torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio===0.10.1+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html</span><br><span class="hljs-keyword">RUN</span><span class="bash"> pip install -r requirements.txt</span><br><br><span class="hljs-keyword">CMD</span><span class="bash"> python serve_pytorch.py <span class="hljs-comment"># optional</span></span><br></code></pre></td></tr></table></figure>
-
-<h3 id="从-Dockerfile-构建镜像"><a href="#从-Dockerfile-构建镜像" class="headerlink" title="从 Dockerfile 构建镜像"></a>从 Dockerfile 构建镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker build -t target_name .<br></code></pre></td></tr></table></figure>
-
-<h2 id="允许容器访问-GPU"><a href="#允许容器访问-GPU" class="headerlink" title="允许容器访问 GPU"></a>允许容器访问 GPU</h2><p>参考：<a target="_blank" rel="noopener" href="https://github.com/NVIDIA/nvidia-container-runtime">https://github.com/NVIDIA/nvidia-container-runtime</a></p>
-<ol>
-<li><p>安装 nvidia-container-runtime <a target="_blank" rel="noopener" href="https://nvidia.github.io/nvidia-container-runtime/">https://nvidia.github.io/nvidia-container-runtime/</a></p>
-</li>
-<li><p>修改 /etc/docker/daemon.json</p>
- <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;runtimes&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;nvidia&quot;</span>: &#123;<br>            <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/usr/bin/nvidia-container-runtime&quot;</span>,<br>            <span class="hljs-attr">&quot;runtimeArgs&quot;</span>: []<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
-<li><p>新建并运行容器</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -it --gpus all image_name bash<br></code></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><h3 id="列出本地镜像"><a href="#列出本地镜像" class="headerlink" title="列出本地镜像"></a>列出本地镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker image ls<br></code></pre></td></tr></table></figure>
-
-<h3 id="从镜像启动新的容器"><a href="#从镜像启动新的容器" class="headerlink" title="从镜像启动新的容器"></a>从镜像启动新的容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run image_name<br></code></pre></td></tr></table></figure>
-
-<h3 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker exec -it container_name bash<br></code></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/">Docker 从入门到实践</a></p>
+<h2 id="Note-of-Golang"><a href="#Note-of-Golang" class="headerlink" title="Note of Golang"></a>Note of Golang</h2><ul>
+<li>用 <code>strings.Builder</code> 来拼接字符串，因为如果使用 <code>+=</code> 运算符的话会在不停分配新的内存导致效率变低。</li>
+<li>Golang 中变量可以平行赋值，先计算等式右边的值，然后从左到右依次赋值。</li>
+</ul>
 
             </div>
             <hr>
@@ -281,10 +266,17 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
                     
                   </div>
                 
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Go/">Go</a>
+                    
+                  </div>
                 
               </div>
               
@@ -293,18 +285,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/top-interview-questions-easy/count-and-say/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">外观数列</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/nlp/convert-transformers-to-onnx/">
-                        <span class="hidden-mobile">将 transformers 模型转换为 ONNX 格式并用 TensorRT 加速</span>
+                      <a href="/essay/docker-deployment/">
+                        <span class="hidden-mobile">Docker 部署 pytorch 应用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
