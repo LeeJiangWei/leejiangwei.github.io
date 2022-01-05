@@ -4,6 +4,7 @@ categories:
   - MongoDB
 tags:
   - MongoDB
+  - python
 index_img: /img/mongodb.jpg
 date: 2021-09-28 15:01:25
 ---

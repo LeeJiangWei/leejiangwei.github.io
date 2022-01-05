@@ -3,6 +3,8 @@ title: Docker 部署 pytorch 应用
 date: 2021-12-29 19:45:51
 categories:
 - 随笔
+tags:
+- pytorch
 index_img: /img/about/avatar.jpg
 banner_img: /img/default.jpg
 ---
