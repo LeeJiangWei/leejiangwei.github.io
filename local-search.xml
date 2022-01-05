@@ -4,6 +4,41 @@
   
   
   <entry>
+    <title>删除链表的倒数第N个节点</title>
+    <link href="/leetcode/top-interview-questions-easy/remove-nth-node-from-end-of-list/"/>
+    <url>/leetcode/top-interview-questions-easy/remove-nth-node-from-end-of-list/</url>
+    
+    <content type="html"><![CDATA[<h1 id="删除链表的倒数第N个节点"><a href="#删除链表的倒数第N个节点" class="headerlink" title="删除链表的倒数第N个节点"></a>删除链表的倒数第N个节点</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xn2925/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xn2925/</a></p><p><a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/solution/">https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/solution/</a></p><h2 id="获取链表长度"><a href="#获取链表长度" class="headerlink" title="获取链表长度"></a>获取链表长度</h2><p>第一次遍历走到链表结尾，算出链表长度。第二次遍历到删除的节点。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(head *ListNode, n <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-comment">// 计算链表长度</span><br>    counter := <span class="hljs-number">0</span><br>    curr := head<br>    <span class="hljs-keyword">for</span> curr != <span class="hljs-literal">nil</span> &#123;<br>        counter ++<br>        curr = curr.Next<br>    &#125;<br><br>    <span class="hljs-comment">// 移除链表头的情况</span><br>    <span class="hljs-keyword">if</span> counter == n &#123;<br>        <span class="hljs-keyword">return</span> head.Next<br>    &#125;<br><br>    curr = head<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; counter - n - <span class="hljs-number">1</span>; i++ &#123;<br>        curr = curr.Next<br>    &#125;<br>    curr.Next = curr.Next.Next<br><br>    <span class="hljs-keyword">return</span> head<br>&#125;<br></code></pre></td></tr></table></figure><p>实际上给链表加一个假的头可以避免处理删除节点为头节点的情况。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(head *ListNode, n <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    dummyHead := &amp;ListNode&#123;<span class="hljs-number">0</span>, head&#125; <span class="hljs-comment">// 加入假的头</span><br><br>    <span class="hljs-comment">// 计算链表长度</span><br>    counter := <span class="hljs-number">0</span><br>    curr := dummyHead<br>    <span class="hljs-keyword">for</span> curr != <span class="hljs-literal">nil</span> &#123;<br>        counter ++<br>        curr = curr.Next<br>    &#125;<br><br>    curr = dummyHead<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; counter - n - <span class="hljs-number">1</span>; i++ &#123;<br>        curr = curr.Next<br>    &#125;<br>    curr.Next = curr.Next.Next<br><br>    <span class="hljs-keyword">return</span> dummyHead.Next<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><p>由于我们需要找到倒数第 n 个节点，因此我们可以使用两个指针 first 和 second 同时对链表进行遍历，并且 first 比 second 超前 n 个节点。当 first 遍历到链表的末尾时，second 就恰好处于倒数第 n 个节点。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(head *ListNode, n <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    dummyHead := &amp;ListNode&#123;<span class="hljs-number">0</span>, head&#125;<br><br>    first := dummyHead<br>    <span class="hljs-comment">// 移动 first 指针，使得它超前 second 指针 n 个节点</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>        first = first.Next<br>    &#125;<br>    second := dummyHead<br><br>    <span class="hljs-comment">// 同时移动两个指针，直至 first 指针到最后一个节点，此时 second 指针就是要删除节点的前驱节点</span><br>    <span class="hljs-keyword">for</span> first.Next != <span class="hljs-literal">nil</span> &#123;<br>        first = first.Next<br>        second = second.Next<br>    &#125;<br><br>    second.Next = second.Next.Next <span class="hljs-comment">// 执行删除</span><br><br>    <span class="hljs-keyword">return</span> dummyHead.Next<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>所有节点依次入栈，然后弹出第 n 个节点就是要删除的节点，且此时栈顶正好是它前一个节点。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">removeNthFromEnd</span><span class="hljs-params">(head *ListNode, n <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    dummy := &amp;ListNode&#123;<span class="hljs-number">0</span>, head&#125;<br>    first, second := head, dummy<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>        first = first.Next<br>    &#125;<br>    <span class="hljs-keyword">for</span> ; first != <span class="hljs-literal">nil</span>; first = first.Next &#123;<br>        second = second.Next<br>    &#125;<br>    second.Next = second.Next.Next<br>    <span class="hljs-keyword">return</span> dummy.Next<br>&#125;<br></code></pre></td></tr></table></figure><p>在这个实现中，本质上是用的数组作为栈来储存遍历过的节点，第二次就无需再从头遍历。属于是用空间换时间。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+      <category>链表</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>链表</tag>
+      
+      <tag>双指针</tag>
+      
+      <tag>栈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>删除链表中的节点</title>
     <link href="/leetcode/top-interview-questions-easy/delete-node-in-a-linked-list/"/>
     <url>/leetcode/top-interview-questions-easy/delete-node-in-a-linked-list/</url>
@@ -111,6 +146,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>pytorch</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -134,9 +175,9 @@
     
     <tags>
       
-      <tag>transformers</tag>
-      
       <tag>pytorch</tag>
+      
+      <tag>transformers</tag>
       
     </tags>
     
@@ -163,9 +204,9 @@
     
     <tags>
       
-      <tag>transformers</tag>
-      
       <tag>pytorch</tag>
+      
+      <tag>transformers</tag>
       
     </tags>
     
@@ -210,6 +251,8 @@
     <tags>
       
       <tag>MongoDB</tag>
+      
+      <tag>python</tag>
       
     </tags>
     
