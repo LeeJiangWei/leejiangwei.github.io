@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>删除链表中的节点</title>
+    <link href="/leetcode/top-interview-questions-easy/delete-node-in-a-linked-list/"/>
+    <url>/leetcode/top-interview-questions-easy/delete-node-in-a-linked-list/</url>
+    
+    <content type="html"><![CDATA[<h1 id="删除链表中的节点"><a href="#删除链表中的节点" class="headerlink" title="删除链表中的节点"></a>删除链表中的节点</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnarn7/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnarn7/</a></p><p><a href="https://leetcode-cn.com/problems/delete-node-in-a-linked-list/solution/">https://leetcode-cn.com/problems/delete-node-in-a-linked-list/solution/</a></p><h2 id="狸猫换太子"><a href="#狸猫换太子" class="headerlink" title="狸猫换太子"></a>狸猫换太子</h2><p>无法获取链表的前一个节点，直接将自己复制成下一个节点，然后删除下一个节点，就相当于删除了自己</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">deleteNode</span><span class="hljs-params">(node *ListNode)</span></span> &#123;<br>    node.Val = node.Next.Val<br>    node.Next = node.Next.Next<br>&#125;<br></code></pre></td></tr></table></figure><p>目标：杀掉A</p><blockquote><p>正常杀手需要找到 A 的把柄才可以杀掉 A <br><br>可现在找到 A 本人后竟然没有可以获取 A 把柄的途径 <br><br>A 得知我们要杀他，心生一计，可助你完成任务 <br><br>A 说我有 B 的把柄，你杀了 B，我改头换面，以 B 的身份活着 <br><br>GC 也会自动清理掉 B 的尸体，没人会知道的</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+      <category>链表</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>最长公共前缀</title>
     <link href="/leetcode/top-interview-questions-easy/longest-common-prefix/"/>
     <url>/leetcode/top-interview-questions-easy/longest-common-prefix/</url>
