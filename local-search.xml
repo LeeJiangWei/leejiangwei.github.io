@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>最长公共前缀</title>
+    <link href="/leetcode/top-interview-questions-easy/longest-common-prefix/"/>
+    <url>/leetcode/top-interview-questions-easy/longest-common-prefix/</url>
+    
+    <content type="html"><![CDATA[<h1 id="最长公共前缀"><a href="#最长公共前缀" class="headerlink" title="最长公共前缀"></a>最长公共前缀</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnmav1/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnmav1/</a></p><p><a href="https://leetcode-cn.com/problems/longest-common-prefix/solution/">https://leetcode-cn.com/problems/longest-common-prefix/solution/</a></p><h2 id="横向扫描"><a href="#横向扫描" class="headerlink" title="横向扫描"></a>横向扫描</h2><p>遍历所有字符串，计算并更新公共前缀。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">longestCommonPrefix</span><span class="hljs-params">(strs []<span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(prefix <span class="hljs-keyword">string</span>)</span></span> &#123;<br>    prefix = strs[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, str := <span class="hljs-keyword">range</span> strs &#123;<br>        prefix = LCP(prefix, str)<br>        <span class="hljs-keyword">if</span> prefix == <span class="hljs-string">&quot;&quot;</span> &#123;<br>            <span class="hljs-keyword">return</span> <br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">LCP</span><span class="hljs-params">(str1 <span class="hljs-keyword">string</span>, str2 <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">string</span></span> &#123;<br>    index := <span class="hljs-number">0</span><br>    <br>    <span class="hljs-keyword">for</span> index &lt; <span class="hljs-built_in">len</span>(str1) &amp;&amp; index &lt; <span class="hljs-built_in">len</span>(str2) &amp;&amp; str1[index] == str2[index] &#123;<br>        index++<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> str1[:index]<br>&#125;<br></code></pre></td></tr></table></figure><ul><li>用字符切片来保存返回结果</li></ul><h2 id="纵向扫描"><a href="#纵向扫描" class="headerlink" title="纵向扫描"></a>纵向扫描</h2><p>遍历字符串相同位置的字母，例如对于 flow flower florance，取第一个 flow 作为基准，先检查 f，然后检查fl，然后检查 flo。<br>以此类推，直到某个单词读完了或者有不通过检查的。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">longestCommonPrefix</span><span class="hljs-params">(strs []<span class="hljs-keyword">string</span>)</span> <span class="hljs-title">string</span></span> &#123;<br>    <span class="hljs-keyword">var</span> sb strings.Builder<br>    flag := <span class="hljs-literal">true</span><br><br>    <span class="hljs-keyword">for</span> i, r := <span class="hljs-keyword">range</span> strs[<span class="hljs-number">0</span>] &#123;<br>        <span class="hljs-keyword">for</span> _, rs := <span class="hljs-keyword">range</span> strs &#123;<br>            <span class="hljs-keyword">if</span> i &gt;= <span class="hljs-built_in">len</span>(rs) || r != <span class="hljs-keyword">rune</span>(rs[i]) &#123;<br>                flag = <span class="hljs-literal">false</span><br>                <span class="hljs-keyword">break</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span> flag &#123;<br>           sb.WriteRune(r)<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> sb.String()<br>&#125;<br></code></pre></td></tr></table></figure><p>我的解法：用 <code>strings.Builder</code> 来拼接字符串，其实没有必要，对于这种不需要重新组装字符串的情况，直接用切片就行了。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">longestCommonPrefix</span><span class="hljs-params">(strs []<span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(prefix <span class="hljs-keyword">string</span>)</span></span> &#123;<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(strs[<span class="hljs-number">0</span>]); i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt; <span class="hljs-built_in">len</span>(strs); j++ &#123;<br>            <span class="hljs-keyword">if</span> i == <span class="hljs-built_in">len</span>(strs[j]) || strs[j][i] != strs[<span class="hljs-number">0</span>][i] &#123;<br>                <span class="hljs-keyword">return</span> strs[<span class="hljs-number">0</span>][:i]<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> strs[<span class="hljs-number">0</span>]<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+      <category>字符串</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>外观数列</title>
     <link href="/leetcode/top-interview-questions-easy/count-and-say/"/>
     <url>/leetcode/top-interview-questions-easy/count-and-say/</url>
@@ -15,12 +46,18 @@
       
       <category>LeetCode</category>
       
+      <category>初级算法</category>
+      
+      <category>字符串</category>
+      
     </categories>
     
     
     <tags>
       
       <tag>Go</tag>
+      
+      <tag>字符串</tag>
       
     </tags>
     
@@ -323,9 +360,9 @@
       
       <tag>哈希表</tag>
       
-      <tag>队列</tag>
-      
       <tag>字符串</tag>
+      
+      <tag>队列</tag>
       
     </tags>
     
