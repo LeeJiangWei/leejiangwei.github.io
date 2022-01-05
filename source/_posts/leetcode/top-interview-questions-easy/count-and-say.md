@@ -2,8 +2,11 @@
 title: 外观数列
 categories:
   - LeetCode
+  - 初级算法
+  - 字符串
 tags:
   - Go
+  - 字符串
 index_img: /img/code.jpg
 sticky: -10
 date: 2022-01-04 21:01:35
