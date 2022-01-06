@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>环形链表</title>
+    <link href="/leetcode/top-interview-questions-easy/linked-list-cycle/"/>
+    <url>/leetcode/top-interview-questions-easy/linked-list-cycle/</url>
+    
+    <content type="html"><![CDATA[<h1 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h1><h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>使用哈希数据类型来记录节点是否存在过，key 可以是节点的地址。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(head *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">var</span> m = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[*ListNode]<span class="hljs-keyword">bool</span>)<br><br>    curr := head<br><br>    <span class="hljs-keyword">for</span> curr != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">if</span> m[curr] == <span class="hljs-literal">true</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>        &#125;<br>        m[curr] = <span class="hljs-literal">true</span><br>        curr = curr.Next<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure><ul><li><code>map</code> 类型要用 make 来初始化，如果不初始化它的值就是 <code>nil</code></li><li>函数参数中，<code>a &amp;int</code> 是按引用传递，<code>a *int</code> 是传递了一个指针，这个 <code>a</code> 的类型就是 <code>*int</code> （int 指针），指针类型可以用作 <code>map</code> 的 key。</li><li>因此在这个代码中，key 是 <code>*ListNode</code> 类型的，直接用变量 <code>curr</code> 就可以索引这个 map。</li></ul><h2 id="快慢指针"><a href="#快慢指针" class="headerlink" title="快慢指针"></a>快慢指针</h2><p>如果链表有环，快慢指针最终会相遇。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(head *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    fast, slow := head, head<br>    <span class="hljs-keyword">for</span> fast != <span class="hljs-literal">nil</span> &amp;&amp; fast.Next != <span class="hljs-literal">nil</span> &#123;<br>        fast = fast.Next.Next<br>        slow = slow.Next<br>        <span class="hljs-keyword">if</span> fast == slow &#123;<br>           <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span> <br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+      <category>链表</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>回文链表</title>
     <link href="/leetcode/top-interview-questions-easy/palindrome-linked-list/"/>
     <url>/leetcode/top-interview-questions-easy/palindrome-linked-list/</url>
