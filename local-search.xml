@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>合并两个有序链表</title>
+    <link href="/leetcode/top-interview-questions-easy/merge-two-sorted-lists/"/>
+    <url>/leetcode/top-interview-questions-easy/merge-two-sorted-lists/</url>
+    
+    <content type="html"><![CDATA[<h1 id="合并两个有序链表"><a href="#合并两个有序链表" class="headerlink" title="合并两个有序链表"></a>合并两个有序链表</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnnbp2/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnnbp2/</a></p><p><a href="https://leetcode-cn.com/problems/merge-two-sorted-lists/solution/">https://leetcode-cn.com/problems/merge-two-sorted-lists/solution/</a></p><h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><p>哪个表的表头更小，就连上那个节点，并把对应的表头向后移动，直到有一方变成空的位置，连上另一个非空的表，完事。</p><p>dummy head 在这里很好用，这种需要返回链表头的，记得保存 head 变量用于返回。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mergeTwoLists</span><span class="hljs-params">(list1 *ListNode, list2 *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    head := &amp;ListNode&#123;<span class="hljs-number">-999</span>, <span class="hljs-literal">nil</span>&#125;<br>    curr := head<br>    <br>    <span class="hljs-keyword">for</span> list1 != <span class="hljs-literal">nil</span> &amp;&amp; list2 != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">if</span> list1.Val &lt; list2.Val &#123;<br>            curr.Next = list1<br>            list1 = list1.Next<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            curr.Next = list2<br>            list2 = list2.Next<br>        &#125;<br>        curr = curr.Next<br>    &#125;<br>    <span class="hljs-keyword">if</span> list1 == <span class="hljs-literal">nil</span> &#123;<br>        curr.Next = list2<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        curr.Next = list1<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> head.Next<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>关键难点是如何递归，返回什么，如何使用返回值。</p><ul><li>如何递归：小的那个节点，它的下一个节点是已经整理好的序列的头</li><li>返回什么：因为要返回整理好序列的头，这个小的节点就是，返回即可</li></ul><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mergeTwoLists</span><span class="hljs-params">(list1 *ListNode, list2 *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-keyword">if</span> list1 == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> list2<br>    &#125;<br>    <span class="hljs-keyword">if</span> list2 == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> list1<br>    &#125;<br>    <span class="hljs-keyword">if</span> list1.Val &lt; list2.Val &#123;<br>        list1.Next = mergeTwoLists(list1.Next, list2)<br>        <span class="hljs-keyword">return</span> list1<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        list2.Next = mergeTwoLists(list1, list2.Next)<br>        <span class="hljs-keyword">return</span> list2<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+      <category>链表</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>反转链表</title>
     <link href="/leetcode/top-interview-questions-easy/reverse-linked-list/"/>
     <url>/leetcode/top-interview-questions-easy/reverse-linked-list/</url>
