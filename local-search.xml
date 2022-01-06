@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>反转链表</title>
+    <link href="/leetcode/top-interview-questions-easy/reverse-linked-list/"/>
+    <url>/leetcode/top-interview-questions-easy/reverse-linked-list/</url>
+    
+    <content type="html"><![CDATA[<h1 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnnhm6/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnnhm6/</a></p><p><a href="https://leetcode-cn.com/problems/reverse-linked-list/solution/">https://leetcode-cn.com/problems/reverse-linked-list/solution/</a></p><h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><p>迭代进行中需要储存好前一个节点、当前节点、下一节点的指针，以便操作。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverseList</span><span class="hljs-params">(head *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-keyword">var</span> prev *ListNode<br>    curr := head<br><br>    <span class="hljs-keyword">for</span> curr != <span class="hljs-literal">nil</span> &#123;<br>        next := curr.Next<br>        curr.Next = prev<br>        prev = curr<br>        curr = next<br><br>        <span class="hljs-comment">// 或者利用平行赋值简写为一行</span><br>        <span class="hljs-comment">// curr.Next, prev, curr = prev, curr, curr.Next</span><br>    &#125;<br><br>    <span class="hljs-keyword">return</span> prev<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>主要在于如何返回反转后的头节点，答案就是记住它（变量 <code>p</code>），然后层层直接返回。</p><p>其中递归所需的空间复杂度是 O(n)。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverseList</span><span class="hljs-params">(head *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-keyword">if</span> head == <span class="hljs-literal">nil</span> || head.Next == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> head<br>    &#125;<br>    p := reverseList(head.Next)<br><br>    head.Next.Next = head<br>    head.Next = <span class="hljs-literal">nil</span><br><br>    <span class="hljs-keyword">return</span> p<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+      <category>链表</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>删除链表的倒数第N个节点</title>
     <link href="/leetcode/top-interview-questions-easy/remove-nth-node-from-end-of-list/"/>
     <url>/leetcode/top-interview-questions-easy/remove-nth-node-from-end-of-list/</url>
