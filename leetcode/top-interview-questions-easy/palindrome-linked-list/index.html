@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>合并两个有序链表 - Be Happy</title>
+  <title>回文链表 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="合并两个有序链表">
+            <span class="h2" id="subtitle" title="回文链表">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-06 15:31" pubdate>
+      <time datetime="2022-01-06 16:18" pubdate>
         2022年1月6日 下午
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      306 字
+      491 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      7
        分钟
     </span>
   
@@ -245,21 +245,26 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">合并两个有序链表</h1>
+            <h1 style="display: none">回文链表</h1>
             
             <div class="markdown-body">
-              <h1 id="合并两个有序链表"><a href="#合并两个有序链表" class="headerlink" title="合并两个有序链表"></a>合并两个有序链表</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnnbp2/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnnbp2/</a></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-two-sorted-lists/solution/">https://leetcode-cn.com/problems/merge-two-sorted-lists/solution/</a></p>
-<h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><p>哪个表的表头更小，就连上那个节点，并把对应的表头向后移动，直到有一方变成空的位置，连上另一个非空的表，完事。</p>
-<p>dummy head 在这里很好用，这种需要返回链表头的，记得保存 head 变量用于返回。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mergeTwoLists</span><span class="hljs-params">(list1 *ListNode, list2 *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    head := &amp;ListNode&#123;<span class="hljs-number">-999</span>, <span class="hljs-literal">nil</span>&#125;<br>    curr := head<br>    <br>    <span class="hljs-keyword">for</span> list1 != <span class="hljs-literal">nil</span> &amp;&amp; list2 != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">if</span> list1.Val &lt; list2.Val &#123;<br>            curr.Next = list1<br>            list1 = list1.Next<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            curr.Next = list2<br>            list2 = list2.Next<br>        &#125;<br>        curr = curr.Next<br>    &#125;<br>    <span class="hljs-keyword">if</span> list1 == <span class="hljs-literal">nil</span> &#123;<br>        curr.Next = list2<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        curr.Next = list1<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> head.Next<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="回文链表"><a href="#回文链表" class="headerlink" title="回文链表"></a>回文链表</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnv1oc/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnv1oc/</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/palindrome-linked-list/solution/">https://leetcode-cn.com/problems/palindrome-linked-list/solution/</a></p>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>把所有值存到栈（数组）中，然后前后指针来检查是否为回文。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(head *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    values := []<span class="hljs-keyword">int</span>&#123;&#125;<br><br>    <span class="hljs-keyword">for</span> head != <span class="hljs-literal">nil</span> &#123;<br>        values = <span class="hljs-built_in">append</span>(values, head.Val)<br>        head = head.Next<br>    &#125;<br><br>    n := <span class="hljs-built_in">len</span>(values)<br>    <span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> values[:n/<span class="hljs-number">2</span>] &#123;<br>        <span class="hljs-keyword">if</span> v != values[n<span class="hljs-number">-1</span>-i] &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>关键难点是如何递归，返回什么，如何使用返回值。</p>
-<ul>
-<li>如何递归：小的那个节点，它的下一个节点是已经整理好的序列的头</li>
-<li>返回什么：因为要返回整理好序列的头，这个小的节点就是，返回即可</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mergeTwoLists</span><span class="hljs-params">(list1 *ListNode, list2 *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-keyword">if</span> list1 == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> list2<br>    &#125;<br>    <span class="hljs-keyword">if</span> list2 == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> list1<br>    &#125;<br>    <span class="hljs-keyword">if</span> list1.Val &lt; list2.Val &#123;<br>        list1.Next = mergeTwoLists(list1.Next, list2)<br>        <span class="hljs-keyword">return</span> list1<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        list2.Next = mergeTwoLists(list1, list2.Next)<br>        <span class="hljs-keyword">return</span> list2<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="快慢指针"><a href="#快慢指针" class="headerlink" title="快慢指针"></a>快慢指针</h2><p>使用快慢指针，慢指针走 1 步时快指针走 2 步，这样在快指针到达末尾时，慢指针恰好在链表的中间。</p>
+<p>反转后半部分链表，然后检查是否是回文，这样时间复杂度还是 O(n)，空间复杂度只有 O(1)了。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(head *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">if</span> head.Next == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>    &#125;<br><br>    fast, slow := head, head<br><br>    <span class="hljs-keyword">for</span> fast != <span class="hljs-literal">nil</span> &amp;&amp; fast.Next != <span class="hljs-literal">nil</span> &#123;<br>        slow = slow.Next<br>        fast = fast.Next.Next<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> fast != <span class="hljs-literal">nil</span> &#123; <span class="hljs-comment">// 奇数个节点</span><br>        slow = slow.Next <span class="hljs-comment">// 跳过节点中点，只逆转后半截</span><br>    &#125;<br><br>    revHead := reverse(slow)<br><br>    <span class="hljs-keyword">for</span> revHead != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">if</span> head.Val != revHead.Val &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>        head = head.Next<br>        revHead = revHead.Next<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverse</span><span class="hljs-params">(head *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-keyword">var</span> prev *ListNode<br>    curr := head<br><br>    <span class="hljs-keyword">for</span> curr != <span class="hljs-literal">nil</span> &#123;<br>        next := curr.Next<br>        curr.Next = prev<br>        prev = curr<br>        curr = next<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> prev<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>类似于二叉树的后序遍历，单链表也能从后往前遍历，只要在<strong>调用递归函数之后</strong>进行访问操作就可以了，例如：（JAVA）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">printListNode</span><span class="hljs-params">(ListNode head)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (head == <span class="hljs-keyword">null</span>)<br>        <span class="hljs-keyword">return</span>;<br>    printListNode(head.next);<br>    System.out.println(head.val);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>因此也可以在递归中从后往前走的时候，用一个<strong>全局变量</strong>来储存从前往后走的指针，递归每走一步，这个指针也往前走一步，这样就能实现两头的访问。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> temp *ListNode<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isPalindrome</span><span class="hljs-params">(head *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    temp = head<br>    <span class="hljs-keyword">return</span> check(head)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">check</span><span class="hljs-params">(node *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">if</span> node == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>    &#125;<br>    res := check(node.Next) &amp;&amp; node.Val == temp.Val<br>    temp = temp.Next<br>    <br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以把递归视作函数调用栈，因此空间复杂度依然是 O(n)。</p>
+
             </div>
             <hr>
             <div>
@@ -293,18 +298,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/top-interview-questions-easy/palindrome-linked-list/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">回文链表</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/top-interview-questions-easy/reverse-linked-list/">
-                        <span class="hidden-mobile">反转链表</span>
+                      <a href="/leetcode/top-interview-questions-easy/merge-two-sorted-lists/">
+                        <span class="hidden-mobile">合并两个有序链表</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
