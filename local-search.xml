@@ -4,6 +4,68 @@
   
   
   <entry>
+    <title>验证二叉搜索树</title>
+    <link href="/leetcode/top-interview-questions-easy/validate-binary-search-tree/"/>
+    <url>/leetcode/top-interview-questions-easy/validate-binary-search-tree/</url>
+    
+    <content type="html"><![CDATA[<h1 id="验证二叉搜索树"><a href="#验证二叉搜索树" class="headerlink" title="验证二叉搜索树"></a>验证二叉搜索树</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xn08xg/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xn08xg/</a></p><p><a href="https://leetcode-cn.com/problems/validate-binary-search-tree/solution/">https://leetcode-cn.com/problems/validate-binary-search-tree/solution/</a></p><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>注意，验证 BST 不能够只比较左右子节点与自己的值，而必须保证所有左侧的节点都要小于自己（右侧同理）。解决办法就是传入额外的上下界参数。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isValidBST</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">return</span> helper(root, math.MinInt64, math.MaxInt64)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">helper</span><span class="hljs-params">(root *TreeNode, lower, upper <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">if</span> root == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> root.Val &lt;= lower || root.Val &gt;= upper &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> helper(root.Left, lower, root.Val) &amp;&amp; helper(root.Right, root.Val, upper)<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="遍历后判断"><a href="#遍历后判断" class="headerlink" title="遍历后判断"></a>遍历后判断</h2><p>BST 中序遍历的结果是升序列表。</p><p>前序遍历、中序遍历、后续遍历都是<strong>深度优先遍历</strong>，可以使用栈来实现（广度优先是队列）。</p><p>中序遍历时，先不停地把左子节点压入栈，然后执行访问操作，操作完后出栈。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isValidBST</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    stack := []*TreeNode&#123;&#125;<br>    inorder := math.MinInt64<br>    <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(stack) &gt; <span class="hljs-number">0</span> || root != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">for</span> root != <span class="hljs-literal">nil</span> &#123;<br>            stack = <span class="hljs-built_in">append</span>(stack, root)<br>            root = root.Left<br>        &#125;<br>        root = stack[<span class="hljs-built_in">len</span>(stack)<span class="hljs-number">-1</span>]<br>        stack = stack[:<span class="hljs-built_in">len</span>(stack)<span class="hljs-number">-1</span>]<br>        <span class="hljs-keyword">if</span> root.Val &lt;= inorder &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>        inorder = root.Val<br>        root = root.Right<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+      <category>树</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>二叉树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>二叉树的最大深度</title>
+    <link href="/leetcode/top-interview-questions-easy/maximum-depth-of-binary-tree/"/>
+    <url>/leetcode/top-interview-questions-easy/maximum-depth-of-binary-tree/</url>
+    
+    <content type="html"><![CDATA[<h1 id="二叉树的最大深度"><a href="#二叉树的最大深度" class="headerlink" title="二叉树的最大深度"></a>二叉树的最大深度</h1><p><a href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnd69e/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xnd69e/</a></p><p><a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/solution/">https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/solution/</a></p><h2 id="深度优先（递归）"><a href="#深度优先（递归）" class="headerlink" title="深度优先（递归）"></a>深度优先（递归）</h2><p>树的深度优先搜索算法一般用递归实现。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">maxDepth</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> root == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> + max(maxDepth(root.Left), maxDepth(root.Right))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(a <span class="hljs-keyword">int</span>, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &gt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> b<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="广度优先"><a href="#广度优先" class="headerlink" title="广度优先"></a>广度优先</h2><p>一般用队列（数组）实现。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">maxDepth</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> root == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br>    queue := []*TreeNode&#123;&#125;<br>    queue = <span class="hljs-built_in">append</span>(queue, root)<br>    ans := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(queue) &gt; <span class="hljs-number">0</span> &#123;<br>        sz := <span class="hljs-built_in">len</span>(queue)<br>        <span class="hljs-keyword">for</span> sz &gt; <span class="hljs-number">0</span> &#123;<br>            node := queue[<span class="hljs-number">0</span>]<br>            queue = queue[<span class="hljs-number">1</span>:]<br>            <span class="hljs-keyword">if</span> node.Left != <span class="hljs-literal">nil</span> &#123;<br>                queue = <span class="hljs-built_in">append</span>(queue, node.Left)<br>            &#125;<br>            <span class="hljs-keyword">if</span> node.Right != <span class="hljs-literal">nil</span> &#123;<br>                queue = <span class="hljs-built_in">append</span>(queue, node.Right)<br>            &#125;<br>            sz--<br>        &#125;<br>        ans++<br>    &#125;<br>    <span class="hljs-keyword">return</span> ans<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+      <category>树</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>二叉树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>环形链表</title>
     <link href="/leetcode/top-interview-questions-easy/linked-list-cycle/"/>
     <url>/leetcode/top-interview-questions-easy/linked-list-cycle/</url>

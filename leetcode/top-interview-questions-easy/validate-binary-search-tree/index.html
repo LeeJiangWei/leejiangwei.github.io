@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>环形链表 - Be Happy</title>
+  <title>验证二叉搜索树 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="环形链表">
+            <span class="h2" id="subtitle" title="验证二叉搜索树">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-06 17:29" pubdate>
-        2022年1月6日 下午
+      <time datetime="2022-01-10 20:37" pubdate>
+        2022年1月10日 晚上
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      223 字
+      294 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      4
        分钟
     </span>
   
@@ -245,19 +245,19 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">环形链表</h1>
+            <h1 style="display: none">验证二叉搜索树</h1>
             
             <div class="markdown-body">
-              <h1 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h1><h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>使用哈希数据类型来记录节点是否存在过，key 可以是节点的地址。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(head *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">var</span> m = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[*ListNode]<span class="hljs-keyword">bool</span>)<br><br>    curr := head<br><br>    <span class="hljs-keyword">for</span> curr != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">if</span> m[curr] == <span class="hljs-literal">true</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>        &#125;<br>        m[curr] = <span class="hljs-literal">true</span><br>        curr = curr.Next<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="验证二叉搜索树"><a href="#验证二叉搜索树" class="headerlink" title="验证二叉搜索树"></a>验证二叉搜索树</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xn08xg/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/xn08xg/</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/validate-binary-search-tree/solution/">https://leetcode-cn.com/problems/validate-binary-search-tree/solution/</a></p>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>注意，验证 BST 不能够只比较左右子节点与自己的值，而必须保证所有左侧的节点都要小于自己（右侧同理）。解决办法就是传入额外的上下界参数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isValidBST</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">return</span> helper(root, math.MinInt64, math.MaxInt64)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">helper</span><span class="hljs-params">(root *TreeNode, lower, upper <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">if</span> root == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> root.Val &lt;= lower || root.Val &gt;= upper &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> helper(root.Left, lower, root.Val) &amp;&amp; helper(root.Right, root.Val, upper)<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<ul>
-<li><code>map</code> 类型要用 make 来初始化，如果不初始化它的值就是 <code>nil</code></li>
-<li>函数参数中，<code>a &amp;int</code> 是按引用传递，<code>a *int</code> 是传递了一个指针，这个 <code>a</code> 的类型就是 <code>*int</code> （int 指针），指针类型可以用作 <code>map</code> 的 key。</li>
-<li>因此在这个代码中，key 是 <code>*ListNode</code> 类型的，直接用变量 <code>curr</code> 就可以索引这个 map。</li>
-</ul>
-<h2 id="快慢指针"><a href="#快慢指针" class="headerlink" title="快慢指针"></a>快慢指针</h2><p>如果链表有环，快慢指针最终会相遇。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(head *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    fast, slow := head, head<br>    <span class="hljs-keyword">for</span> fast != <span class="hljs-literal">nil</span> &amp;&amp; fast.Next != <span class="hljs-literal">nil</span> &#123;<br>        fast = fast.Next.Next<br>        slow = slow.Next<br>        <span class="hljs-keyword">if</span> fast == slow &#123;<br>           <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span> <br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="遍历后判断"><a href="#遍历后判断" class="headerlink" title="遍历后判断"></a>遍历后判断</h2><p>BST 中序遍历的结果是升序列表。</p>
+<p>前序遍历、中序遍历、后续遍历都是<strong>深度优先遍历</strong>，可以使用栈来实现（广度优先是队列）。</p>
+<p>中序遍历时，先不停地把左子节点压入栈，然后执行访问操作，操作完后出栈。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isValidBST</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    stack := []*TreeNode&#123;&#125;<br>    inorder := math.MinInt64<br>    <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(stack) &gt; <span class="hljs-number">0</span> || root != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">for</span> root != <span class="hljs-literal">nil</span> &#123;<br>            stack = <span class="hljs-built_in">append</span>(stack, root)<br>            root = root.Left<br>        &#125;<br>        root = stack[<span class="hljs-built_in">len</span>(stack)<span class="hljs-number">-1</span>]<br>        stack = stack[:<span class="hljs-built_in">len</span>(stack)<span class="hljs-number">-1</span>]<br>        <span class="hljs-keyword">if</span> root.Val &lt;= inorder &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>        inorder = root.Val<br>        root = root.Right<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
             </div>
             <hr>
             <div>
@@ -270,7 +270,7 @@
                     
                       <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/">初级算法</a>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/%E9%93%BE%E8%A1%A8/">链表</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/%E6%A0%91/">树</a>
                     
                   </div>
                 
@@ -280,9 +280,7 @@
                     
                       <a class="hover-with-bg" href="/tags/Go/">Go</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
+                      <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
                     
                   </div>
                 
@@ -293,18 +291,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/top-interview-questions-easy/maximum-depth-of-binary-tree/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">二叉树的最大深度</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/top-interview-questions-easy/palindrome-linked-list/">
-                        <span class="hidden-mobile">回文链表</span>
+                      <a href="/leetcode/top-interview-questions-easy/maximum-depth-of-binary-tree/">
+                        <span class="hidden-mobile">二叉树的最大深度</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
