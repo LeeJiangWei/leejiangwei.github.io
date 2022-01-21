@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>合并两个有序数组</title>
+    <link href="/leetcode/top-interview-questions-easy/merge-sorted-array/"/>
+    <url>/leetcode/top-interview-questions-easy/merge-sorted-array/</url>
+    
+    <content type="html"><![CDATA[<h1 id="合并两个有序数组"><a href="#合并两个有序数组" class="headerlink" title="合并两个有序数组"></a>合并两个有序数组</h1><h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><p>由于数组 <code>nums1</code> 的后面留够了足够的空位（<code>nums2</code> 元素的个数），如果从 <code>nums1</code> 的后面开始放入元素，可以保证 <code>nums1</code> 的元素在取出前不会被覆盖。</p><p>因此使用双指针，从后面开始填充  <code>nums1</code>。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">merge</span><span class="hljs-params">(nums1 []<span class="hljs-keyword">int</span>, m <span class="hljs-keyword">int</span>, nums2 []<span class="hljs-keyword">int</span>, n <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>    pm := m - <span class="hljs-number">1</span><br>    pn := n - <span class="hljs-number">1</span><br>    curr := <span class="hljs-built_in">len</span>(nums1) - <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">for</span> pm != <span class="hljs-number">-1</span> &amp;&amp; pn != <span class="hljs-number">-1</span> &#123;<br>        <span class="hljs-keyword">if</span> nums1[pm] &gt; nums2[pn] &#123;<br>            nums1[curr] = nums1[pm]<br>            pm--<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            nums1[curr] = nums2[pn]<br>            pn--<br>        &#125;<br>        curr--<br>    &#125;<br>    <br>    <span class="hljs-comment">// 其中一个指针到达尽头后，将未到达尽头的那个数组填充完</span><br>    <span class="hljs-keyword">for</span> pm != <span class="hljs-number">-1</span> &#123;<br>        nums1[curr] = nums1[pm]<br>        curr--<br>        pm--<br>    &#125;<br>    <span class="hljs-keyword">for</span> pn != <span class="hljs-number">-1</span> &#123;<br>        nums1[curr] = nums2[pn]<br>        curr--<br>        pn--<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>初级算法</category>
+      
+      <category>排序和搜索</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>有序数组转换为平衡二叉树</title>
     <link href="/leetcode/top-interview-questions-easy/convert-sorted-array-to-binary-search-tree/"/>
     <url>/leetcode/top-interview-questions-easy/convert-sorted-array-to-binary-search-tree/</url>
