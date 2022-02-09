@@ -2,6 +2,8 @@
 title: 二叉树的层次遍历
 categories:
   - LeetCode
+  - 初级算法
+  - 树
 tags:
   - Go
 index_img: /img/code.jpg
