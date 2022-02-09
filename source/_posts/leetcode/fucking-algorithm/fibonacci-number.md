@@ -14,8 +14,6 @@ date: 2022-02-09 17:02:35
 
 # 斐波那契数列
 
-https://github.com/labuladong/fucking-algorithm/blob/master/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%B3%BB%E5%88%97/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E8%AF%A6%E8%A7%A3%E8%BF%9B%E9%98%B6.md
-
 https://leetcode-cn.com/problems/fibonacci-number/
 
 ## 带备忘录的递归
