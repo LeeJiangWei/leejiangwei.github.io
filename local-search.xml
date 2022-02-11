@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Golang 可变参数（...）</title>
+    <link href="/programming/go-variadic-parameter/"/>
+    <url>/programming/go-variadic-parameter/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Golang-可变参数（点点点）"><a href="#Golang-可变参数（点点点）" class="headerlink" title="Golang 可变参数（点点点）"></a>Golang 可变参数（点点点）</h1><p>可变参数： variadic parameter</p><h2 id="在函数签名中使用"><a href="#在函数签名中使用" class="headerlink" title="在函数签名中使用"></a>在函数签名中使用</h2><p>只能用在最后一个参数的类型前，表示这个类型的参数可以有任意个。实际传入函数中的是一个切片:</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sum</span><span class="hljs-params">(vals ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    total := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> _, val := <span class="hljs-keyword">range</span> vals &#123;<br>        total += val<br>    &#125;<br>    <span class="hljs-keyword">return</span> total<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="传入函数参数时使用"><a href="#传入函数参数时使用" class="headerlink" title="传入函数参数时使用"></a>传入函数参数时使用</h2><p>如果需要传入这个函数的原始参数已经是切片了，则传入函数时在它的后面加上 <code>...</code></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">values := []<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;<br>fmt.Println(sum(values...)) <span class="hljs-comment">// &quot;10&quot;</span><br></code></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><p><a href="https://docs.hundan.org/gopl-zh/ch5/ch5-07.html">https://docs.hundan.org/gopl-zh/ch5/ch5-07.html</a></p></li><li><p><a href="https://stackoverflow.com/questions/23669720/meaning-of-interface-dot-dot-dot-interface/23669857">https://stackoverflow.com/questions/23669720/meaning-of-interface-dot-dot-dot-interface/23669857</a></p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+      <category>Go</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>俄罗斯套娃信封问题</title>
     <link href="/leetcode/fucking-algorithm/russian-doll-envelopes/"/>
     <url>/leetcode/fucking-algorithm/russian-doll-envelopes/</url>
