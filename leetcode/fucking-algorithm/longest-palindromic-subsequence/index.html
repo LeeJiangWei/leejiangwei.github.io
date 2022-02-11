@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>Golang 可变参数（...） - Be Happy</title>
+  <title>最长回文子序列 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Golang 可变参数（...）">
+            <span class="h2" id="subtitle" title="最长回文子序列">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-11 22:20" pubdate>
+      <time datetime="2022-02-11 23:58" pubdate>
         2022年2月11日 晚上
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      167 字
+      458 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      6
        分钟
     </span>
   
@@ -245,22 +245,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Golang 可变参数（...）</h1>
+            <h1 style="display: none">最长回文子序列</h1>
             
             <div class="markdown-body">
-              <h1 id="Golang-可变参数（点点点）"><a href="#Golang-可变参数（点点点）" class="headerlink" title="Golang 可变参数（点点点）"></a>Golang 可变参数（点点点）</h1><p>可变参数： variadic parameter</p>
-<h2 id="在函数签名中使用"><a href="#在函数签名中使用" class="headerlink" title="在函数签名中使用"></a>在函数签名中使用</h2><p>只能用在最后一个参数的类型前，表示这个类型的参数可以有任意个。实际传入函数中的是一个切片:</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sum</span><span class="hljs-params">(vals ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    total := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> _, val := <span class="hljs-keyword">range</span> vals &#123;<br>        total += val<br>    &#125;<br>    <span class="hljs-keyword">return</span> total<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="传入函数参数时使用"><a href="#传入函数参数时使用" class="headerlink" title="传入函数参数时使用"></a>传入函数参数时使用</h2><p>如果需要传入这个函数的原始参数已经是切片了，则传入函数时在它的后面加上 <code>...</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go">values := []<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;<br>fmt.Println(sum(values...)) <span class="hljs-comment">// &quot;10&quot;</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><p><a target="_blank" rel="noopener" href="https://docs.hundan.org/gopl-zh/ch5/ch5-07.html">https://docs.hundan.org/gopl-zh/ch5/ch5-07.html</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/23669720/meaning-of-interface-dot-dot-dot-interface/23669857">https://stackoverflow.com/questions/23669720/meaning-of-interface-dot-dot-dot-interface/23669857</a></p>
-</li>
-</ul>
+              <h1 id="最长回文子序列"><a href="#最长回文子序列" class="headerlink" title="最长回文子序列"></a>最长回文子序列</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-palindromic-subsequence/">https://leetcode-cn.com/problems/longest-palindromic-subsequence/</a></p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>对于这种一个字符串，但是需要用到双向信息的题，需要一个二维的 DP 表来储存结果。</p>
+<p>在子数组 <code>s[i..j]</code> 中，我们要求的子序列（最长回文子序列）的长度为 <code>dp[i][j]</code></p>
+<p>先不去想怎么求出这个长度，用数学归纳法的思想，假设已经知道了它掐头去尾的子串 <code>s[i+1, ..., j-1]</code> 中最长回文子串的长度，如何求出 <code>dp[i][j]</code> 呢？</p>
+<p>答案是看这两个新进来的字符 <code>s[i]</code> 和 <code>s[j]</code>，如果它们相等，那一定能拼出一个更长的回文串，则 <code>dp[i][j] = dp[i+1][j-1] + 2</code>。如果它们不相等，再去看它们只加进去 1 个字符后产生的回文串长度，即 <code>dp[i][j] = dp[i][j] = max(dp[i+1][j], dp[i][j-1])</code>。</p>
+<p>考虑完递归条件，考虑 base case。显然 base case 就是只有一个字符串时回文长度就是 1，以及空字符串为 0。最后画出 DP 表，由于我们需要求整个序列的长度 <code>dp[0][n-1]</code>，从表中可以看出 base case 和最终状态的关系，按照合适的顺序遍历表计算结果即可。</p>
+<p><img src="https://github.com/labuladong/fucking-algorithm/raw/master/pictures/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E5%BA%8F%E5%88%97/4.jpg" srcset="/img/loading.gif" lazyload alt="DP 表"></p>
+<p><img src="https://github.com/labuladong/fucking-algorithm/raw/master/pictures/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E5%BA%8F%E5%88%97/5.jpg" srcset="/img/loading.gif" lazyload alt="DP 表的遍历顺序"></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">longestPalindromeSubseq</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(s)<br>    dp := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, n)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n)<br>    &#125;<br><br>    <span class="hljs-comment">// base case: single char</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123; <br>        dp[i][i] = <span class="hljs-number">1</span><br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>        <span class="hljs-keyword">for</span> j := i + <span class="hljs-number">1</span>; j &lt; n; j++ &#123;<br>            <span class="hljs-keyword">if</span> s[i] == s[j] &#123;<br>                dp[i][j] = dp[i+<span class="hljs-number">1</span>][j<span class="hljs-number">-1</span>] + <span class="hljs-number">2</span><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                dp[i][j] = max(dp[i+<span class="hljs-number">1</span>][j], dp[i][j<span class="hljs-number">-1</span>])<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> dp[<span class="hljs-number">0</span>][n<span class="hljs-number">-1</span>]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> res &lt; v &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -270,9 +266,11 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/">Go</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/">Fucking</a>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
                     
                   </div>
                 
@@ -281,6 +279,10 @@
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/Go/">Go</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
                     
                   </div>
                 
@@ -291,18 +293,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/longest-palindromic-subsequence/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">最长回文子序列</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/russian-doll-envelopes/">
-                        <span class="hidden-mobile">俄罗斯套娃信封问题</span>
+                      <a href="/programming/go-variadic-parameter/">
+                        <span class="hidden-mobile">Golang 可变参数（...）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
