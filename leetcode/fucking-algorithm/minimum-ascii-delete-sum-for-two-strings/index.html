@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>两个字符串的删除操作 - Be Happy</title>
+  <title>两个字符串的最小ASCII删除和 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="两个字符串的删除操作">
+            <span class="h2" id="subtitle" title="两个字符串的最小ASCII删除和">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-11 13:49" pubdate>
-        2022年2月11日 下午
+      <time datetime="2022-02-11 18:02" pubdate>
+        2022年2月11日 晚上
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      409 字
+      201 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      3
        分钟
     </span>
   
@@ -245,17 +245,12 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">两个字符串的删除操作</h1>
+            <h1 style="display: none">两个字符串的最小ASCII删除和</h1>
             
             <div class="markdown-body">
-              <h1 id="两个字符串的删除操作"><a href="#两个字符串的删除操作" class="headerlink" title="两个字符串的删除操作"></a>两个字符串的删除操作</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/delete-operation-for-two-strings/">https://leetcode-cn.com/problems/delete-operation-for-two-strings/</a></p>
-<p>跟编辑距离几乎是一样的，不过是只有删除操作。</p>
-<h2 id="带备忘录的递归"><a href="#带备忘录的递归" class="headerlink" title="带备忘录的递归"></a>带备忘录的递归</h2><p>核心思想：如果字符串不匹配，2 种删除操作都试一遍（删除 s1 当前字符或 s2 当前字符），找出操作数最少的。</p>
-<p>DP 函数定义：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">minDistance</span><span class="hljs-params">(word1 <span class="hljs-keyword">string</span>, word2 <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    m := <span class="hljs-built_in">len</span>(word1)<br>    n := <span class="hljs-built_in">len</span>(word2)<br>    memo := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, m)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> memo &#123;<br>        memo[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n)<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-keyword">range</span> memo[i] &#123;<br>            memo[i][j] = <span class="hljs-number">-1</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> dp(memo, word1, word2, m<span class="hljs-number">-1</span>, n<span class="hljs-number">-1</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">dp</span><span class="hljs-params">(memo [][]<span class="hljs-keyword">int</span>, word1 <span class="hljs-keyword">string</span>, word2 <span class="hljs-keyword">string</span>, i <span class="hljs-keyword">int</span>, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// base case</span><br>    <span class="hljs-keyword">if</span> i == <span class="hljs-number">-1</span> &#123;<br>        <span class="hljs-keyword">return</span> j + <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> j == <span class="hljs-number">-1</span> &#123;<br>        <span class="hljs-keyword">return</span> i + <span class="hljs-number">1</span><br>    &#125;<br><br>    <span class="hljs-comment">// 查备忘录</span><br>    <span class="hljs-keyword">if</span> memo[i][j] != <span class="hljs-number">-1</span> &#123;<br>        <span class="hljs-keyword">return</span> memo[i][j]<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> word1[i] == word2[j] &#123;<br>        memo[i][j] = dp(memo, word1, word2, i<span class="hljs-number">-1</span>, j<span class="hljs-number">-1</span>)<br>        <span class="hljs-keyword">return</span> memo[i][j]<br>    &#125;<br><br>    memo[i][j] = min(dp(memo, word1, word2, i<span class="hljs-number">-1</span>, j)+<span class="hljs-number">1</span>, dp(memo, word1, word2,i,j<span class="hljs-number">-1</span>)+<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> memo[i][j]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(a <span class="hljs-keyword">int</span>, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &lt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>和编辑距离是一样的思路</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">minDistance</span><span class="hljs-params">(word1 <span class="hljs-keyword">string</span>, word2 <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    m := <span class="hljs-built_in">len</span>(word1)<br>    n := <span class="hljs-built_in">len</span>(word2)<br>    dp := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, m + <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n + <span class="hljs-number">1</span>)<br>    &#125;<br><br>    <span class="hljs-comment">// base cases</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= m; i++ &#123;<br>        dp[i][<span class="hljs-number">0</span>] = i<br>    &#125;<br>    <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= n; j++ &#123;<br>        dp[<span class="hljs-number">0</span>][j] = j<br>    &#125;<br><br>    <span class="hljs-comment">// dp</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= m; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= n; j++ &#123;<br>            <span class="hljs-keyword">if</span> word1[i<span class="hljs-number">-1</span>] == word2[j<span class="hljs-number">-1</span>] &#123;<br>                dp[i][j] = dp[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                dp[i][j] = min(dp[i<span class="hljs-number">-1</span>][j]+<span class="hljs-number">1</span>, dp[i][j<span class="hljs-number">-1</span>]+<span class="hljs-number">1</span>)<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> dp[m][n]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(a <span class="hljs-keyword">int</span>, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &lt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="两个字符串的最小ASCII删除和"><a href="#两个字符串的最小ASCII删除和" class="headerlink" title="两个字符串的最小ASCII删除和"></a>两个字符串的最小ASCII删除和</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/delete-operation-for-two-strings/">https://leetcode-cn.com/problems/delete-operation-for-two-strings/</a></p>
+<p>跟编辑距离几乎是一样的，只是把操作数换成 ASCII 码罢了。</p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">minimumDeleteSum</span><span class="hljs-params">(s1 <span class="hljs-keyword">string</span>, s2 <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    m := <span class="hljs-built_in">len</span>(s1)<br>    n := <span class="hljs-built_in">len</span>(s2)<br>    dp := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, m + <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n + <span class="hljs-number">1</span>)<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= m; i++ &#123;<br>        dp[i][<span class="hljs-number">0</span>] = dp[i<span class="hljs-number">-1</span>][<span class="hljs-number">0</span>] + <span class="hljs-keyword">int</span>(s1[i<span class="hljs-number">-1</span>])<br>    &#125;<br>    <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= n; j++ &#123;<br>        dp[<span class="hljs-number">0</span>][j] = dp[<span class="hljs-number">0</span>][j<span class="hljs-number">-1</span>] + <span class="hljs-keyword">int</span>(s2[j<span class="hljs-number">-1</span>])<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= m; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= n; j++ &#123;<br>            <span class="hljs-keyword">if</span> s1[i<span class="hljs-number">-1</span>] == s2[j<span class="hljs-number">-1</span>] &#123;<br>                dp[i][j] = dp[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                dp[i][j] = min(dp[i<span class="hljs-number">-1</span>][j]+<span class="hljs-keyword">int</span>(s1[i<span class="hljs-number">-1</span>]), dp[i][j<span class="hljs-number">-1</span>]+<span class="hljs-keyword">int</span>(s2[j<span class="hljs-number">-1</span>]))<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> dp[m][n]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(a <span class="hljs-keyword">int</span>, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &lt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -292,18 +287,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/minimum-ascii-delete-sum-for-two-strings/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">两个字符串的最小ASCII删除和</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/longest-common-subsequence/">
-                        <span class="hidden-mobile">最长公共子序列</span>
+                      <a href="/leetcode/fucking-algorithm/delete-operation-for-two-strings/">
+                        <span class="hidden-mobile">两个字符串的删除操作</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>两个字符串的最小ASCII删除和</title>
+    <link href="/leetcode/fucking-algorithm/minimum-ascii-delete-sum-for-two-strings/"/>
+    <url>/leetcode/fucking-algorithm/minimum-ascii-delete-sum-for-two-strings/</url>
+    
+    <content type="html"><![CDATA[<h1 id="两个字符串的最小ASCII删除和"><a href="#两个字符串的最小ASCII删除和" class="headerlink" title="两个字符串的最小ASCII删除和"></a>两个字符串的最小ASCII删除和</h1><p><a href="https://leetcode-cn.com/problems/delete-operation-for-two-strings/">https://leetcode-cn.com/problems/delete-operation-for-two-strings/</a></p><p>跟编辑距离几乎是一样的，只是把操作数换成 ASCII 码罢了。</p><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">minimumDeleteSum</span><span class="hljs-params">(s1 <span class="hljs-keyword">string</span>, s2 <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    m := <span class="hljs-built_in">len</span>(s1)<br>    n := <span class="hljs-built_in">len</span>(s2)<br>    dp := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, m + <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n + <span class="hljs-number">1</span>)<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= m; i++ &#123;<br>        dp[i][<span class="hljs-number">0</span>] = dp[i<span class="hljs-number">-1</span>][<span class="hljs-number">0</span>] + <span class="hljs-keyword">int</span>(s1[i<span class="hljs-number">-1</span>])<br>    &#125;<br>    <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= n; j++ &#123;<br>        dp[<span class="hljs-number">0</span>][j] = dp[<span class="hljs-number">0</span>][j<span class="hljs-number">-1</span>] + <span class="hljs-keyword">int</span>(s2[j<span class="hljs-number">-1</span>])<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= m; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= n; j++ &#123;<br>            <span class="hljs-keyword">if</span> s1[i<span class="hljs-number">-1</span>] == s2[j<span class="hljs-number">-1</span>] &#123;<br>                dp[i][j] = dp[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                dp[i][j] = min(dp[i<span class="hljs-number">-1</span>][j]+<span class="hljs-keyword">int</span>(s1[i<span class="hljs-number">-1</span>]), dp[i][j<span class="hljs-number">-1</span>]+<span class="hljs-keyword">int</span>(s2[j<span class="hljs-number">-1</span>]))<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> dp[m][n]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(a <span class="hljs-keyword">int</span>, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &lt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>两个字符串的删除操作</title>
     <link href="/leetcode/fucking-algorithm/delete-operation-for-two-strings/"/>
     <url>/leetcode/fucking-algorithm/delete-operation-for-two-strings/</url>
