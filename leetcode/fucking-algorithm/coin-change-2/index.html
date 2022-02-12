@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>分割等和子集 - Be Happy</title>
+  <title>零钱兑换 II - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="分割等和子集">
+            <span class="h2" id="subtitle" title="零钱兑换 II">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-12 14:43" pubdate>
+      <time datetime="2022-02-12 16:05" pubdate>
         2022年2月12日 下午
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      796 字
+      624 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      8
        分钟
     </span>
   
@@ -245,25 +245,24 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">分割等和子集</h1>
+            <h1 style="display: none">零钱兑换 II</h1>
             
             <div class="markdown-body">
-              <h1 id="分割等和子集"><a href="#分割等和子集" class="headerlink" title="分割等和子集"></a>分割等和子集</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/partition-equal-subset-sum/">https://leetcode-cn.com/problems/partition-equal-subset-sum/</a></p>
-<p>此问题可以转换为背包问题。首先对数组求和然后除以2，得出单个子集的总和 <code>sum/2</code>，显然问题就是要从数组中选出几个数使得总和为 <code>sum/2</code>。就类似于背包问题，在这里只需要把“背包”填满即可。</p>
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>对于背包问题，DP 表 <code>dp[i][w]</code> 表示：对于前 <code>i</code> 个物品，当前背包的容量为 <code>w</code> 时，这种情况下可以装下的最大价值是 <code>dp[i][w]</code>。</p>
-<p>在遍历到 <code>i</code> 时，如果当前容量为 <code>w</code>，我们要么把物品 <code>i</code> 装入背包，要么不装。</p>
+              <h1 id="零钱兑换-II"><a href="#零钱兑换-II" class="headerlink" title="零钱兑换 II"></a>零钱兑换 II</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/coin-change-2/">https://leetcode-cn.com/problems/coin-change-2/</a></p>
+<p>此题是完全背包问题，即物品数量是无限的。</p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>对于背包问题，DP 表 <code>dp[i][j]</code> 表示：若只使用 <code>coins</code> 中的前 <code>i</code> 个硬币的面值，若想凑出金额 <code>j</code>，有 <code>dp[i][j]</code> 种凑法。</p>
 <ul>
-<li>如果不装，则没有变化，<code>dp[i][w]</code> 继承 <code>dp[i-1][w]</code> 的值。</li>
-<li>如果装入背包，则加上装入物品的价值，并且寻找背包容量 <code>w</code> 减少后能装入（之前的物品）的最大价值，即 <code>dp[i-1][w - weight[i]]</code>。这两项加起来就是装入这个物品后的最大价值，即<code>dp[i][j] = value[i] + dp[i-1][w - weight[i]]</code>。</li>
+<li>如果你不把这第 <code>i</code> 个物品装入背包，也就是说你不使用 <code>coins[i]</code> 这个面值的硬币，那么凑出面额 j 的方法数 <code>dp[i][j]</code> 应该等于 <code>dp[i-1][j]</code>，继承之前的结果。</li>
+<li>如果你把这第 <code>i</code> 个物品装入了背包，也就是说你使用 <code>coins[i]</code> 这个面值的硬币，那么 <code>dp[i][j]</code> 应该等于 <code>dp[i][j-coins[i-1]]</code>。（注意这里是 dp[<strong>i</strong>][j-coins[i-1]] ，已经包括了再次重复使用这个硬币的情况）</li>
 </ul>
-<p>最后要寻求这两种情况下最大值，就是 <code>dp[i][w] = max(dp[i-1][w], dp[i-1][w - wt[i-1]] + val[i-1])</code>。</p>
-<p>对于此题，不需要计算物品的价值，只需要知道能不能正好装满，DP 表中储存 <code>true</code> 和 <code>false</code> 即可。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">canPartition</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    sum := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> nums &#123;<br>        sum += v<br>    &#125;<br>    <br>    <span class="hljs-keyword">if</span> sum % <span class="hljs-number">2</span> != <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    &#125;<br><br>    <span class="hljs-comment">// 转换为背包问题</span><br>    n := <span class="hljs-built_in">len</span>(nums)<br>    vol := <span class="hljs-keyword">int</span>(sum / <span class="hljs-number">2</span>)<br>    dp := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">bool</span>, n + <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">bool</span>, vol + <span class="hljs-number">1</span>)<br>    &#125;<br><br>    <span class="hljs-comment">// base cases</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt;= n; i++ &#123;<br>        dp[i][<span class="hljs-number">0</span>] = <span class="hljs-literal">true</span><br>    &#125;<br>    <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= vol; j++ &#123;<br>        dp[<span class="hljs-number">0</span>][j] = <span class="hljs-literal">false</span><br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= n; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= vol; j++ &#123;<br>            <span class="hljs-keyword">if</span> j - nums[i<span class="hljs-number">-1</span>] &lt; <span class="hljs-number">0</span> &#123;<br>                <span class="hljs-comment">// 背包容量 j 不足以装下重量为 nums[i-1] 的物品</span><br>                dp[i][j] = dp[i<span class="hljs-number">-1</span>][j]<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">// 装或不装，选择能装的那个（有一个选择为 true 则为 true）</span><br>                dp[i][j] = dp[i<span class="hljs-number">-1</span>][j] || dp[i<span class="hljs-number">-1</span>][j-nums[i<span class="hljs-number">-1</span>]]<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> dp[n][vol]<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>综上就是两种选择，而我们想求的 <code>dp[i][j]</code> 是「共有多少种凑法」，所以 <code>dp[i][j]</code> 的值应该是以上两种选择的结果之和：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">change</span><span class="hljs-params">(amount <span class="hljs-keyword">int</span>, coins []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(coins)<br>    dp := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, n + <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, amount + <span class="hljs-number">1</span>)<br>    &#125;<br><br>    <span class="hljs-comment">// base case: 如果 amount 为 0，只有 1 种办法凑出（不放硬币）</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt;= n; i++ &#123;<br>        dp[i][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span><br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= n; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= amount; j++ &#123;<br>            <span class="hljs-keyword">if</span> j - coins[i<span class="hljs-number">-1</span>] &gt;= <span class="hljs-number">0</span> &#123;<br>                dp[i][j] = dp[i<span class="hljs-number">-1</span>][j] + dp[i][j - coins[i<span class="hljs-number">-1</span>]]<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                dp[i][j] = dp[i<span class="hljs-number">-1</span>][j]<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> dp[n][amount]<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="压缩-DP-表"><a href="#压缩-DP-表" class="headerlink" title="压缩 DP 表"></a>压缩 DP 表</h2><p>可以看出 <code>dp[i][..]</code> 的状态总是且仅依赖于 <code>dp[i-1][..]</code> 的状态，因此可以只使用 1D 数组来完成， 每次在数组上迭代就相当于 <code>i</code> 的递增。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">canPartition</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    sum := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> nums &#123;<br>        sum += v<br>    &#125;<br>    <br>    <span class="hljs-keyword">if</span> sum % <span class="hljs-number">2</span> != <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    &#125;<br><br>    <span class="hljs-comment">// 转换为背包问题</span><br>    n := <span class="hljs-built_in">len</span>(nums)<br>    vol := <span class="hljs-keyword">int</span>(sum / <span class="hljs-number">2</span>)<br>    dp := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">bool</span>, vol + <span class="hljs-number">1</span>)<br><br>    dp[<span class="hljs-number">0</span>] = <span class="hljs-literal">true</span><br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= n; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := vol; j &gt;= <span class="hljs-number">0</span>; j-- &#123;<br>            <span class="hljs-keyword">if</span> j - nums[i<span class="hljs-number">-1</span>] &gt;= <span class="hljs-number">0</span> &#123;<br>                <span class="hljs-comment">// 装或不装，选择能装的那个（有一个选择为 true 则为 true）</span><br>                dp[j] = dp[j] || dp[j - nums[i<span class="hljs-number">-1</span>]]<br>            &#125;<br>            <span class="hljs-comment">// else: 如果不装，则什么也不用做</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> dp[vol]<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">change</span><span class="hljs-params">(amount <span class="hljs-keyword">int</span>, coins []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(coins)<br>    dp := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, amount + <span class="hljs-number">1</span>)<br><br>    <span class="hljs-comment">// base case: 如果 amount 为 0，只有 1 种办法凑出（不放硬币）</span><br>    dp[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= n; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= amount; j++ &#123;<br>            <span class="hljs-keyword">if</span> j - coins[i<span class="hljs-number">-1</span>] &gt;= <span class="hljs-number">0</span> &#123;<br>                dp[j] = dp[j] + dp[j - coins[i<span class="hljs-number">-1</span>]]<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> dp[amount]<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>唯一需要注意的是 <code>j</code> 应该从后往前反向遍历，因为每个物品（或者说数字）只能用一次，以免之前的结果影响其他的结果。如果我们从小到大更新 <code>dp</code> 值，那么在计算 <code>dp[j]</code> 值的时候，<code>dp[j − nums[i]]</code> 已经是被更新过的状态，不再是上一行的 <code>dp</code> 值。</p>
+<p>与 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/partition-equal-subset-sum/solution/">分割等和子集</a> 不同，这里压缩 DP 表不需要从后遍历 <code>j</code>，因为观察压缩前的状态转移公式，<code>dp[i-1][j]</code> 只会用于更新 <code>dp[i][j]</code>，可以直接覆盖掉而不影响其它结果。</p>
+<p>（在上一题中，<code>dp[i-1][j]</code> 可能会用于更新 <code>dp[i][j + nums[i]]</code> 的值，如果从头开始遍历，更新到 <code>dp[i-1][j + nums[i]]</code> 时，<code>dp[i-1][j]</code> 已经先于它更新了。</p>
 
             </div>
             <hr>
@@ -300,18 +299,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/coin-change-2/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">零钱兑换 II</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/longest-palindromic-subsequence/">
-                        <span class="hidden-mobile">最长回文子序列</span>
+                      <a href="/leetcode/fucking-algorithm/partition-equal-subset-sum/">
+                        <span class="hidden-mobile">分割等和子集</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
