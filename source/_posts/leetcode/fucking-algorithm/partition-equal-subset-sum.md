@@ -73,3 +73,40 @@ func canPartition(nums []int) bool {
     return dp[n][vol]
 }
 ```
+
+## 压缩 DP 表
+
+可以看出 `dp[i][..]` 的状态总是且仅依赖于 `dp[i-1][..]` 的状态，因此可以只使用 1D 数组来完成， 每次在数组上迭代就相当于 `i` 的递增。
+
+```go
+func canPartition(nums []int) bool {
+    sum := 0
+    for _, v := range nums {
+        sum += v
+    }
+    
+    if sum % 2 != 0 {
+        return false
+    }
+
+    // 转换为背包问题
+    n := len(nums)
+    vol := int(sum / 2)
+    dp := make([]bool, vol + 1)
+
+    dp[0] = true
+
+    for i := 1; i <= n; i++ {
+        for j := vol; j >= 0; j-- {
+            if j - nums[i-1] >= 0 {
+                // 装或不装，选择能装的那个（有一个选择为 true 则为 true）
+                dp[j] = dp[j] || dp[j - nums[i-1]]
+            }
+            // else: 如果不装，则什么也不用做
+        }
+    }
+    return dp[vol]
+}
+```
+
+唯一需要注意的是 `j` 应该从后往前反向遍历，因为每个物品（或者说数字）只能用一次，以免之前的结果影响其他的结果。如果我们从小到大更新 `dp` 值，那么在计算 `dp[j]` 值的时候，`dp[j − nums[i]]` 已经是被更新过的状态，不再是上一行的 `dp` 值。
