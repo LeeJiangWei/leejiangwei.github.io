@@ -382,6 +382,39 @@
   
   
   <entry>
+    <title>分割等和子集</title>
+    <link href="/leetcode/fucking-algorithm/partition-equal-subset-sum/"/>
+    <url>/leetcode/fucking-algorithm/partition-equal-subset-sum/</url>
+    
+    <content type="html"><![CDATA[<h1 id="分割等和子集"><a href="#分割等和子集" class="headerlink" title="分割等和子集"></a>分割等和子集</h1><p><a href="https://leetcode-cn.com/problems/partition-equal-subset-sum/">https://leetcode-cn.com/problems/partition-equal-subset-sum/</a></p><p>此问题可以转换为背包问题。首先对数组求和然后除以2，得出单个子集的总和 <code>sum/2</code>，显然问题就是要从数组中选出几个数使得总和为 <code>sum/2</code>。就类似于背包问题，在这里只需要把“背包”填满即可。</p><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>对于背包问题，DP 表 <code>dp[i][w]</code> 表示：对于前 <code>i</code> 个物品，当前背包的容量为 <code>w</code> 时，这种情况下可以装下的最大价值是 <code>dp[i][w]</code>。</p><p>在遍历到 <code>i</code> 时，如果当前容量为 <code>w</code>，我们要么把物品 <code>i</code> 装入背包，要么不装。</p><ul><li>如果不装，则没有变化，<code>dp[i][w]</code> 继承 <code>dp[i-1][w]</code> 的值。</li><li>如果装入背包，则加上装入物品的价值，并且寻找背包容量 <code>w</code> 减少后能装入（之前的物品）的最大价值，即 <code>dp[i-1][w - weight[i]]</code>。这两项加起来就是装入这个物品后的最大价值，即<code>dp[i][j] = value[i] + dp[i-1][w - weight[i]]</code>。</li></ul><p>最后要寻求这两种情况下最大值，就是 <code>dp[i][w] = max(dp[i-1][w], dp[i-1][w - wt[i-1]] + val[i-1])</code>。</p><p>对于此题，不需要计算物品的价值，只需要知道能不能正好装满，DP 表中储存 <code>true</code> 和 <code>false</code> 即可。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">canPartition</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    sum := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> nums &#123;<br>        sum += v<br>    &#125;<br>    <br>    <span class="hljs-keyword">if</span> sum % <span class="hljs-number">2</span> != <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    &#125;<br><br>    <span class="hljs-comment">// 转换为背包问题</span><br>    n := <span class="hljs-built_in">len</span>(nums)<br>    vol := <span class="hljs-keyword">int</span>(sum / <span class="hljs-number">2</span>)<br>    dp := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">bool</span>, n + <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">bool</span>, vol + <span class="hljs-number">1</span>)<br>    &#125;<br><br>    <span class="hljs-comment">// base cases</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt;= n; i++ &#123;<br>        dp[i][<span class="hljs-number">0</span>] = <span class="hljs-literal">true</span><br>    &#125;<br>    <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= vol; j++ &#123;<br>        dp[<span class="hljs-number">0</span>][j] = <span class="hljs-literal">false</span><br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= n; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= vol; j++ &#123;<br>            <span class="hljs-keyword">if</span> j - nums[i<span class="hljs-number">-1</span>] &lt; <span class="hljs-number">0</span> &#123;<br>                <span class="hljs-comment">// 背包容量 j 不足以装下重量为 nums[i-1] 的物品</span><br>                dp[i][j] = dp[i<span class="hljs-number">-1</span>][j]<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">// 装或不装，选择能装的那个（有一个选择为 true 则为 true）</span><br>                dp[i][j] = dp[i<span class="hljs-number">-1</span>][j] || dp[i<span class="hljs-number">-1</span>][j-nums[i<span class="hljs-number">-1</span>]]<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> dp[n][vol]<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>背包问题</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>合并两个有序数组</title>
     <link href="/leetcode/top-interview-questions-easy/merge-sorted-array/"/>
     <url>/leetcode/top-interview-questions-easy/merge-sorted-array/</url>
