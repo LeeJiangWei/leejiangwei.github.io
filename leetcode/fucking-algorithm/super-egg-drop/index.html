@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>零钱兑换 II - Be Happy</title>
+  <title>鸡蛋掉落 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="零钱兑换 II">
+            <span class="h2" id="subtitle" title="鸡蛋掉落">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-12 16:05" pubdate>
-        2022年2月12日 下午
+      <time datetime="2022-02-12 20:12" pubdate>
+        2022年2月12日 晚上
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      624 字
+      548 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      7
        分钟
     </span>
   
@@ -245,24 +245,25 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">零钱兑换 II</h1>
+            <h1 style="display: none">鸡蛋掉落</h1>
             
             <div class="markdown-body">
-              <h1 id="零钱兑换-II"><a href="#零钱兑换-II" class="headerlink" title="零钱兑换 II"></a>零钱兑换 II</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/coin-change-2/">https://leetcode-cn.com/problems/coin-change-2/</a></p>
-<p>此题是完全背包问题，即物品数量是无限的。</p>
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>对于背包问题，DP 表 <code>dp[i][j]</code> 表示：若只使用 <code>coins</code> 中的前 <code>i</code> 个硬币的面值，若想凑出金额 <code>j</code>，有 <code>dp[i][j]</code> 种凑法。</p>
+              <h1 id="鸡蛋掉落"><a href="#鸡蛋掉落" class="headerlink" title="鸡蛋掉落"></a>鸡蛋掉落</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/super-egg-drop/">https://leetcode-cn.com/problems/super-egg-drop/</a></p>
+<h2 id="带备忘录的递归"><a href="#带备忘录的递归" class="headerlink" title="带备忘录的递归"></a>带备忘录的递归</h2><p><strong>状态</strong>：剩余鸡蛋数量 <code>eggs</code>，剩余未测楼层数 <code>floors</code>。随着鸡蛋数量的减少，剩下的楼层数就会减少。</p>
+<p><strong>状态转移</strong>：假设当前剩余 <code>eggs</code> 个鸡蛋和 <code>floors</code> 层楼，去第 <code>i</code> 层扔一个鸡蛋，会有 2 种情况：</p>
 <ul>
-<li>如果你不把这第 <code>i</code> 个物品装入背包，也就是说你不使用 <code>coins[i]</code> 这个面值的硬币，那么凑出面额 j 的方法数 <code>dp[i][j]</code> 应该等于 <code>dp[i-1][j]</code>，继承之前的结果。</li>
-<li>如果你把这第 <code>i</code> 个物品装入了背包，也就是说你使用 <code>coins[i]</code> 这个面值的硬币，那么 <code>dp[i][j]</code> 应该等于 <code>dp[i][j-coins[i-1]]</code>。（注意这里是 dp[<strong>i</strong>][j-coins[i-1]] ，已经包括了再次重复使用这个硬币的情况）</li>
+<li>如果鸡蛋没碎，可以排除这层楼及以下的楼层，剩余楼层数为 <code>floors - i</code>；</li>
+<li>如果鸡蛋碎了，则排除这层楼及以上的楼层，剩余楼层数为 <code>i - 1</code>，且鸡蛋少了一个。</li>
 </ul>
-<p>综上就是两种选择，而我们想求的 <code>dp[i][j]</code> 是「共有多少种凑法」，所以 <code>dp[i][j]</code> 的值应该是以上两种选择的结果之和：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">change</span><span class="hljs-params">(amount <span class="hljs-keyword">int</span>, coins []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(coins)<br>    dp := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, n + <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, amount + <span class="hljs-number">1</span>)<br>    &#125;<br><br>    <span class="hljs-comment">// base case: 如果 amount 为 0，只有 1 种办法凑出（不放硬币）</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt;= n; i++ &#123;<br>        dp[i][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span><br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= n; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= amount; j++ &#123;<br>            <span class="hljs-keyword">if</span> j - coins[i<span class="hljs-number">-1</span>] &gt;= <span class="hljs-number">0</span> &#123;<br>                dp[i][j] = dp[i<span class="hljs-number">-1</span>][j] + dp[i][j - coins[i<span class="hljs-number">-1</span>]]<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                dp[i][j] = dp[i<span class="hljs-number">-1</span>][j]<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> dp[n][amount]<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://github.com/labuladong/fucking-algorithm/raw/master/pictures/%E6%89%94%E9%B8%A1%E8%9B%8B/1.jpg" srcset="/img/loading.gif" lazyload alt="状态转移"></p>
+<p>注意，只需要关注剩下几层楼没测，而不需要关注这层楼具体是多高，因为对于每层楼我们最终都会假设它碎或不碎两种情况，相当于是把所有可能性都尝试了一次。</p>
+<p><code>i</code> 怎么取？也就是说去哪层开始扔？答案是都试一次，扔完一个后楼层减少，继续用一样的方法尝试。关注<strong>最坏情况</strong>下<em>最少的操作数</em>，最坏情况就是扔了一次鸡蛋后剩余的楼层数最多，最少的操作数就是从每个不同的楼层 <code>i</code> 开始扔，哪个用的次数最少。即:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">res = <span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> <span class="hljs-number">1</span> &lt;= i &lt;= floors:<br>    res = <span class="hljs-built_in">min</span>(res, <span class="hljs-number">1</span> + <span class="hljs-built_in">max</span>(<br>        dp(eggs, floors-i),  <span class="hljs-comment"># 鸡蛋没碎，剩余上面的楼层</span><br>        dp(eggs-<span class="hljs-number">1</span>, i-<span class="hljs-number">1</span>),     <span class="hljs-comment"># 鸡蛋碎了，剩余下面的楼层，鸡蛋减一</span><br>    ))<br></code></pre></td></tr></table></figure>
 
-<h2 id="压缩-DP-表"><a href="#压缩-DP-表" class="headerlink" title="压缩 DP 表"></a>压缩 DP 表</h2><p>可以看出 <code>dp[i][..]</code> 的状态总是且仅依赖于 <code>dp[i-1][..]</code> 的状态，因此可以只使用 1D 数组来完成， 每次在数组上迭代就相当于 <code>i</code> 的递增。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">change</span><span class="hljs-params">(amount <span class="hljs-keyword">int</span>, coins []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(coins)<br>    dp := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, amount + <span class="hljs-number">1</span>)<br><br>    <span class="hljs-comment">// base case: 如果 amount 为 0，只有 1 种办法凑出（不放硬币）</span><br>    dp[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= n; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= amount; j++ &#123;<br>            <span class="hljs-keyword">if</span> j - coins[i<span class="hljs-number">-1</span>] &gt;= <span class="hljs-number">0</span> &#123;<br>                dp[j] = dp[j] + dp[j - coins[i<span class="hljs-number">-1</span>]]<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> dp[amount]<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>最终用备忘录减少重复计算，代码写出来就是：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">superEggDrop</span><span class="hljs-params">(k <span class="hljs-keyword">int</span>, n <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    memo := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[[<span class="hljs-number">2</span>]<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>)<br>    <span class="hljs-keyword">return</span> dp(memo, k, n)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">dp</span><span class="hljs-params">(memo <span class="hljs-keyword">map</span>[[2]<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>, eggs <span class="hljs-keyword">int</span>, floors <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// base case:</span><br>    <span class="hljs-keyword">if</span> floors == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> eggs == <span class="hljs-number">1</span> &#123;<br>        <span class="hljs-keyword">return</span> floors<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> v, ok := memo[[<span class="hljs-number">2</span>]<span class="hljs-keyword">int</span>&#123;eggs, floors&#125;]; ok &#123;<br>        <span class="hljs-keyword">return</span> v<br>    &#125;<br><br>    times := math.MaxInt16<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= floors; i++ &#123;<br>        times = min(times, max(dp(memo, eggs<span class="hljs-number">-1</span>, i<span class="hljs-number">-1</span>), dp(memo, eggs, floors-i)) + <span class="hljs-number">1</span>)<br>    &#125;<br><br>    memo[[<span class="hljs-number">2</span>]<span class="hljs-keyword">int</span>&#123;eggs, floors&#125;] = times<br>    <span class="hljs-keyword">return</span> times<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &lt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &gt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>与 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/partition-equal-subset-sum/solution/">分割等和子集</a> 不同，这里压缩 DP 表不需要从后遍历 <code>j</code>，因为观察压缩前的状态转移公式，<code>dp[i-1][j]</code> 只会用于更新 <code>dp[i][j]</code>，可以直接覆盖掉而不影响其它结果。</p>
-<p>（在上一题中，<code>dp[i-1][j]</code> 可能会用于更新 <code>dp[i][j + nums[i]]</code> 的值，如果从头开始遍历，更新到 <code>dp[i-1][j + nums[i]]</code> 时，<code>dp[i-1][j]</code> 已经先于它更新了。</p>
+<p>但是 leetcode 会超时。</p>
 
             </div>
             <hr>
@@ -288,8 +289,6 @@
                     
                       <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">背包问题</a>
-                    
                   </div>
                 
               </div>
@@ -299,18 +298,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/super-egg-drop/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">鸡蛋掉落</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/partition-equal-subset-sum/">
-                        <span class="hidden-mobile">分割等和子集</span>
+                      <a href="/leetcode/fucking-algorithm/coin-change-2/">
+                        <span class="hidden-mobile">零钱兑换 II</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
