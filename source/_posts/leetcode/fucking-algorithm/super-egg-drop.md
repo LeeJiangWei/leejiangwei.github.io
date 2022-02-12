@@ -91,3 +91,74 @@ func max(values ...int) int {
 ```
 
 但是 leetcode 会超时。
+
+## 用二分搜索优化
+
+上面的方法有个致命的缺点，就是每次搜索都是线性搜索，且都是从 1 开始到 N，这效率并不够高，leetcode 题直接超时了。需要改进上面的线性搜索，也就是这一部分：
+
+```go
+for i := 1; i <= floors; i++ {
+    times = min(times, max(dp(memo, eggs-1, i-1), dp(memo, eggs, floors-i)) + 1)
+}
+```
+
+首先我们根据 `dp(K, N)` 数组的定义（有 K 个鸡蛋面对 N 层楼，最少需要扔几次），很容易知道 `K` 固定时，这个函数一定是单调递增的，无论你策略多聪明，随着总楼层增加，测试次数一定要增加。
+
+那么注意 `dp(K - 1, i - 1)` 和 `dp(K, N - i)` 这两个函数，其中 i 是从 1 到 N 单增的，如果我们固定 `K` 和 `N`，把这两个函数看做关于 `i` 的函数，前者随着 `i` 的增加应该也是单调递增的，而后者随着 `i` 的增加应该是单调递减的：
+
+![函数图像示意](https://github.com/labuladong/fucking-algorithm/raw/master/pictures/%E6%89%94%E9%B8%A1%E8%9B%8B/2.jpg)
+
+```go
+func superEggDrop(k int, n int) int {
+    memo := make(map[[2]int]int)
+    return dp(memo, k, n)
+}
+
+func dp(memo map[[2]int]int, eggs int, floors int) int {
+    // base case:
+    if floors == 0 {
+        return 0
+    }
+    if eggs == 1 {
+        return floors
+    }
+
+    if v, ok := memo[[2]int{eggs, floors}]; ok {
+        return v
+    }
+
+    times := math.MaxInt16
+
+    // 改进后的二分搜索
+    low, high := 1, floors
+    for low <= high {
+        mid := (low + high) / 2
+
+        brokenTimes := dp(memo, eggs-1, mid-1)      // 蛋碎了
+        noBrokenTimes := dp(memo, eggs, floors-mid) // 蛋没碎
+
+        if brokenTimes > noBrokenTimes {
+            high = mid - 1
+            times = min(times, brokenTimes + 1)
+        } else {
+            low = mid + 1
+            times = min(times, noBrokenTimes + 1)
+        }
+    }
+
+    memo[[2]int{eggs, floors}] = times
+    return times
+}
+
+func min(values ...int) int {
+    res := values[0]
+    for _, v := range values {
+        if v < res {
+            res = v
+        }
+    }
+    return res
+}
+```
+
+此时 leetcode 终于不超时了。
