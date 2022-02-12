@@ -10,7 +10,7 @@ tags:
   - 背包问题
 index_img: /img/code.jpg
 sticky: -10
-date: 2022-02-09 14:43:31
+date: 2022-02-12 14:43:31
 ---
 
 # 分割等和子集
