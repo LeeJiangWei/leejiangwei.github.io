@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>最小路径和 - Be Happy</title>
+  <title>地下城游戏 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="最小路径和">
+            <span class="h2" id="subtitle" title="地下城游戏">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-13 11:04" pubdate>
-        2022年2月13日 上午
+      <time datetime="2022-02-13 12:14" pubdate>
+        2022年2月13日 中午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      333 字
+      454 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      7
        分钟
     </span>
   
@@ -245,15 +245,13 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">最小路径和</h1>
+            <h1 style="display: none">地下城游戏</h1>
             
             <div class="markdown-body">
-              <h1 id="最小路径和"><a href="#最小路径和" class="headerlink" title="最小路径和"></a>最小路径和</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-path-sum/">https://leetcode-cn.com/problems/minimum-path-sum/</a></p>
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">minPathSum</span><span class="hljs-params">(grid [][]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    m, n := <span class="hljs-built_in">len</span>(grid), <span class="hljs-built_in">len</span>(grid[<span class="hljs-number">0</span>])<br>    dp := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, m)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n)<br>    &#125;<br><br>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = grid[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; m; i++ &#123;<br>        dp[i][<span class="hljs-number">0</span>] = dp[i<span class="hljs-number">-1</span>][<span class="hljs-number">0</span>] + grid[i][<span class="hljs-number">0</span>]<br>    &#125;<br>    <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt; n; j++ &#123;<br>        dp[<span class="hljs-number">0</span>][j] = dp[<span class="hljs-number">0</span>][j<span class="hljs-number">-1</span>] + grid[<span class="hljs-number">0</span>][j]<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; m; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt; n; j++ &#123;<br>            dp[i][j] = min(dp[i<span class="hljs-number">-1</span>][j], dp[i][j<span class="hljs-number">-1</span>]) + grid[i][j]<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> dp[m<span class="hljs-number">-1</span>][n<span class="hljs-number">-1</span>]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &lt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="空间压缩"><a href="#空间压缩" class="headerlink" title="空间压缩"></a>空间压缩</h2><p><img src="https://labuladong.gitee.io/algo/images/%e6%9c%80%e7%9f%ad%e8%b7%af%e5%be%84%e5%92%8c/1.jpeg" srcset="/img/loading.gif" lazyload></p>
-<p>很容易看出来，得到初始值后可以逐行更新，每一行的结果只依赖于上一行以及自己的前一个结果，可以按从上到下、从左到右的顺序遍历，只需要 1 维的 DP 数组。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">minPathSum</span><span class="hljs-params">(grid [][]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    m, n := <span class="hljs-built_in">len</span>(grid), <span class="hljs-built_in">len</span>(grid[<span class="hljs-number">0</span>])<br>    dp := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, m)<br>    <br>    dp[<span class="hljs-number">0</span>] = grid[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; m; i++ &#123;<br>        dp[i] = dp[i<span class="hljs-number">-1</span>] + grid[i][<span class="hljs-number">0</span>]<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt; n; j++ &#123;<br>        dp[<span class="hljs-number">0</span>] = grid[<span class="hljs-number">0</span>][j] + dp[<span class="hljs-number">0</span>]<br>        <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; m; i++ &#123;<br>            dp[i] = min(dp[i<span class="hljs-number">-1</span>], dp[i]) + grid[i][j]<br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> dp[m<span class="hljs-number">-1</span>]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &lt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="地下城游戏"><a href="#地下城游戏" class="headerlink" title="地下城游戏"></a>地下城游戏</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/dungeon-game/">https://leetcode-cn.com/problems/dungeon-game/</a></p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>跟 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-path-sum/">最小路径和</a> 有点像，但是不同。由于会扣血，且骑士<strong>任意时刻的生命值不能低于 1</strong>，在选择下一个格子怎么走时，必须知道当前的血量。如果把 DP 表定义为走到 <code>grid[i][j]</code> 时所需的最少生命值，就无法得知当前的生命值了，就不能保证生命值一直大于 1 了。</p>
+<p>重新定义 DP 表为：从 <code>grid[i][j]</code> 到达终点（右下角）所需的最少生命值是 <code>dp[i][j]</code>。因此如果知道了 <code>dp[i+1][j]</code> 和 <code>dp[i][j+1]</code>，就能根据当前格子状态 <code>grid[i][j]</code> 推断出 <code>dp[i][j]</code> 了。最终求的是 <code>dp[0][0]</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">calculateMinimumHP</span><span class="hljs-params">(dungeon [][]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    m, n := <span class="hljs-built_in">len</span>(dungeon), <span class="hljs-built_in">len</span>(dungeon[<span class="hljs-number">0</span>])<br>    dp := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, m)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n)<br>    &#125;<br><br>    <span class="hljs-comment">// base case: 最后一格需要的血量</span><br>    <span class="hljs-keyword">if</span> dungeon[m<span class="hljs-number">-1</span>][n<span class="hljs-number">-1</span>] &gt; <span class="hljs-number">0</span> &#123;<br>        dp[m<span class="hljs-number">-1</span>][n<span class="hljs-number">-1</span>] = <span class="hljs-number">1</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        dp[m<span class="hljs-number">-1</span>][n<span class="hljs-number">-1</span>] = <span class="hljs-number">1</span> - dungeon[m<span class="hljs-number">-1</span>][n<span class="hljs-number">-1</span>]<br>    &#125;<br><br>    <span class="hljs-comment">// base case: 沿着最下面和最右边走的路线</span><br>    <span class="hljs-keyword">for</span> i := m - <span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>        dp[i][n<span class="hljs-number">-1</span>] = dp[i+<span class="hljs-number">1</span>][n<span class="hljs-number">-1</span>] - dungeon[i][n<span class="hljs-number">-1</span>]<br>        <span class="hljs-keyword">if</span> dp[i][n<span class="hljs-number">-1</span>] &lt; <span class="hljs-number">1</span> &#123;  <span class="hljs-comment">// 保证血量不低于 1</span><br>            dp[i][n<span class="hljs-number">-1</span>] = <span class="hljs-number">1</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">for</span> j := n - <span class="hljs-number">2</span>; j &gt;= <span class="hljs-number">0</span>; j-- &#123;<br>        dp[m<span class="hljs-number">-1</span>][j] = dp[m<span class="hljs-number">-1</span>][j+<span class="hljs-number">1</span>] - dungeon[m<span class="hljs-number">-1</span>][j]<br>        <span class="hljs-keyword">if</span> dp[m<span class="hljs-number">-1</span>][j] &lt; <span class="hljs-number">1</span> &#123; <span class="hljs-comment">// 保证血量不低于 1</span><br>            dp[m<span class="hljs-number">-1</span>][j] = <span class="hljs-number">1</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := m<span class="hljs-number">-2</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>        <span class="hljs-keyword">for</span> j := n<span class="hljs-number">-2</span>; j &gt;= <span class="hljs-number">0</span>; j-- &#123;<br>            dp[i][j] = min(dp[i+<span class="hljs-number">1</span>][j], dp[i][j+<span class="hljs-number">1</span>]) - dungeon[i][j]<br>            <span class="hljs-keyword">if</span> dp[i][j] &lt; <span class="hljs-number">1</span> &#123; <span class="hljs-comment">// 保证血量不低于 1</span><br>                dp[i][j] = <span class="hljs-number">1</span><br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &lt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -287,18 +285,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/dungeon-game/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">地下城游戏</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/super-egg-drop/">
-                        <span class="hidden-mobile">鸡蛋掉落</span>
+                      <a href="/leetcode/fucking-algorithm/minimum-path-sum/">
+                        <span class="hidden-mobile">最小路径和</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
