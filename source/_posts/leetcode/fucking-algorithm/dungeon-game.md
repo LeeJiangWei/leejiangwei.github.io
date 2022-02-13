@@ -73,3 +73,50 @@ func min(values ...int) int {
     return res
 }
 ```
+
+## 空间压缩
+
+```go
+func calculateMinimumHP(dungeon [][]int) int {
+    m, n := len(dungeon), len(dungeon[0])
+    dp := make([]int, m)
+
+    if dungeon[m-1][n-1] > 0 {
+        dp[m-1] = 1
+    } else {
+        dp[m-1]= 1 - dungeon[m-1][n-1]
+    }
+
+    for i := m - 2; i >= 0; i-- {
+        dp[i] = dp[i+1] - dungeon[i][n-1]
+        if dp[i] < 1 {
+            dp[i] = 1
+        }
+    }
+
+    for j := n-2; j >= 0; j-- {
+        dp[m-1] = dp[m-1] - dungeon[m-1][j]
+        if dp[m-1] < 1 {
+            dp[m-1] = 1
+        }
+        for i := m-2; i >= 0; i-- {
+            dp[i] = min(dp[i+1], dp[i]) - dungeon[i][j]
+            if dp[i] < 1 {
+                dp[i] = 1
+            }
+        }
+    }
+
+    return dp[0]
+}
+
+func min(values ...int) int {
+    res := values[0]
+    for _, v := range values {
+        if v < res {
+            res = v
+        }
+    }
+    return res
+}
+```
