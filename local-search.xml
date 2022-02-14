@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>让字符串成为回文串的最少插入次数</title>
+    <link href="/leetcode/fucking-algorithm/minimum-insertion-steps-to-make-a-string-palindrome/"/>
+    <url>/leetcode/fucking-algorithm/minimum-insertion-steps-to-make-a-string-palindrome/</url>
+    
+    <content type="html"><![CDATA[<h1 id="让字符串成为回文串的最少插入次数"><a href="#让字符串成为回文串的最少插入次数" class="headerlink" title="让字符串成为回文串的最少插入次数"></a>让字符串成为回文串的最少插入次数</h1><p><a href="https://leetcode-cn.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/">https://leetcode-cn.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/</a></p><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>解决回文问题其实都差不多，用二维 DP 表表示状态，然后从两端看字符匹配与否。</p><p>这里 <code>dp[i][j]</code> 表示让字符串 <code>s[i..j]</code> 成为回文串所需要的最少插入次数。</p><p>base case 很简单，当 <code>i == j</code> 时或空串时，字符串自己就是回文了，无需任何操作，为 0。</p><p>现在知道了 <code>dp[i+1][j-1]</code>，要想知道 <code>dp[i][j]</code>，只需要看 <code>s[i]</code> 和 <code>s[j]</code>两个字符（因为中间的已经可以视作是回文了。如果它们已经相等了，则无需任何操作；如果不相等，往其中一边插入一个字符（不一定需要两边都插）。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">minInsertions</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(s)<br>    dp := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, n)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n)<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>        <span class="hljs-keyword">for</span> j := i + <span class="hljs-number">1</span>; j &lt; n; j++ &#123;<br>            <span class="hljs-keyword">if</span> s[i] == s[j] &#123;<br>                <span class="hljs-comment">// 相等，无需操作</span><br>                dp[i][j] = dp[i+<span class="hljs-number">1</span>][j<span class="hljs-number">-1</span>]<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">// 不相等，往其中一侧插入，取操作数最少的那一侧</span><br>                dp[i][j] = <span class="hljs-number">1</span> + min(dp[i][j<span class="hljs-number">-1</span>], dp[i+<span class="hljs-number">1</span>][j])<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> dp[<span class="hljs-number">0</span>][n<span class="hljs-number">-1</span>]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &lt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>石子游戏</title>
     <link href="/leetcode/fucking-algorithm/stone-game/"/>
     <url>/leetcode/fucking-algorithm/stone-game/</url>
