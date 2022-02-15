@@ -4,11 +4,11 @@
   
   
   <entry>
-    <title>删除被覆盖区间</title>
-    <link href="/leetcode/fucking-algorithm/remove-covered-intervals/"/>
-    <url>/leetcode/fucking-algorithm/remove-covered-intervals/</url>
+    <title>区间列表的交集</title>
+    <link href="/leetcode/fucking-algorithm/interval-list-intersections/"/>
+    <url>/leetcode/fucking-algorithm/interval-list-intersections/</url>
     
-    <content type="html"><![CDATA[<h1 id="删除被覆盖区间"><a href="#删除被覆盖区间" class="headerlink" title="删除被覆盖区间"></a>删除被覆盖区间</h1><p><a href="https://leetcode-cn.com/problems/remove-covered-intervals/">https://leetcode-cn.com/problems/remove-covered-intervals/</a></p><h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p>依照惯例，按区间<strong>起点升序</strong>对区间排序，如果起点相同则按<strong>终点降序</strong>排序。</p><p><img src="https://labuladong.gitee.io/algo/images/mergeInterval/1.jpg"></p><p>排序后，香菱区间的相对关系只有 3 个可能：</p><p><img src="https://labuladong.gitee.io/algo/images/%e5%8c%ba%e9%97%b4%e5%90%88%e9%9b%86/1.jpeg"></p><ol><li>找到了覆盖的区间</li><li>区间相交，可以视作合并为一个更大的区间</li><li>区间不相交</li></ol><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">removeCoveredIntervals</span><span class="hljs-params">(intervals [][]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    sort.Slice(intervals, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] == intervals[j][<span class="hljs-number">0</span>] &#123;<br>            <span class="hljs-keyword">return</span> intervals[i][<span class="hljs-number">1</span>] &gt; intervals[j][<span class="hljs-number">1</span>]<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> intervals[i][<span class="hljs-number">0</span>] &lt; intervals[j][<span class="hljs-number">0</span>]<br>        &#125;<br>    &#125;)<br><br>    left, right := intervals[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], intervals[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]<br>    count := <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; <span class="hljs-built_in">len</span>(intervals); i++ &#123;<br>        <span class="hljs-comment">// 找到覆盖区间</span><br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] &gt;= left &amp;&amp; intervals[i][<span class="hljs-number">1</span>] &lt;= right &#123;<br>            count++<br>        &#125;<br><br>        <span class="hljs-comment">// 区间相交</span><br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] &gt;= left &amp;&amp; intervals[i][<span class="hljs-number">1</span>] &gt; right &#123;<br>            right = intervals[i][<span class="hljs-number">1</span>]<br>        &#125;<br><br>        <span class="hljs-comment">// 区间不相交，更新起点终点</span><br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] &gt; right &#123;<br>            left = intervals[i][<span class="hljs-number">0</span>]<br>            right = intervals[i][<span class="hljs-number">1</span>]<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(intervals) - count<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h1 id="区间列表的交集"><a href="#区间列表的交集" class="headerlink" title="区间列表的交集"></a>区间列表的交集</h1><p><a href="https://leetcode-cn.com/problems/interval-list-intersections/">https://leetcode-cn.com/problems/interval-list-intersections/</a></p><h2 id="观察规律"><a href="#观察规律" class="headerlink" title="观察规律"></a>观察规律</h2><p>两个区间要么有交集，要么无交集。如果无交集，则条件很明显是 <code>secondEnd &lt; firstStart || firstEnd &lt; secondStart </code>。</p><p>取反就是有交集的条件 <code>secondEnd &gt;= firstStart &amp;&amp; firstEnd &gt;= secondStart</code>，在这种条件下观察得出重叠区间的起点是两个起点的较大者，终点是两个终点的较小者。</p><p>得出交集后，谁更靠前，就移动谁的指针，很好理解。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">intervalIntersection</span><span class="hljs-params">(firstList [][]<span class="hljs-keyword">int</span>, secondList [][]<span class="hljs-keyword">int</span>)</span> [][]<span class="hljs-title">int</span></span> &#123;<br>    result := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)<br>    m, n := <span class="hljs-built_in">len</span>(firstList), <span class="hljs-built_in">len</span>(secondList)<br>    i, j := <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <br>    <span class="hljs-keyword">for</span> i &lt; m &amp;&amp; j &lt; n &#123;<br>        firstStart, firstEnd := firstList[i][<span class="hljs-number">0</span>], firstList[i][<span class="hljs-number">1</span>]<br>        secondStart, secondEnd := secondList[j][<span class="hljs-number">0</span>], secondList[j][<span class="hljs-number">1</span>]<br><br>        <span class="hljs-comment">// 两个区间存在交集</span><br>        <span class="hljs-keyword">if</span> secondEnd &gt;= firstStart &amp;&amp; firstEnd &gt;= secondStart &#123;<br>            result = <span class="hljs-built_in">append</span>(result, []<span class="hljs-keyword">int</span>&#123;max(firstStart, secondStart), min(firstEnd, secondEnd)&#125;)<br>        &#125;<br>        <span class="hljs-keyword">if</span> secondEnd &lt; firstEnd  &#123;<br>            j++<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            i++<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> result<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &gt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &lt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
@@ -28,7 +28,73 @@
       
       <tag>动态规划</tag>
       
-      <tag>贪心算法</tag>
+      <tag>区间调度问题</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>合并区间</title>
+    <link href="/leetcode/fucking-algorithm/merge-intervals/"/>
+    <url>/leetcode/fucking-algorithm/merge-intervals/</url>
+    
+    <content type="html"><![CDATA[<h1 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h1><p><a href="https://leetcode-cn.com/problems/merge-intervals/">https://leetcode-cn.com/problems/merge-intervals/</a></p><h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p>跟上一题几乎一样，依照惯例，按区间<strong>起点升序</strong>对区间排序，如果起点相同则按<strong>终点降序</strong>排序。</p><p><img src="https://labuladong.gitee.io/algo/images/mergeInterval/1.jpg"></p><p>排序后，香菱区间的相对关系只需要考虑 2 种情况：</p><ol><li>区间相交，可以视作合并为一个更大的区间</li><li>区间不相交</li></ol><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">merge</span><span class="hljs-params">(intervals [][]<span class="hljs-keyword">int</span>)</span> [][]<span class="hljs-title">int</span></span> &#123;<br>    sort.Slice(intervals, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] == intervals[j][<span class="hljs-number">0</span>] &#123;<br>            <span class="hljs-keyword">return</span> intervals[i][<span class="hljs-number">1</span>] &gt; intervals[j][<span class="hljs-number">1</span>]<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> intervals[i][<span class="hljs-number">0</span>] &lt; intervals[j][<span class="hljs-number">0</span>]<br>        &#125;<br>    &#125;)<br><br>    result := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)<br>    <br>    left, right := intervals[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], intervals[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; <span class="hljs-built_in">len</span>(intervals); i++ &#123;<br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] &lt;= right &amp;&amp; intervals[i][<span class="hljs-number">1</span>] &gt; right &#123;<br>            <span class="hljs-comment">// 区间相交，更新合并</span><br>            right = intervals[i][<span class="hljs-number">1</span>]<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] &gt; right &#123;<br>            <span class="hljs-comment">// 区间完全不相交，记录上一个大区间，更新下一个区间的开始结束</span><br>            result = <span class="hljs-built_in">append</span>(result, []<span class="hljs-keyword">int</span>&#123;left, right&#125;)<br><br>            left = intervals[i][<span class="hljs-number">0</span>]<br>            right = intervals[i][<span class="hljs-number">1</span>]<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">// 记录最后一个区间</span><br>    result = <span class="hljs-built_in">append</span>(result, []<span class="hljs-keyword">int</span>&#123;left, right&#125;)<br><br>    <span class="hljs-keyword">return</span> result<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>区间调度问题</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>删除被覆盖区间</title>
+    <link href="/leetcode/fucking-algorithm/remove-covered-intervals/"/>
+    <url>/leetcode/fucking-algorithm/remove-covered-intervals/</url>
+    
+    <content type="html"><![CDATA[<h1 id="删除被覆盖区间"><a href="#删除被覆盖区间" class="headerlink" title="删除被覆盖区间"></a>删除被覆盖区间</h1><p><a href="https://leetcode-cn.com/problems/remove-covered-intervals/">https://leetcode-cn.com/problems/remove-covered-intervals/</a></p><h2 id="排序并观察"><a href="#排序并观察" class="headerlink" title="排序并观察"></a>排序并观察</h2><p>依照惯例，按区间<strong>起点升序</strong>对区间排序，如果起点相同则按<strong>终点降序</strong>排序。</p><p><img src="https://labuladong.gitee.io/algo/images/mergeInterval/1.jpg"></p><p>排序后，香菱区间的相对关系只有 3 个可能：</p><p><img src="https://labuladong.gitee.io/algo/images/%e5%8c%ba%e9%97%b4%e5%90%88%e9%9b%86/1.jpeg"></p><ol><li>找到了覆盖的区间</li><li>区间相交，可以视作合并为一个更大的区间</li><li>区间不相交</li></ol><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">removeCoveredIntervals</span><span class="hljs-params">(intervals [][]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    sort.Slice(intervals, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] == intervals[j][<span class="hljs-number">0</span>] &#123;<br>            <span class="hljs-keyword">return</span> intervals[i][<span class="hljs-number">1</span>] &gt; intervals[j][<span class="hljs-number">1</span>]<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> intervals[i][<span class="hljs-number">0</span>] &lt; intervals[j][<span class="hljs-number">0</span>]<br>        &#125;<br>    &#125;)<br><br>    left, right := intervals[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], intervals[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]<br>    count := <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; <span class="hljs-built_in">len</span>(intervals); i++ &#123;<br>        <span class="hljs-comment">// 找到覆盖区间</span><br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] &gt;= left &amp;&amp; intervals[i][<span class="hljs-number">1</span>] &lt;= right &#123;<br>            count++<br>        &#125;<br><br>        <span class="hljs-comment">// 区间相交</span><br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] &gt;= left &amp;&amp; intervals[i][<span class="hljs-number">1</span>] &gt; right &#123;<br>            right = intervals[i][<span class="hljs-number">1</span>]<br>        &#125;<br><br>        <span class="hljs-comment">// 区间不相交，更新起点终点</span><br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] &gt; right &#123;<br>            left = intervals[i][<span class="hljs-number">0</span>]<br>            right = intervals[i][<span class="hljs-number">1</span>]<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(intervals) - count<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>区间调度问题</tag>
       
     </tags>
     
@@ -195,6 +261,8 @@
       
       <tag>贪心算法</tag>
       
+      <tag>区间调度问题</tag>
+      
     </tags>
     
   </entry>
@@ -227,6 +295,8 @@
       <tag>动态规划</tag>
       
       <tag>贪心算法</tag>
+      
+      <tag>区间调度问题</tag>
       
     </tags>
     
