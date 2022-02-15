@@ -4,6 +4,105 @@
   
   
   <entry>
+    <title>加油站</title>
+    <link href="/leetcode/fucking-algorithm/gas-station/"/>
+    <url>/leetcode/fucking-algorithm/gas-station/</url>
+    
+    <content type="html"><![CDATA[<h1 id="加油站"><a href="#加油站" class="headerlink" title="加油站"></a>加油站</h1><p><a href="https://leetcode-cn.com/problems/gas-station/">https://leetcode-cn.com/problems/gas-station/</a></p><h2 id="画图法"><a href="#画图法" class="headerlink" title="画图法"></a>画图法</h2><p>我们需要判断这个环形数组中是否能够找到一个起点 start，使得从这个起点开始，<code>gas</code> 和 <code>cost</code> 的累加和一直大于等于 0。</p><p><img src="https://labuladong.gitee.io/algo/images/%e8%80%81%e5%8f%b8%e6%9c%ba/3.jpeg" alt="假设把 0 作为起点"></p><p>可以看出其中有一段路 <code>sum</code> 小于 0 了，是不行的。如果把图像的最低点作为起点，就能让图像整体平移上去，保证了一直 大于等于 0。</p><p><img src="https://labuladong.gitee.io/algo/images/%e8%80%81%e5%8f%b8%e6%9c%ba/4.jpeg"></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">canCompleteCircuit</span><span class="hljs-params">(gas []<span class="hljs-keyword">int</span>, cost []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(gas)<br>    sum := <span class="hljs-number">0</span><br>    minSum := <span class="hljs-number">0</span><br>    start := <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>        sum += gas[i] - cost[i]<br>        <span class="hljs-keyword">if</span> sum &lt; minSum &#123;<br>            start = i + <span class="hljs-number">1</span><br>            minSum = sum<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> sum &lt; <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>    &#125;<br>    <br>    <span class="hljs-keyword">if</span> start == n &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> start<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h2><p>基于以下结论：<strong>如果选择站点 i 作为起点「恰好」无法走到站点 j，那么 i 和 j 中间的任意站点 k 都不可能作为起点。</strong></p><p>证明：因为如果恰好无法走到站点 j，则对于途中任意 <code>i &lt; k &lt; j</code>，油箱量 <code>tank[k]</code> 都要 &gt; 0，而如果将 <code>k</code> 作为起点，则 <code>tank[k] == 0</code>，无法满足条件。</p><p>根据这个条件，我们可以一次遍历起点，从 0 开始，如果发现哪里走不动了，说明这个点以前的都不可能是起点。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">canCompleteCircuit</span><span class="hljs-params">(gas []<span class="hljs-keyword">int</span>, cost []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(gas)<br>    sum, tank, start:= <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>        sum += gas[i] - cost[i]<br>        tank += gas[i] - cost[i]<br>        <span class="hljs-keyword">if</span> tank &lt; <span class="hljs-number">0</span> &#123;<br>            <span class="hljs-comment">// 重设下一个点为起点</span><br>            tank = <span class="hljs-number">0</span><br>            start = i + <span class="hljs-number">1</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> sum &lt; <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>    &#125;<br><br>    <span class="hljs-keyword">if</span> start == n &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> start<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>贪心算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>跳跃游戏 II</title>
+    <link href="/leetcode/fucking-algorithm/jump-game-ii/"/>
+    <url>/leetcode/fucking-algorithm/jump-game-ii/</url>
+    
+    <content type="html"><![CDATA[<h1 id="跳跃游戏-II"><a href="#跳跃游戏-II" class="headerlink" title="跳跃游戏 II"></a>跳跃游戏 II</h1><p><a href="https://leetcode-cn.com/problems/jump-game-ii/">https://leetcode-cn.com/problems/jump-game-ii/</a></p><h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p>一开始能挑到的最远范围设为 <code>end</code>。在能跳到的范围内，选择那个下一步能跳最远的点，更新 <code>end</code> 为最远距离，跳跃数加一，且在这个新的范围内寻找下一步能跳最远的。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">jump</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(nums)<br>    end, farthest := <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    count := <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n - <span class="hljs-number">1</span>; i++ &#123;<br>        farthest = max(farthest, i + nums[i])<br>        <span class="hljs-comment">// 尝试过区间 end 为止所有的跳法后，选择最远的跳，更新能跳到的最远终点，跳跃数 + 1</span><br>        <span class="hljs-keyword">if</span> i == end &#123;<br>            count++<br>            end = farthest<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> count<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &gt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>贪心算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>跳跃游戏</title>
+    <link href="/leetcode/fucking-algorithm/jump-game/"/>
+    <url>/leetcode/fucking-algorithm/jump-game/</url>
+    
+    <content type="html"><![CDATA[<h1 id="跳跃游戏"><a href="#跳跃游戏" class="headerlink" title="跳跃游戏"></a>跳跃游戏</h1><p><a href="https://leetcode-cn.com/problems/jump-game/">https://leetcode-cn.com/problems/jump-game/</a></p><h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p>在每一个位置都尝试跳到最远，最终结果一直取全局最远。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">canJump</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(nums)<br>    farthest := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n - <span class="hljs-number">1</span>; i++ &#123;<br>        <span class="hljs-comment">// 判断在每一个位置上能跳到的最远距离</span><br>        farthest = max(farthest, i + nums[i])<br><br>        <span class="hljs-comment">// 跳跃后，最远距离等于当前位置，说明这个位置上遇到了 0，跳不动了</span><br>        <span class="hljs-comment">// 且这个位置不是最终的位置 (i != n - 1)</span><br>        <span class="hljs-keyword">if</span> farthest &lt;= i &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 最远能否到最后一个位置</span><br>    <span class="hljs-keyword">return</span> farthest &gt;= n - <span class="hljs-number">1</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &gt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>贪心算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>用最少数量的箭引爆气球</title>
     <link href="/leetcode/fucking-algorithm/minimum-number-of-arrows-to-burst-balloons/"/>
     <url>/leetcode/fucking-algorithm/minimum-number-of-arrows-to-burst-balloons/</url>

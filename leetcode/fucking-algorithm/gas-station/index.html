@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>用最少数量的箭引爆气球 - Be Happy</title>
+  <title>加油站 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="用最少数量的箭引爆气球">
+            <span class="h2" id="subtitle" title="加油站">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-15 14:25" pubdate>
+      <time datetime="2022-02-15 15:06" pubdate>
         2022年2月15日 下午
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      113 字
+      397 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      5
        分钟
     </span>
   
@@ -245,12 +245,20 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">用最少数量的箭引爆气球</h1>
+            <h1 style="display: none">加油站</h1>
             
             <div class="markdown-body">
-              <h1 id="用最少数量的箭引爆气球"><a href="#用最少数量的箭引爆气球" class="headerlink" title="用最少数量的箭引爆气球"></a>用最少数量的箭引爆气球</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/">https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/</a></p>
-<h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p>此题等价于找出最多有多少个不重叠区间，每一个不重叠区间都需要一支箭来射爆。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findMinArrowShots</span><span class="hljs-params">(points [][]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    sort.Slice(points, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>        <span class="hljs-keyword">return</span> points[i][<span class="hljs-number">1</span>] &lt; points[j][<span class="hljs-number">1</span>]<br>    &#125;)<br><br>    count := <span class="hljs-number">1</span><br>    end := points[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]<br>    <span class="hljs-keyword">for</span> _, point := <span class="hljs-keyword">range</span> points &#123;<br>        <span class="hljs-keyword">if</span> point[<span class="hljs-number">0</span>] &gt; end &#123;<br>            count++<br>            end = point[<span class="hljs-number">1</span>]<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> count<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="加油站"><a href="#加油站" class="headerlink" title="加油站"></a>加油站</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/gas-station/">https://leetcode-cn.com/problems/gas-station/</a></p>
+<h2 id="画图法"><a href="#画图法" class="headerlink" title="画图法"></a>画图法</h2><p>我们需要判断这个环形数组中是否能够找到一个起点 start，使得从这个起点开始，<code>gas</code> 和 <code>cost</code> 的累加和一直大于等于 0。</p>
+<p><img src="https://labuladong.gitee.io/algo/images/%e8%80%81%e5%8f%b8%e6%9c%ba/3.jpeg" srcset="/img/loading.gif" lazyload alt="假设把 0 作为起点"></p>
+<p>可以看出其中有一段路 <code>sum</code> 小于 0 了，是不行的。如果把图像的最低点作为起点，就能让图像整体平移上去，保证了一直 大于等于 0。</p>
+<p><img src="https://labuladong.gitee.io/algo/images/%e8%80%81%e5%8f%b8%e6%9c%ba/4.jpeg" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">canCompleteCircuit</span><span class="hljs-params">(gas []<span class="hljs-keyword">int</span>, cost []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(gas)<br>    sum := <span class="hljs-number">0</span><br>    minSum := <span class="hljs-number">0</span><br>    start := <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>        sum += gas[i] - cost[i]<br>        <span class="hljs-keyword">if</span> sum &lt; minSum &#123;<br>            start = i + <span class="hljs-number">1</span><br>            minSum = sum<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> sum &lt; <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>    &#125;<br>    <br>    <span class="hljs-keyword">if</span> start == n &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> start<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h2><p>基于以下结论：<strong>如果选择站点 i 作为起点「恰好」无法走到站点 j，那么 i 和 j 中间的任意站点 k 都不可能作为起点。</strong></p>
+<p>证明：因为如果恰好无法走到站点 j，则对于途中任意 <code>i &lt; k &lt; j</code>，油箱量 <code>tank[k]</code> 都要 &gt; 0，而如果将 <code>k</code> 作为起点，则 <code>tank[k] == 0</code>，无法满足条件。</p>
+<p>根据这个条件，我们可以一次遍历起点，从 0 开始，如果发现哪里走不动了，说明这个点以前的都不可能是起点。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">canCompleteCircuit</span><span class="hljs-params">(gas []<span class="hljs-keyword">int</span>, cost []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(gas)<br>    sum, tank, start:= <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>        sum += gas[i] - cost[i]<br>        tank += gas[i] - cost[i]<br>        <span class="hljs-keyword">if</span> tank &lt; <span class="hljs-number">0</span> &#123;<br>            <span class="hljs-comment">// 重设下一个点为起点</span><br>            tank = <span class="hljs-number">0</span><br>            start = i + <span class="hljs-number">1</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> sum &lt; <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>    &#125;<br><br>    <span class="hljs-keyword">if</span> start == n &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> start<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -286,18 +294,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/jump-game/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">跳跃游戏</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/non-overlapping-intervals/">
-                        <span class="hidden-mobile">无重叠区间</span>
+                      <a href="/leetcode/fucking-algorithm/jump-game-ii/">
+                        <span class="hidden-mobile">跳跃游戏 II</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
