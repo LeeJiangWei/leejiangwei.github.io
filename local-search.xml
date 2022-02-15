@@ -4,6 +4,72 @@
   
   
   <entry>
+    <title>用最少数量的箭引爆气球</title>
+    <link href="/leetcode/fucking-algorithm/minimum-number-of-arrows-to-burst-balloons/"/>
+    <url>/leetcode/fucking-algorithm/minimum-number-of-arrows-to-burst-balloons/</url>
+    
+    <content type="html"><![CDATA[<h1 id="用最少数量的箭引爆气球"><a href="#用最少数量的箭引爆气球" class="headerlink" title="用最少数量的箭引爆气球"></a>用最少数量的箭引爆气球</h1><p><a href="https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/">https://leetcode-cn.com/problems/minimum-number-of-arrows-to-burst-balloons/</a></p><h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p>此题等价于找出最多有多少个不重叠区间，每一个不重叠区间都需要一支箭来射爆。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findMinArrowShots</span><span class="hljs-params">(points [][]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    sort.Slice(points, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>        <span class="hljs-keyword">return</span> points[i][<span class="hljs-number">1</span>] &lt; points[j][<span class="hljs-number">1</span>]<br>    &#125;)<br><br>    count := <span class="hljs-number">1</span><br>    end := points[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]<br>    <span class="hljs-keyword">for</span> _, point := <span class="hljs-keyword">range</span> points &#123;<br>        <span class="hljs-keyword">if</span> point[<span class="hljs-number">0</span>] &gt; end &#123;<br>            count++<br>            end = point[<span class="hljs-number">1</span>]<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> count<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>贪心算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>无重叠区间</title>
+    <link href="/leetcode/fucking-algorithm/non-overlapping-intervals/"/>
+    <url>/leetcode/fucking-algorithm/non-overlapping-intervals/</url>
+    
+    <content type="html"><![CDATA[<h1 id="无重叠区间"><a href="#无重叠区间" class="headerlink" title="无重叠区间"></a>无重叠区间</h1><p><a href="https://leetcode-cn.com/problems/non-overlapping-intervals/">https://leetcode-cn.com/problems/non-overlapping-intervals/</a></p><h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p>按照区间终点从小到大排序，从最小终点的区间开始依次选择不重叠区间。最终得到最多有多少个不重叠的区间，用总区间数目减去最多不重叠的数量，就是要求的删除区间的个数。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">eraseOverlapIntervals</span><span class="hljs-params">(intervals [][]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    sort.Slice(intervals, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>        <span class="hljs-keyword">return</span> intervals[i][<span class="hljs-number">1</span>] &lt; intervals[j][<span class="hljs-number">1</span>]<br>    &#125;)<br><br>    count := <span class="hljs-number">1</span><br>    x_end := intervals[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]<br>    <span class="hljs-keyword">for</span> _, interval := <span class="hljs-keyword">range</span> intervals &#123;<br>        <span class="hljs-keyword">if</span> interval[<span class="hljs-number">0</span>] &gt;= x_end &#123;<br>            count++<br>            x_end = interval[<span class="hljs-number">1</span>]<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(intervals) - count<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>贪心算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>让字符串成为回文串的最少插入次数</title>
     <link href="/leetcode/fucking-algorithm/minimum-insertion-steps-to-make-a-string-palindrome/"/>
     <url>/leetcode/fucking-algorithm/minimum-insertion-steps-to-make-a-string-palindrome/</url>
@@ -1972,9 +2038,9 @@
       
       <tag>C++</tag>
       
-      <tag>数组</tag>
-      
       <tag>贪心算法</tag>
+      
+      <tag>数组</tag>
       
     </tags>
     
