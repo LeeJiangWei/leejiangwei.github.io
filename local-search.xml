@@ -4,6 +4,72 @@
   
   
   <entry>
+    <title>删除被覆盖区间</title>
+    <link href="/leetcode/fucking-algorithm/remove-covered-intervals/"/>
+    <url>/leetcode/fucking-algorithm/remove-covered-intervals/</url>
+    
+    <content type="html"><![CDATA[<h1 id="删除被覆盖区间"><a href="#删除被覆盖区间" class="headerlink" title="删除被覆盖区间"></a>删除被覆盖区间</h1><p><a href="https://leetcode-cn.com/problems/remove-covered-intervals/">https://leetcode-cn.com/problems/remove-covered-intervals/</a></p><h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p>依照惯例，按区间<strong>起点升序</strong>对区间排序，如果起点相同则按<strong>终点降序</strong>排序。</p><p><img src="https://labuladong.gitee.io/algo/images/mergeInterval/1.jpg"></p><p>排序后，香菱区间的相对关系只有 3 个可能：</p><p><img src="https://labuladong.gitee.io/algo/images/%e5%8c%ba%e9%97%b4%e5%90%88%e9%9b%86/1.jpeg"></p><ol><li>找到了覆盖的区间</li><li>区间相交，可以视作合并为一个更大的区间</li><li>区间不相交</li></ol><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">removeCoveredIntervals</span><span class="hljs-params">(intervals [][]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    sort.Slice(intervals, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] == intervals[j][<span class="hljs-number">0</span>] &#123;<br>            <span class="hljs-keyword">return</span> intervals[i][<span class="hljs-number">1</span>] &gt; intervals[j][<span class="hljs-number">1</span>]<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> intervals[i][<span class="hljs-number">0</span>] &lt; intervals[j][<span class="hljs-number">0</span>]<br>        &#125;<br>    &#125;)<br><br>    left, right := intervals[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], intervals[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]<br>    count := <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; <span class="hljs-built_in">len</span>(intervals); i++ &#123;<br>        <span class="hljs-comment">// 找到覆盖区间</span><br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] &gt;= left &amp;&amp; intervals[i][<span class="hljs-number">1</span>] &lt;= right &#123;<br>            count++<br>        &#125;<br><br>        <span class="hljs-comment">// 区间相交</span><br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] &gt;= left &amp;&amp; intervals[i][<span class="hljs-number">1</span>] &gt; right &#123;<br>            right = intervals[i][<span class="hljs-number">1</span>]<br>        &#125;<br><br>        <span class="hljs-comment">// 区间不相交，更新起点终点</span><br>        <span class="hljs-keyword">if</span> intervals[i][<span class="hljs-number">0</span>] &gt; right &#123;<br>            left = intervals[i][<span class="hljs-number">0</span>]<br>            right = intervals[i][<span class="hljs-number">1</span>]<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(intervals) - count<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>贪心算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>视频拼接</title>
+    <link href="/leetcode/fucking-algorithm/video-stitching/"/>
+    <url>/leetcode/fucking-algorithm/video-stitching/</url>
+    
+    <content type="html"><![CDATA[<h1 id="视频拼接"><a href="#视频拼接" class="headerlink" title="视频拼接"></a>视频拼接</h1><p><a href="https://leetcode-cn.com/problems/video-stitching/">https://leetcode-cn.com/problems/video-stitching/</a></p><h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p>这道题其实是求最少用多少个区间能覆盖完整个区间。</p><p>按视频区间<strong>起点升序</strong>对区间排序，如果起点相同则按<strong>终点降序</strong>排序。使用贪心策略，在第一个区间的终点，寻找下一个终点最长的区间，依此类推。</p><p><img src="https://labuladong.gitee.io/algo/images/%e5%89%aa%e8%a7%86%e9%a2%91/4.jpeg"></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">videoStitching</span><span class="hljs-params">(clips [][]<span class="hljs-keyword">int</span>, time <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    sort.Slice(clips, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>        <span class="hljs-keyword">if</span> clips[i][<span class="hljs-number">0</span>] == clips[j][<span class="hljs-number">0</span>] &#123;<br>            <span class="hljs-keyword">return</span> clips[i][<span class="hljs-number">1</span>] &gt; clips[j][<span class="hljs-number">1</span>]<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> clips[i][<span class="hljs-number">0</span>] &lt; clips[j][<span class="hljs-number">0</span>]<br>        &#125;<br>    &#125;)<br><br>    n := <span class="hljs-built_in">len</span>(clips)<br>    count := <span class="hljs-number">0</span><br>    currEnd, nextEnd := <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n &amp;&amp; clips[i][<span class="hljs-number">0</span>] &lt;= currEnd; &#123;<br>        <span class="hljs-keyword">for</span> i &lt; n &amp;&amp; clips[i][<span class="hljs-number">0</span>] &lt;= currEnd &#123;<br>            <span class="hljs-comment">// 寻找区间起点在 currEnd 前、区间终点最大的区间作为下一个区间</span><br>            nextEnd = max(nextEnd, clips[i][<span class="hljs-number">1</span>])<br>            i++<br>        &#125;<br><br>        <span class="hljs-comment">// 选择这个区间，更新 currEnd 为这个区间的终点</span><br>        count++<br>        currEnd = nextEnd<br><br>        <span class="hljs-comment">// 如果终点已经到达视频终点了，则可以拼凑出完整视频</span><br>        <span class="hljs-keyword">if</span> currEnd &gt;= time &#123;<br>            <span class="hljs-keyword">return</span> count<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &gt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+      <tag>贪心算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>加油站</title>
     <link href="/leetcode/fucking-algorithm/gas-station/"/>
     <url>/leetcode/fucking-algorithm/gas-station/</url>
