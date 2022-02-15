@@ -7,7 +7,7 @@ categories:
 tags:
   - Go
   - 动态规划
-  - 贪心算法
+  - 区间调度问题
 index_img: /img/code.jpg
 sticky: -10
 date: 2022-02-15 21:48:00
@@ -17,7 +17,7 @@ date: 2022-02-15 21:48:00
 
 https://leetcode-cn.com/problems/remove-covered-intervals/
 
-## 贪心算法
+## 排序并观察
 
 依照惯例，按区间**起点升序**对区间排序，如果起点相同则按**终点降序**排序。
 

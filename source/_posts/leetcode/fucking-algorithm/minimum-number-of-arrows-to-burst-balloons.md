@@ -8,6 +8,7 @@ tags:
   - Go
   - 动态规划
   - 贪心算法
+  - 区间调度问题
 index_img: /img/code.jpg
 sticky: -10
 date: 2022-02-15 14:25:32

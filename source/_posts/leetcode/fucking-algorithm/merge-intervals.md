@@ -7,10 +7,10 @@ categories:
 tags:
   - Go
   - 动态规划
-  - 贪心算法
+  - 区间调度问题
 index_img: /img/code.jpg
 sticky: -10
-date: 2022-02-15 21:48:00
+date: 2022-02-15 22:09:00
 ---
 
 # 合并区间
