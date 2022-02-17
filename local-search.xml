@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>K 个一组翻转链表</title>
+    <link href="/leetcode/fucking-algorithm/reverse-nodes-in-k-group/"/>
+    <url>/leetcode/fucking-algorithm/reverse-nodes-in-k-group/</url>
+    
+    <content type="html"><![CDATA[<h1 id="K-个一组翻转链表"><a href="#K-个一组翻转链表" class="headerlink" title="K 个一组翻转链表"></a>K 个一组翻转链表</h1><p><a href="https://leetcode-cn.com/problems/reverse-nodes-in-k-group/">https://leetcode-cn.com/problems/reverse-nodes-in-k-group/</a></p><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>先反转前面 k 个，然后反转接着的 k 个，容易看出完全独立的子问题关系。先反转完前 K 个后，调用一样的函数反转后续的链表。base case 是链表元素不足 K 个，不进行反转。</p><p><img src="https://labuladong.gitee.io/algo/images/kgroup/6.jpg" alt="反转前两个后，如何将链表正确地拼在一起"></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverseKGroup</span><span class="hljs-params">(head *ListNode, k <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    a , b := head, head<br>    <span class="hljs-comment">// 数链表元素个数是否足够反转</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; k; i++ &#123;<br>        <span class="hljs-keyword">if</span> b == <span class="hljs-literal">nil</span> &#123;<br>            <span class="hljs-keyword">return</span> a<br>        &#125;<br>        b = b.Next<br>    &#125;<br>    reversed := reverseInterval(a, b)<br>    a.Next = reverseKGroup(b, k)  <span class="hljs-comment">// 将 a 接到反转后的链表头上</span><br>    <span class="hljs-keyword">return</span> reversed<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverseInterval</span><span class="hljs-params">(a, b *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-keyword">var</span> prev *ListNode<br>    curr := a<br><br>    <span class="hljs-keyword">for</span> curr != b &#123;<br>        next := curr.Next<br>        curr.Next = prev<br>        prev = curr<br>        curr = next<br>    &#125;<br>    <span class="hljs-keyword">return</span> prev<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>链表</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>反转链表</title>
     <link href="/leetcode/fucking-algorithm/reverse-linked-lists/"/>
     <url>/leetcode/fucking-algorithm/reverse-linked-lists/</url>
