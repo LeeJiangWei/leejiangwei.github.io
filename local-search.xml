@@ -17,7 +17,7 @@
       
       <category>Fucking</category>
       
-      <category>动态规划</category>
+      <category>链表</category>
       
     </categories>
     
@@ -26,7 +26,7 @@
       
       <tag>Go</tag>
       
-      <tag>动态规划</tag>
+      <tag>链表</tag>
       
     </tags>
     
@@ -1292,9 +1292,9 @@
       
       <tag>Go</tag>
       
-      <tag>哈希表</tag>
-      
       <tag>链表</tag>
+      
+      <tag>哈希表</tag>
       
     </tags>
     
