@@ -3,10 +3,10 @@ title: 合并K个升序链表
 categories:
   - LeetCode
   - Fucking
-  - 动态规划
+  - 链表
 tags:
   - Go
-  - 动态规划
+  - 链表
 index_img: /img/code.jpg
 sticky: -10
 date: 2022-02-17 15:32:00
