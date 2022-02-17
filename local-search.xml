@@ -4,6 +4,64 @@
   
   
   <entry>
+    <title>合并K个升序链表</title>
+    <link href="/leetcode/fucking-algorithm/merge-k-sorted-lists/"/>
+    <url>/leetcode/fucking-algorithm/merge-k-sorted-lists/</url>
+    
+    <content type="html"><![CDATA[<h1 id="合并K个升序链表"><a href="#合并K个升序链表" class="headerlink" title="合并K个升序链表"></a>合并K个升序链表</h1><p><a href="https://leetcode-cn.com/problems/merge-k-sorted-lists/">https://leetcode-cn.com/problems/merge-k-sorted-lists/</a></p><h2 id="最小堆"><a href="#最小堆" class="headerlink" title="最小堆"></a>最小堆</h2><p>把所有链表的头节点放入最小堆，每次从中取出最小的那个。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for singly-linked list.</span><br><span class="hljs-comment"> * type ListNode struct &#123;</span><br><span class="hljs-comment"> *     Val int</span><br><span class="hljs-comment"> *     Next *ListNode</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mergeKLists</span><span class="hljs-params">(lists []*ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    h := <span class="hljs-built_in">new</span>(minHeap)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(lists); i++ &#123;<br>        <span class="hljs-keyword">if</span> lists[i] != <span class="hljs-literal">nil</span> &#123;<br>            heap.Push(h, lists[i])<br>        &#125;<br>    &#125;<br><br>    head := <span class="hljs-built_in">new</span>(ListNode)<br>    curr := head<br><br>    <span class="hljs-keyword">for</span> h.Len() &gt; <span class="hljs-number">0</span> &#123;<br>        temp := heap.Pop(h).(*ListNode)<br>        <span class="hljs-keyword">if</span> temp.Next != <span class="hljs-literal">nil</span> &#123;<br>            heap.Push(h, temp.Next)<br>        &#125;<br>        curr.Next = temp<br>        curr = curr.Next<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> head.Next<br>&#125;<br><br><span class="hljs-comment">// 最小堆实现</span><br><span class="hljs-keyword">type</span> minHeap []*ListNode<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h minHeap)</span> <span class="hljs-title">Len</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span>           &#123; <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(h) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h minHeap)</span> <span class="hljs-title">Less</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123; <span class="hljs-keyword">return</span> h[i].Val &lt; h[j].Val &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h minHeap)</span> <span class="hljs-title">Swap</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span></span>      &#123; h[i], h[j] = h[j], h[i] &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h *minHeap)</span> <span class="hljs-title">Push</span><span class="hljs-params">(x <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>    *h = <span class="hljs-built_in">append</span>(*h, x.(*ListNode))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h *minHeap)</span> <span class="hljs-title">Pop</span><span class="hljs-params">()</span> <span class="hljs-title">interface</span></span>&#123;&#125; &#123;<br>old := *h<br>n := <span class="hljs-built_in">len</span>(old)<br>x := old[n<span class="hljs-number">-1</span>]<br>*h = old[<span class="hljs-number">0</span> : n<span class="hljs-number">-1</span>]<br><span class="hljs-keyword">return</span> x<br>&#125;<br></code></pre></td></tr></table></figure><p>最小堆的实现参考：</p><ul><li><a href="https://pkg.go.dev/container/heap">https://pkg.go.dev/container/heap</a></li><li><a href="https://books.studygolang.com/The-Golang-Standard-Library-by-Example/chapter03/03.3.html">https://books.studygolang.com/The-Golang-Standard-Library-by-Example/chapter03/03.3.html</a></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Golang 类型断言</title>
+    <link href="/programming/go-type-assertion/"/>
+    <url>/programming/go-type-assertion/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Golang-类型断言"><a href="#Golang-类型断言" class="headerlink" title="Golang 类型断言"></a>Golang 类型断言</h1><p>类型断言： type assertion</p><p>类型断言是一个使用在接口值上的操作，用于检查接口类型变量所持有的值是否实现了期望的接口或者具体的类型。</p><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">value, ok := x.(T)<br></code></pre></td></tr></table></figure><p>其中，x 表示一个接口的类型，T 表示一个具体的类型（也可为接口类型）。</p><p>如果不接收第二个参数也就是上面代码中的 ok，断言失败时会直接造成一个 panic。如果 x 为 nil 同样也会 panic。</p><h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>该断言表达式会返回 x 的值（也就是 value）和一个布尔值（也就是 ok），可根据该布尔值判断 x 是否为 T 类型：</p><ul><li><p>如果 T 是具体某个类型，类型断言会检查 x 的动态类型是否等于具体类型 T。如果检查成功，类型断言返回的结果是 x 的动态值，其类型是 T。</p></li><li><p>如果 T 是接口类型，类型断言会检查 x 的动态类型是否满足 T。如果检查成功，x 的动态值不会被提取，返回值是一个类型为 T 的接口值。</p></li><li><p>无论 T 是什么类型，如果 x 是 nil 接口值，类型断言都会失败。</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+      <category>Go</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>区间列表的交集</title>
     <link href="/leetcode/fucking-algorithm/interval-list-intersections/"/>
     <url>/leetcode/fucking-algorithm/interval-list-intersections/</url>
