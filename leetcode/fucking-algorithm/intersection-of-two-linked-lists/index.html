@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>环形链表 - Be Happy</title>
+  <title>相交链表 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="环形链表">
+            <span class="h2" id="subtitle" title="相交链表">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-17 16:09" pubdate>
+      <time datetime="2022-02-17 16:28" pubdate>
         2022年2月17日 下午
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      173 字
+      194 字
     </span>
   
 
@@ -245,17 +245,17 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">环形链表</h1>
+            <h1 style="display: none">相交链表</h1>
             
             <div class="markdown-body">
-              <h1 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/linked-list-cycle/">https://leetcode-cn.com/problems/linked-list-cycle/</a></p>
-<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/linked-list-cycle-ii/">https://leetcode-cn.com/problems/linked-list-cycle-ii/</a></p>
-<h2 id="检测是否存在环形链表"><a href="#检测是否存在环形链表" class="headerlink" title="检测是否存在环形链表"></a>检测是否存在环形链表</h2><p>快慢指针</p>
+              <h1 id="相交链表"><a href="#相交链表" class="headerlink" title="相交链表"></a>相交链表</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/intersection-of-two-linked-lists/">https://leetcode-cn.com/problems/intersection-of-two-linked-lists/</a></p>
+<h2 id="让指针分别遍历两个链表"><a href="#让指针分别遍历两个链表" class="headerlink" title="让指针分别遍历两个链表"></a>让指针分别遍历两个链表</h2><p>指针 <code>p1</code> 遍历完 <code>l1</code> 后开始遍历 <code>l2</code>，<code>p2</code> 同理，每次两个指针只会走一步。这样它们最终会在相交处相遇。</p>
+<p><img src="https://labuladong.gitee.io/algo/images/%e9%93%be%e8%a1%a8%e6%8a%80%e5%b7%a7/6.jpeg" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(head *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    fast, slow := head, head<br>    <span class="hljs-keyword">for</span> fast != <span class="hljs-literal">nil</span> &amp;&amp; fast.Next != <span class="hljs-literal">nil</span> &#123;<br>        fast = fast.Next.Next<br>        slow = slow.Next<br>        <span class="hljs-keyword">if</span> fast == slow &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="环形链表的起点"><a href="#环形链表的起点" class="headerlink" title="环形链表的起点"></a>环形链表的起点</h2><p>快慢指针相遇后，将其中一个指回开头，以同样的速度前进，再次相遇的地方就是环的起点</p>
-<p><img src="https://labuladong.gitee.io/algo/images/%e5%8f%8c%e6%8c%87%e9%92%88/2.jpeg" srcset="/img/loading.gif" lazyload></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">detectCycle</span><span class="hljs-params">(head *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    fast, slow := head, head<br>    <span class="hljs-keyword">for</span> fast != <span class="hljs-literal">nil</span> &amp;&amp; fast.Next != <span class="hljs-literal">nil</span> &#123;<br>        fast = fast.Next.Next<br>        slow = slow.Next<br>        <span class="hljs-keyword">if</span> fast == slow &#123;<br>            <span class="hljs-comment">// 开始寻找环起点</span><br>            fast = head <br>            <span class="hljs-keyword">for</span> fast != slow &#123;<br>                fast = fast.Next<br>                slow = slow.Next<br>            &#125;<br>            <span class="hljs-keyword">return</span> fast<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="转换成环形链表问题"><a href="#转换成环形链表问题" class="headerlink" title="转换成环形链表问题"></a>转换成环形链表问题</h2><p>让链表首尾相连，变成寻找环形链表起点问题。（但是会修改链表结构）</p>
+<h2 id="计算链表长度"><a href="#计算链表长度" class="headerlink" title="计算链表长度"></a>计算链表长度</h2><p>计算两个链表的长度，作差，使其中一个指针先前进这个差值，使得它们到终点的距离相同，然后一起前进，判断是否相等。</p>
+
             </div>
             <hr>
             <div>
@@ -289,18 +289,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/intersection-of-two-linked-lists/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">相交链表</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/merge-k-sorted-lists/">
-                        <span class="hidden-mobile">合并K个升序链表</span>
+                      <a href="/leetcode/fucking-algorithm/linked-list-cycle/">
+                        <span class="hidden-mobile">环形链表</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
