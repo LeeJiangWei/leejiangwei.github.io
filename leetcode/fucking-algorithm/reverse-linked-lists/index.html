@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>相交链表 - Be Happy</title>
+  <title>反转链表 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="相交链表">
+            <span class="h2" id="subtitle" title="反转链表">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-17 16:28" pubdate>
-        2022年2月17日 下午
+      <time datetime="2022-02-17 19:20" pubdate>
+        2022年2月17日 晚上
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      194 字
+      503 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      7
        分钟
     </span>
   
@@ -245,17 +245,24 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">相交链表</h1>
+            <h1 style="display: none">反转链表</h1>
             
             <div class="markdown-body">
-              <h1 id="相交链表"><a href="#相交链表" class="headerlink" title="相交链表"></a>相交链表</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/intersection-of-two-linked-lists/">https://leetcode-cn.com/problems/intersection-of-two-linked-lists/</a></p>
-<h2 id="让指针分别遍历两个链表"><a href="#让指针分别遍历两个链表" class="headerlink" title="让指针分别遍历两个链表"></a>让指针分别遍历两个链表</h2><p>指针 <code>p1</code> 遍历完 <code>l1</code> 后开始遍历 <code>l2</code>，<code>p2</code> 同理，每次两个指针只会走一步。这样它们最终会在相交处相遇。</p>
-<p><img src="https://labuladong.gitee.io/algo/images/%e9%93%be%e8%a1%a8%e6%8a%80%e5%b7%a7/6.jpeg" srcset="/img/loading.gif" lazyload></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(head *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    fast, slow := head, head<br>    <span class="hljs-keyword">for</span> fast != <span class="hljs-literal">nil</span> &amp;&amp; fast.Next != <span class="hljs-literal">nil</span> &#123;<br>        fast = fast.Next.Next<br>        slow = slow.Next<br>        <span class="hljs-keyword">if</span> fast == slow &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list/">https://leetcode-cn.com/problems/reverse-linked-list/</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/reverse-linked-list-ii/">https://leetcode-cn.com/problems/reverse-linked-list-ii/</a></p>
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p>迭代方法：记住当前处理节点的上一个节点和下一个节点，完成反转操作</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverseList</span><span class="hljs-params">(head *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-keyword">var</span> prev *ListNode<br>    curr := head<br><br>    <span class="hljs-keyword">for</span> curr != <span class="hljs-literal">nil</span> &#123;<br>        next := curr.Next<br><br>        <span class="hljs-comment">// 反转当前链表的指针</span><br>        curr.Next = prev<br><br>        <span class="hljs-comment">// 前进指针，进行下一次处理</span><br>        prev = curr<br>        curr = next<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> prev<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="转换成环形链表问题"><a href="#转换成环形链表问题" class="headerlink" title="转换成环形链表问题"></a>转换成环形链表问题</h2><p>让链表首尾相连，变成寻找环形链表起点问题。（但是会修改链表结构）</p>
-<h2 id="计算链表长度"><a href="#计算链表长度" class="headerlink" title="计算链表长度"></a>计算链表长度</h2><p>计算两个链表的长度，作差，使其中一个指针先前进这个差值，使得它们到终点的距离相同，然后一起前进，判断是否相等。</p>
+<p>递归方法</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverseList</span><span class="hljs-params">(head *ListNode)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-keyword">if</span> head == <span class="hljs-literal">nil</span> || head.Next == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> head<br>    &#125;<br><br>    reversed := reverseList(head.Next)<br><br>    head.Next.Next = head  <span class="hljs-comment">// 反转链表的尾巴设为 head</span><br>    head.Next = <span class="hljs-literal">nil</span>        <span class="hljs-comment">// head 变成了尾巴，它的 next 应该是 nil</span><br><br>    <span class="hljs-keyword">return</span> reversed        <span class="hljs-comment">// 反转后链表的头部</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h2 id="反转链表的前-N-个元素"><a href="#反转链表的前-N-个元素" class="headerlink" title="反转链表的前 N 个元素"></a>反转链表的前 N 个元素</h2><p><img src="https://labuladong.gitee.io/algo/images/%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8/6.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>需要注意的是，反转前 N 个元素后，要将反转后的链表尾巴接到未反转的部分上（如果是全反转，设为 nil 即可），因此需要记录下未反转的部分是哪里。</p>
+<p>显然，N = 1 时，它的下一个节点就是未反转的部分，因此在此 base case 上记录下未反转的头部，然后反转后将反转后的尾巴接上去。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> successor *ListNode<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverseN</span><span class="hljs-params">(head *ListNode, n <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span> &#123;<br>        successor = head.Next  <span class="hljs-comment">// 记录未反转的部分</span><br>        <span class="hljs-keyword">return</span> head<br>    &#125;<br>    <br>    reversed := reverseN(head.Next, n - <span class="hljs-number">1</span>)<br><br>    head.Next.Next = head<br>    head.Next = successor   <span class="hljs-comment">// 反转后的尾巴接上未反转的部分</span><br>    <span class="hljs-keyword">return</span> reversed<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="反转链表的中间的几个元素"><a href="#反转链表的中间的几个元素" class="headerlink" title="反转链表的中间的几个元素"></a>反转链表的中间的几个元素</h2><p>反转从 left 到 right 的中间几个元素，相当于从 left 开始，反转前 N 个元素。因此只要加一个判断，如果当前没到 left，就递归到下一个节点，直到当前从 left 开始，然后执行反转前 N 个元素的操作即可。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> successor *ListNode<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverseBetween</span><span class="hljs-params">(head *ListNode, left <span class="hljs-keyword">int</span>, right <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-keyword">if</span> left == <span class="hljs-number">1</span> &#123;<br>        <span class="hljs-keyword">return</span> reverseN(head, right)<br>    &#125;<br>    head.Next = reverseBetween(head.Next, left<span class="hljs-number">-1</span>, right<span class="hljs-number">-1</span>)<br>    <span class="hljs-keyword">return</span> head<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverseN</span><span class="hljs-params">(head *ListNode, n <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span> &#123;<br>        successor = head.Next<br>        <span class="hljs-keyword">return</span> head<br>    &#125;<br>    <br>    reversed := reverseN(head.Next, n - <span class="hljs-number">1</span>)<br><br>    head.Next.Next = head<br>    head.Next = successor<br>    <span class="hljs-keyword">return</span> reversed<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -289,18 +296,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/reverse-linked-lists/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">反转链表</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/linked-list-cycle/">
-                        <span class="hidden-mobile">环形链表</span>
+                      <a href="/leetcode/fucking-algorithm/intersection-of-two-linked-lists/">
+                        <span class="hidden-mobile">相交链表</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
