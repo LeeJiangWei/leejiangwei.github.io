@@ -6,7 +6,7 @@ categories:
   - 树
 tags:
   - Go
-  - 树
+  - 二叉树
 index_img: /img/code.jpg
 sticky: -10
 date: 2022-02-20 09:28:00
