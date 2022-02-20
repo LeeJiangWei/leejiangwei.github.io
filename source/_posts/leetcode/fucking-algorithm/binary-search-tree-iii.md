@@ -6,7 +6,7 @@ categories:
   - 树
 tags:
   - Go
-  - 二叉树
+  - BST
   - 动态规划
 index_img: /img/code.jpg
 sticky: -10
