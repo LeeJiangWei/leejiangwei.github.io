@@ -4,6 +4,64 @@
   
   
   <entry>
+    <title>二叉树 3</title>
+    <link href="/leetcode/fucking-algorithm/binary-tree-iii/"/>
+    <url>/leetcode/fucking-algorithm/binary-tree-iii/</url>
+    
+    <content type="html"><![CDATA[<h1 id="寻找重复的子树"><a href="#寻找重复的子树" class="headerlink" title="寻找重复的子树"></a>寻找重复的子树</h1><p><a href="https://leetcode-cn.com/problems/find-duplicate-subtrees/">https://leetcode-cn.com/problems/find-duplicate-subtrees/</a></p><h2 id="二叉树序列化-哈希表"><a href="#二叉树序列化-哈希表" class="headerlink" title="二叉树序列化 + 哈希表"></a>二叉树序列化 + 哈希表</h2><p>遍历二叉树，序列化每一个子节点作为根的子树得到一个代表子树的字符串，如果字符串相同，则对应的子树也是相同的。最后用哈希表来记录这样的子树出现了多少次。</p><p>对于这题，子树在序列化时也是需要知道自己子节点的信息，因此还是以后序的框架来写（但是是前序序列化）。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> memo <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span><br><span class="hljs-keyword">var</span> res []*TreeNode<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findDuplicateSubtrees</span><span class="hljs-params">(root *TreeNode)</span> []*<span class="hljs-title">TreeNode</span></span> &#123;<br>    memo = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>)<br>    res = <span class="hljs-built_in">make</span>([]*TreeNode, <span class="hljs-number">0</span>)<br>    serialize(root)<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">serialize</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">string</span></span> &#123;<br>    <span class="hljs-keyword">if</span> root == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;#,&quot;</span><br>    &#125;<br>    s := strconv.Itoa(root.Val) + <span class="hljs-string">&quot;,&quot;</span> + serialize(root.Left) + serialize(root.Right)  <span class="hljs-comment">// 序列化</span><br>    <br>    <span class="hljs-keyword">if</span> memo[s] == <span class="hljs-number">1</span> &#123;<br>        res = <span class="hljs-built_in">append</span>(res, root)<br>    &#125;<br>    memo[s] += <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">return</span> s<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>树</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>二叉树的序列化与反序列化</title>
+    <link href="/leetcode/fucking-algorithm/serialize-and-deserialize-binary-tree/"/>
+    <url>/leetcode/fucking-algorithm/serialize-and-deserialize-binary-tree/</url>
+    
+    <content type="html"><![CDATA[<h1 id="二叉树的序列化与反序列化"><a href="#二叉树的序列化与反序列化" class="headerlink" title="二叉树的序列化与反序列化"></a>二叉树的序列化与反序列化</h1><p><a href="https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/">https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/</a></p><h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>按任意一种方式遍历然后用相同的方式还原其实都可以，这里选择前序遍历。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;strconv&quot;</span><br><br><span class="hljs-keyword">type</span> Codec <span class="hljs-keyword">struct</span> &#123;<br>    <br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-params">(_ Codec)</span></span> &#123;<br>    <span class="hljs-keyword">return</span><br>&#125;<br><br><span class="hljs-comment">// Serializes a tree to a single string.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *Codec)</span> <span class="hljs-title">serialize</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">string</span></span> &#123;<br>    sb := &amp;strings.Builder&#123;&#125;<br>    serialize(root, sb)<br>    <span class="hljs-keyword">return</span> sb.String()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">serialize</span><span class="hljs-params">(root *TreeNode, sb *strings.Builder)</span></span> &#123;<br>    <span class="hljs-keyword">if</span> root == <span class="hljs-literal">nil</span> &#123;<br>        sb.WriteString(<span class="hljs-string">&quot;null,&quot;</span>)<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    <br>    sb.WriteString(strconv.Itoa(root.Val))<br>    sb.WriteByte(<span class="hljs-string">&#x27;,&#x27;</span>)<br>    serialize(root.Left, sb)<br>    serialize(root.Right, sb)<br>&#125;<br><br><span class="hljs-comment">// Deserializes your encoded data to tree.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *Codec)</span> <span class="hljs-title">deserialize</span><span class="hljs-params">(data <span class="hljs-keyword">string</span>)</span> *<span class="hljs-title">TreeNode</span></span> &#123;    <br>    stringSlice := strings.Split(data, <span class="hljs-string">&quot;,&quot;</span>)<br><br>    <span class="hljs-comment">// 使用了函数闭包的技巧，省去传参的麻烦</span><br>    <span class="hljs-keyword">var</span> deserialize <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span> *<span class="hljs-title">TreeNode</span></span><br>    deserialize = <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span> *<span class="hljs-title">TreeNode</span></span> &#123;<br>        <br>        <span class="hljs-keyword">if</span> stringSlice[<span class="hljs-number">0</span>] == <span class="hljs-string">&quot;null&quot;</span> &#123;<br>            stringSlice = stringSlice[<span class="hljs-number">1</span>:]<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>        &#125;<br><br>        val, _ := strconv.Atoi(stringSlice[<span class="hljs-number">0</span>])<br>        stringSlice = stringSlice[<span class="hljs-number">1</span>:]<br><br>        <span class="hljs-keyword">return</span> &amp;TreeNode&#123;val, deserialize(), deserialize()&#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> deserialize()<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Golang 切片作为函数参数的“陷阱”</title>
     <link href="/programming/go-slice-as-function-argument/"/>
     <url>/programming/go-slice-as-function-argument/</url>

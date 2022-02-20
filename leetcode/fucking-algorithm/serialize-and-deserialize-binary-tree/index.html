@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>Golang 切片作为函数参数的“陷阱” - Be Happy</title>
+  <title>二叉树的序列化与反序列化 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Golang 切片作为函数参数的“陷阱”">
+            <span class="h2" id="subtitle" title="二叉树的序列化与反序列化">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-20 14:45" pubdate>
+      <time datetime="2022-02-20 15:12" pubdate>
         2022年2月20日 下午
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      489 字
+      219 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      3
        分钟
     </span>
   
@@ -245,33 +245,12 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Golang 切片作为函数参数的“陷阱”</h1>
+            <h1 style="display: none">二叉树的序列化与反序列化</h1>
             
             <div class="markdown-body">
-              <h1 id="Golang-切片作为函数参数的“陷阱”"><a href="#Golang-切片作为函数参数的“陷阱”" class="headerlink" title="Golang 切片作为函数参数的“陷阱”"></a>Golang 切片作为函数参数的“陷阱”</h1><p>我们知道 Go 中的切片类型是引用类型，直觉来讲在作为函数参数时，如果函数内部修改了切片的值，函数外的也会被修改，但这有个前提：只能修改切片的<strong>内容</strong>，而不能修改切片它<strong>本身</strong>。</p>
-<p>如果用切片重组或者 append 方法修改了切片的长度或容量，得到的切片就不是原来那个了，因此变化不会反映到函数外。例如：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	a := [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;<br>	s := a[:]<br>	changeSlice(s)<br>	fmt.Println(s)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">changeSlice</span><span class="hljs-params">(s []<span class="hljs-keyword">int</span>)</span></span> &#123;<br>    <span class="hljs-comment">// 以下改动不会导致函数外部变化</span><br>	s = s[:<span class="hljs-number">2</span>]<br>    s = <span class="hljs-built_in">append</span>(s, <span class="hljs-number">98</span>)<br>&#125;<br><br><span class="hljs-comment">// out: [1 2 3 4 5]</span><br></code></pre></td></tr></table></figure>
-
-<p>而如果修改了切片的内容，例如其中元素的值，切片的长度跟容量都没有变，会导致函数外部的切片也一起改变</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	a := [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;<br>	s := a[:]<br>	changeSlice(s)<br>	fmt.Println(s)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">changeSlice</span><span class="hljs-params">(s []<span class="hljs-keyword">int</span>)</span></span> &#123;<br>    <span class="hljs-comment">// 以下改动会导致函数外部变化</span><br>	s[<span class="hljs-number">0</span>] = <span class="hljs-number">4396</span><br>&#125;<br><br><span class="hljs-comment">// out: [4396 2 3 4 5]</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="传递切片的指针"><a href="#传递切片的指针" class="headerlink" title="传递切片的指针"></a>传递切片的指针</h2><p>如果实在想修改切片，可以传递切片的指针，解引用后进行操作</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	a := [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;<br>	s := a[:]<br>	changeSlice(&amp;s)<br>	fmt.Println(s)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">changeSlice</span><span class="hljs-params">(s *[]<span class="hljs-keyword">int</span>)</span></span> &#123;<br>    *s = (*s)[:<span class="hljs-number">2</span>]<br>	*s = <span class="hljs-built_in">append</span>(*s, <span class="hljs-number">4396</span>)<br>&#125;<br><br><span class="hljs-comment">// out: [1 2 4396]</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="复制切片"><a href="#复制切片" class="headerlink" title="复制切片"></a>复制切片</h2><p>如果需要保证切片（或它的关联数组）一定不会被修改，可以将原始切片用内置函数 <code>copy()</code> 复制后操作</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	a := [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;<br>	s := a[:]<br>	changeSlice(s)<br>	fmt.Println(s)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">changeSlice</span><span class="hljs-params">(s []<span class="hljs-keyword">int</span>)</span></span> &#123;<br>	sCopied := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-built_in">len</span>(s))<br>	<span class="hljs-built_in">copy</span>(sCopied, s)<br>	sCopied[<span class="hljs-number">0</span>] = <span class="hljs-number">4396</span><br>	sCopied = <span class="hljs-built_in">append</span>(sCopied, <span class="hljs-number">7777</span>)<br>&#125;<br><br><span class="hljs-comment">// out: [1 2 3 4 5]</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><p><a target="_blank" rel="noopener" href="https://coolrc.me/2021/08/03/202108031930/">https://coolrc.me/2021/08/03/202108031930/</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://studygolang.com/articles/9876">https://studygolang.com/articles/9876</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://blog.go-zh.org/go-slices-usage-and-internals">https://blog.go-zh.org/go-slices-usage-and-internals</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/49428716/pass-slice-as-function-argument-and-modify-the-original-slice">https://stackoverflow.com/questions/49428716/pass-slice-as-function-argument-and-modify-the-original-slice</a></p>
-</li>
-</ul>
-
+              <h1 id="二叉树的序列化与反序列化"><a href="#二叉树的序列化与反序列化" class="headerlink" title="二叉树的序列化与反序列化"></a>二叉树的序列化与反序列化</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/">https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/</a></p>
+<h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>按任意一种方式遍历然后用相同的方式还原其实都可以，这里选择前序遍历。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;strconv&quot;</span><br><br><span class="hljs-keyword">type</span> Codec <span class="hljs-keyword">struct</span> &#123;<br>    <br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-params">(_ Codec)</span></span> &#123;<br>    <span class="hljs-keyword">return</span><br>&#125;<br><br><span class="hljs-comment">// Serializes a tree to a single string.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *Codec)</span> <span class="hljs-title">serialize</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">string</span></span> &#123;<br>    sb := &amp;strings.Builder&#123;&#125;<br>    serialize(root, sb)<br>    <span class="hljs-keyword">return</span> sb.String()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">serialize</span><span class="hljs-params">(root *TreeNode, sb *strings.Builder)</span></span> &#123;<br>    <span class="hljs-keyword">if</span> root == <span class="hljs-literal">nil</span> &#123;<br>        sb.WriteString(<span class="hljs-string">&quot;null,&quot;</span>)<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    <br>    sb.WriteString(strconv.Itoa(root.Val))<br>    sb.WriteByte(<span class="hljs-string">&#x27;,&#x27;</span>)<br>    serialize(root.Left, sb)<br>    serialize(root.Right, sb)<br>&#125;<br><br><span class="hljs-comment">// Deserializes your encoded data to tree.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *Codec)</span> <span class="hljs-title">deserialize</span><span class="hljs-params">(data <span class="hljs-keyword">string</span>)</span> *<span class="hljs-title">TreeNode</span></span> &#123;    <br>    stringSlice := strings.Split(data, <span class="hljs-string">&quot;,&quot;</span>)<br><br>    <span class="hljs-comment">// 使用了函数闭包的技巧，省去传参的麻烦</span><br>    <span class="hljs-keyword">var</span> deserialize <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span> *<span class="hljs-title">TreeNode</span></span><br>    deserialize = <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span> *<span class="hljs-title">TreeNode</span></span> &#123;<br>        <br>        <span class="hljs-keyword">if</span> stringSlice[<span class="hljs-number">0</span>] == <span class="hljs-string">&quot;null&quot;</span> &#123;<br>            stringSlice = stringSlice[<span class="hljs-number">1</span>:]<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>        &#125;<br><br>        val, _ := strconv.Atoi(stringSlice[<span class="hljs-number">0</span>])<br>        stringSlice = stringSlice[<span class="hljs-number">1</span>:]<br><br>        <span class="hljs-keyword">return</span> &amp;TreeNode&#123;val, deserialize(), deserialize()&#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> deserialize()<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -280,9 +259,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/">Go</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/">Fucking</a>
                     
                   </div>
                 
@@ -301,9 +280,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/serialize-and-deserialize-binary-tree/">
+                      <a href="/leetcode/fucking-algorithm/binary-tree-iii/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">二叉树的序列化与反序列化</span>
+                        <span class="hidden-mobile">二叉树 3</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -311,8 +290,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/binary-tree-ii/">
-                        <span class="hidden-mobile">二叉树 2</span>
+                      <a href="/programming/go-slice-as-function-argument/">
+                        <span class="hidden-mobile">Golang 切片作为函数参数的“陷阱”</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
