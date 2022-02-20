@@ -14,5 +14,6 @@
 
 ```bash
 hexo new leetcode -p /leetcode/top-interview-questions-easy/reverse-string "反转字符串"
+hexo new fucking -p /leetcode/fucking-algorithm/x "y"
 ```
 
