@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>二叉搜索子树的最大键值和</title>
+    <link href="/leetcode/fucking-algorithm/maximum-sum-bst-in-binary-tree/"/>
+    <url>/leetcode/fucking-algorithm/maximum-sum-bst-in-binary-tree/</url>
+    
+    <content type="html"><![CDATA[<h1 id="二叉搜索子树的最大键值和"><a href="#二叉搜索子树的最大键值和" class="headerlink" title="二叉搜索子树的最大键值和"></a>二叉搜索子树的最大键值和</h1><p><a href="https://leetcode-cn.com/problems/maximum-sum-bst-in-binary-tree/">https://leetcode-cn.com/problems/maximum-sum-bst-in-binary-tree/</a></p><h2 id="后序遍历返回多个值"><a href="#后序遍历返回多个值" class="headerlink" title="后序遍历返回多个值"></a>后序遍历返回多个值</h2><p>题目需要我们在每一颗子树上判断：是否是 BST，如果是 BST，计算整颗子树的大小。找出最大的 BST。</p><p>递归地说，首先需要一个节点判断自己是不是 BST，则需要：它的左右子树都是 BST，且它的值大于左子树的最大值、小于右子树的最小值。如果它是 BST 了，则需要得知左子树的和、右子树的和，才能计算整棵树的大小。</p><p>这道题的奥妙就在于这些信息都是可以用后序遍历得到的，因此只进行 1 次后序遍历，但是返回多个值来记录这些信息。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> maxSum <span class="hljs-keyword">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">maxSumBST</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">int</span></span> &#123;<br>    maxSum = <span class="hljs-number">0</span><br>    traverse(root)<br>    <span class="hljs-keyword">return</span> maxSum<br>&#125;<br><br><span class="hljs-comment">// [4]int&#123;isBST, min, max, sum&#125;</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">traverse</span><span class="hljs-params">(root *TreeNode)</span> [4]<span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> root == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-comment">// base case: 空节点是 BST，但它没有最小值，也就是说它的最小值需要取一个有效范围以外的值，使得任意值都比它小。最大值同理</span><br>        <span class="hljs-keyword">return</span> [<span class="hljs-number">4</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, math.MaxInt32, math.MinInt32, <span class="hljs-number">0</span>&#125;<br>    &#125;<br><br>    left, right := traverse(root.Left), traverse(root.Right)<br><br>    res := [<span class="hljs-number">4</span>]<span class="hljs-keyword">int</span>&#123;&#125;<br>    <span class="hljs-comment">// 有效 BST 判定</span><br>    <span class="hljs-keyword">if</span> left[<span class="hljs-number">0</span>] == <span class="hljs-number">1</span> &amp;&amp; right[<span class="hljs-number">0</span>] == <span class="hljs-number">1</span> &amp;&amp; root.Val &gt; left[<span class="hljs-number">2</span>] &amp;&amp; root.Val &lt; right[<span class="hljs-number">1</span>] &#123;<br>        res[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>                              <span class="hljs-comment">// 这颗子树是 BST</span><br>        res[<span class="hljs-number">1</span>] = min(left[<span class="hljs-number">1</span>], root.Val)         <span class="hljs-comment">// 这颗子树的最小值</span><br>        res[<span class="hljs-number">2</span>] = max(right[<span class="hljs-number">2</span>], root.Val)        <span class="hljs-comment">// 这颗子树的最大值</span><br>        res[<span class="hljs-number">3</span>] = left[<span class="hljs-number">3</span>] + right[<span class="hljs-number">3</span>] + root.Val  <span class="hljs-comment">// 这颗子树之和</span><br><br>        maxSum = max(maxSum, res[<span class="hljs-number">3</span>])            <span class="hljs-comment">// 更新全局最大值记录</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        res[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>  <span class="hljs-comment">// 如果不是 BST，只需要记录这个值就够了，其他的用不上</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &lt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &gt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>树</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>BST</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>二叉搜索树 3</title>
     <link href="/leetcode/fucking-algorithm/binary-search-tree-iii/"/>
     <url>/leetcode/fucking-algorithm/binary-search-tree-iii/</url>
@@ -26,7 +57,7 @@
       
       <tag>Go</tag>
       
-      <tag>二叉树</tag>
+      <tag>BST</tag>
       
       <tag>动态规划</tag>
       
@@ -59,7 +90,7 @@
       
       <tag>Go</tag>
       
-      <tag>二叉树</tag>
+      <tag>BST</tag>
       
     </tags>
     
@@ -90,7 +121,7 @@
       
       <tag>Go</tag>
       
-      <tag>二叉树</tag>
+      <tag>BST</tag>
       
     </tags>
     

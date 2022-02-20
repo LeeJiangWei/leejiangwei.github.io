@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>二叉搜索树 3 - Be Happy</title>
+  <title>二叉搜索子树的最大键值和 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="二叉搜索树 3">
+            <span class="h2" id="subtitle" title="二叉搜索子树的最大键值和">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-20 20:16" pubdate>
+      <time datetime="2022-02-20 20:57" pubdate>
         2022年2月20日 晚上
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      399 字
+      478 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      6
        分钟
     </span>
   
@@ -245,18 +245,14 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">二叉搜索树 3</h1>
+            <h1 style="display: none">二叉搜索子树的最大键值和</h1>
             
             <div class="markdown-body">
-              <h1 id="二叉搜索树系列-3"><a href="#二叉搜索树系列-3" class="headerlink" title="二叉搜索树系列 3"></a>二叉搜索树系列 3</h1><h2 id="不同的二叉搜索树"><a href="#不同的二叉搜索树" class="headerlink" title="不同的二叉搜索树"></a>不同的二叉搜索树</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees/">https://leetcode-cn.com/problems/unique-binary-search-trees/</a></p>
-<p>这题实际上是一题动态规划问题，对于一个区间内的数字，穷举每一个数字作为根节点的情况，它的左右子树由相同的函数在不同的区间递归生成。</p>
-<p>对于一个根节点，如果它的左子树有 m 种可能，右子树有 n 种可能，那它自己就是 m*n 种可能。最后加上备忘录消除重叠子问题。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> memo [][]<span class="hljs-keyword">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">numTrees</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    memo = <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, n+<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> memo &#123;<br>        memo[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n+<span class="hljs-number">1</span>)<br>    &#125;<br>    <span class="hljs-keyword">return</span> count(<span class="hljs-number">1</span>, n)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">count</span><span class="hljs-params">(low, high <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// base case: 对应空树的情况，也是一种可能</span><br>    <span class="hljs-keyword">if</span> low &gt; high &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>    &#125;<br><br>    <span class="hljs-keyword">if</span> memo[low][high] != <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> memo[low][high]<br>    &#125;<br><br>    res := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := low; i &lt;= high; i++ &#123;<br>        res += count(low, i<span class="hljs-number">-1</span>) * count(i+<span class="hljs-number">1</span>, high)<br>    &#125;<br>    memo[low][high] = res<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="不同的二叉搜索树-II"><a href="#不同的二叉搜索树-II" class="headerlink" title="不同的二叉搜索树 II"></a>不同的二叉搜索树 II</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees-ii/">https://leetcode-cn.com/problems/unique-binary-search-trees-ii/</a></p>
-<p>遇上一题一样，不过还要将树组合起来，也是用穷举的方法。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateTrees</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> []*<span class="hljs-title">TreeNode</span></span> &#123;<br>    <span class="hljs-keyword">return</span> generate(<span class="hljs-number">1</span>, n)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generate</span><span class="hljs-params">(low, high <span class="hljs-keyword">int</span>)</span> []*<span class="hljs-title">TreeNode</span></span> &#123;<br>    <span class="hljs-comment">// base case: 返回只包含空节点的列表（而不能返回空列表）</span><br>    <span class="hljs-keyword">if</span> low &gt; high &#123;<br>        <span class="hljs-keyword">return</span> []*TreeNode&#123;<span class="hljs-literal">nil</span>&#125;<br>    &#125;<br><br>    res := <span class="hljs-built_in">make</span>([]*TreeNode, <span class="hljs-number">0</span>)<br>    <span class="hljs-keyword">for</span> i := low; i &lt;= high; i++ &#123;<br>        <span class="hljs-comment">// 生成所有可能的左右子树</span><br>        leftTrees := generate(low, i<span class="hljs-number">-1</span>)<br>        rightTrees := generate(i+<span class="hljs-number">1</span>, high)<br><br>        <span class="hljs-comment">// 穷举组合出所有可能的树</span><br>        <span class="hljs-keyword">for</span> _, left := <span class="hljs-keyword">range</span> leftTrees &#123;<br>            <span class="hljs-keyword">for</span> _, right := <span class="hljs-keyword">range</span> rightTrees &#123;<br>                res = <span class="hljs-built_in">append</span>(res, &amp;TreeNode&#123;i, left, right&#125;)<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
-
+              <h1 id="二叉搜索子树的最大键值和"><a href="#二叉搜索子树的最大键值和" class="headerlink" title="二叉搜索子树的最大键值和"></a>二叉搜索子树的最大键值和</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-sum-bst-in-binary-tree/">https://leetcode-cn.com/problems/maximum-sum-bst-in-binary-tree/</a></p>
+<h2 id="后序遍历返回多个值"><a href="#后序遍历返回多个值" class="headerlink" title="后序遍历返回多个值"></a>后序遍历返回多个值</h2><p>题目需要我们在每一颗子树上判断：是否是 BST，如果是 BST，计算整颗子树的大小。找出最大的 BST。</p>
+<p>递归地说，首先需要一个节点判断自己是不是 BST，则需要：它的左右子树都是 BST，且它的值大于左子树的最大值、小于右子树的最小值。如果它是 BST 了，则需要得知左子树的和、右子树的和，才能计算整棵树的大小。</p>
+<p>这道题的奥妙就在于这些信息都是可以用后序遍历得到的，因此只进行 1 次后序遍历，但是返回多个值来记录这些信息。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> maxSum <span class="hljs-keyword">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">maxSumBST</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">int</span></span> &#123;<br>    maxSum = <span class="hljs-number">0</span><br>    traverse(root)<br>    <span class="hljs-keyword">return</span> maxSum<br>&#125;<br><br><span class="hljs-comment">// [4]int&#123;isBST, min, max, sum&#125;</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">traverse</span><span class="hljs-params">(root *TreeNode)</span> [4]<span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> root == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-comment">// base case: 空节点是 BST，但它没有最小值，也就是说它的最小值需要取一个有效范围以外的值，使得任意值都比它小。最大值同理</span><br>        <span class="hljs-keyword">return</span> [<span class="hljs-number">4</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, math.MaxInt32, math.MinInt32, <span class="hljs-number">0</span>&#125;<br>    &#125;<br><br>    left, right := traverse(root.Left), traverse(root.Right)<br><br>    res := [<span class="hljs-number">4</span>]<span class="hljs-keyword">int</span>&#123;&#125;<br>    <span class="hljs-comment">// 有效 BST 判定</span><br>    <span class="hljs-keyword">if</span> left[<span class="hljs-number">0</span>] == <span class="hljs-number">1</span> &amp;&amp; right[<span class="hljs-number">0</span>] == <span class="hljs-number">1</span> &amp;&amp; root.Val &gt; left[<span class="hljs-number">2</span>] &amp;&amp; root.Val &lt; right[<span class="hljs-number">1</span>] &#123;<br>        res[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>                              <span class="hljs-comment">// 这颗子树是 BST</span><br>        res[<span class="hljs-number">1</span>] = min(left[<span class="hljs-number">1</span>], root.Val)         <span class="hljs-comment">// 这颗子树的最小值</span><br>        res[<span class="hljs-number">2</span>] = max(right[<span class="hljs-number">2</span>], root.Val)        <span class="hljs-comment">// 这颗子树的最大值</span><br>        res[<span class="hljs-number">3</span>] = left[<span class="hljs-number">3</span>] + right[<span class="hljs-number">3</span>] + root.Val  <span class="hljs-comment">// 这颗子树之和</span><br><br>        maxSum = max(maxSum, res[<span class="hljs-number">3</span>])            <span class="hljs-comment">// 更新全局最大值记录</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        res[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>  <span class="hljs-comment">// 如果不是 BST，只需要记录这个值就够了，其他的用不上</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &lt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &gt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -281,8 +277,6 @@
                     
                       <a class="hover-with-bg" href="/tags/BST/">BST</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
-                    
                   </div>
                 
               </div>
@@ -292,18 +286,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/maximum-sum-bst-in-binary-tree/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">二叉搜索子树的最大键值和</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/binary-search-tree-i/">
-                        <span class="hidden-mobile">二叉搜索树 1</span>
+                      <a href="/leetcode/fucking-algorithm/binary-search-tree-iii/">
+                        <span class="hidden-mobile">二叉搜索树 3</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
