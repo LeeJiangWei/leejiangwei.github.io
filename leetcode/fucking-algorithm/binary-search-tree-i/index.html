@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>二叉树 3 - Be Happy</title>
+  <title>二叉搜索树 1 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="二叉树 3">
+            <span class="h2" id="subtitle" title="二叉搜索树 1">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-20 15:33" pubdate>
+      <time datetime="2022-02-20 15:54" pubdate>
         2022年2月20日 下午
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      211 字
+      281 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      3
        分钟
     </span>
   
@@ -245,13 +245,17 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">二叉树 3</h1>
+            <h1 style="display: none">二叉搜索树 1</h1>
             
             <div class="markdown-body">
-              <h1 id="寻找重复的子树"><a href="#寻找重复的子树" class="headerlink" title="寻找重复的子树"></a>寻找重复的子树</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-duplicate-subtrees/">https://leetcode-cn.com/problems/find-duplicate-subtrees/</a></p>
-<h2 id="二叉树序列化-哈希表"><a href="#二叉树序列化-哈希表" class="headerlink" title="二叉树序列化 + 哈希表"></a>二叉树序列化 + 哈希表</h2><p>遍历二叉树，序列化每一个子节点作为根的子树得到一个代表子树的字符串，如果字符串相同，则对应的子树也是相同的。最后用哈希表来记录这样的子树出现了多少次。</p>
-<p>对于这题，子树在序列化时也是需要知道自己子节点的信息，因此还是以后序的框架来写（但是是前序序列化）。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> memo <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span><br><span class="hljs-keyword">var</span> res []*TreeNode<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findDuplicateSubtrees</span><span class="hljs-params">(root *TreeNode)</span> []*<span class="hljs-title">TreeNode</span></span> &#123;<br>    memo = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>)<br>    res = <span class="hljs-built_in">make</span>([]*TreeNode, <span class="hljs-number">0</span>)<br>    serialize(root)<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">serialize</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">string</span></span> &#123;<br>    <span class="hljs-keyword">if</span> root == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;#,&quot;</span><br>    &#125;<br>    s := strconv.Itoa(root.Val) + <span class="hljs-string">&quot;,&quot;</span> + serialize(root.Left) + serialize(root.Right)  <span class="hljs-comment">// 序列化</span><br>    <br>    <span class="hljs-keyword">if</span> memo[s] == <span class="hljs-number">1</span> &#123;<br>        res = <span class="hljs-built_in">append</span>(res, root)<br>    &#125;<br>    memo[s] += <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">return</span> s<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="二叉搜索树系列-1"><a href="#二叉搜索树系列-1" class="headerlink" title="二叉搜索树系列 1"></a>二叉搜索树系列 1</h1><p>这两题主要利用 BST 的一个重要性质：<strong>中序遍历的结果是升序的</strong>。</p>
+<h2 id="二叉搜索树中第-K-小的元素"><a href="#二叉搜索树中第-K-小的元素" class="headerlink" title="二叉搜索树中第 K 小的元素"></a>二叉搜索树中第 K 小的元素</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/">https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/</a></p>
+<p>直接进行中序遍历，然后取第 K 个元素就是答案。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">kthSmallest</span><span class="hljs-params">(root *TreeNode, k <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">var</span> a []<span class="hljs-keyword">int</span><br>    <span class="hljs-keyword">var</span> traverse <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(node *TreeNode)</span></span><br>    traverse = <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(node *TreeNode)</span></span> &#123;<br>        <span class="hljs-keyword">if</span> node == <span class="hljs-literal">nil</span> &#123;<br>            <span class="hljs-keyword">return</span><br>        &#125;<br>        traverse(node.Left)<br>        a = <span class="hljs-built_in">append</span>(a, node.Val)<br>        traverse(node.Right)<br>    &#125;<br>    traverse(root)<br>    <span class="hljs-keyword">return</span> a[k<span class="hljs-number">-1</span>]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="把二叉搜索树转换为累加树"><a href="#把二叉搜索树转换为累加树" class="headerlink" title="把二叉搜索树转换为累加树"></a>把二叉搜索树转换为累加树</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/convert-bst-to-greater-tree/">https://leetcode-cn.com/problems/convert-bst-to-greater-tree/</a></p>
+<p>把每个节点更新为所有大于等于它节点的值，可以由 BST 中序遍历为有序列表的性质出发，按右根左的方式进行中序遍历就可以得到降序列表。外部维护一个累加值，遍历到一个节点用这个值更新节点即可。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> sum <span class="hljs-keyword">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">convertBST</span><span class="hljs-params">(root *TreeNode)</span> *<span class="hljs-title">TreeNode</span></span> &#123;<br>    sum = <span class="hljs-number">0</span><br>    traverse(root)<br>    <span class="hljs-keyword">return</span> root<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">traverse</span><span class="hljs-params">(root *TreeNode)</span></span> &#123;<br>    <span class="hljs-keyword">if</span> root == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    traverse(root.Right)<br><br>    <span class="hljs-comment">// 记录累加值，并作为树的新值</span><br>    sum += root.Val<br>    root.Val = sum<br><br>    traverse(root.Left)<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -264,8 +268,6 @@
                     
                       <a class="hover-with-bg" href="/categories/LeetCode/Fucking/">Fucking</a>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/%E6%A0%91/">树</a>
-                    
                   </div>
                 
                 
@@ -273,8 +275,6 @@
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/Go/">Go</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%A0%91/">树</a>
                     
                   </div>
                 
@@ -285,18 +285,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/binary-search-tree-i/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">二叉搜索树 1</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/serialize-and-deserialize-binary-tree/">
-                        <span class="hidden-mobile">二叉树的序列化与反序列化</span>
+                      <a href="/leetcode/fucking-algorithm/binary-tree-iii/">
+                        <span class="hidden-mobile">二叉树 3</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
