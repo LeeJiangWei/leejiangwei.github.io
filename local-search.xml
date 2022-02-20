@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>二叉搜索树 3</title>
+    <link href="/leetcode/fucking-algorithm/binary-search-tree-iii/"/>
+    <url>/leetcode/fucking-algorithm/binary-search-tree-iii/</url>
+    
+    <content type="html"><![CDATA[<h1 id="二叉搜索树系列-3"><a href="#二叉搜索树系列-3" class="headerlink" title="二叉搜索树系列 3"></a>二叉搜索树系列 3</h1><h2 id="不同的二叉搜索树"><a href="#不同的二叉搜索树" class="headerlink" title="不同的二叉搜索树"></a>不同的二叉搜索树</h2><p><a href="https://leetcode-cn.com/problems/unique-binary-search-trees/">https://leetcode-cn.com/problems/unique-binary-search-trees/</a></p><p>这题实际上是一题动态规划问题，对于一个区间内的数字，穷举每一个数字作为根节点的情况，它的左右子树由相同的函数在不同的区间递归生成。</p><p>对于一个根节点，如果它的左子树有 m 种可能，右子树有 n 种可能，那它自己就是 m*n 种可能。最后加上备忘录消除重叠子问题。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> memo [][]<span class="hljs-keyword">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">numTrees</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    memo = <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, n+<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> memo &#123;<br>        memo[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n+<span class="hljs-number">1</span>)<br>    &#125;<br>    <span class="hljs-keyword">return</span> count(<span class="hljs-number">1</span>, n)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">count</span><span class="hljs-params">(low, high <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// base case: 对应空树的情况，也是一种可能</span><br>    <span class="hljs-keyword">if</span> low &gt; high &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>    &#125;<br><br>    <span class="hljs-keyword">if</span> memo[low][high] != <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> memo[low][high]<br>    &#125;<br><br>    res := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := low; i &lt;= high; i++ &#123;<br>        res += count(low, i<span class="hljs-number">-1</span>) * count(i+<span class="hljs-number">1</span>, high)<br>    &#125;<br>    memo[low][high] = res<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="不同的二叉搜索树-II"><a href="#不同的二叉搜索树-II" class="headerlink" title="不同的二叉搜索树 II"></a>不同的二叉搜索树 II</h2><p><a href="https://leetcode-cn.com/problems/unique-binary-search-trees-ii/">https://leetcode-cn.com/problems/unique-binary-search-trees-ii/</a></p><p>遇上一题一样，不过还要将树组合起来，也是用穷举的方法。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateTrees</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> []*<span class="hljs-title">TreeNode</span></span> &#123;<br>    <span class="hljs-keyword">return</span> generate(<span class="hljs-number">1</span>, n)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generate</span><span class="hljs-params">(low, high <span class="hljs-keyword">int</span>)</span> []*<span class="hljs-title">TreeNode</span></span> &#123;<br>    <span class="hljs-comment">// base case: 返回只包含空节点的列表（而不能返回空列表）</span><br>    <span class="hljs-keyword">if</span> low &gt; high &#123;<br>        <span class="hljs-keyword">return</span> []*TreeNode&#123;<span class="hljs-literal">nil</span>&#125;<br>    &#125;<br><br>    res := <span class="hljs-built_in">make</span>([]*TreeNode, <span class="hljs-number">0</span>)<br>    <span class="hljs-keyword">for</span> i := low; i &lt;= high; i++ &#123;<br>        <span class="hljs-comment">// 生成所有可能的左右子树</span><br>        leftTrees := generate(low, i<span class="hljs-number">-1</span>)<br>        rightTrees := generate(i+<span class="hljs-number">1</span>, high)<br><br>        <span class="hljs-comment">// 穷举组合出所有可能的树</span><br>        <span class="hljs-keyword">for</span> _, left := <span class="hljs-keyword">range</span> leftTrees &#123;<br>            <span class="hljs-keyword">for</span> _, right := <span class="hljs-keyword">range</span> rightTrees &#123;<br>                res = <span class="hljs-built_in">append</span>(res, &amp;TreeNode&#123;i, left, right&#125;)<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>树</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>二叉树</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>二叉搜索树 1</title>
     <link href="/leetcode/fucking-algorithm/binary-search-tree-i/"/>
     <url>/leetcode/fucking-algorithm/binary-search-tree-i/</url>
