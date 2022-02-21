@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>小而美的算法技巧：差分数组 - Be Happy</title>
+  <title>二维数组的花式遍历技巧 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="小而美的算法技巧：差分数组">
+            <span class="h2" id="subtitle" title="二维数组的花式遍历技巧">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-21 15:10" pubdate>
+      <time datetime="2022-02-21 15:53" pubdate>
         2022年2月21日 下午
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      438 字
+      418 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      7
        分钟
     </span>
   
@@ -245,25 +245,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">小而美的算法技巧：差分数组</h1>
+            <h1 style="display: none">二维数组的花式遍历技巧</h1>
             
             <div class="markdown-body">
-              <h1 id="小而美的算法技巧：差分数组"><a href="#小而美的算法技巧：差分数组" class="headerlink" title="小而美的算法技巧：差分数组"></a>小而美的算法技巧：差分数组</h1><p>差分数组的主要适用场景是频繁对原始数组的某个区间的元素进行增减。</p>
-<p><img src="https://labuladong.gitee.io/algo/images/%e5%b7%ae%e5%88%86%e6%95%b0%e7%bb%84/2.jpeg" srcset="/img/loading.gif" lazyload></p>
-<p>差分数组每一个元素 <code>df[i]</code> 储存数组元素与上一个元素的差值 <code>nums[i] - nums[i-1]</code>。</p>
-<p>差分数组可以直接还原为原数组，只需遍历一遍差分数组，加上上一个元素即可。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; n; i++ &#123;<br>    df[i] = df[i<span class="hljs-number">-1</span>] + df[i]<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="二维数组的花式遍历技巧"><a href="#二维数组的花式遍历技巧" class="headerlink" title="二维数组的花式遍历技巧"></a>二维数组的花式遍历技巧</h1><h2 id="旋转图像"><a href="#旋转图像" class="headerlink" title="旋转图像"></a>旋转图像</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-image/">https://leetcode-cn.com/problems/rotate-image/</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">rotate</span><span class="hljs-params">(matrix [][]<span class="hljs-keyword">int</span>)</span></span>  &#123;<br>    n := <span class="hljs-built_in">len</span>(matrix)<br>    <span class="hljs-comment">// 对角线反转矩阵</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := i + <span class="hljs-number">1</span>; j &lt; n; j++ &#123;<br>            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">// 反转每一行</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>        reverse(matrix[i])<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverse</span><span class="hljs-params">(list []<span class="hljs-keyword">int</span>)</span></span> &#123;<br>    i, j := <span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(list) - <span class="hljs-number">1</span><br>    <span class="hljs-keyword">for</span> i &lt; j &#123;<br>        list[i], list[j] = list[j], list[i]<br>        i++<br>        j--<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="螺旋矩阵"><a href="#螺旋矩阵" class="headerlink" title="螺旋矩阵"></a>螺旋矩阵</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/spiral-matrix/">https://leetcode-cn.com/problems/spiral-matrix/</a></p>
+<p><img src="https://labuladong.gitee.io/algo/images/%e8%8a%b1%e5%bc%8f%e9%81%8d%e5%8e%86/6.png" srcset="/img/loading.gif" lazyload></p>
+<p>定义好这几个 bound，然后在它们的范围内螺旋遍历即可。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">spiralOrder</span><span class="hljs-params">(matrix [][]<span class="hljs-keyword">int</span>)</span> []<span class="hljs-title">int</span></span> &#123;<br>    m, n := <span class="hljs-built_in">len</span>(matrix), <span class="hljs-built_in">len</span>(matrix[<span class="hljs-number">0</span>])<br>    upperBound, rightBound, lowerBound, leftBound := <span class="hljs-number">0</span>, n<span class="hljs-number">-1</span>, m<span class="hljs-number">-1</span>, <span class="hljs-number">0</span><br>    result := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, m * n)<br>    count := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> count &lt; m * n &#123;<br>        <span class="hljs-keyword">if</span> upperBound &lt;= lowerBound &#123;<br>            <span class="hljs-keyword">for</span> i := leftBound; i &lt;= rightBound; i++ &#123;<br>                result[count] = matrix[upperBound][i]<br>                count++<br>            &#125;<br>            upperBound++<br>        &#125;<br>        <span class="hljs-keyword">if</span> rightBound &gt;= leftBound &#123;<br>            <span class="hljs-keyword">for</span> i := upperBound; i &lt;= lowerBound; i++ &#123;<br>                result[count] = matrix[i][rightBound]<br>                count++<br>            &#125;<br>            rightBound--<br>        &#125;<br>        <span class="hljs-keyword">if</span> lowerBound &gt;= upperBound &#123;<br>            <span class="hljs-keyword">for</span> i := rightBound; i &gt;= leftBound; i-- &#123;<br>                result[count] = matrix[lowerBound][i]<br>                count++<br>            &#125;<br>            lowerBound--<br>        &#125;<br>        <span class="hljs-keyword">if</span> leftBound &lt;= rightBound &#123;<br>            <span class="hljs-keyword">for</span> i := lowerBound; i &gt;= upperBound; i-- &#123;<br>                result[count] = matrix[i][leftBound]<br>                count++<br>            &#125;<br>            leftBound++<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> result<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="航班预订统计"><a href="#航班预订统计" class="headerlink" title="航班预订统计"></a>航班预订统计</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/corporate-flight-bookings/">https://leetcode-cn.com/problems/corporate-flight-bookings/</a></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">corpFlightBookings</span><span class="hljs-params">(bookings [][]<span class="hljs-keyword">int</span>, n <span class="hljs-keyword">int</span>)</span> []<span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// 差分数组初始化为全 0</span><br>    df := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n)<br>    <span class="hljs-keyword">for</span> _, booking := <span class="hljs-keyword">range</span> bookings &#123;<br>        df[booking[<span class="hljs-number">0</span>]<span class="hljs-number">-1</span>] += booking[<span class="hljs-number">2</span>]<br>        <span class="hljs-comment">// 如果区间终点是数组终点，不需要修改</span><br>        <span class="hljs-keyword">if</span> booking[<span class="hljs-number">1</span>] &lt; n &#123;<br>            df[booking[<span class="hljs-number">1</span>]] -= booking[<span class="hljs-number">2</span>]<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">// 还原差分数组</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; n; i++ &#123;<br>        df[i] = df[i<span class="hljs-number">-1</span>] + df[i]<br>    &#125;<br>    <span class="hljs-keyword">return</span> df<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="拼车"><a href="#拼车" class="headerlink" title="拼车"></a>拼车</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/car-pooling/">https://leetcode-cn.com/problems/car-pooling/</a></p>
-<p>和上一题基本一样，有几点注意的：</p>
-<ul>
-<li>题目限定了路程长度最多为 1000，所以差分数组也初始化为 1000</li>
-<li>乘客会先下后上，所有到达终点时车的容量就会马上增加，因此在终点区间就可以减去人数</li>
-<li>注意起点 0 时可能上了多个乘客但是没判断到</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">carPooling</span><span class="hljs-params">(trips [][]<span class="hljs-keyword">int</span>, capacity <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-comment">// 差分数组初始化为全 0</span><br>    n := <span class="hljs-number">1000</span><br>    df := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n)<br>    <span class="hljs-keyword">for</span> _, trip := <span class="hljs-keyword">range</span> trips &#123;<br>        df[trip[<span class="hljs-number">1</span>]] += trip[<span class="hljs-number">0</span>]<br>        <span class="hljs-comment">// 如果区间终点是数组终点，不需要修改</span><br>        <span class="hljs-keyword">if</span> trip[<span class="hljs-number">2</span>] &lt; n &#123;<br>            df[trip[<span class="hljs-number">2</span>]] -= trip[<span class="hljs-number">0</span>]<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> df[<span class="hljs-number">0</span>] &gt; capacity &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    &#125;<br>    <span class="hljs-comment">// 还原差分数组</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; n; i++ &#123;<br>        df[i] = df[i<span class="hljs-number">-1</span>] + df[i]<br>        <span class="hljs-keyword">if</span> df[i] &gt; capacity &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="螺旋矩阵-II"><a href="#螺旋矩阵-II" class="headerlink" title="螺旋矩阵 II"></a>螺旋矩阵 II</h2><p>就是刚刚那道题的反过程。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateMatrix</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> [][]<span class="hljs-title">int</span></span> &#123;<br>    matrix := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, n)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> matrix &#123;<br>        matrix[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n)<br>    &#125;<br><br>    upperBound, rightBound, lowerBound, leftBound := <span class="hljs-number">0</span>, n<span class="hljs-number">-1</span>, n<span class="hljs-number">-1</span>, <span class="hljs-number">0</span><br>    count := <span class="hljs-number">1</span><br>    <span class="hljs-keyword">for</span> count &lt;= n * n &#123;<br>        <span class="hljs-keyword">if</span> upperBound &lt;= lowerBound &#123;<br>            <span class="hljs-keyword">for</span> i := leftBound; i &lt;= rightBound; i++ &#123;<br>                matrix[upperBound][i] = count<br>                count++<br>            &#125;<br>            upperBound++<br>        &#125;<br>        <span class="hljs-keyword">if</span> rightBound &gt;= leftBound &#123;<br>            <span class="hljs-keyword">for</span> i := upperBound; i &lt;= lowerBound; i++ &#123;<br>                matrix[i][rightBound] = count<br>                count++<br>            &#125;<br>            rightBound--<br>        &#125;<br>        <span class="hljs-keyword">if</span> lowerBound &gt;= upperBound &#123;<br>            <span class="hljs-keyword">for</span> i := rightBound; i &gt;= leftBound; i-- &#123;<br>                matrix[lowerBound][i] = count<br>                count++<br>            &#125;<br>            lowerBound--<br>        &#125;<br>        <span class="hljs-keyword">if</span> leftBound &lt;= rightBound &#123;<br>            <span class="hljs-keyword">for</span> i := lowerBound; i &gt;= upperBound; i-- &#123;<br>                matrix[i][leftBound] = count<br>                count++<br>            &#125;<br>            leftBound++<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> matrix<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -297,18 +290,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/fancy-array-iteration/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">二维数组的花式遍历技巧</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/array-prefix-sum/">
-                        <span class="hidden-mobile">小而美的算法技巧：前缀和数组</span>
+                      <a href="/leetcode/fucking-algorithm/array-diff/">
+                        <span class="hidden-mobile">小而美的算法技巧：差分数组</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
