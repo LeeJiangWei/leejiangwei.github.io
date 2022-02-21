@@ -14,6 +14,8 @@ date: 2022-02-21 11:10:00
 
 # 小而美的算法技巧：前缀和数组
 
+前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和。
+
 ## 一维数组中的前缀和
 
 https://leetcode-cn.com/problems/range-sum-query-immutable/
