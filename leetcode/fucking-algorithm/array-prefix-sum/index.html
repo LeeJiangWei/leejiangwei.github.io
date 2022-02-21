@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>买卖股票的最佳时机 II - Be Happy</title>
+  <title>完全二叉树的节点个数 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="买卖股票的最佳时机 II">
+            <span class="h2" id="subtitle" title="完全二叉树的节点个数">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-06-16 20:26" pubdate>
-        2021年6月16日 晚上
+      <time datetime="2022-02-21 11:10" pubdate>
+        2022年2月21日 上午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      227 字
+      533 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      7
        分钟
     </span>
   
@@ -245,14 +245,23 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">买卖股票的最佳时机 II</h1>
+            <h1 style="display: none">完全二叉树的节点个数</h1>
             
             <div class="markdown-body">
-              <h1 id="买卖股票的最佳时机-II"><a href="#买卖股票的最佳时机-II" class="headerlink" title="买卖股票的最佳时机 II"></a>买卖股票的最佳时机 II</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2zsx1/">https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2zsx1/</a><br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/">https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/</a></p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h3><p>只看相邻的两天，只要后一天比前一天高，就是收益，非常简单。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; prices)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> curr = prices.<span class="hljs-built_in">begin</span>() + <span class="hljs-number">1</span>; curr != prices.<span class="hljs-built_in">end</span>(); ++curr) &#123;<br>        <span class="hljs-keyword">if</span> (*curr &gt; *(curr - <span class="hljs-number">1</span>))<br>            result += *curr - *(curr - <span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="我的解法"><a href="#我的解法" class="headerlink" title="我的解法"></a>我的解法</h3><p>刚做完一个双指针，指魔怔了，嗯是搞了个双指针。其实就是找到每一段递增区间的起点和终点。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; prices)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (prices.<span class="hljs-built_in">size</span>() &lt;= <span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">auto</span> min = prices.<span class="hljs-built_in">begin</span>();<br>    <span class="hljs-keyword">auto</span> max = min;<br>    <span class="hljs-keyword">auto</span> end = prices.<span class="hljs-built_in">end</span>();<br>    <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">while</span> (min != end &amp;&amp; max != end) &#123;<br>        <span class="hljs-keyword">while</span> ((min+<span class="hljs-number">1</span>) != end &amp;&amp; *min &gt; *(min + <span class="hljs-number">1</span>))<br>            ++min;<br>        max = min;<br>        <span class="hljs-keyword">while</span> ((max+<span class="hljs-number">1</span>) != end &amp;&amp; *max &lt; *(max + <span class="hljs-number">1</span>))<br>            ++max;<br>        result += *(max) - *(min);<br>        <span class="hljs-keyword">if</span> (min != end &amp;&amp; max != end) &#123;<br>            ++max;<br>            min = max;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="小而美的算法技巧：前缀和数组"><a href="#小而美的算法技巧：前缀和数组" class="headerlink" title="小而美的算法技巧：前缀和数组"></a>小而美的算法技巧：前缀和数组</h1><p>前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和。</p>
+<h2 id="一维数组中的前缀和"><a href="#一维数组中的前缀和" class="headerlink" title="一维数组中的前缀和"></a>一维数组中的前缀和</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/range-sum-query-immutable/">https://leetcode-cn.com/problems/range-sum-query-immutable/</a></p>
+<p>前缀和技巧：提前计算数组从 0 开始的累加和并储存，在需要获取一个区间内的和时，直接在累加和数组中相减即可得到，不需要每次去重新遍历数组。</p>
+<p><img src="https://labuladong.gitee.io/algo/images/%e5%b7%ae%e5%88%86%e6%95%b0%e7%bb%84/1.jpeg" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> NumArray <span class="hljs-keyword">struct</span> &#123;<br>    prefixSum []<span class="hljs-keyword">int</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">NumArray</span></span> &#123;<br>    a := <span class="hljs-built_in">new</span>(NumArray)<br>    prefixSum := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-built_in">len</span>(nums) + <span class="hljs-number">1</span>)<br>    <span class="hljs-comment">// 计算前缀和</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= <span class="hljs-built_in">len</span>(nums); i++ &#123;<br>        prefixSum[i] = prefixSum[i - <span class="hljs-number">1</span>] + nums[i - <span class="hljs-number">1</span>]<br>    &#125;<br>    a.prefixSum = prefixSum<br>    <span class="hljs-keyword">return</span> *a<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *NumArray)</span> <span class="hljs-title">SumRange</span><span class="hljs-params">(left <span class="hljs-keyword">int</span>, right <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">return</span> this.prefixSum[right + <span class="hljs-number">1</span>] - this.prefixSum[left]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="二维矩阵中的前缀和"><a href="#二维矩阵中的前缀和" class="headerlink" title="二维矩阵中的前缀和"></a>二维矩阵中的前缀和</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/range-sum-query-2d-immutable/">https://leetcode-cn.com/problems/range-sum-query-2d-immutable/</a></p>
+<p>类似于上一题，不过是二维的。对于二维情况稍微复杂一点，但原理还是一样的：通过几个子矩阵前缀和的加减运算得出任意区域矩阵的和。</p>
+<p><img src="https://labuladong.gitee.io/algo/images/%e5%89%8d%e7%bc%80%e5%92%8c/5.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> NumMatrix <span class="hljs-keyword">struct</span> &#123;<br>    prefixMatrix [][]<span class="hljs-keyword">int</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">(matrix [][]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">NumMatrix</span></span> &#123;<br>    m, n := <span class="hljs-built_in">len</span>(matrix), <span class="hljs-built_in">len</span>(matrix[<span class="hljs-number">0</span>])<br>    prefix := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, m + <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> prefix &#123;<br>        prefix[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n + <span class="hljs-number">1</span>)<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= m; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= n; j++ &#123;<br>            prefix[i][j] = prefix[i<span class="hljs-number">-1</span>][j] + prefix[i][j<span class="hljs-number">-1</span>] - prefix[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>] + matrix[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> NumMatrix&#123;prefix&#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *NumMatrix)</span> <span class="hljs-title">SumRegion</span><span class="hljs-params">(row1 <span class="hljs-keyword">int</span>, col1 <span class="hljs-keyword">int</span>, row2 <span class="hljs-keyword">int</span>, col2 <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">return</span> this.prefixMatrix[row2+<span class="hljs-number">1</span>][col2+<span class="hljs-number">1</span>] - this.prefixMatrix[row1][col2+<span class="hljs-number">1</span>] - this.prefixMatrix[row2+<span class="hljs-number">1</span>][col1] + this.prefixMatrix[row1][col1]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="和为-k-的子数组"><a href="#和为-k-的子数组" class="headerlink" title="和为 k 的子数组"></a>和为 k 的子数组</h2><p>类似于两数之和，计算出前缀数组后不用再去遍历一遍，只需要寻找它减去 k 以后的前缀和是否已经在哈希表中。这样的前缀和有几个，就有几个能凑出和为 k 的子数组，直接在结果加上即可。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">subarraySum</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>, k <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>)<br>    m[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>  <span class="hljs-comment">// base case</span><br>    <br>    res, sum:= <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(nums); i++ &#123;<br>        sum += nums[i]<br>        start := sum - k<br>        <span class="hljs-keyword">if</span> val, ok := m[start]; ok &#123;<br>            res += val<br>        &#125;<br>        m[sum] += <span class="hljs-number">1</span><br>    &#125;<br><br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
+
             </div>
             <hr>
             <div>
@@ -263,9 +272,9 @@
                     
                       <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/">初级算法</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/">Fucking</a>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/%E6%95%B0%E7%BB%84/">数组</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/%E6%95%B0%E7%BB%84/">数组</a>
                     
                   </div>
                 
@@ -273,11 +282,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                      <a class="hover-with-bg" href="/tags/Go/">Go</a>
                     
                       <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">贪心算法</a>
                     
                   </div>
                 
@@ -288,18 +295,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/top-interview-questions-easy/rotate-array/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">旋转数组</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/essay/make-deepfake-meme/">
-                        <span class="hidden-mobile">如何制作 Unravel 和 damedane 的 Deepfake 换脸视频</span>
+                      <a href="/leetcode/fucking-algorithm/count-complete-tree-nodes/">
+                        <span class="hidden-mobile">完全二叉树的节点个数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

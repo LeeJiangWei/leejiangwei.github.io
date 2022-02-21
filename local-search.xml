@@ -4,6 +4,68 @@
   
   
   <entry>
+    <title>完全二叉树的节点个数</title>
+    <link href="/leetcode/fucking-algorithm/array-prefix-sum/"/>
+    <url>/leetcode/fucking-algorithm/array-prefix-sum/</url>
+    
+    <content type="html"><![CDATA[<h1 id="小而美的算法技巧：前缀和数组"><a href="#小而美的算法技巧：前缀和数组" class="headerlink" title="小而美的算法技巧：前缀和数组"></a>小而美的算法技巧：前缀和数组</h1><p>前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和。</p><h2 id="一维数组中的前缀和"><a href="#一维数组中的前缀和" class="headerlink" title="一维数组中的前缀和"></a>一维数组中的前缀和</h2><p><a href="https://leetcode-cn.com/problems/range-sum-query-immutable/">https://leetcode-cn.com/problems/range-sum-query-immutable/</a></p><p>前缀和技巧：提前计算数组从 0 开始的累加和并储存，在需要获取一个区间内的和时，直接在累加和数组中相减即可得到，不需要每次去重新遍历数组。</p><p><img src="https://labuladong.gitee.io/algo/images/%e5%b7%ae%e5%88%86%e6%95%b0%e7%bb%84/1.jpeg"></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> NumArray <span class="hljs-keyword">struct</span> &#123;<br>    prefixSum []<span class="hljs-keyword">int</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">NumArray</span></span> &#123;<br>    a := <span class="hljs-built_in">new</span>(NumArray)<br>    prefixSum := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-built_in">len</span>(nums) + <span class="hljs-number">1</span>)<br>    <span class="hljs-comment">// 计算前缀和</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= <span class="hljs-built_in">len</span>(nums); i++ &#123;<br>        prefixSum[i] = prefixSum[i - <span class="hljs-number">1</span>] + nums[i - <span class="hljs-number">1</span>]<br>    &#125;<br>    a.prefixSum = prefixSum<br>    <span class="hljs-keyword">return</span> *a<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *NumArray)</span> <span class="hljs-title">SumRange</span><span class="hljs-params">(left <span class="hljs-keyword">int</span>, right <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">return</span> this.prefixSum[right + <span class="hljs-number">1</span>] - this.prefixSum[left]<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="二维矩阵中的前缀和"><a href="#二维矩阵中的前缀和" class="headerlink" title="二维矩阵中的前缀和"></a>二维矩阵中的前缀和</h2><p><a href="https://leetcode-cn.com/problems/range-sum-query-2d-immutable/">https://leetcode-cn.com/problems/range-sum-query-2d-immutable/</a></p><p>类似于上一题，不过是二维的。对于二维情况稍微复杂一点，但原理还是一样的：通过几个子矩阵前缀和的加减运算得出任意区域矩阵的和。</p><p><img src="https://labuladong.gitee.io/algo/images/%e5%89%8d%e7%bc%80%e5%92%8c/5.png"></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> NumMatrix <span class="hljs-keyword">struct</span> &#123;<br>    prefixMatrix [][]<span class="hljs-keyword">int</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">(matrix [][]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">NumMatrix</span></span> &#123;<br>    m, n := <span class="hljs-built_in">len</span>(matrix), <span class="hljs-built_in">len</span>(matrix[<span class="hljs-number">0</span>])<br>    prefix := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, m + <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> prefix &#123;<br>        prefix[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n + <span class="hljs-number">1</span>)<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= m; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= n; j++ &#123;<br>            prefix[i][j] = prefix[i<span class="hljs-number">-1</span>][j] + prefix[i][j<span class="hljs-number">-1</span>] - prefix[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>] + matrix[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> NumMatrix&#123;prefix&#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *NumMatrix)</span> <span class="hljs-title">SumRegion</span><span class="hljs-params">(row1 <span class="hljs-keyword">int</span>, col1 <span class="hljs-keyword">int</span>, row2 <span class="hljs-keyword">int</span>, col2 <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">return</span> this.prefixMatrix[row2+<span class="hljs-number">1</span>][col2+<span class="hljs-number">1</span>] - this.prefixMatrix[row1][col2+<span class="hljs-number">1</span>] - this.prefixMatrix[row2+<span class="hljs-number">1</span>][col1] + this.prefixMatrix[row1][col1]<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="和为-k-的子数组"><a href="#和为-k-的子数组" class="headerlink" title="和为 k 的子数组"></a>和为 k 的子数组</h2><p>类似于两数之和，计算出前缀数组后不用再去遍历一遍，只需要寻找它减去 k 以后的前缀和是否已经在哈希表中。这样的前缀和有几个，就有几个能凑出和为 k 的子数组，直接在结果加上即可。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">subarraySum</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>, k <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>)<br>    m[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>  <span class="hljs-comment">// base case</span><br>    <br>    res, sum:= <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(nums); i++ &#123;<br>        sum += nums[i]<br>        start := sum - k<br>        <span class="hljs-keyword">if</span> val, ok := m[start]; ok &#123;<br>            res += val<br>        &#125;<br>        m[sum] += <span class="hljs-number">1</span><br>    &#125;<br><br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>数组</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>数组</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>完全二叉树的节点个数</title>
+    <link href="/leetcode/fucking-algorithm/count-complete-tree-nodes/"/>
+    <url>/leetcode/fucking-algorithm/count-complete-tree-nodes/</url>
+    
+    <content type="html"><![CDATA[<h1 id="完全二叉树的节点个数"><a href="#完全二叉树的节点个数" class="headerlink" title="完全二叉树的节点个数"></a>完全二叉树的节点个数</h1><p><a href="https://leetcode-cn.com/problems/count-complete-tree-nodes/">https://leetcode-cn.com/problems/count-complete-tree-nodes/</a></p><p>完全二叉树有个重要的特点：<strong>一棵完全二叉树的两棵子树，至少有一棵是满二叉树</strong></p><p><img src="https://labuladong.gitee.io/algo/images/complete_tree/1.jpg"></p><p>计算满二叉树的节点个数并不需要遍历所有节点，只需要得知它的深度，直接计算即可。</p><p>这段代码先把左右子树都当作满树计算，如果不满足条件再递归到左右子树。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">countNodes</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">int</span></span> &#123;<br>    l, r := root, root<br>    hl, hr := <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> l != <span class="hljs-literal">nil</span> &#123;<br>        l = l.Left<br>        hl += <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">for</span> r != <span class="hljs-literal">nil</span> &#123;<br>        r = r.Right<br>        hr += <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> hl == hr &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">int</span>(math.Pow(<span class="hljs-number">2.0</span>, <span class="hljs-keyword">float64</span>(hr))) - <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> + countNodes(root.Left) + countNodes(root.Right)<br>&#125;<br></code></pre></td></tr></table></figure><p>算法的递归深度就是树的高度 O(logN)，每次递归所花费的时间就是 while 循环，需要 O(logN)，所以总体的时间复杂度是 O(logN*logN)。</p><p>如果是普通二叉树，遍历一遍的时间复杂度是 O(N)。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>树</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>二叉树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>二叉树的最近公共祖先</title>
     <link href="/leetcode/fucking-algorithm/lowest-common-ancestor-of-a-binary-tree/"/>
     <url>/leetcode/fucking-algorithm/lowest-common-ancestor-of-a-binary-tree/</url>
@@ -2790,9 +2852,9 @@
       
       <tag>C++</tag>
       
-      <tag>贪心算法</tag>
-      
       <tag>数组</tag>
+      
+      <tag>贪心算法</tag>
       
     </tags>
     
