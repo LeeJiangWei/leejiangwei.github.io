@@ -1,5 +1,5 @@
 ---
-title: 完全二叉树的节点个数
+title: 小而美的算法技巧：前缀和数组
 categories:
   - LeetCode
   - Fucking
