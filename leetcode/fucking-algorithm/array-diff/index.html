@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-21 11:10" pubdate>
-        2022年2月21日 上午
+      <time datetime="2022-02-21 15:10" pubdate>
+        2022年2月21日 下午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      533 字
+      438 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      6
        分钟
     </span>
   
@@ -248,20 +248,22 @@
             <h1 style="display: none">完全二叉树的节点个数</h1>
             
             <div class="markdown-body">
-              <h1 id="小而美的算法技巧：前缀和数组"><a href="#小而美的算法技巧：前缀和数组" class="headerlink" title="小而美的算法技巧：前缀和数组"></a>小而美的算法技巧：前缀和数组</h1><p>前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和。</p>
-<h2 id="一维数组中的前缀和"><a href="#一维数组中的前缀和" class="headerlink" title="一维数组中的前缀和"></a>一维数组中的前缀和</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/range-sum-query-immutable/">https://leetcode-cn.com/problems/range-sum-query-immutable/</a></p>
-<p>前缀和技巧：提前计算数组从 0 开始的累加和并储存，在需要获取一个区间内的和时，直接在累加和数组中相减即可得到，不需要每次去重新遍历数组。</p>
-<p><img src="https://labuladong.gitee.io/algo/images/%e5%b7%ae%e5%88%86%e6%95%b0%e7%bb%84/1.jpeg" srcset="/img/loading.gif" lazyload></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> NumArray <span class="hljs-keyword">struct</span> &#123;<br>    prefixSum []<span class="hljs-keyword">int</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">NumArray</span></span> &#123;<br>    a := <span class="hljs-built_in">new</span>(NumArray)<br>    prefixSum := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-built_in">len</span>(nums) + <span class="hljs-number">1</span>)<br>    <span class="hljs-comment">// 计算前缀和</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= <span class="hljs-built_in">len</span>(nums); i++ &#123;<br>        prefixSum[i] = prefixSum[i - <span class="hljs-number">1</span>] + nums[i - <span class="hljs-number">1</span>]<br>    &#125;<br>    a.prefixSum = prefixSum<br>    <span class="hljs-keyword">return</span> *a<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *NumArray)</span> <span class="hljs-title">SumRange</span><span class="hljs-params">(left <span class="hljs-keyword">int</span>, right <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">return</span> this.prefixSum[right + <span class="hljs-number">1</span>] - this.prefixSum[left]<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="小而美的算法技巧：差分数组"><a href="#小而美的算法技巧：差分数组" class="headerlink" title="小而美的算法技巧：差分数组"></a>小而美的算法技巧：差分数组</h1><p>差分数组的主要适用场景是频繁对原始数组的某个区间的元素进行增减。</p>
+<p><img src="https://labuladong.gitee.io/algo/images/%e5%b7%ae%e5%88%86%e6%95%b0%e7%bb%84/2.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p>差分数组每一个元素 <code>df[i]</code> 储存数组元素与上一个元素的差值 <code>nums[i] - nums[i-1]</code>。</p>
+<p>差分数组可以直接还原为原数组，只需遍历一遍差分数组，加上上一个元素即可。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; n; i++ &#123;<br>    df[i] = df[i<span class="hljs-number">-1</span>] + df[i]<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="二维矩阵中的前缀和"><a href="#二维矩阵中的前缀和" class="headerlink" title="二维矩阵中的前缀和"></a>二维矩阵中的前缀和</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/range-sum-query-2d-immutable/">https://leetcode-cn.com/problems/range-sum-query-2d-immutable/</a></p>
-<p>类似于上一题，不过是二维的。对于二维情况稍微复杂一点，但原理还是一样的：通过几个子矩阵前缀和的加减运算得出任意区域矩阵的和。</p>
-<p><img src="https://labuladong.gitee.io/algo/images/%e5%89%8d%e7%bc%80%e5%92%8c/5.png" srcset="/img/loading.gif" lazyload></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> NumMatrix <span class="hljs-keyword">struct</span> &#123;<br>    prefixMatrix [][]<span class="hljs-keyword">int</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">(matrix [][]<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">NumMatrix</span></span> &#123;<br>    m, n := <span class="hljs-built_in">len</span>(matrix), <span class="hljs-built_in">len</span>(matrix[<span class="hljs-number">0</span>])<br>    prefix := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, m + <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> prefix &#123;<br>        prefix[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n + <span class="hljs-number">1</span>)<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= m; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= n; j++ &#123;<br>            prefix[i][j] = prefix[i<span class="hljs-number">-1</span>][j] + prefix[i][j<span class="hljs-number">-1</span>] - prefix[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>] + matrix[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> NumMatrix&#123;prefix&#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *NumMatrix)</span> <span class="hljs-title">SumRegion</span><span class="hljs-params">(row1 <span class="hljs-keyword">int</span>, col1 <span class="hljs-keyword">int</span>, row2 <span class="hljs-keyword">int</span>, col2 <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">return</span> this.prefixMatrix[row2+<span class="hljs-number">1</span>][col2+<span class="hljs-number">1</span>] - this.prefixMatrix[row1][col2+<span class="hljs-number">1</span>] - this.prefixMatrix[row2+<span class="hljs-number">1</span>][col1] + this.prefixMatrix[row1][col1]<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="和为-k-的子数组"><a href="#和为-k-的子数组" class="headerlink" title="和为 k 的子数组"></a>和为 k 的子数组</h2><p>类似于两数之和，计算出前缀数组后不用再去遍历一遍，只需要寻找它减去 k 以后的前缀和是否已经在哈希表中。这样的前缀和有几个，就有几个能凑出和为 k 的子数组，直接在结果加上即可。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">subarraySum</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>, k <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>)<br>    m[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>  <span class="hljs-comment">// base case</span><br>    <br>    res, sum:= <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(nums); i++ &#123;<br>        sum += nums[i]<br>        start := sum - k<br>        <span class="hljs-keyword">if</span> val, ok := m[start]; ok &#123;<br>            res += val<br>        &#125;<br>        m[sum] += <span class="hljs-number">1</span><br>    &#125;<br><br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<h2 id="航班预订统计"><a href="#航班预订统计" class="headerlink" title="航班预订统计"></a>航班预订统计</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/corporate-flight-bookings/">https://leetcode-cn.com/problems/corporate-flight-bookings/</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">corpFlightBookings</span><span class="hljs-params">(bookings [][]<span class="hljs-keyword">int</span>, n <span class="hljs-keyword">int</span>)</span> []<span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// 差分数组初始化为全 0</span><br>    df := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n)<br>    <span class="hljs-keyword">for</span> _, booking := <span class="hljs-keyword">range</span> bookings &#123;<br>        df[booking[<span class="hljs-number">0</span>]<span class="hljs-number">-1</span>] += booking[<span class="hljs-number">2</span>]<br>        <span class="hljs-comment">// 如果区间终点是数组终点，不需要修改</span><br>        <span class="hljs-keyword">if</span> booking[<span class="hljs-number">1</span>] &lt; n &#123;<br>            df[booking[<span class="hljs-number">1</span>]] -= booking[<span class="hljs-number">2</span>]<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">// 还原差分数组</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; n; i++ &#123;<br>        df[i] = df[i<span class="hljs-number">-1</span>] + df[i]<br>    &#125;<br>    <span class="hljs-keyword">return</span> df<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="拼车"><a href="#拼车" class="headerlink" title="拼车"></a>拼车</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/car-pooling/">https://leetcode-cn.com/problems/car-pooling/</a></p>
+<p>和上一题基本一样，有几点注意的：</p>
+<ul>
+<li>题目限定了路程长度最多为 1000，所以差分数组也初始化为 1000</li>
+<li>乘客会先下后上，所有到达终点时车的容量就会马上增加，因此在终点区间就可以减去人数</li>
+<li>注意起点 0 时可能上了多个乘客但是没判断到</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">carPooling</span><span class="hljs-params">(trips [][]<span class="hljs-keyword">int</span>, capacity <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-comment">// 差分数组初始化为全 0</span><br>    n := <span class="hljs-number">1000</span><br>    df := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n)<br>    <span class="hljs-keyword">for</span> _, trip := <span class="hljs-keyword">range</span> trips &#123;<br>        df[trip[<span class="hljs-number">1</span>]] += trip[<span class="hljs-number">0</span>]<br>        <span class="hljs-comment">// 如果区间终点是数组终点，不需要修改</span><br>        <span class="hljs-keyword">if</span> trip[<span class="hljs-number">2</span>] &lt; n &#123;<br>            df[trip[<span class="hljs-number">2</span>]] -= trip[<span class="hljs-number">0</span>]<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> df[<span class="hljs-number">0</span>] &gt; capacity &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    &#125;<br>    <span class="hljs-comment">// 还原差分数组</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; n; i++ &#123;<br>        df[i] = df[i<span class="hljs-number">-1</span>] + df[i]<br>        <span class="hljs-keyword">if</span> df[i] &gt; capacity &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -295,17 +297,11 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/array-diff/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">完全二叉树的节点个数</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/count-complete-tree-nodes/">
+                      <a href="/leetcode/fucking-algorithm/array-prefix-sum/">
                         <span class="hidden-mobile">完全二叉树的节点个数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
