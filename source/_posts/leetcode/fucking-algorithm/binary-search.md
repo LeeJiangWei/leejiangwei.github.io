@@ -50,7 +50,9 @@ func search(nums []int, target int) int {
 
 https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 
-这里以寻找左侧边界为例：
+分别以寻找左侧和右侧边界作为例子。注意，两段代码只有在有注释的地方不同，其余都是一样的。
+
+这寻找左侧边界：
 
 ```go
 func searchRange(nums []int, target int) []int {
@@ -58,13 +60,12 @@ func searchRange(nums []int, target int) []int {
 
     for left <= right {
         mid := left + (right - left) / 2
-        if nums[mid] == target {
-            // 不马上返回，锁定左侧边界
-            right = mid - 1
-        }
         if nums[mid] < target {
             left = mid + 1
+        } else if nums[mid] > target {
+            right = mid - 1
         } else {
+            // 不马上返回，锁定左侧边界
             right = mid - 1
         }
     }
@@ -80,6 +81,42 @@ func searchRange(nums []int, target int) []int {
             break
         }
         right = i
+    }
+
+    return []int{left, right}
+}
+```
+
+如果改成寻找右边界：
+
+```go
+func searchRange(nums []int, target int) []int {
+    left, right := 0, len(nums) - 1
+
+    for left <= right {
+        mid := left + (right - left) / 2
+        
+        if nums[mid] < target {
+            left = mid + 1
+        } else if nums[mid] > target {
+            right = mid - 1
+        } else {
+            // 不马上返回，锁定右侧边界
+            left = mid + 1
+        }
+    }
+    
+    // 边界条件判断、是否找到判断
+    if right < 0 || nums[right] != target {
+        return []int{-1, -1}
+    }
+
+    // 找到右侧边界后，顺序寻找到左侧即可
+    for i := right; i >= 0; i-- {
+        if nums[i] != target {
+            break
+        }
+        left = i
     }
 
     return []int{left, right}
