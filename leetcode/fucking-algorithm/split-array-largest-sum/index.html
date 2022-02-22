@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>二分搜索的应用 - Be Happy</title>
+  <title>分割数组的最大值 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="二分搜索的应用">
+            <span class="h2" id="subtitle" title="分割数组的最大值">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-22 12:30" pubdate>
+      <time datetime="2022-02-22 16:43" pubdate>
         2022年2月22日 下午
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      590 字
+      237 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      3
        分钟
     </span>
   
@@ -245,19 +245,12 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">二分搜索的应用</h1>
+            <h1 style="display: none">分割数组的最大值</h1>
             
             <div class="markdown-body">
-              <h1 id="二分搜索的应用"><a href="#二分搜索的应用" class="headerlink" title="二分搜索的应用"></a>二分搜索的应用</h1><p>将问题抽象成一个关于 <code>x</code> 的<strong>单调函数</strong> <code>f(x)</code>，问题就是让我们求一个 <code>x</code>，使得 <code>f(x) == target</code>，就可以使用二分搜索来寻找这个 <code>x</code> 值了。通常不仅要使得 <code>f(x) == target</code>，还要使得 <code>x</code> 最大或最小，这就是用二分搜索寻找边界值的问题。</p>
-<p><img src="https://labuladong.gitee.io/algo/images/%e4%ba%8c%e5%88%86%e8%bf%90%e7%94%a8/3.jpeg" srcset="/img/loading.gif" lazyload alt="问题的抽象"></p>
-<h2 id="爱吃香蕉的珂珂"><a href="#爱吃香蕉的珂珂" class="headerlink" title="爱吃香蕉的珂珂"></a>爱吃香蕉的珂珂</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/koko-eating-bananas/">https://leetcode-cn.com/problems/koko-eating-bananas/</a></p>
-<p>题目让我们求吃香蕉的速度，那它就是自变量 <code>x</code>，吃香蕉所用的时间就是 <code>f(x)</code>，题目希望我们求得 <code>f(x) == H</code> 时 <code>x</code> 的最小值，就是寻找一个左边界。</p>
-<p>把 <code>f(x)</code> 的逻辑实现出来，确定搜索区间的起点和终点，就可以用二分查找搜索了。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">minEatingSpeed</span><span class="hljs-params">(piles []<span class="hljs-keyword">int</span>, h <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// 起点：一次只吃一根香蕉 终点：一次最多吃掉最大那一堆香蕉</span><br>    left, right := <span class="hljs-number">1</span>, max(piles...)<br><br>    <span class="hljs-keyword">for</span> left &lt;= right &#123;<br>        mid := left + (right - left) / <span class="hljs-number">2</span><br>        midValue := f(mid, piles)<br>        <span class="hljs-keyword">if</span> midValue &lt; h &#123;<br>            right = mid - <span class="hljs-number">1</span><br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> midValue &gt; h &#123;<br>            left = mid + <span class="hljs-number">1</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            right = mid - <span class="hljs-number">1</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 由于不是搜索数组所以不会越界，只要搜索区间合理，一定能找出结果</span><br>    <span class="hljs-keyword">return</span> left<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f</span><span class="hljs-params">(x <span class="hljs-keyword">int</span>, piles []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    hours := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(piles); i++ &#123;<br>        hours += piles[i] / x<br>        <span class="hljs-keyword">if</span> piles[i] % x &gt; <span class="hljs-number">0</span> &#123;<br>            hours += <span class="hljs-number">1</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> hours<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &gt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="在-D-天内送达包裹的能力"><a href="#在-D-天内送达包裹的能力" class="headerlink" title="在 D 天内送达包裹的能力"></a>在 D 天内送达包裹的能力</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/capacity-to-ship-packages-within-d-days/">https://leetcode-cn.com/problems/capacity-to-ship-packages-within-d-days/</a></p>
-<p>这题十分类似，要注意的是搜索区间，最小运载能力就是运载最大货物的能力，而最大运载能力是一次将所有货物都运走。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">shipWithinDays</span><span class="hljs-params">(weights []<span class="hljs-keyword">int</span>, days <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    left, right := max(weights...), sum(weights...)<br><br>    <span class="hljs-keyword">for</span> left &lt;= right &#123;<br>        mid := left + (right - left) / <span class="hljs-number">2</span><br>        midValue := f(mid, weights)<br>        <span class="hljs-keyword">if</span> midValue &lt; days &#123;<br>            right = mid - <span class="hljs-number">1</span><br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> midValue &gt; days &#123;<br>            left = mid + <span class="hljs-number">1</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            right = mid - <span class="hljs-number">1</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> left<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">f</span><span class="hljs-params">(x <span class="hljs-keyword">int</span>, weights []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    days := <span class="hljs-number">0</span><br>    remains := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(weights); i++ &#123;<br>        <span class="hljs-keyword">if</span> remains - weights[i] &lt; <span class="hljs-number">0</span> &#123;<br>            remains = x<br>            days++<br>        &#125;<br>        remains -= weights[i]<br>    &#125;<br>    <span class="hljs-keyword">return</span> days<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &gt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sum</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        res += v<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="分割数组的最大值"><a href="#分割数组的最大值" class="headerlink" title="分割数组的最大值"></a>分割数组的最大值</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/split-array-largest-sum/">https://leetcode-cn.com/problems/split-array-largest-sum/</a></p>
+<h2 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h2><p>重新抽象问题，假设每个小数组和的最大值为 <code>max</code> 时，能把数组分割成 n 个，问题就变成了搜索一个最小的 <code>max</code>，使得能把数组分割成 m 个。 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">splitArray</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>, m <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    left, right := max(nums...), sum(nums...)<br><br>    <span class="hljs-keyword">for</span> left &lt;= right &#123;<br>        mid := left + (right - left) / <span class="hljs-number">2</span><br>        midValue := split(nums, mid)<br>        <span class="hljs-keyword">if</span> midValue &lt; m &#123;<br>            right = mid - <span class="hljs-number">1</span><br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> midValue &gt; m &#123;<br>            left = mid + <span class="hljs-number">1</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            right = mid - <span class="hljs-number">1</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> left<br>&#125;<br><br><span class="hljs-comment">// 最大值为 max 时能分出的数组个数为 split(nums, max)</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">split</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>, max <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    count := <span class="hljs-number">0</span><br>    remains := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(nums); i++ &#123;<br>        <span class="hljs-keyword">if</span> remains - nums[i] &lt; <span class="hljs-number">0</span> &#123;<br>            remains = max<br>            count++<br>        &#125;<br>        remains -= nums[i]<br>    &#125;<br>    <span class="hljs-keyword">return</span> count<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &gt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sum</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        res += v<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -291,18 +284,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/split-array-largest-sum/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">分割数组的最大值</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/binary-search/">
-                        <span class="hidden-mobile">二分查找</span>
+                      <a href="/leetcode/fucking-algorithm/binary-search-application/">
+                        <span class="hidden-mobile">二分搜索的应用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

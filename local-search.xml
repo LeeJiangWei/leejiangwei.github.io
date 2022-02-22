@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>分割数组的最大值</title>
+    <link href="/leetcode/fucking-algorithm/split-array-largest-sum/"/>
+    <url>/leetcode/fucking-algorithm/split-array-largest-sum/</url>
+    
+    <content type="html"><![CDATA[<h1 id="分割数组的最大值"><a href="#分割数组的最大值" class="headerlink" title="分割数组的最大值"></a>分割数组的最大值</h1><p><a href="https://leetcode-cn.com/problems/split-array-largest-sum/">https://leetcode-cn.com/problems/split-array-largest-sum/</a></p><h2 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h2><p>重新抽象问题，假设每个小数组和的最大值为 <code>max</code> 时，能把数组分割成 n 个，问题就变成了搜索一个最小的 <code>max</code>，使得能把数组分割成 m 个。 </p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">splitArray</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>, m <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    left, right := max(nums...), sum(nums...)<br><br>    <span class="hljs-keyword">for</span> left &lt;= right &#123;<br>        mid := left + (right - left) / <span class="hljs-number">2</span><br>        midValue := split(nums, mid)<br>        <span class="hljs-keyword">if</span> midValue &lt; m &#123;<br>            right = mid - <span class="hljs-number">1</span><br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> midValue &gt; m &#123;<br>            left = mid + <span class="hljs-number">1</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            right = mid - <span class="hljs-number">1</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> left<br>&#125;<br><br><span class="hljs-comment">// 最大值为 max 时能分出的数组个数为 split(nums, max)</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">split</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>, max <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    count := <span class="hljs-number">0</span><br>    remains := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(nums); i++ &#123;<br>        <span class="hljs-keyword">if</span> remains - nums[i] &lt; <span class="hljs-number">0</span> &#123;<br>            remains = max<br>            count++<br>        &#125;<br>        remains -= nums[i]<br>    &#125;<br>    <span class="hljs-keyword">return</span> count<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := values[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        <span class="hljs-keyword">if</span> v &gt; res &#123;<br>            res = v<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sum</span><span class="hljs-params">(values ...<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    res := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> values &#123;<br>        res += v<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>数组</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>数组</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>二分搜索的应用</title>
     <link href="/leetcode/fucking-algorithm/binary-search-application/"/>
     <url>/leetcode/fucking-algorithm/binary-search-application/</url>
