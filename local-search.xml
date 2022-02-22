@@ -4,6 +4,68 @@
   
   
   <entry>
+    <title>O(1) 时间删除查找数组中的任意元素</title>
+    <link href="/leetcode/fucking-algorithm/insert-delete-getrandom-o1/"/>
+    <url>/leetcode/fucking-algorithm/insert-delete-getrandom-o1/</url>
+    
+    <content type="html"><![CDATA[<h1 id="O-1-时间删除查找数组中的任意元素"><a href="#O-1-时间删除查找数组中的任意元素" class="headerlink" title="O(1) 时间删除查找数组中的任意元素"></a>O(1) 时间删除查找数组中的任意元素</h1><p><a href="https://leetcode-cn.com/problems/split-array-largest-sum/">https://leetcode-cn.com/problems/split-array-largest-sum/</a></p><p>底层用数组实现，用哈希表记录一个元素在数组的索引。</p><ul><li><p>插入：检查哈希表，将元素插入数组尾部，更新哈希表</p></li><li><p>删除：通过哈希表寻到索引，和数组尾部元素交换，删除尾部元素，更新哈希表</p></li><li><p>获得随机元素：生成数组大小的随机数</p></li></ul><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> RandomizedSet <span class="hljs-keyword">struct</span> &#123;<br>    nums []<span class="hljs-keyword">int</span><br>    valToIndex <span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">RandomizedSet</span></span> &#123;<br>    <span class="hljs-keyword">return</span> RandomizedSet&#123;<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>), <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>)&#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *RandomizedSet)</span> <span class="hljs-title">Insert</span><span class="hljs-params">(val <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">if</span> _, ok := this.valToIndex[val]; ok &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    &#125;<br>    this.valToIndex[val] = <span class="hljs-built_in">len</span>(this.nums)<br>    this.nums = <span class="hljs-built_in">append</span>(this.nums, val)<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *RandomizedSet)</span> <span class="hljs-title">Remove</span><span class="hljs-params">(val <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">if</span> index, ok := this.valToIndex[val]; ok &#123;<br>        last := <span class="hljs-built_in">len</span>(this.nums) - <span class="hljs-number">1</span><br>        <span class="hljs-comment">// 交换尾部元素并更新哈希表</span><br>        this.nums[index] = this.nums[last]<br>        this.valToIndex[this.nums[index]] = index<br>        <span class="hljs-comment">// 删除元素以及哈希表的索引</span><br>        this.nums = this.nums[:last]<br>        <span class="hljs-built_in">delete</span>(this.valToIndex, val)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *RandomizedSet)</span> <span class="hljs-title">GetRandom</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    r := rand.Intn(<span class="hljs-built_in">len</span>(this.nums))<br>    <span class="hljs-keyword">return</span> this.nums[r]<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>数组</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>数组</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>删除有序数组的重复元素</title>
+    <link href="/leetcode/fucking-algorithm/remove-duplicated-elements/"/>
+    <url>/leetcode/fucking-algorithm/remove-duplicated-elements/</url>
+    
+    <content type="html"><![CDATA[<h1 id="删除有序数组的重复元素"><a href="#删除有序数组的重复元素" class="headerlink" title="删除有序数组的重复元素"></a>删除有序数组的重复元素</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">removeDuplicates</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(nums) == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br><br>    slow, fast := <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> fast &lt; <span class="hljs-built_in">len</span>(nums) &#123;<br>        <span class="hljs-keyword">if</span> nums[fast] != nums[slow] &#123;<br>            slow++<br>            nums[slow] = nums[fast]<br>        &#125;<br>        fast++<br>    &#125;<br>    <span class="hljs-keyword">return</span> slow + <span class="hljs-number">1</span><br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>数组</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>数组</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>分割数组的最大值</title>
     <link href="/leetcode/fucking-algorithm/split-array-largest-sum/"/>
     <url>/leetcode/fucking-algorithm/split-array-largest-sum/</url>
