@@ -3,7 +3,7 @@ title: O(1) 时间删除查找数组中的任意元素
 categories:
   - LeetCode
   - Fucking
-  - 数组
+  - 数据结构设计
 tags:
   - Go
   - 数组
