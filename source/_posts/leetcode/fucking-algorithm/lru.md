@@ -77,7 +77,7 @@ func (list *LinkedList) RemoveFirst() *Node {
 
 
 type LRUCache struct {
-    m map[int]*Node
+    m map[int]*Node   // 把 key 映射到链表节点
     cache LinkedList
     cap int
 }
