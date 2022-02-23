@@ -3,8 +3,10 @@ title: 二叉树的序列化与反序列化
 categories:
   - LeetCode
   - Fucking
+  - 树
 tags:
   - Go
+  - 二叉树
 index_img: /img/code.jpg
 sticky: -10
 date: 2022-02-20 15:12:43
