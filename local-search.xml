@@ -4,6 +4,39 @@
   
   
   <entry>
+    <title>最大频率栈</title>
+    <link href="/leetcode/fucking-algorithm/maximum-frequency-stack/"/>
+    <url>/leetcode/fucking-algorithm/maximum-frequency-stack/</url>
+    
+    <content type="html"><![CDATA[<h1 id="最大频率栈"><a href="#最大频率栈" class="headerlink" title="最大频率栈"></a>最大频率栈</h1><p><a href="https://leetcode-cn.com/problems/maximum-frequency-stack/">https://leetcode-cn.com/problems/maximum-frequency-stack/</a></p><p>需求分析：</p><ol><li>每次 <code>pop</code> 时，必须要知道频率最高的元素是什么：使用一个变量 <code>maxFreq</code> 记录最大频率</li><li>每次 <code>push</code> 时，要知道对应元素的频率：使用哈希表 <code>valToFreq</code> 记录频率</li><li>如果频率最高的元素有多个，还得知道哪个是最近 <code>push</code> 进来的元素是哪个：使用哈希表+栈 <code>freqToVal</code> 记录相同频率的元素，且栈储存了时间信息</li></ol><p><img src="https://labuladong.gitee.io/algo/images/%e9%ab%98%e9%a2%91%e6%a0%88/1.gif"></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> FreqStack <span class="hljs-keyword">struct</span> &#123;<br>    maxFreq   <span class="hljs-keyword">int</span><br>    valToFreq <span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span><br>    freqToVal <span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>][]<span class="hljs-keyword">int</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">FreqStack</span></span> &#123;<br>    VF := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>)<br>    FV := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>][]<span class="hljs-keyword">int</span>)<br>    <span class="hljs-keyword">return</span> FreqStack&#123;<span class="hljs-number">0</span>, VF, FV&#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *FreqStack)</span> <span class="hljs-title">Push</span><span class="hljs-params">(val <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>    this.valToFreq[val] += <span class="hljs-number">1</span>  <span class="hljs-comment">// val 对应频次加一（如果没有的话默认是 0）</span><br>    f := this.valToFreq[val]<br>    this.freqToVal[f] = <span class="hljs-built_in">append</span>(this.freqToVal[f], val)  <span class="hljs-comment">// 在更新后频次的表中加入</span><br>    this.maxFreq = max(this.maxFreq, f)  <span class="hljs-comment">// 更新最大频次</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *FreqStack)</span> <span class="hljs-title">Pop</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// 最大频次的表中最后一个元素就是最近加入的，将它弹出</span><br>    p := this.freqToVal[this.maxFreq][<span class="hljs-built_in">len</span>(this.freqToVal[this.maxFreq])<span class="hljs-number">-1</span>]<br>    this.freqToVal[this.maxFreq] = this.freqToVal[this.maxFreq][:<span class="hljs-built_in">len</span>(this.freqToVal[this.maxFreq])<span class="hljs-number">-1</span>]  <span class="hljs-comment">//出栈</span><br>    <br>    <span class="hljs-comment">// 如果这个频次表变成空的了，就删除它，且最大频率减一</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(this.freqToVal[this.maxFreq]) == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-built_in">delete</span>(this.freqToVal, this.maxFreq)<br>        this.maxFreq--<br>    &#125;<br><br>    this.valToFreq[p]--  <span class="hljs-comment">// 更新被弹出节点的频率</span><br><br>    <span class="hljs-keyword">return</span> p<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &gt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>数据结构设计</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>哈希表</tag>
+      
+      <tag>栈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>前缀树的实现和应用</title>
     <link href="/leetcode/fucking-algorithm/trie-prefix-tree/"/>
     <url>/leetcode/fucking-algorithm/trie-prefix-tree/</url>
