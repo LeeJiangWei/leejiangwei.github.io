@@ -12,6 +12,8 @@ date: 2022-02-24 20:54:44
 ---
 # BFS 算法
 
+**BFS 找到的路径一定是最短的**, 问题的本质就是让你在一幅「图」中找到从起点 `start` 到终点 `target` 的最近距离。
+
 ## 二叉树的最小深度
 
 https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
