@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>括号生成 - Be Happy</title>
+  <title>BFS 算法 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="括号生成">
+            <span class="h2" id="subtitle" title="BFS 算法">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-24 19:25" pubdate>
+      <time datetime="2022-02-24 20:54" pubdate>
         2022年2月24日 晚上
       </time>
     </span>
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      256 字
+      519 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      8
        分钟
     </span>
   
@@ -245,17 +245,16 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">括号生成</h1>
+            <h1 style="display: none">BFS 算法</h1>
             
             <div class="markdown-body">
-              <h1 id="括号生成"><a href="#括号生成" class="headerlink" title="括号生成"></a>括号生成</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/generate-parentheses/">https://leetcode-cn.com/problems/generate-parentheses/</a></p>
-<p>括号问题的两个重要性质：</p>
-<ol>
-<li> 一个「合法」括号组合的左括号数量一定等于右括号数量.   </li>
-<li>对于一个「合法」的括号字符串组合 <code>p</code>，必然对于任何 <code>0 &lt;= i &lt; len(p)</code> 都有：子串 <code>p[0..i]</code> 中<strong>左括号的数量都大于或等于右括号</strong>的数量。</li>
-</ol>
-<p>这一题用两个参数 <code>left</code> 和 <code>right</code> 分别记录剩余可使用的左右括号数量，同时为 0 则表示合法组合。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> res []<span class="hljs-keyword">string</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateParenthesis</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> []<span class="hljs-title">string</span></span> &#123;<br>    res = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>, <span class="hljs-number">0</span>)<br>    backtrack(n, n, <span class="hljs-string">&quot;&quot;</span>)<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(left, right <span class="hljs-keyword">int</span>, track <span class="hljs-keyword">string</span>)</span></span> &#123;<br>    <span class="hljs-comment">// 在某个子序列中，右括号比左括号多（剩余的右括号更少），不合法</span><br>    <span class="hljs-keyword">if</span> right &lt; left &#123;<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    <span class="hljs-comment">// 括号数量小于 0，不合法</span><br>    <span class="hljs-keyword">if</span> left &lt; <span class="hljs-number">0</span> || right &lt; <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    <span class="hljs-comment">// 同时用完所有的括号，合法</span><br>    <span class="hljs-keyword">if</span> left == <span class="hljs-number">0</span> &amp;&amp; right == <span class="hljs-number">0</span> &#123;<br>        res = <span class="hljs-built_in">append</span>(res, track)<br>    &#125;<br><br>    backtrack(left - <span class="hljs-number">1</span>, right, track + <span class="hljs-string">&quot;(&quot;</span>)<br>    backtrack(left, right - <span class="hljs-number">1</span>, track + <span class="hljs-string">&quot;)&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="BFS-算法"><a href="#BFS-算法" class="headerlink" title="BFS 算法"></a>BFS 算法</h1><h2 id="二叉树的最小深度"><a href="#二叉树的最小深度" class="headerlink" title="二叉树的最小深度"></a>二叉树的最小深度</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/">https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for a binary tree node.</span><br><span class="hljs-comment"> * type TreeNode struct &#123;</span><br><span class="hljs-comment"> *     Val int</span><br><span class="hljs-comment"> *     Left *TreeNode</span><br><span class="hljs-comment"> *     Right *TreeNode</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">minDepth</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> root == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br>    queue := <span class="hljs-built_in">make</span>([]*TreeNode, <span class="hljs-number">0</span>)<br>    queue = <span class="hljs-built_in">append</span>(queue, root)<br>    depth := <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(queue) != <span class="hljs-number">0</span> &#123;<br>        sz := <span class="hljs-built_in">len</span>(queue)<br>        <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; sz; i++ &#123;<br>            curr := queue[<span class="hljs-number">0</span>]<br>            queue = queue[<span class="hljs-number">1</span>:]<br><br>            <span class="hljs-keyword">if</span> curr.Left == <span class="hljs-literal">nil</span> &amp;&amp; curr.Right == <span class="hljs-literal">nil</span> &#123;<br>                <span class="hljs-keyword">return</span> depth<br>            &#125;<br>            <span class="hljs-keyword">if</span> curr.Left != <span class="hljs-literal">nil</span> &#123;<br>                queue = <span class="hljs-built_in">append</span>(queue, curr.Left)<br>            &#125;<br>            <span class="hljs-keyword">if</span> curr.Right != <span class="hljs-literal">nil</span> &#123;<br>                queue = <span class="hljs-built_in">append</span>(queue, curr.Right)<br>            &#125;<br>        &#125;<br>        depth++<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> depth<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="打开转盘锁"><a href="#打开转盘锁" class="headerlink" title="打开转盘锁"></a>打开转盘锁</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/open-the-lock/">https://leetcode-cn.com/problems/open-the-lock/</a></p>
+<p>如何穷举一个密码的所有组合？比如说从 <code>&quot;0000&quot;</code> 开始，转一次，可以穷举出 <code>&quot;1000&quot;, &quot;9000&quot;, &quot;0100&quot;, &quot;0900&quot;...</code> 共 8 种密码。然后，再以这 8 种密码作为基础，对每个密码再转一下，穷举出其他</p>
+<p>这就可以抽象成一幅图，每个节点有 8 个相邻的节点，知道起点终点，求最短距离，典型的 BFS 问题了。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">openLock</span><span class="hljs-params">(deadends []<span class="hljs-keyword">string</span>, target <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    queue := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>, <span class="hljs-number">0</span>)<br>    visited := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">bool</span>)<br>    <span class="hljs-comment">// 将死亡密码也加入 visited 中，这样就不会遍历到</span><br>    <span class="hljs-keyword">for</span> _, d := <span class="hljs-keyword">range</span> deadends &#123;<br>        <span class="hljs-keyword">if</span> d == <span class="hljs-string">&quot;0000&quot;</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>        &#125;<br>        visited[d] = <span class="hljs-literal">true</span><br>    &#125;<br><br>    queue = <span class="hljs-built_in">append</span>(queue, <span class="hljs-string">&quot;0000&quot;</span>)<br>    visited[<span class="hljs-string">&quot;0000&quot;</span>] = <span class="hljs-literal">true</span><br><br>    steps := <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(queue) != <span class="hljs-number">0</span> &#123;<br>        sz := <span class="hljs-built_in">len</span>(queue)<br>        <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; sz; i++ &#123;<br>            curr := queue[<span class="hljs-number">0</span>]<br>            queue = queue[<span class="hljs-number">1</span>:]<br><br>            <span class="hljs-keyword">if</span> curr == target &#123;<br>                <span class="hljs-keyword">return</span> steps<br>            &#125;<br><br>            <span class="hljs-comment">// 尝试拨动 4 个位置中的一个，作为当前节点的相邻节点</span><br>            <span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">4</span>; j++ &#123;<br>                up, down := plusOne(curr, j), minusOne(curr, j)<br><br>                <span class="hljs-comment">// 如果没访问过，就加入队列</span><br>                <span class="hljs-keyword">if</span> _, ok := visited[up]; !ok &#123;<br>                    queue = <span class="hljs-built_in">append</span>(queue, up)<br>                    visited[up] = <span class="hljs-literal">true</span><br>                &#125;<br>                <span class="hljs-keyword">if</span> _, ok := visited[down]; !ok &#123;<br>                    queue = <span class="hljs-built_in">append</span>(queue, down)<br>                    visited[down] = <span class="hljs-literal">true</span><br>                &#125;<br>            &#125;<br>        &#125;<br>        steps++<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>&#125;<br><br><span class="hljs-comment">// 将第 j 位转盘加一</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">plusOne</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">string</span></span> &#123;<br>    chars := []<span class="hljs-keyword">rune</span>(s)<br>    <span class="hljs-keyword">if</span> chars[j] == <span class="hljs-string">&#x27;9&#x27;</span> &#123;<br>        chars[j] = <span class="hljs-string">&#x27;0&#x27;</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        chars[j] += <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">string</span>(chars)<br>&#125;<br><br><span class="hljs-comment">// 将第 j 位转盘减一</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">minusOne</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">string</span></span> &#123;<br>    chars := []<span class="hljs-keyword">rune</span>(s)<br>    <span class="hljs-keyword">if</span> chars[j] == <span class="hljs-string">&#x27;0&#x27;</span> &#123;<br>        chars[j] = <span class="hljs-string">&#x27;9&#x27;</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        chars[j] -= <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">string</span>(chars)<br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -288,18 +287,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/bfs-basic/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">BFS 算法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/sudoku/">
-                        <span class="hidden-mobile">解数独</span>
+                      <a href="/leetcode/fucking-algorithm/generate-parentheses/">
+                        <span class="hidden-mobile">括号生成</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
