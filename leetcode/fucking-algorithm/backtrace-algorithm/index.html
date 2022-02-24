@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>最大频率栈 - Be Happy</title>
+  <title>回溯法 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="最大频率栈">
+            <span class="h2" id="subtitle" title="回溯法">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-24 10:00" pubdate>
-        2022年2月24日 上午
+      <time datetime="2022-02-24 13:54" pubdate>
+        2022年2月24日 下午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      359 字
+      554 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      8
        分钟
     </span>
   
@@ -245,18 +245,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">最大频率栈</h1>
+            <h1 style="display: none">回溯法</h1>
             
             <div class="markdown-body">
-              <h1 id="最大频率栈"><a href="#最大频率栈" class="headerlink" title="最大频率栈"></a>最大频率栈</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-frequency-stack/">https://leetcode-cn.com/problems/maximum-frequency-stack/</a></p>
-<p>需求分析：</p>
-<ol>
-<li>每次 <code>pop</code> 时，必须要知道频率最高的元素是什么：使用一个变量 <code>maxFreq</code> 记录最大频率</li>
-<li>每次 <code>push</code> 时，要知道对应元素的频率：使用哈希表 <code>valToFreq</code> 记录频率</li>
-<li>如果频率最高的元素有多个，还得知道哪个是最近 <code>push</code> 进来的元素是哪个：使用哈希表+栈 <code>freqToVal</code> 记录相同频率的元素，且栈储存了时间信息</li>
-</ol>
-<p><img src="https://labuladong.gitee.io/algo/images/%e9%ab%98%e9%a2%91%e6%a0%88/1.gif" srcset="/img/loading.gif" lazyload></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> FreqStack <span class="hljs-keyword">struct</span> &#123;<br>    maxFreq   <span class="hljs-keyword">int</span><br>    valToFreq <span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span><br>    freqToVal <span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>][]<span class="hljs-keyword">int</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">FreqStack</span></span> &#123;<br>    VF := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>)<br>    FV := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>][]<span class="hljs-keyword">int</span>)<br>    <span class="hljs-keyword">return</span> FreqStack&#123;<span class="hljs-number">0</span>, VF, FV&#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *FreqStack)</span> <span class="hljs-title">Push</span><span class="hljs-params">(val <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>    this.valToFreq[val] += <span class="hljs-number">1</span>  <span class="hljs-comment">// val 对应频次加一（如果没有的话默认是 0）</span><br>    f := this.valToFreq[val]<br>    this.freqToVal[f] = <span class="hljs-built_in">append</span>(this.freqToVal[f], val)  <span class="hljs-comment">// 在更新后频次的表中加入</span><br>    this.maxFreq = max(this.maxFreq, f)  <span class="hljs-comment">// 更新最大频次</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *FreqStack)</span> <span class="hljs-title">Pop</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// 最大频次的表中最后一个元素就是最近加入的，将它弹出</span><br>    p := this.freqToVal[this.maxFreq][<span class="hljs-built_in">len</span>(this.freqToVal[this.maxFreq])<span class="hljs-number">-1</span>]<br>    this.freqToVal[this.maxFreq] = this.freqToVal[this.maxFreq][:<span class="hljs-built_in">len</span>(this.freqToVal[this.maxFreq])<span class="hljs-number">-1</span>]  <span class="hljs-comment">//出栈</span><br>    <br>    <span class="hljs-comment">// 如果这个频次表变成空的了，就删除它，且最大频率减一</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(this.freqToVal[this.maxFreq]) == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-built_in">delete</span>(this.freqToVal, this.maxFreq)<br>        this.maxFreq--<br>    &#125;<br><br>    this.valToFreq[p]--  <span class="hljs-comment">// 更新被弹出节点的频率</span><br><br>    <span class="hljs-keyword">return</span> p<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &gt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h1><p>回溯法基本框架：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">result = []<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">backtrack</span>(<span class="hljs-params">路径, 选择列表</span>):</span><br>    <span class="hljs-keyword">if</span> 满足结束条件:<br>        result.add(路径)<br>        <span class="hljs-keyword">return</span><br>    <br>    <span class="hljs-keyword">for</span> 选择 <span class="hljs-keyword">in</span> 选择列表:<br>        做选择<br>        backtrack(路径, 选择列表)<br>        撤销选择<br></code></pre></td></tr></table></figure>
+
+<h2 id="全排列问题"><a href="#全排列问题" class="headerlink" title="全排列问题"></a>全排列问题</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations/">https://leetcode-cn.com/problems/permutations/</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> result [][]<span class="hljs-keyword">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">permute</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> [][]<span class="hljs-title">int</span></span> &#123;<br>    result = <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)<br>    backtrace(nums, <span class="hljs-literal">nil</span>)<br>    <span class="hljs-keyword">return</span> result<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">backtrace</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>, path []<span class="hljs-keyword">int</span>)</span></span> &#123;<br>    <span class="hljs-comment">// 回溯终点：排列的数字已经用完</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(path) == <span class="hljs-built_in">len</span>(nums) &#123;<br>        result = <span class="hljs-built_in">append</span>(result, path)<br>        <span class="hljs-keyword">return</span><br>    &#125;<br><br>    <span class="hljs-keyword">for</span> _, n := <span class="hljs-keyword">range</span> nums &#123;<br>        <span class="hljs-comment">// 检查数字是否已经用过了</span><br>        exist := <span class="hljs-literal">false</span><br>        <span class="hljs-keyword">for</span> _, m := <span class="hljs-keyword">range</span> path &#123;<br>            <span class="hljs-keyword">if</span> m == n &#123;<br>                exist = <span class="hljs-literal">true</span><br>                <span class="hljs-keyword">break</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span> exist &#123;<br>            <span class="hljs-keyword">continue</span><br>        &#125;<br><br>        backtrace(nums, <span class="hljs-built_in">append</span>(path, n))  <span class="hljs-comment">// 这里创建了新的切片递归下去，所以不用撤销</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="N-皇后"><a href="#N-皇后" class="headerlink" title="N 皇后"></a>N 皇后</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/n-queens/">https://leetcode-cn.com/problems/n-queens/</a></p>
+<p>需要有个函数来判断当前位置是否能放下皇后。由于是一行一行从上往下放的，只用判断当前位置的上方、左上、右上是否存在其他皇后即可。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> res [][]<span class="hljs-keyword">string</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">solveNQueens</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> [][]<span class="hljs-title">string</span></span> &#123;<br>    res = <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">string</span>, <span class="hljs-number">0</span>)<br>    board := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">string</span>, n)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> board &#123;<br>        board[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>, n)<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-keyword">range</span> board[i] &#123;<br>            board[i][j] = <span class="hljs-string">&quot;.&quot;</span><br>        &#125;<br>    &#125;<br>    backtrace(<span class="hljs-number">0</span>, board)<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">backtrace</span><span class="hljs-params">(row <span class="hljs-keyword">int</span>, board [][]<span class="hljs-keyword">string</span>)</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(board)<br>    <span class="hljs-keyword">if</span> row == n &#123;<br>        b := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>, n)<br>        sb := &amp;strings.Builder&#123;&#125;<br>        <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>            sb.Reset()<br>            <span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; n; j++ &#123;<br>                sb.WriteString(board[i][j])<br>            &#125;<br>            b[i] = sb.String()<br>        &#125;<br>        res = <span class="hljs-built_in">append</span>(res, b)<br>        <span class="hljs-keyword">return</span><br>    &#125;<br><br>    <span class="hljs-keyword">for</span> col := <span class="hljs-number">0</span>; col &lt; n; col++ &#123;<br>        <span class="hljs-keyword">if</span> !isValid(row, col, board) &#123;<br>            <span class="hljs-keyword">continue</span><br>        &#125;<br>        board[row][col] = <span class="hljs-string">&quot;Q&quot;</span>      <span class="hljs-comment">// 做选择</span><br>        backtrace(row + <span class="hljs-number">1</span>, board)<br>        board[row][col] = <span class="hljs-string">&quot;.&quot;</span>      <span class="hljs-comment">// 撤销选择</span><br>    &#125; <br>&#125;<br><br><span class="hljs-comment">// 检查是否能在当前位置[row][col]放置皇后</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isValid</span><span class="hljs-params">(row, col <span class="hljs-keyword">int</span>, board [][]<span class="hljs-keyword">string</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(board)<br><br>    <span class="hljs-comment">// 当前皇后【上方】是否存在其他皇后</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>        <span class="hljs-keyword">if</span> board[i][col] == <span class="hljs-string">&quot;Q&quot;</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 当前皇后【左上方】是否存在其他皇后</span><br>    <span class="hljs-keyword">for</span> i, j := row - <span class="hljs-number">1</span>, col - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span> &amp;&amp; j &gt;= <span class="hljs-number">0</span>; i, j = i<span class="hljs-number">-1</span>, j<span class="hljs-number">-1</span> &#123;<br>        <span class="hljs-keyword">if</span> board[i][j] == <span class="hljs-string">&quot;Q&quot;</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 当前皇后【右上方】是否存在其他皇后</span><br>    <span class="hljs-keyword">for</span> i, j := row - <span class="hljs-number">1</span>, col + <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span> &amp;&amp; j &lt; n; i, j = i<span class="hljs-number">-1</span>, j+<span class="hljs-number">1</span> &#123;<br>        <span class="hljs-keyword">if</span> board[i][j] == <span class="hljs-string">&quot;Q&quot;</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -269,7 +269,7 @@
                     
                       <a class="hover-with-bg" href="/categories/LeetCode/Fucking/">Fucking</a>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/">数据结构设计</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/%E6%9A%B4%E5%8A%9B%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/">暴力搜索算法</a>
                     
                   </div>
                 
@@ -278,10 +278,6 @@
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/Go/">Go</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E6%A0%88/">栈</a>
                     
                   </div>
                 
@@ -292,18 +288,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/backtrace-algorithm/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">回溯法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/trie-prefix-tree/">
-                        <span class="hidden-mobile">前缀树的实现和应用</span>
+                      <a href="/leetcode/fucking-algorithm/maximum-frequency-stack/">
+                        <span class="hidden-mobile">最大频率栈</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
