@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>括号生成</title>
+    <link href="/leetcode/fucking-algorithm/generate-parentheses/"/>
+    <url>/leetcode/fucking-algorithm/generate-parentheses/</url>
+    
+    <content type="html"><![CDATA[<h1 id="括号生成"><a href="#括号生成" class="headerlink" title="括号生成"></a>括号生成</h1><p><a href="https://leetcode-cn.com/problems/generate-parentheses/">https://leetcode-cn.com/problems/generate-parentheses/</a></p><p>括号问题的两个重要性质：</p><ol><li> 一个「合法」括号组合的左括号数量一定等于右括号数量.   </li><li>对于一个「合法」的括号字符串组合 <code>p</code>，必然对于任何 <code>0 &lt;= i &lt; len(p)</code> 都有：子串 <code>p[0..i]</code> 中<strong>左括号的数量都大于或等于右括号</strong>的数量。</li></ol><p>这一题用两个参数 <code>left</code> 和 <code>right</code> 分别记录剩余可使用的左右括号数量，同时为 0 则表示合法组合。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> res []<span class="hljs-keyword">string</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">generateParenthesis</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> []<span class="hljs-title">string</span></span> &#123;<br>    res = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>, <span class="hljs-number">0</span>)<br>    backtrack(n, n, <span class="hljs-string">&quot;&quot;</span>)<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(left, right <span class="hljs-keyword">int</span>, track <span class="hljs-keyword">string</span>)</span></span> &#123;<br>    <span class="hljs-comment">// 在某个子序列中，右括号比左括号多（剩余的右括号更少），不合法</span><br>    <span class="hljs-keyword">if</span> right &lt; left &#123;<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    <span class="hljs-comment">// 括号数量小于 0，不合法</span><br>    <span class="hljs-keyword">if</span> left &lt; <span class="hljs-number">0</span> || right &lt; <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    <span class="hljs-comment">// 同时用完所有的括号，合法</span><br>    <span class="hljs-keyword">if</span> left == <span class="hljs-number">0</span> &amp;&amp; right == <span class="hljs-number">0</span> &#123;<br>        res = <span class="hljs-built_in">append</span>(res, track)<br>    &#125;<br><br>    backtrack(left - <span class="hljs-number">1</span>, right, track + <span class="hljs-string">&quot;(&quot;</span>)<br>    backtrack(left, right - <span class="hljs-number">1</span>, track + <span class="hljs-string">&quot;)&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>暴力搜索算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>解数独</title>
     <link href="/leetcode/fucking-algorithm/sudoku/"/>
     <url>/leetcode/fucking-algorithm/sudoku/</url>
