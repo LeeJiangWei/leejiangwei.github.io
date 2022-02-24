@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>解数独</title>
+    <link href="/leetcode/fucking-algorithm/sudoku/"/>
+    <url>/leetcode/fucking-algorithm/sudoku/</url>
+    
+    <content type="html"><![CDATA[<h1 id="解数独"><a href="#解数独" class="headerlink" title="解数独"></a>解数独</h1><p><a href="https://leetcode-cn.com/problems/sudoku-solver/">https://leetcode-cn.com/problems/sudoku-solver/</a></p><p>回溯算法可以通过返回布尔值，在得到一个正确的解法后就终止回溯。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">solveSudoku</span><span class="hljs-params">(board [][]<span class="hljs-keyword">byte</span>)</span></span>  &#123;<br>    backtrack(board, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(board [][]<span class="hljs-keyword">byte</span>, i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-comment">// 列越界，递归到下一行继续填</span><br>    <span class="hljs-keyword">if</span> j == <span class="hljs-number">9</span> &#123;<br>        <span class="hljs-keyword">return</span> backtrack(board, i + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)<br>    &#125;<br>    <span class="hljs-comment">// 行越界，说明已经填完了，返回</span><br>    <span class="hljs-keyword">if</span> i == <span class="hljs-number">9</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>    &#125;<br>    <br>    <span class="hljs-comment">// 已经存在预设数字</span><br>    <span class="hljs-keyword">if</span> board[i][j] != <span class="hljs-string">&#x27;.&#x27;</span> &#123;<br>        <span class="hljs-keyword">return</span> backtrack(board, i, j + <span class="hljs-number">1</span>)<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> n := <span class="hljs-string">&#x27;1&#x27;</span>; n &lt;= <span class="hljs-string">&#x27;9&#x27;</span>; n++ &#123;<br>        <span class="hljs-keyword">if</span> !isValid(board, i, j, <span class="hljs-keyword">byte</span>(n)) &#123;<br>            <span class="hljs-keyword">continue</span><br>        &#125;<br>        <br>        <span class="hljs-comment">// 做选择</span><br>        board[i][j] = <span class="hljs-keyword">byte</span>(n)<br>        <span class="hljs-comment">// 如果找到一个可行解，立即结束</span><br>        <span class="hljs-keyword">if</span> backtrack(board, i, j + <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>        &#125;<br>        <span class="hljs-comment">// 撤销选择</span><br>        board[i][j] = <span class="hljs-string">&#x27;.&#x27;</span><br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br><br><span class="hljs-comment">// 判断 board[row][col] 是否可以填入 val</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isValid</span><span class="hljs-params">(board [][]<span class="hljs-keyword">byte</span>, row, col <span class="hljs-keyword">int</span>, val <span class="hljs-keyword">byte</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">9</span>; i++ &#123;<br>        <span class="hljs-comment">// 判断行是否存在重复</span><br>        <span class="hljs-keyword">if</span> board[row][i] == val &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>        <span class="hljs-comment">// 判断列是否存在重复</span><br>        <span class="hljs-keyword">if</span> board[i][col] == val &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>        <span class="hljs-comment">// 判断 3 x 3 小方框内是否存在重复</span><br>        <span class="hljs-keyword">if</span> board[(row/<span class="hljs-number">3</span>)*<span class="hljs-number">3</span> + i/<span class="hljs-number">3</span>][(col/<span class="hljs-number">3</span>)*<span class="hljs-number">3</span> + i%<span class="hljs-number">3</span>] == val &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>暴力搜索算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>回溯法解决排列、组合、子集</title>
     <link href="/leetcode/fucking-algorithm/permutation-combination-subset/"/>
     <url>/leetcode/fucking-algorithm/permutation-combination-subset/</url>
