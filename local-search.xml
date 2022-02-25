@@ -4,6 +4,120 @@
   
   
   <entry>
+    <title>队列实现栈以及栈实现队列</title>
+    <link href="/leetcode/fucking-algorithm/queue-as-stack-and-vice-versa/"/>
+    <url>/leetcode/fucking-algorithm/queue-as-stack-and-vice-versa/</url>
+    
+    <content type="html"><![CDATA[<h1 id="队列实现栈以及栈实现队列"><a href="#队列实现栈以及栈实现队列" class="headerlink" title="队列实现栈以及栈实现队列"></a>队列实现栈以及栈实现队列</h1><h2 id="用栈实现队列"><a href="#用栈实现队列" class="headerlink" title="用栈实现队列"></a>用栈实现队列</h2><p><a href="https://leetcode-cn.com/problems/implement-queue-using-stacks/">https://leetcode-cn.com/problems/implement-queue-using-stacks/</a></p><p>两个栈来回倒，其中一个的栈顶就是最后进入的，push 的时候压进这个栈；另一个栈的栈顶是最先进入的，pop 和 peek 的时候弹出这个栈顶。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> MyQueue <span class="hljs-keyword">struct</span> &#123;<br>    s1, s2 []<span class="hljs-keyword">int</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">MyQueue</span></span> &#123;<br>    <span class="hljs-keyword">return</span> MyQueue&#123;<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>), <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)&#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyQueue)</span> <span class="hljs-title">Push</span><span class="hljs-params">(x <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>    <span class="hljs-comment">// 弹出所有 s2 元素并压入 s1</span><br>    <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(this.s2) != <span class="hljs-number">0</span> &#123;<br>        top := this.s2[<span class="hljs-built_in">len</span>(this.s2)<span class="hljs-number">-1</span>]<br>        this.s2 = this.s2[:<span class="hljs-built_in">len</span>(this.s2)<span class="hljs-number">-1</span>]<br>        this.s1 = <span class="hljs-built_in">append</span>(this.s1, top)<br>    &#125;<br><br>    <span class="hljs-comment">// 压入 x</span><br>    this.s1 = <span class="hljs-built_in">append</span>(this.s1, x)<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyQueue)</span> <span class="hljs-title">Pop</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// 弹出所有 s1 元素并压入 s2</span><br>    <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(this.s1) != <span class="hljs-number">0</span> &#123;<br>        top := this.s1[<span class="hljs-built_in">len</span>(this.s1)<span class="hljs-number">-1</span>]<br>        this.s1 = this.s1[:<span class="hljs-built_in">len</span>(this.s1)<span class="hljs-number">-1</span>]<br>        this.s2 = <span class="hljs-built_in">append</span>(this.s2, top)<br>    &#125;<br><br>    <span class="hljs-comment">// s2 此时已是先进先出顺序。弹出 s2 栈顶元素</span><br>    top := this.s2[<span class="hljs-built_in">len</span>(this.s2)<span class="hljs-number">-1</span>]<br>    this.s2 = this.s2[:<span class="hljs-built_in">len</span>(this.s2)<span class="hljs-number">-1</span>]<br>    <span class="hljs-keyword">return</span> top<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyQueue)</span> <span class="hljs-title">Peek</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// 弹出所有 s1 元素并压入 s2</span><br>    <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(this.s1) != <span class="hljs-number">0</span> &#123;<br>        top := this.s1[<span class="hljs-built_in">len</span>(this.s1)<span class="hljs-number">-1</span>]<br>        this.s1 = this.s1[:<span class="hljs-built_in">len</span>(this.s1)<span class="hljs-number">-1</span>]<br>        this.s2 = <span class="hljs-built_in">append</span>(this.s2, top)<br>    &#125;<br><br>    <span class="hljs-comment">// s2 此时已是先进先出顺序。返回 s2 栈顶元素</span><br>    <span class="hljs-keyword">return</span> this.s2[<span class="hljs-built_in">len</span>(this.s2)<span class="hljs-number">-1</span>]<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyQueue)</span> <span class="hljs-title">Empty</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(this.s1) + <span class="hljs-built_in">len</span>(this.s2) == <span class="hljs-number">0</span><br>&#125;<br></code></pre></td></tr></table></figure><h2 id="用队列实现栈"><a href="#用队列实现栈" class="headerlink" title="用队列实现栈"></a>用队列实现栈</h2><p><a href="https://leetcode-cn.com/problems/implement-stack-using-queues/">https://leetcode-cn.com/problems/implement-stack-using-queues/</a></p><p>只用一个队列即可。栈顶元素就是队尾，入队时记下来。弹出栈顶元素时，将其他元素全部出队并重新入队，注意记住下一个栈顶元素。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> MyStack <span class="hljs-keyword">struct</span> &#123;<br>    top <span class="hljs-keyword">int</span><br>    q []<span class="hljs-keyword">int</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">MyStack</span></span> &#123;<br>    <span class="hljs-keyword">return</span> MyStack&#123;&#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyStack)</span> <span class="hljs-title">Push</span><span class="hljs-params">(x <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>    this.q = <span class="hljs-built_in">append</span>(this.q, x)<br>    this.top = x  <span class="hljs-comment">// 顺便记录栈顶</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyStack)</span> <span class="hljs-title">Pop</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    sz := <span class="hljs-built_in">len</span>(this.q) - <span class="hljs-number">2</span><br>    <span class="hljs-keyword">for</span> sz &gt; <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-comment">// 无关元素重新重新排队</span><br>        front := this.q[<span class="hljs-number">0</span>]<br>        this.q = this.q[<span class="hljs-number">1</span>:]<br>        this.q = <span class="hljs-built_in">append</span>(this.q, front)<br>        sz--<br>    &#125;<br>    <span class="hljs-comment">// 当前栈顶的前一个元素是下一个栈顶，单独拎出来记住</span><br>    nextTop := this.q[<span class="hljs-number">0</span>]<br>    this.q = this.q[<span class="hljs-number">1</span>:]<br>    this.q = <span class="hljs-built_in">append</span>(this.q, nextTop)<br><br>    this.top = nextTop<br><br>    <span class="hljs-comment">// 当前栈顶元素出队并返回</span><br>    top := this.q[<span class="hljs-number">0</span>]<br>    this.q = this.q[<span class="hljs-number">1</span>:]<br>    <span class="hljs-keyword">return</span> top<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyStack)</span> <span class="hljs-title">Top</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">return</span> this.top<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MyStack)</span> <span class="hljs-title">Empty</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(this.q) == <span class="hljs-number">0</span><br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>数据结构设计</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>栈</tag>
+      
+      <tag>队列</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>剑指 Offer 06. 从尾到头打印链表</title>
+    <link href="/leetcode/jian-zhi-offer/06/"/>
+    <url>/leetcode/jian-zhi-offer/06/</url>
+    
+    <content type="html"><![CDATA[<h1 id="剑指-Offer-06-从尾到头打印链表"><a href="#剑指-Offer-06-从尾到头打印链表" class="headerlink" title="剑指 Offer 06. 从尾到头打印链表"></a>剑指 Offer 06. 从尾到头打印链表</h1><p><a href="https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/">https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/</a></p><p>递归后序</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> res []<span class="hljs-keyword">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reversePrint</span><span class="hljs-params">(head *ListNode)</span> []<span class="hljs-title">int</span></span> &#123;<br>    res = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)<br>    traverse(head)<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">traverse</span><span class="hljs-params">(head *ListNode)</span></span> &#123;<br>    <span class="hljs-keyword">if</span> head == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    traverse(head.Next)<br>    res = <span class="hljs-built_in">append</span>(res, head.Val)<br>&#125;<br></code></pre></td></tr></table></figure><p>两次遍历（实际运行更快，复杂度一样）</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reversePrint</span><span class="hljs-params">(head *ListNode)</span> []<span class="hljs-title">int</span></span> &#123;<br>    count := <span class="hljs-number">0</span><br>    p := head<br>    <span class="hljs-keyword">for</span> p != <span class="hljs-literal">nil</span> &#123;<br>        p = p.Next<br>        count++<br>    &#125;<br><br>    res := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, count)<br>    <span class="hljs-keyword">for</span> i := count - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>        res[i] = head.Val<br>        head = head.Next<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> res<br>&#125;   <br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>剑指 Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>剑指 Offer 04. 二维数组中的查找</title>
+    <link href="/leetcode/jian-zhi-offer/04/"/>
+    <url>/leetcode/jian-zhi-offer/04/</url>
+    
+    <content type="html"><![CDATA[<h1 id="剑指-Offer-04-二维数组中的查找"><a href="#剑指-Offer-04-二维数组中的查找" class="headerlink" title="剑指 Offer 04. 二维数组中的查找"></a>剑指 Offer 04. 二维数组中的查找</h1><p><a href="https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/">https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/</a></p><p>从数组的右上角开始找起，会发现有类似 BST 的特点。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findNumberIn2DArray</span><span class="hljs-params">(matrix [][]<span class="hljs-keyword">int</span>, target <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(matrix) == <span class="hljs-number">0</span> || <span class="hljs-built_in">len</span>(matrix[<span class="hljs-number">0</span>]) == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    &#125;<br>    <br>    m, n := <span class="hljs-built_in">len</span>(matrix), <span class="hljs-built_in">len</span>(matrix[<span class="hljs-number">0</span>])<br><br>    <span class="hljs-keyword">for</span> i, j := <span class="hljs-number">0</span>, n - <span class="hljs-number">1</span>; i &lt; m &amp;&amp; j &gt;= <span class="hljs-number">0</span>; &#123;<br>        <span class="hljs-keyword">if</span> matrix[i][j] == target &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> matrix[i][j] &gt; target &#123;<br>            j--<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            i++<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>剑指 Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>剑指 Offer 03. 数组中重复的数字</title>
+    <link href="/leetcode/jian-zhi-offer/03/"/>
+    <url>/leetcode/jian-zhi-offer/03/</url>
+    
+    <content type="html"><![CDATA[<h1 id="剑指-Offer-03-数组中重复的数字"><a href="#剑指-Offer-03-数组中重复的数字" class="headerlink" title="剑指 Offer 03. 数组中重复的数字"></a>剑指 Offer 03. 数组中重复的数字</h1><p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/</a></p><h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findRepeatNumber</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">bool</span>)<br>    <span class="hljs-keyword">for</span> _, n := <span class="hljs-keyword">range</span> nums &#123;<br>        <span class="hljs-keyword">if</span> _, ok := m[n]; ok &#123;<br>            <span class="hljs-keyword">return</span> n<br>        &#125;<br>        m[n] = <span class="hljs-literal">true</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>&#125;<br></code></pre></td></tr></table></figure><h2 id="原地交换"><a href="#原地交换" class="headerlink" title="原地交换"></a>原地交换</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findRepeatNumber</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(nums); &#123;<br>        n := nums[i]<br>        <span class="hljs-keyword">if</span> n == i &#123;<br>            i++<br>            <span class="hljs-keyword">continue</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> n == nums[n] &#123;<br>            <span class="hljs-keyword">return</span> n<br>        &#125;<br>        nums[n], nums[i] = nums[i], nums[n]<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>剑指 Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>数据流的中位数</title>
     <link href="/leetcode/fucking-algorithm/find-median-from-data-stream/"/>
     <url>/leetcode/fucking-algorithm/find-median-from-data-stream/</url>
