@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>数据流的中位数</title>
+    <link href="/leetcode/fucking-algorithm/find-median-from-data-stream/"/>
+    <url>/leetcode/fucking-algorithm/find-median-from-data-stream/</url>
+    
+    <content type="html"><![CDATA[<h1 id="数据流的中位数"><a href="#数据流的中位数" class="headerlink" title="数据流的中位数"></a>数据流的中位数</h1><p><a href="https://leetcode-cn.com/problems/find-median-from-data-stream/">https://leetcode-cn.com/problems/find-median-from-data-stream/</a></p><p>用两个优先级队列实现，一个 <code>MinHeap</code> 存放比中位数小的（最大堆），另一个 <code>MaxHeap</code> 存放比中位数大的（最小堆），这样两个堆的堆顶就是最靠近中位数的两个数。</p><p>只要能保证两个优先级队列<strong>大小最多不相差超过 1</strong>，中位数就位于数量更多的那堆顶、或是两个堆顶的平均数。</p><p>插入时，需要维持 <code>MinHeap</code> 的所有元素都比 <code>MaxHeap</code> 的小，因此不能简单比较待插入元素和两个堆顶元素大小就插入。</p><p>如果想插入 <code>MaxHeap</code>，要先插入到<code>MinHeap</code> 中，然后从 <code>MinHeap</code> 中弹出堆顶（最大的）元素，再插入到 <code>MaxHeap</code> 中。</p><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>这里的 Golang 实现中，直接使用 <code>sort.IntSlice</code> 作为底层的队列，这个类型已经实现好了排序的接口，且是按从小到大排（因此它是一个最小堆）。</p><p>为了减少代码量，最大堆  <code>MinHeap</code> 也复用这个类型，让元素在进出 <code>MinHeap</code> 的时候都取反，它就相当于变成了个最大堆（里面存的都是负数，堆顶是最小的负数，取反后变成最大的）。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs go"><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;sort&quot;</span><br><br><span class="hljs-keyword">type</span> MedianFinder <span class="hljs-keyword">struct</span> &#123;<br>    MinHeap, MaxHeap *Heap<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">MedianFinder</span></span> &#123;<br>    <span class="hljs-keyword">return</span> MedianFinder&#123; &amp;Heap&#123;&#125;, &amp;Heap&#123;&#125; &#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MedianFinder)</span> <span class="hljs-title">AddNum</span><span class="hljs-params">(num <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>    <span class="hljs-keyword">if</span> this.MinHeap.Len() &gt;= this.MaxHeap.Len() &#123;<br>        heap.Push(this.MinHeap, -num)<br>        heap.Push(this.MaxHeap, -heap.Pop(this.MinHeap).(<span class="hljs-keyword">int</span>))<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        heap.Push(this.MaxHeap, num)<br>        heap.Push(this.MinHeap, -heap.Pop(this.MaxHeap).(<span class="hljs-keyword">int</span>))<br>    &#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MedianFinder)</span> <span class="hljs-title">FindMedian</span><span class="hljs-params">()</span> <span class="hljs-title">float64</span></span> &#123;<br>    <span class="hljs-keyword">if</span> this.MinHeap.Len() &lt; this.MaxHeap.Len() &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">float64</span>(this.MaxHeap.IntSlice[<span class="hljs-number">0</span>])<br>    &#125;<br>    <span class="hljs-keyword">if</span> this.MinHeap.Len() &gt; this.MaxHeap.Len() &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">float64</span>(-this.MinHeap.IntSlice[<span class="hljs-number">0</span>])<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">float64</span>(this.MaxHeap.IntSlice[<span class="hljs-number">0</span>] - this.MinHeap.IntSlice[<span class="hljs-number">0</span>]) / <span class="hljs-number">2</span><br>&#125;<br><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Your MedianFinder object will be instantiated and called as such:</span><br><span class="hljs-comment"> * obj := Constructor();</span><br><span class="hljs-comment"> * obj.AddNum(num);</span><br><span class="hljs-comment"> * param_2 := obj.FindMedian();</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-comment">// sort.IntSlice 已经给 []int 实现了 sort 相关的那三个接口</span><br><span class="hljs-keyword">type</span> Heap <span class="hljs-keyword">struct</span> &#123; sort.IntSlice &#125;  <span class="hljs-comment">// 直接作为匿名字段嵌入</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h *Heap)</span> <span class="hljs-title">Push</span><span class="hljs-params">(x <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>    h.IntSlice = <span class="hljs-built_in">append</span>(h.IntSlice, x.(<span class="hljs-keyword">int</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h *Heap)</span> <span class="hljs-title">Pop</span><span class="hljs-params">()</span> <span class="hljs-title">interface</span></span>&#123;&#125; &#123;<br>    old := h.IntSlice<br>    n := <span class="hljs-built_in">len</span>(old)<br>    x := old[n<span class="hljs-number">-1</span>]<br>    h.IntSlice = old[:n<span class="hljs-number">-1</span>]<br>    <span class="hljs-keyword">return</span> x<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://pkg.go.dev/sort#IntSlice">https://pkg.go.dev/sort#IntSlice</a></p><p><a href="https://pkg.go.dev/container/heap">https://pkg.go.dev/container/heap</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>数据结构设计</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>优先级队列</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>设计推特</title>
     <link href="/leetcode/fucking-algorithm/design-twitter/"/>
     <url>/leetcode/fucking-algorithm/design-twitter/</url>
@@ -25,6 +56,8 @@
     <tags>
       
       <tag>Go</tag>
+      
+      <tag>优先级队列</tag>
       
     </tags>
     
@@ -1222,6 +1255,8 @@
     <tags>
       
       <tag>Go</tag>
+      
+      <tag>优先级队列</tag>
       
       <tag>链表</tag>
       
