@@ -6,6 +6,7 @@ categories:
   - 数据结构设计
 tags:
   - Go
+  - 优先级队列
 index_img: /img/code.jpg
 sticky: -10
 date: 2022-02-25 15:26:00

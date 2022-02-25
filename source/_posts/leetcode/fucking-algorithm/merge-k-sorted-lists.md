@@ -7,6 +7,7 @@ categories:
 tags:
   - Go
   - 链表
+  - 优先级队列
 index_img: /img/code.jpg
 sticky: -10
 date: 2022-02-17 15:32:00
