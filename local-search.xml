@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指 Offer 16. 数值的整数次方</title>
+    <link href="/leetcode/jian-zhi-offer/16/"/>
+    <url>/leetcode/jian-zhi-offer/16/</url>
+    
+    <content type="html"><![CDATA[<h1 id="剑指-Offer-16-数值的整数次方"><a href="#剑指-Offer-16-数值的整数次方" class="headerlink" title="剑指 Offer 16. 数值的整数次方"></a>剑指 Offer 16. 数值的整数次方</h1><p><a href="https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/">https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/</a></p><h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2><p><a href="https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/solution/mian-shi-ti-16-shu-zhi-de-zheng-shu-ci-fang-kuai-s/">https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/solution/mian-shi-ti-16-shu-zhi-de-zheng-shu-ci-fang-kuai-s/</a></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">myPow</span><span class="hljs-params">(x <span class="hljs-keyword">float64</span>, n <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">float64</span></span> &#123;<br>    <span class="hljs-keyword">if</span> n &lt; <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> / myPow(x, -n)<br>    &#125;<br><br>    res := <span class="hljs-number">1.0</span><br>    <span class="hljs-keyword">for</span> n != <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">if</span> n &amp; <span class="hljs-number">1</span> != <span class="hljs-number">0</span> &#123;    <span class="hljs-comment">// n % 2 != 0  判断 n 二进制最右边的一位是否为 1，如果为 0 就相当于 res * (x^0) = res</span><br>            res = res * x<br>        &#125;<br>        x = x * x<br>        n = n &gt;&gt; <span class="hljs-number">1</span>         <span class="hljs-comment">// n = n / 2   右移，相当于删除二进制的最右边一位</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>剑指 Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 14- I. 剪绳子</title>
     <link href="/leetcode/jian-zhi-offer/14/"/>
     <url>/leetcode/jian-zhi-offer/14/</url>
