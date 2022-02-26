@@ -6,6 +6,7 @@ categories:
   - 暴力搜索算法
 tags:
   - Go
+  - 回溯法
 index_img: /img/code.jpg
 sticky: -10
 date: 2022-02-24 19:25:44
