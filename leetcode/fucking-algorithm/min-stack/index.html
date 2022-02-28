@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>剑指 Offer 16. 数值的整数次方 - Be Happy</title>
+  <title>最小栈 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="剑指 Offer 16. 数值的整数次方">
+            <span class="h2" id="subtitle" title="最小栈">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-26 15:37" pubdate>
-        2022年2月26日 下午
+      <time datetime="2022-02-28 17:30" pubdate>
+        2022年2月28日 下午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      152 字
+      443 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      6
        分钟
     </span>
   
@@ -245,12 +245,20 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">剑指 Offer 16. 数值的整数次方</h1>
+            <h1 style="display: none">最小栈</h1>
             
             <div class="markdown-body">
-              <h1 id="剑指-Offer-16-数值的整数次方"><a href="#剑指-Offer-16-数值的整数次方" class="headerlink" title="剑指 Offer 16. 数值的整数次方"></a>剑指 Offer 16. 数值的整数次方</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/">https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/</a></p>
-<h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/solution/mian-shi-ti-16-shu-zhi-de-zheng-shu-ci-fang-kuai-s/">https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/solution/mian-shi-ti-16-shu-zhi-de-zheng-shu-ci-fang-kuai-s/</a></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">myPow</span><span class="hljs-params">(x <span class="hljs-keyword">float64</span>, n <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">float64</span></span> &#123;<br>    <span class="hljs-keyword">if</span> n &lt; <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> / myPow(x, -n)<br>    &#125;<br><br>    res := <span class="hljs-number">1.0</span><br>    <span class="hljs-keyword">for</span> n != <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">if</span> n &amp; <span class="hljs-number">1</span> != <span class="hljs-number">0</span> &#123;    <span class="hljs-comment">// n % 2 != 0  判断 n 二进制最右边的一位是否为 1，如果为 0 就相当于 res * (x^0) = res</span><br>            res = res * x<br>        &#125;<br>        x = x * x<br>        n = n &gt;&gt; <span class="hljs-number">1</span>         <span class="hljs-comment">// n = n / 2   右移，相当于删除二进制的最右边一位</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="最小栈"><a href="#最小栈" class="headerlink" title="最小栈"></a>最小栈</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/min-stack/">https://leetcode-cn.com/problems/min-stack/</a></p>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ol>
+<li>需要完成栈的功能（压入、弹出），因此底层数据结构是栈</li>
+<li>需要知道最小的元素；如果最小元素被弹出，需要知道第二小的元素</li>
+</ol>
+<p>需求 2 是难点，由于需要知道第二小的元素，不能简单地用一个变量来记录最小值。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>使用 2 个栈。栈 A 是一般的栈，储存所有元素。使用一个辅助栈 B，存储栈 A 中所有 <strong>非严格降序</strong> 的元素，这样栈 B 顶就是最小的元素。</p>
+<p>新元素 <code>x</code> 入栈时，如果 <code>x &lt;= B.top()</code> (x 小于 B 的栈顶），将 x 也压入栈 B，这样就保证了最小元素的更新。</p>
+<p>要弹出栈 A 的元素时，检查这个元素是否是跟栈 B 顶的 元素相等。如果相等，栈 B 也需要弹出，这样栈 B 的栈顶就是第二小的元素了（有可能大小不变）。</p>
+<p>由于 B 储存的是 <strong>非严格降序</strong> 的元素，即使 A 和 B 都压入了多个一样大小的最小值，也能保证弹出栈顶后维持正确的最小元素。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> MinStack <span class="hljs-keyword">struct</span> &#123;<br>    stack []<span class="hljs-keyword">int</span><br>    descendingStack []<span class="hljs-keyword">int</span><br>&#125;<br><br><br><span class="hljs-comment">/** initialize your data structure here. */</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">MinStack</span></span> &#123;<br>    <span class="hljs-keyword">return</span> MinStack&#123;<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>), <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)&#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MinStack)</span> <span class="hljs-title">Push</span><span class="hljs-params">(x <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>    this.stack = <span class="hljs-built_in">append</span>(this.stack, x)<br>  <br>    m := <span class="hljs-built_in">len</span>(this.descendingStack)<br>    <span class="hljs-keyword">if</span> m == <span class="hljs-number">0</span> || x &lt;= this.descendingStack[m<span class="hljs-number">-1</span>] &#123;<br>        this.descendingStack = <span class="hljs-built_in">append</span>(this.descendingStack, x)<br>    &#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MinStack)</span> <span class="hljs-title">Pop</span><span class="hljs-params">()</span></span>  &#123;<br>    n, m := <span class="hljs-built_in">len</span>(this.stack), <span class="hljs-built_in">len</span>(this.descendingStack)<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span><br>    &#125;<br><br>    x := this.stack[n<span class="hljs-number">-1</span>]<br>    this.stack = this.stack[:n<span class="hljs-number">-1</span>]<br><br>    <span class="hljs-keyword">if</span> x == this.descendingStack[m<span class="hljs-number">-1</span>] &#123;<br>        this.descendingStack = this.descendingStack[:m<span class="hljs-number">-1</span>]<br>    &#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MinStack)</span> <span class="hljs-title">Top</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">return</span> this.stack[<span class="hljs-built_in">len</span>(this.stack)<span class="hljs-number">-1</span>]<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MinStack)</span> <span class="hljs-title">GetMin</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">return</span> this.descendingStack[<span class="hljs-built_in">len</span>(this.descendingStack)<span class="hljs-number">-1</span>]<br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -262,7 +270,9 @@
                     
                       <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%89%91%E6%8C%87-Offer/">剑指 Offer</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/">Fucking</a>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/">数据结构设计</a>
                     
                   </div>
                 
@@ -271,6 +281,8 @@
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/Go/">Go</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%A0%88/">栈</a>
                     
                   </div>
                 
@@ -281,18 +293,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/min-stack/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">最小栈</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/jian-zhi-offer/14/">
-                        <span class="hidden-mobile">剑指 Offer 14- I. 剪绳子</span>
+                      <a href="/leetcode/jian-zhi-offer/16/">
+                        <span class="hidden-mobile">剑指 Offer 16. 数值的整数次方</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
