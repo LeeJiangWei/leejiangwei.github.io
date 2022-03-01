@@ -4,6 +4,95 @@
   
   
   <entry>
+    <title>剑指 Offer 38. 字符串的排列</title>
+    <link href="/leetcode/jian-zhi-offer/38/"/>
+    <url>/leetcode/jian-zhi-offer/38/</url>
+    
+    <content type="html"><![CDATA[<h1 id="剑指-Offer-38-字符串的排列"><a href="#剑指-Offer-38-字符串的排列" class="headerlink" title="剑指 Offer 38. 字符串的排列"></a>剑指 Offer 38. 字符串的排列</h1><p><a href="https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/">https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/</a></p><p>可以用经典回溯法生成全排列，但是要注意一个问题：如果给定输入字符串中有重复字符，会生成重复的排列。</p><p>因此在决定填入某个字符时，如果这个字符在这个位置上已经用过一次了，就不能再用了。用一个哈希表记录已经填过的字符。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> res []<span class="hljs-keyword">string</span><br><span class="hljs-keyword">var</span> used []<span class="hljs-keyword">bool</span>   <span class="hljs-comment">// 记录哪些字符已被使用 </span><br><span class="hljs-keyword">var</span> track <span class="hljs-keyword">string</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">permutation</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>)</span> []<span class="hljs-title">string</span></span> &#123;<br>    res = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">string</span>, <span class="hljs-number">0</span>)<br>    used = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">bool</span>, <span class="hljs-built_in">len</span>(s))<br>    backtrack(s)<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>)</span></span> &#123;<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(track) == <span class="hljs-built_in">len</span>(s) &#123;<br>        res = <span class="hljs-built_in">append</span>(res, track)       <br>    &#125;<br><br>    <span class="hljs-comment">// 在填入此位置时，不能使用重复字符</span><br>    set := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">rune</span>]<span class="hljs-keyword">bool</span>)<br><br>    <span class="hljs-comment">// 尝试填入所有可能的字符</span><br>    <span class="hljs-keyword">for</span> i, r := <span class="hljs-keyword">range</span> s &#123;<br>        <span class="hljs-comment">// 如果当前字符已被使用，或是已经填过了一样的字符，都直接跳过</span><br>        <span class="hljs-keyword">if</span> _, ok := set[r]; ok || used[i] == <span class="hljs-literal">true</span> &#123;<br>            <span class="hljs-keyword">continue</span><br>        &#125;<br>        set[r] = <span class="hljs-literal">true</span><br><br>        used[i] = <span class="hljs-literal">true</span><br>        track += <span class="hljs-keyword">string</span>(r)<br>        backtrack(s)<br>        used[i] = <span class="hljs-literal">false</span><br>        track = track[:<span class="hljs-built_in">len</span>(track)<span class="hljs-number">-1</span>]<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>剑指 Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>回溯法</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>剑指 Offer 35. 复杂链表的复制</title>
+    <link href="/leetcode/jian-zhi-offer/35/"/>
+    <url>/leetcode/jian-zhi-offer/35/</url>
+    
+    <content type="html"><![CDATA[<h1 id="剑指-Offer-35-复杂链表的复制"><a href="#剑指-Offer-35-复杂链表的复制" class="headerlink" title="剑指 Offer 35. 复杂链表的复制"></a>剑指 Offer 35. 复杂链表的复制</h1><p><a href="https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/">https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/</a></p><p>此问题的难点是如果顺序复制，random 指针可能指向未创建的节点。</p><p>可以分两次复制，第一次先复制链表，第二次再连接上 random 指针。</p><p>在新链表中，为了找到 random 指针指的是谁，需要先访问旧链表找到 random 指针，且需要在新链表中找到对应的节点，如果每次寻找这个节点都要遍历整个链表，时间复杂度则会是 O(N)。</p><h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>使用哈希表记录旧节点到新节点的映射，这样可以快速找到新节点，而不用再遍历。用 O(N) 的空间换了 O(N) 的时间。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">copyRandomList</span><span class="hljs-params">(head *Node)</span> *<span class="hljs-title">Node</span></span> &#123;<br>    m := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[*Node]*Node)<br><br>    dummyHead := <span class="hljs-built_in">new</span>(Node)<br>    currOld := head<br>    prev := dummyHead<br><br>    <span class="hljs-comment">// 遍历旧链表，复制并链接新链表的 Next 指针</span><br>    <span class="hljs-keyword">for</span> currOld != <span class="hljs-literal">nil</span> &#123;<br>        curr := &amp;Node&#123;currOld.Val, <span class="hljs-literal">nil</span>, <span class="hljs-literal">nil</span>&#125;<br>        prev.Next = curr<br><br>        m[currOld] = curr<br><br>        prev = curr<br>        currOld = currOld.Next<br>    &#125;<br><br>    <span class="hljs-comment">// 再遍历旧链表，链接新链表的 Random 指针</span><br>    curr := head<br>    <span class="hljs-keyword">for</span> curr != <span class="hljs-literal">nil</span> &#123;<br>        m[curr].Random = m[curr.Random]<br>        curr = curr.Next<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> dummyHead.Next<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="原地复制-拆分链表"><a href="#原地复制-拆分链表" class="headerlink" title="原地复制 + 拆分链表"></a>原地复制 + 拆分链表</h2><p>可见一个关键是需要知道旧节点和新节点的映射关系。可以在复制链表时，直接把每个新节点接在对应旧节点的后面，变成 <code>old -&gt; new -&gt; old -&gt; new -&gt; </code> 这样的结构。只要顺序遍历这个链表，就知道了旧节点和新节点映射关系，设置完指针后再拆开即可。省去了哈希表的空间开销。</p><p>注意需要复原旧链表，而不能仅仅把新链表拆出来。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">copyRandomList</span><span class="hljs-params">(head *Node)</span> *<span class="hljs-title">Node</span></span> &#123;<br>    <span class="hljs-keyword">if</span> head == <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">return</span> head<br>    &#125;<br>    curr := head<br><br>    <span class="hljs-comment">// 复制链表</span><br>    <span class="hljs-keyword">for</span> curr != <span class="hljs-literal">nil</span> &#123;<br>        next := curr.Next<br>        curr.Next = &amp;Node&#123;curr.Val, curr.Next, <span class="hljs-literal">nil</span>&#125;<br>        curr.Next.Next = next<br><br>        curr = next<br>    &#125;<br><br>    <span class="hljs-comment">// 设置 random 指针，curr 是旧链表头</span><br>    curr = head<br>    <span class="hljs-keyword">for</span> curr != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">if</span> curr.Random != <span class="hljs-literal">nil</span> &#123;<br>            curr.Next.Random = curr.Random.Next  <span class="hljs-comment">// 设置对应新节点 curr.Next 的 Random 指针</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            curr.Next.Random = <span class="hljs-literal">nil</span><br>        &#125;<br>        curr = curr.Next.Next                    <span class="hljs-comment">// 每次前进两个节点，保证 curr 是旧节点</span><br>    &#125;<br><br>    <span class="hljs-comment">// 拆分链表</span><br>    newHead := head.Next<br>    curr = head<br>    <span class="hljs-keyword">for</span> curr != <span class="hljs-literal">nil</span> &#123;<br>        newNode := curr.Next<br>        curr.Next = curr.Next.Next            <span class="hljs-comment">// 将 Next 链接回下一个旧节点</span><br><br>        <span class="hljs-keyword">if</span> newNode.Next != <span class="hljs-literal">nil</span> &#123;<br>            newNode.Next = newNode.Next.Next  <span class="hljs-comment">// 链接新节点的 Next 指针</span><br>        &#125;<br>        <br>        curr = curr.Next                      <span class="hljs-comment">// 前进 curr 到下一个旧节点</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> newHead<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>剑指 Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>剑指 Offer 33. 二叉搜索树的后序遍历序列</title>
+    <link href="/leetcode/jian-zhi-offer/33/"/>
+    <url>/leetcode/jian-zhi-offer/33/</url>
+    
+    <content type="html"><![CDATA[<h1 id="剑指-Offer-33-二叉搜索树的后序遍历序列"><a href="#剑指-Offer-33-二叉搜索树的后序遍历序列" class="headerlink" title="剑指 Offer 33. 二叉搜索树的后序遍历序列"></a>剑指 Offer 33. 二叉搜索树的后序遍历序列</h1><p><a href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/">https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/</a></p><p>根据 BST 的特点，左子树的值都小于根节点，右子树的值都大于根节点。</p><p>又根据后序遍历为 “左右根” 的特点，在后序遍历序列中，最末尾元素是根节点。</p><p>从左数起，比根节点小的都是左子树，且最后一个是左子树的根。剩下部分就是右子树。验证了 <strong>左子树的值都小于根节点，右子树的值都大于根节点</strong> 这一条件后，递归验证两颗子树。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">verifyPostorder</span><span class="hljs-params">(postorder []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">return</span> verify(postorder, <span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(postorder)<span class="hljs-number">-1</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">verify</span><span class="hljs-params">(postorder []<span class="hljs-keyword">int</span>, left, right <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-comment">// 空树是 BST</span><br>    <span class="hljs-keyword">if</span> left &gt; right &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>    &#125;<br> <br>    <span class="hljs-comment">// 根节点是序列最后一个元素</span><br>    rootVal := postorder[right]<br>    leftRootIdx := right<span class="hljs-number">-1</span><br><br>    <span class="hljs-comment">// 从左数起，遇到第一个比根节点大的元素，它前一个元素就是左子树根节点</span><br>    <span class="hljs-keyword">for</span> i := left; i &lt; right; i++ &#123;<br>        <span class="hljs-keyword">if</span> postorder[i] &gt; rootVal &#123;<br>            leftRootIdx = i<span class="hljs-number">-1</span><br>            <span class="hljs-keyword">break</span><br>        &#125;<br>    &#125;<br>    rightRootIdx := right - <span class="hljs-number">1</span><br><br>    <span class="hljs-comment">// 验证右子树是否都大于根节点</span><br>    <span class="hljs-keyword">for</span> i := leftRootIdx + <span class="hljs-number">1</span>; i &lt;= rightRootIdx; i++ &#123;<br>        <span class="hljs-keyword">if</span> postorder[i] &lt; rootVal &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 递归验证左右子树是否为 BST</span><br>    <span class="hljs-keyword">return</span> verify(postorder, left, leftRootIdx) &amp;&amp; verify(postorder, leftRootIdx+<span class="hljs-number">1</span>, rightRootIdx)<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>剑指 Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>BST</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>最小栈</title>
     <link href="/leetcode/fucking-algorithm/min-stack/"/>
     <url>/leetcode/fucking-algorithm/min-stack/</url>
