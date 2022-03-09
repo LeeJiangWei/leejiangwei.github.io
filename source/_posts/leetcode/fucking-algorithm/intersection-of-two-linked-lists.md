@@ -23,17 +23,20 @@ https://leetcode-cn.com/problems/intersection-of-two-linked-lists/
 ![](https://labuladong.gitee.io/algo/images/%e9%93%be%e8%a1%a8%e6%8a%80%e5%b7%a7/6.jpeg)
 
 ```go
-func hasCycle(head *ListNode) bool {
-    fast, slow := head, head
-    for fast != nil && fast.Next != nil {
-        fast = fast.Next.Next
-        slow = slow.Next
-        if fast == slow {
-            return true
+    p1, p2 := headA, headB
+    for p1 != p2 {
+        if p1 == nil {
+            p1 = headB
+        } else { 
+            p1 = p1.Next
+        }
+        if p2 == nil {
+            p2 = headA
+        } else { 
+            p2 = p2.Next
         }
     }
-    return false
-}
+    return p1
 ```
 
 ## 转换成环形链表问题
