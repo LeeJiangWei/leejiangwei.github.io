@@ -18,7 +18,7 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-  <title>相交链表 - Be Happy</title>
+  <title>剑指 Offer 51. 数组中的逆序对 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="相交链表">
+            <span class="h2" id="subtitle" title="剑指 Offer 51. 数组中的逆序对">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-17 16:28" pubdate>
-        2022年2月17日 下午
+      <time datetime="2022-03-09 17:28" pubdate>
+        2022年3月9日 下午
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      193 字
+      364 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      5
        分钟
     </span>
   
@@ -245,17 +245,12 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">相交链表</h1>
+            <h1 style="display: none">剑指 Offer 51. 数组中的逆序对</h1>
             
             <div class="markdown-body">
-              <h1 id="相交链表"><a href="#相交链表" class="headerlink" title="相交链表"></a>相交链表</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/intersection-of-two-linked-lists/">https://leetcode-cn.com/problems/intersection-of-two-linked-lists/</a></p>
-<h2 id="让指针分别遍历两个链表"><a href="#让指针分别遍历两个链表" class="headerlink" title="让指针分别遍历两个链表"></a>让指针分别遍历两个链表</h2><p>指针 <code>p1</code> 遍历完 <code>l1</code> 后开始遍历 <code>l2</code>，<code>p2</code> 同理，每次两个指针只会走一步。这样它们最终会在相交处相遇。</p>
-<p><img src="https://labuladong.gitee.io/algo/images/%e9%93%be%e8%a1%a8%e6%8a%80%e5%b7%a7/6.jpeg" srcset="/img/loading.gif" lazyload></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go">p1, p2 := headA, headB<br><span class="hljs-keyword">for</span> p1 != p2 &#123;<br>    <span class="hljs-keyword">if</span> p1 == <span class="hljs-literal">nil</span> &#123;<br>        p1 = headB<br>    &#125; <span class="hljs-keyword">else</span> &#123; <br>        p1 = p1.Next<br>    &#125;<br>    <span class="hljs-keyword">if</span> p2 == <span class="hljs-literal">nil</span> &#123;<br>        p2 = headA<br>    &#125; <span class="hljs-keyword">else</span> &#123; <br>        p2 = p2.Next<br>    &#125;<br>&#125;<br><span class="hljs-keyword">return</span> p1<br></code></pre></td></tr></table></figure>
-
-<h2 id="转换成环形链表问题"><a href="#转换成环形链表问题" class="headerlink" title="转换成环形链表问题"></a>转换成环形链表问题</h2><p>让链表首尾相连，变成寻找环形链表起点问题。（但是会修改链表结构）</p>
-<h2 id="计算链表长度"><a href="#计算链表长度" class="headerlink" title="计算链表长度"></a>计算链表长度</h2><p>计算两个链表的长度，作差，使其中一个指针先前进这个差值，使得它们到终点的距离相同，然后一起前进，判断是否相等。</p>
-
+              <h1 id="剑指-Offer-51-数组中的逆序对"><a href="#剑指-Offer-51-数组中的逆序对" class="headerlink" title="剑指 Offer 51. 数组中的逆序对"></a>剑指 Offer 51. 数组中的逆序对</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/">https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/</a></p>
+<p>「归并排序」与「逆序对」是息息相关的。使用归并排序，每当遇到 左子数组当前元素 &gt; 右子数组当前元素 时，意味着 「左子数组当前元素 至 末尾元素」 与 「右子数组当前元素」 构成了若干 「逆序对」 。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> tmp []<span class="hljs-keyword">int</span>  <span class="hljs-comment">// 暂存原数组，排序结果将直接写回原数组</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reversePairs</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    tmp = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-built_in">len</span>(nums))<br>    <span class="hljs-built_in">copy</span>(tmp, nums)<br>    <span class="hljs-keyword">return</span> mergeSort(nums, <span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(nums) - <span class="hljs-number">1</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">mergeSort</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>, left, right <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> left &gt;= right &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br>    <br>    mid := (left + right) / <span class="hljs-number">2</span><br>    res := mergeSort(nums, left, mid) + mergeSort(nums, mid + <span class="hljs-number">1</span>, right)<br><br>    i, j := left, mid + <span class="hljs-number">1</span><br><br>    <span class="hljs-comment">// 更新暂存数组</span><br>    <span class="hljs-keyword">for</span> k := left; k &lt;= right; k++ &#123;<br>        tmp[k] = nums[k]<br>    &#125;<br><br>    <span class="hljs-comment">// 合并排序原数组中从 left 到 right 之间的元素</span><br>    <span class="hljs-keyword">for</span> k := left; k &lt;= right; k++ &#123;<br>        <span class="hljs-keyword">if</span> i == mid + <span class="hljs-number">1</span> &#123;  <br>            <span class="hljs-comment">// 左数组已填完，则顺序填入右数组</span><br>            nums[k] = tmp[j]<br>            j++<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> j == right + <span class="hljs-number">1</span> || tmp[i] &lt;= tmp[j] &#123;<br>            <span class="hljs-comment">// 右数组已填完，或是左数组的元素更小，填入左数组</span><br>            nums[k] = tmp[i]<br>            i++<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 左数组的元素更大，填入右数组</span><br>            nums[k] = tmp[j]<br>            j++<br><br>            res += mid - i + <span class="hljs-number">1</span>  <span class="hljs-comment">// 遇到左数组元素比右数组大时，说明左数组当前位置到末尾位置的元素都比右数组的大，这些元素的个数就是逆序对个数</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -266,9 +261,7 @@
                     
                       <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/">Fucking</a>
-                    
-                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/%E9%93%BE%E8%A1%A8/">链表</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%89%91%E6%8C%87-Offer/">剑指 Offer</a>
                     
                   </div>
                 
@@ -277,8 +270,6 @@
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/Go/">Go</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
                     
                   </div>
                 
@@ -289,18 +280,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/reverse-linked-lists/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">反转链表</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/linked-list-cycle/">
-                        <span class="hidden-mobile">环形链表</span>
+                      <a href="/leetcode/jian-zhi-offer/38/">
+                        <span class="hidden-mobile">剑指 Offer 38. 字符串的排列</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
