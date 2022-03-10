@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      503 字
+      504 字
     </span>
   
 
@@ -258,7 +258,7 @@
 
 <h2 id="反转链表的前-N-个元素"><a href="#反转链表的前-N-个元素" class="headerlink" title="反转链表的前 N 个元素"></a>反转链表的前 N 个元素</h2><p><img src="https://labuladong.gitee.io/algo/images/%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8/6.jpg" srcset="/img/loading.gif" lazyload></p>
 <p>需要注意的是，反转前 N 个元素后，要将反转后的链表尾巴接到未反转的部分上（如果是全反转，设为 nil 即可），因此需要记录下未反转的部分是哪里。</p>
-<p>显然，N = 1 时，它的下一个节点就是未反转的部分，因此在此 base case 上记录下未反转的头部，然后反转后将反转后的尾巴接上去。</p>
+<p>显然，N &#x3D; 1 时，它的下一个节点就是未反转的部分，因此在此 base case 上记录下未反转的头部，然后反转后将反转后的尾巴接上去。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> successor *ListNode<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">reverseN</span><span class="hljs-params">(head *ListNode, n <span class="hljs-keyword">int</span>)</span> *<span class="hljs-title">ListNode</span></span> &#123;<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span> &#123;<br>        successor = head.Next  <span class="hljs-comment">// 记录未反转的部分</span><br>        <span class="hljs-keyword">return</span> head<br>    &#125;<br>    <br>    reversed := reverseN(head.Next, n - <span class="hljs-number">1</span>)<br><br>    head.Next.Next = head<br>    head.Next = successor   <span class="hljs-comment">// 反转后的尾巴接上未反转的部分</span><br>    <span class="hljs-keyword">return</span> reversed<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="反转链表的中间的几个元素"><a href="#反转链表的中间的几个元素" class="headerlink" title="反转链表的中间的几个元素"></a>反转链表的中间的几个元素</h2><p>反转从 left 到 right 的中间几个元素，相当于从 left 开始，反转前 N 个元素。因此只要加一个判断，如果当前没到 left，就递归到下一个节点，直到当前从 left 开始，然后执行反转前 N 个元素的操作即可。</p>

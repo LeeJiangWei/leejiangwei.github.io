@@ -286,13 +286,13 @@
 </ol>
 <p>第 2，3 点原因应该是是跟 pytorch 共用了一个 conda 环境，而 pytorch 本身硬编码了 cudnn 的链接，所以导致 cuda 和 cudnn 版本不符合。建议创建一个推理专用环境，跟 torch 的环境分开。可以在 <a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/archive">archieve</a> 的 release note 中查看不同 cuda 版本的子组件版本，例如：<a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/archive/11.3.1/cuda-toolkit-release-notes/index.html#cuda-major-component-versions">1.1. CUDA Toolkit Major Component Versions</a> 中的 cuBLAS 版本就是 11.5.1.109，可以根据这个选择合适的 TensorRT 版本。</p>
 <h3 id="TensorRT-加载、推理速度比-CPU-还慢"><a href="#TensorRT-加载、推理速度比-CPU-还慢" class="headerlink" title="TensorRT 加载、推理速度比 CPU 还慢"></a>TensorRT 加载、推理速度比 CPU 还慢</h3><p>正常现象，跟 TensorRT 本身的机制有关，加载模型、第一次推理速度会特别慢，但是后面的就会很快了。参见：<a target="_blank" rel="noopener" href="https://github.com/microsoft/onnxruntime/issues/7230#issuecomment-814619248">https://github.com/microsoft/onnxruntime/issues/7230#issuecomment-814619248</a></p>
-<p>参考时间差异（batch_size = 1）：</p>
+<p>参考时间差异（batch_size &#x3D; 1）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">Load time:  <span class="hljs-number">14.695685863494873</span><br>Run time:  <span class="hljs-number">6.2073938846588135</span><br>Second run time:  <span class="hljs-number">0.23337483406066895</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><p>torch == 1.8.0</p>
-<p>transformers == 4.12.5</p>
-<p>onnx == 1.10.2</p>
-<p>onnxruntime-gpu == 1.10.0</p>
+<h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><p>torch &#x3D;&#x3D; 1.8.0</p>
+<p>transformers &#x3D;&#x3D; 4.12.5</p>
+<p>onnx &#x3D;&#x3D; 1.10.2</p>
+<p>onnxruntime-gpu &#x3D;&#x3D; 1.10.0</p>
 <h3 id="system"><a href="#system" class="headerlink" title="system"></a>system</h3><p>CUDA：11.1.1_456.81_win10</p>
 <p>cudnn：11.3-windows-x64-v8.2.1.32</p>
 <p>TensorRT：8.2.1.8</p>

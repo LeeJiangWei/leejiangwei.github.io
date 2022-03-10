@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      285 字
+      286 字
     </span>
   
 
@@ -252,7 +252,7 @@
 <h2 id="临时数组"><a href="#临时数组" class="headerlink" title="临时数组"></a>临时数组</h2><p>最简单的方法，但是空间复杂为<code>O(n)</code>。</p>
 <h2 id="环状替换"><a href="#环状替换" class="headerlink" title="环状替换"></a>环状替换</h2><p>如果直接将每个数字放至它<strong>最后的位置</strong>，这样被放置位置的元素会被覆盖从而丢失。</p>
 <p>解决方法：从位置 0 开始，将它放到正确的位置（向右 k 位），然后<strong>把被覆盖的元素保存下来</strong>，再将它放到正确的位置（再向右 k 位），循环往复。</p>
-<p>容易发现，当回到初始位置 0 时，有些数字可能还没有遍历到（当 nums.length % k = 0 时，只会遍历偶数位置然后回到开头），此时应该跳到下一个位置然后继续。至于怎么判断该不该跳，我还不是很懂，详见<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leetcode-solution-nipk/">题解</a>。</p>
+<p>容易发现，当回到初始位置 0 时，有些数字可能还没有遍历到（当 nums.length % k &#x3D; 0 时，只会遍历偶数位置然后回到开头），此时应该跳到下一个位置然后继续。至于怎么判断该不该跳，我还不是很懂，详见<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leetcode-solution-nipk/">题解</a>。</p>
 <h2 id="数组翻转"><a href="#数组翻转" class="headerlink" title="数组翻转"></a>数组翻转</h2><p><img src="https://i.loli.net/2021/07/17/xNXsC3YdFDwPa8O.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">reverse</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> start, <span class="hljs-keyword">int</span> end)</span> </span>&#123;<br>        <span class="hljs-keyword">while</span> (start &lt; end) &#123;<br>            <span class="hljs-built_in">swap</span>(nums[start], nums[end]);<br>            start += <span class="hljs-number">1</span>;<br>            end -= <span class="hljs-number">1</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums, <span class="hljs-keyword">int</span> k)</span> </span>&#123;<br>        k %= nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-built_in">reverse</span>(nums, <span class="hljs-number">0</span>, nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>);<br>        <span class="hljs-built_in">reverse</span>(nums, <span class="hljs-number">0</span>, k - <span class="hljs-number">1</span>);<br>        <span class="hljs-built_in">reverse</span>(nums, k, nums.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
             </div>

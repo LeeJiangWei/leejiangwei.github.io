@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      468 字
+      469 字
     </span>
   
 
@@ -248,7 +248,7 @@
             <h1 style="display: none">对 HuggingFace Transformers 模型进行后训练</h1>
             
             <div class="markdown-body">
-              <h1 id="对-HuggingFace-Transformers-模型进行预训练-post-train-further-pretrain"><a href="#对-HuggingFace-Transformers-模型进行预训练-post-train-further-pretrain" class="headerlink" title="对 HuggingFace Transformers 模型进行预训练 (post-train / further pretrain)"></a>对 HuggingFace Transformers 模型进行预训练 (post-train / further pretrain)</h1><p>这几天需要对 BERT 进行进一步的预训练，而且是 MLM 和 NSP 两个任务一起。但是 transformers 官方只提供了 MLM 任务的训练例子。（可能是因为 RoBERTa 原论文中认为 NSP 任务没用）</p>
+              <h1 id="对-HuggingFace-Transformers-模型进行预训练-post-train-x2F-further-pretrain"><a href="#对-HuggingFace-Transformers-模型进行预训练-post-train-x2F-further-pretrain" class="headerlink" title="对 HuggingFace Transformers 模型进行预训练 (post-train &#x2F; further pretrain)"></a>对 HuggingFace Transformers 模型进行预训练 (post-train &#x2F; further pretrain)</h1><p>这几天需要对 BERT 进行进一步的预训练，而且是 MLM 和 NSP 两个任务一起。但是 transformers 官方只提供了 MLM 任务的训练例子。（可能是因为 RoBERTa 原论文中认为 NSP 任务没用）</p>
 <p>后来终于在 stackoverflow 上找到了<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/65646925/how-to-train-bert-from-scratch-on-a-new-domain-for-both-mlm-and-nsp">解决方法</a>。在自己的数据集上试验有效后记录于此。</p>
 <h2 id="产生任务对应的标注数据"><a href="#产生任务对应的标注数据" class="headerlink" title="产生任务对应的标注数据"></a>产生任务对应的标注数据</h2><h3 id="使用-TextDatasetForNextSentencePrediction-构造-NSP-任务-Dataset"><a href="#使用-TextDatasetForNextSentencePrediction-构造-NSP-任务-Dataset" class="headerlink" title="使用 TextDatasetForNextSentencePrediction 构造 NSP 任务 Dataset"></a>使用 <code>TextDatasetForNextSentencePrediction</code> 构造 NSP 任务 Dataset</h3><p>文档：官方文档没写，需要阅读<a target="_blank" rel="noopener" href="https://github.com/huggingface/transformers/blob/9f72e8f4e1e767c5f608dd135199e592255b8a69/src/transformers/data/datasets/language_modeling.py">源代码</a>。</p>
 <p>数据格式：一行一句话，不同的文档之间空一行。</p>
