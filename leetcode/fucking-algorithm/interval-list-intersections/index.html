@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
@@ -9,14 +9,30 @@
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
+  
+    <meta name="description" content="区间列表的交集https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;interval-list-intersections&#x2F; 观察规律两个区间要么有交集，要么无交集。如果无交集，则条件很明显是 secondEnd &lt; firstStart || firstEnd &lt; secondStart 。 取反就是有交集的条件 secondEnd &gt;&#x3D; firstStart &amp;a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="区间列表的交集">
+<meta property="og:url" content="http://example.com/leetcode/fucking-algorithm/interval-list-intersections/index.html">
+<meta property="og:site_name" content="Be Happy">
+<meta property="og:description" content="区间列表的交集https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;interval-list-intersections&#x2F; 观察规律两个区间要么有交集，要么无交集。如果无交集，则条件很明显是 secondEnd &lt; firstStart || firstEnd &lt; secondStart 。 取反就是有交集的条件 secondEnd &gt;&#x3D; firstStart &amp;a">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/code.jpg">
+<meta property="article:published_time" content="2022-02-15T14:43:00.000Z">
+<meta property="article:modified_time" content="2022-03-10T07:53:40.040Z">
+<meta property="article:author" content="LJW">
+<meta property="article:tag" content="Go">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="区间调度问题">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/code.jpg">
+  
   
   <title>区间列表的交集 - Be Happy</title>
 
@@ -39,7 +55,6 @@
   
 
 
-
 <!-- 主题依赖的图标库，不要自行修改 -->
 
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
@@ -56,7 +71,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":"UA-199094373-1","gtag":"G-8SWWDR0FQC","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":"UA-199094373-1","gtag":"G-8SWWDR0FQC","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -67,8 +82,9 @@
   <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>Be Happy</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>Be Happy</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -154,13 +170,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
           </li>
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self">&nbsp;<i
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -194,21 +211,18 @@
 
 <div class="mt-1">
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      256 字
+      1k 字
     </span>
   
 
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
-       分钟
+      9 分钟
     </span>
   
 
@@ -252,7 +266,7 @@
 <h2 id="观察规律"><a href="#观察规律" class="headerlink" title="观察规律"></a>观察规律</h2><p>两个区间要么有交集，要么无交集。如果无交集，则条件很明显是 <code>secondEnd &lt; firstStart || firstEnd &lt; secondStart </code>。</p>
 <p>取反就是有交集的条件 <code>secondEnd &gt;= firstStart &amp;&amp; firstEnd &gt;= secondStart</code>，在这种条件下观察得出重叠区间的起点是两个起点的较大者，终点是两个终点的较小者。</p>
 <p>得出交集后，谁更靠前，就移动谁的指针，很好理解。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">intervalIntersection</span><span class="hljs-params">(firstList [][]<span class="hljs-keyword">int</span>, secondList [][]<span class="hljs-keyword">int</span>)</span> [][]<span class="hljs-title">int</span></span> &#123;<br>    result := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)<br>    m, n := <span class="hljs-built_in">len</span>(firstList), <span class="hljs-built_in">len</span>(secondList)<br>    i, j := <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <br>    <span class="hljs-keyword">for</span> i &lt; m &amp;&amp; j &lt; n &#123;<br>        firstStart, firstEnd := firstList[i][<span class="hljs-number">0</span>], firstList[i][<span class="hljs-number">1</span>]<br>        secondStart, secondEnd := secondList[j][<span class="hljs-number">0</span>], secondList[j][<span class="hljs-number">1</span>]<br><br>        <span class="hljs-comment">// 两个区间存在交集</span><br>        <span class="hljs-keyword">if</span> secondEnd &gt;= firstStart &amp;&amp; firstEnd &gt;= secondStart &#123;<br>            result = <span class="hljs-built_in">append</span>(result, []<span class="hljs-keyword">int</span>&#123;max(firstStart, secondStart), min(firstEnd, secondEnd)&#125;)<br>        &#125;<br>        <span class="hljs-keyword">if</span> secondEnd &lt; firstEnd  &#123;<br>            j++<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            i++<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> result<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &gt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &lt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">intervalIntersection</span><span class="hljs-params">(firstList [][]<span class="hljs-keyword">int</span>, secondList [][]<span class="hljs-keyword">int</span>)</span> [][]<span class="hljs-title">int</span></span> &#123;<br>    result := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)<br>    m, n := <span class="hljs-built_in">len</span>(firstList), <span class="hljs-built_in">len</span>(secondList)<br>    i, j := <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <br>    <span class="hljs-keyword">for</span> i &lt; m &amp;&amp; j &lt; n &#123;<br>        firstStart, firstEnd := firstList[i][<span class="hljs-number">0</span>], firstList[i][<span class="hljs-number">1</span>]<br>        secondStart, secondEnd := secondList[j][<span class="hljs-number">0</span>], secondList[j][<span class="hljs-number">1</span>]<br><br>        <span class="hljs-comment">// 两个区间存在交集</span><br>        <span class="hljs-keyword">if</span> secondEnd &gt;= firstStart &amp;&amp; firstEnd &gt;= secondStart &#123;<br>            result = <span class="hljs-built_in">append</span>(result, []<span class="hljs-keyword">int</span>&#123;max(firstStart, secondStart), min(firstEnd, secondEnd)&#125;)<br>        &#125;<br>        <span class="hljs-keyword">if</span> secondEnd &lt; firstEnd  &#123;<br>            j++<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            i++<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> result<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &gt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &lt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -359,7 +373,7 @@
     
 
     
-      <a id="scroll-top-button" href="#" role="button">
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
@@ -449,6 +463,10 @@
 <!-- Plugins -->
 
 
+  <script  src="/js/local-search.js" ></script>
+
+
+
   
     <script  src="/js/img-lazyload.js" ></script>
   
@@ -459,23 +477,18 @@
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+  
 
 
 
@@ -490,7 +503,7 @@
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-      typing(title)
+        typing(title);
       
     })(window, document);
   </script>

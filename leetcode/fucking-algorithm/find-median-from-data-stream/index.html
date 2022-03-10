@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
@@ -9,14 +9,29 @@
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
+  
+    <meta name="description" content="数据流的中位数https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;find-median-from-data-stream&#x2F; 用两个优先级队列实现，一个 MinHeap 存放比中位数小的（最大堆），另一个 MaxHeap 存放比中位数大的（最小堆），这样两个堆的堆顶就是最靠近中位数的两个数。 只要能保证两个优先级队列大小最多不相差超过 1，中位数就位于数量更多的那堆顶、或是两个堆顶的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据流的中位数">
+<meta property="og:url" content="http://example.com/leetcode/fucking-algorithm/find-median-from-data-stream/index.html">
+<meta property="og:site_name" content="Be Happy">
+<meta property="og:description" content="数据流的中位数https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;find-median-from-data-stream&#x2F; 用两个优先级队列实现，一个 MinHeap 存放比中位数小的（最大堆），另一个 MaxHeap 存放比中位数大的（最小堆），这样两个堆的堆顶就是最靠近中位数的两个数。 只要能保证两个优先级队列大小最多不相差超过 1，中位数就位于数量更多的那堆顶、或是两个堆顶的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/code.jpg">
+<meta property="article:published_time" content="2022-02-25T08:08:00.000Z">
+<meta property="article:modified_time" content="2022-03-10T07:53:40.040Z">
+<meta property="article:author" content="LJW">
+<meta property="article:tag" content="Go">
+<meta property="article:tag" content="优先级队列">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/code.jpg">
+  
   
   <title>数据流的中位数 - Be Happy</title>
 
@@ -39,7 +54,6 @@
   
 
 
-
 <!-- 主题依赖的图标库，不要自行修改 -->
 
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
@@ -56,7 +70,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":"UA-199094373-1","gtag":"G-8SWWDR0FQC","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":"UA-199094373-1","gtag":"G-8SWWDR0FQC","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -67,8 +81,9 @@
   <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>Be Happy</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>Be Happy</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -154,13 +169,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
           </li>
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self">&nbsp;<i
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -194,21 +210,18 @@
 
 <div class="mt-1">
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      557 字
+      1.8k 字
     </span>
   
 
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
-       分钟
+      16 分钟
     </span>
   
 
@@ -255,7 +268,7 @@
 <p>如果想插入 <code>MaxHeap</code>，要先插入到<code>MinHeap</code> 中，然后从 <code>MinHeap</code> 中弹出堆顶（最大的）元素，再插入到 <code>MaxHeap</code> 中。</p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>这里的 Golang 实现中，直接使用 <code>sort.IntSlice</code> 作为底层的队列，这个类型已经实现好了排序的接口，且是按从小到大排（因此它是一个最小堆）。</p>
 <p>为了减少代码量，最大堆  <code>MinHeap</code> 也复用这个类型，让元素在进出 <code>MinHeap</code> 的时候都取反，它就相当于变成了个最大堆（里面存的都是负数，堆顶是最小的负数，取反后变成最大的）。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs go"><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;sort&quot;</span><br><br><span class="hljs-keyword">type</span> MedianFinder <span class="hljs-keyword">struct</span> &#123;<br>    MinHeap, MaxHeap *Heap<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">MedianFinder</span></span> &#123;<br>    <span class="hljs-keyword">return</span> MedianFinder&#123; &amp;Heap&#123;&#125;, &amp;Heap&#123;&#125; &#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MedianFinder)</span> <span class="hljs-title">AddNum</span><span class="hljs-params">(num <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>    <span class="hljs-keyword">if</span> this.MinHeap.Len() &gt;= this.MaxHeap.Len() &#123;<br>        heap.Push(this.MinHeap, -num)<br>        heap.Push(this.MaxHeap, -heap.Pop(this.MinHeap).(<span class="hljs-keyword">int</span>))<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        heap.Push(this.MaxHeap, num)<br>        heap.Push(this.MinHeap, -heap.Pop(this.MaxHeap).(<span class="hljs-keyword">int</span>))<br>    &#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MedianFinder)</span> <span class="hljs-title">FindMedian</span><span class="hljs-params">()</span> <span class="hljs-title">float64</span></span> &#123;<br>    <span class="hljs-keyword">if</span> this.MinHeap.Len() &lt; this.MaxHeap.Len() &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">float64</span>(this.MaxHeap.IntSlice[<span class="hljs-number">0</span>])<br>    &#125;<br>    <span class="hljs-keyword">if</span> this.MinHeap.Len() &gt; this.MaxHeap.Len() &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">float64</span>(-this.MinHeap.IntSlice[<span class="hljs-number">0</span>])<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">float64</span>(this.MaxHeap.IntSlice[<span class="hljs-number">0</span>] - this.MinHeap.IntSlice[<span class="hljs-number">0</span>]) / <span class="hljs-number">2</span><br>&#125;<br><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Your MedianFinder object will be instantiated and called as such:</span><br><span class="hljs-comment"> * obj := Constructor();</span><br><span class="hljs-comment"> * obj.AddNum(num);</span><br><span class="hljs-comment"> * param_2 := obj.FindMedian();</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-comment">// sort.IntSlice 已经给 []int 实现了 sort 相关的那三个接口</span><br><span class="hljs-keyword">type</span> Heap <span class="hljs-keyword">struct</span> &#123; sort.IntSlice &#125;  <span class="hljs-comment">// 直接作为匿名字段嵌入</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h *Heap)</span> <span class="hljs-title">Push</span><span class="hljs-params">(x <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>    h.IntSlice = <span class="hljs-built_in">append</span>(h.IntSlice, x.(<span class="hljs-keyword">int</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h *Heap)</span> <span class="hljs-title">Pop</span><span class="hljs-params">()</span> <span class="hljs-title">interface</span></span>&#123;&#125; &#123;<br>    old := h.IntSlice<br>    n := <span class="hljs-built_in">len</span>(old)<br>    x := old[n<span class="hljs-number">-1</span>]<br>    h.IntSlice = old[:n<span class="hljs-number">-1</span>]<br>    <span class="hljs-keyword">return</span> x<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;sort&quot;</span><br><br><span class="hljs-keyword">type</span> MedianFinder <span class="hljs-keyword">struct</span> &#123;<br>    MinHeap, MaxHeap *Heap<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">MedianFinder</span></span> &#123;<br>    <span class="hljs-keyword">return</span> MedianFinder&#123; &amp;Heap&#123;&#125;, &amp;Heap&#123;&#125; &#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MedianFinder)</span> <span class="hljs-title">AddNum</span><span class="hljs-params">(num <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>    <span class="hljs-keyword">if</span> this.MinHeap.Len() &gt;= this.MaxHeap.Len() &#123;<br>        heap.Push(this.MinHeap, -num)<br>        heap.Push(this.MaxHeap, -heap.Pop(this.MinHeap).(<span class="hljs-keyword">int</span>))<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        heap.Push(this.MaxHeap, num)<br>        heap.Push(this.MinHeap, -heap.Pop(this.MaxHeap).(<span class="hljs-keyword">int</span>))<br>    &#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MedianFinder)</span> <span class="hljs-title">FindMedian</span><span class="hljs-params">()</span> <span class="hljs-title">float64</span></span> &#123;<br>    <span class="hljs-keyword">if</span> this.MinHeap.Len() &lt; this.MaxHeap.Len() &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">float64</span>(this.MaxHeap.IntSlice[<span class="hljs-number">0</span>])<br>    &#125;<br>    <span class="hljs-keyword">if</span> this.MinHeap.Len() &gt; this.MaxHeap.Len() &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">float64</span>(-this.MinHeap.IntSlice[<span class="hljs-number">0</span>])<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">float64</span>(this.MaxHeap.IntSlice[<span class="hljs-number">0</span>] - this.MinHeap.IntSlice[<span class="hljs-number">0</span>]) / <span class="hljs-number">2</span><br>&#125;<br><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Your MedianFinder object will be instantiated and called as such:</span><br><span class="hljs-comment"> * obj := Constructor();</span><br><span class="hljs-comment"> * obj.AddNum(num);</span><br><span class="hljs-comment"> * param_2 := obj.FindMedian();</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-comment">// sort.IntSlice 已经给 []int 实现了 sort 相关的那三个接口</span><br><span class="hljs-keyword">type</span> Heap <span class="hljs-keyword">struct</span> &#123; sort.IntSlice &#125;  <span class="hljs-comment">// 直接作为匿名字段嵌入</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h *Heap)</span> <span class="hljs-title">Push</span><span class="hljs-params">(x <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>    h.IntSlice = <span class="hljs-built_in">append</span>(h.IntSlice, x.(<span class="hljs-keyword">int</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h *Heap)</span> <span class="hljs-title">Pop</span><span class="hljs-params">()</span> <span class="hljs-title">interface</span></span>&#123;&#125; &#123;<br>    old := h.IntSlice<br>    n := <span class="hljs-built_in">len</span>(old)<br>    x := old[n<span class="hljs-number">-1</span>]<br>    h.IntSlice = old[:n<span class="hljs-number">-1</span>]<br>    <span class="hljs-keyword">return</span> x<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://pkg.go.dev/sort#IntSlice">https://pkg.go.dev/sort#IntSlice</a></p>
 <p><a target="_blank" rel="noopener" href="https://pkg.go.dev/container/heap">https://pkg.go.dev/container/heap</a></p>
@@ -364,7 +377,7 @@
     
 
     
-      <a id="scroll-top-button" href="#" role="button">
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
@@ -454,6 +467,10 @@
 <!-- Plugins -->
 
 
+  <script  src="/js/local-search.js" ></script>
+
+
+
   
     <script  src="/js/img-lazyload.js" ></script>
   
@@ -464,23 +481,18 @@
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+  
 
 
 
@@ -495,7 +507,7 @@
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-      typing(title)
+        typing(title);
       
     })(window, document);
   </script>

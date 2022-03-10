@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
@@ -9,14 +9,29 @@
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
+  
+    <meta name="description" content="将 transformers 模型转换为 ONNX 格式并用 TensorRT 加速然后就可以优化模型，加速推理了。这里以 BERT 为例。 转换 ONNX 文件运行 transformers 官方提供的脚本 convert_graph_to_onnx.py ，直接得到转换好格式的 ONNX 模型。（或者直接 import 进来，调用里面的 convert() 方法。） 注意 pipeline 要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="将 transformers 模型转换为 ONNX 格式并用 TensorRT 加速">
+<meta property="og:url" content="http://example.com/nlp/convert-transformers-to-onnx/index.html">
+<meta property="og:site_name" content="Be Happy">
+<meta property="og:description" content="将 transformers 模型转换为 ONNX 格式并用 TensorRT 加速然后就可以优化模型，加速推理了。这里以 BERT 为例。 转换 ONNX 文件运行 transformers 官方提供的脚本 convert_graph_to_onnx.py ，直接得到转换好格式的 ONNX 模型。（或者直接 import 进来，调用里面的 convert() 方法。） 注意 pipeline 要">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/hf.png">
+<meta property="article:published_time" content="2021-12-08T07:29:04.000Z">
+<meta property="article:modified_time" content="2022-03-10T07:53:40.040Z">
+<meta property="article:author" content="LJW">
+<meta property="article:tag" content="pytorch">
+<meta property="article:tag" content="transformers">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/hf.png">
+  
   
   <title>将 transformers 模型转换为 ONNX 格式并用 TensorRT 加速 - Be Happy</title>
 
@@ -39,7 +54,6 @@
   
 
 
-
 <!-- 主题依赖的图标库，不要自行修改 -->
 
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
@@ -56,7 +70,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":"UA-199094373-1","gtag":"G-8SWWDR0FQC","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":"UA-199094373-1","gtag":"G-8SWWDR0FQC","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -67,8 +81,9 @@
   <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>Be Happy</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>Be Happy</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -154,13 +169,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
           </li>
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self">&nbsp;<i
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -194,21 +210,18 @@
 
 <div class="mt-1">
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      5.1k 字
     </span>
   
 
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19
-       分钟
+      43 分钟
     </span>
   
 
@@ -251,7 +264,7 @@
               <h1 id="将-transformers-模型转换为-ONNX-格式并用-TensorRT-加速"><a href="#将-transformers-模型转换为-ONNX-格式并用-TensorRT-加速" class="headerlink" title="将 transformers 模型转换为 ONNX 格式并用 TensorRT 加速"></a>将 transformers 模型转换为 ONNX 格式并用 TensorRT 加速</h1><p>然后就可以优化模型，加速推理了。这里以 BERT 为例。</p>
 <h2 id="转换-ONNX-文件"><a href="#转换-ONNX-文件" class="headerlink" title="转换 ONNX 文件"></a>转换 ONNX 文件</h2><p>运行 transformers 官方提供的脚本 <a target="_blank" rel="noopener" href="https://github.com/huggingface/transformers/blob/master/src/transformers/convert_graph_to_onnx.py">convert_graph_to_onnx.py</a> ，直接得到转换好格式的 ONNX 模型。（或者直接 import 进来，调用里面的 convert() 方法。）</p>
 <p>注意 pipeline 要跟自己的模型任务对应上，否则无法正常工作。例如这里我用的是 <code>BertForSequenceClassification</code> ，pipeline 就选 <code>sentiment-analysis</code> （等价于 <code>TextClassificationPipeline</code>）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">python -m transformers.convert_graph_to_onnx --pipeline sentiment-analysis --framework pt --model &quot;./models/chinese-bert-wwm-ext_2021-12-06_11-33-24&quot; --check-loading --quantize &quot;./models/onnx/chinese-bert-wwm-ext/model.onnx&quot;<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs shell">python -m transformers.convert_graph_to_onnx --pipeline sentiment-analysis --framework pt --model &quot;./models/chinese-bert-wwm-ext_2021-12-06_11-33-24&quot; --check-loading --quantize &quot;./models/onnx/chinese-bert-wwm-ext/model.onnx&quot;<br></code></pre></td></tr></table></figure>
 
 <p>注意模型转换时控制台的打印信息，确定模型的输入输出跟原来的 forward() 函数一致。<code>--model</code> 参数就是用 save_pretrained() 方法保存的模型。指定 <code>--quantize</code> 参数会生成 optimize 和 quantize 后的模型。脚本运行完后，我的目录结构如下：</p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs 1c">models<br>	<span class="hljs-string">| chinese-bert-wwm-ext_2021-12-06_11-33-24</span><br>		<span class="hljs-string">| added_tokens.json</span><br>		<span class="hljs-string">| config.json</span><br>		<span class="hljs-string">| pytorch_model.bin</span><br>		<span class="hljs-string">| tokenizer.json</span><br>		<span class="hljs-string">| tokenizer_config.json</span><br>		<span class="hljs-string">| special_tokens_map.json</span><br>		<span class="hljs-string">| vocab.txt</span><br>	<span class="hljs-string">| onnx</span><br>		<span class="hljs-string">| chinese-bert-wwm-ext</span><br>			<span class="hljs-string">| model.onnx</span><br>			<span class="hljs-string">| model-optimized.onnx</span><br>			<span class="hljs-string">| model-optimized-quantized.onnx</span><br></code></pre></td></tr></table></figure>
@@ -409,7 +422,7 @@
     
 
     
-      <a id="scroll-top-button" href="#" role="button">
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
@@ -499,6 +512,10 @@
 <!-- Plugins -->
 
 
+  <script  src="/js/local-search.js" ></script>
+
+
+
   
     <script  src="/js/img-lazyload.js" ></script>
   
@@ -509,23 +526,18 @@
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+  
 
 
 
@@ -540,7 +552,7 @@
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-      typing(title)
+        typing(title);
       
     })(window, document);
   </script>

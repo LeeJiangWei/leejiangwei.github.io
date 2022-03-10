@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
@@ -9,14 +9,21 @@
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
+  
+    <meta property="og:type" content="website">
+<meta property="og:title" content="分类">
+<meta property="og:url" content="http://example.com/categories/index.html">
+<meta property="og:site_name" content="Be Happy">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="LJW">
+<meta name="twitter:card" content="summary_large_image">
+  
   
   <title>分类 - Be Happy</title>
 
@@ -40,7 +47,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":"UA-199094373-1","gtag":"G-8SWWDR0FQC","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":"UA-199094373-1","gtag":"G-8SWWDR0FQC","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -51,8 +58,9 @@
   <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>Be Happy</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>Be Happy</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -138,13 +146,14 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
           </li>
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self">&nbsp;<i
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -187,8 +196,6 @@
 
 
 
-
-
 <div class="category-list">
   
   
@@ -209,21 +216,17 @@
         <i class="iconfont icon-articles"></i>
         <span>116</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-071fda8ffed879b16c3308d2133bac46" role="tabpanel" aria-labelledby="heading-071fda8ffed879b16c3308d2133bac46">
         
         
           
           
-  <div id="collapse-071fda8ffed879b16c3308d2133bac46" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-071fda8ffed879b16c3308d2133bac46">
+  <div class="category-post-list">
     
     
   </div>
 
           
-  <div id="collapse-071fda8ffed879b16c3308d2133bac46" class="collapse in " role="tabpanel"
-       aria-labelledby="heading-071fda8ffed879b16c3308d2133bac46">
-    
   
   
     
@@ -241,21 +244,17 @@
         <i class="iconfont icon-articles"></i>
         <span>73</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-7cd71393a6b93bd9f069b1b4c381b227" role="tabpanel" aria-labelledby="heading-7cd71393a6b93bd9f069b1b4c381b227">
         
         
           
           
-  <div id="collapse-7cd71393a6b93bd9f069b1b4c381b227" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-7cd71393a6b93bd9f069b1b4c381b227">
+  <div class="category-post-list">
     
     
   </div>
 
           
-  <div id="collapse-7cd71393a6b93bd9f069b1b4c381b227" class="collapse in " role="tabpanel"
-       aria-labelledby="heading-7cd71393a6b93bd9f069b1b4c381b227">
-    
   
   
     
@@ -273,12 +272,11 @@
         <i class="iconfont icon-articles"></i>
         <span>31</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-8c05890ac8f93d0195f884f1ff4656ec" role="tabpanel" aria-labelledby="heading-8c05890ac8f93d0195f884f1ff4656ec">
         
         
           
-  <div id="collapse-8c05890ac8f93d0195f884f1ff4656ec" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-8c05890ac8f93d0195f884f1ff4656ec">
+  <div class="category-post-list">
     
     
       
@@ -378,12 +376,11 @@
         <i class="iconfont icon-articles"></i>
         <span>11</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-302f276a934f5b3debc891512c311e91" role="tabpanel" aria-labelledby="heading-302f276a934f5b3debc891512c311e91">
         
         
           
-  <div id="collapse-302f276a934f5b3debc891512c311e91" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-302f276a934f5b3debc891512c311e91">
+  <div class="category-post-list">
     
     
       
@@ -483,12 +480,11 @@
         <i class="iconfont icon-articles"></i>
         <span>9</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-0e67d4b0e351b00f4bea9840aa6b99d7" role="tabpanel" aria-labelledby="heading-0e67d4b0e351b00f4bea9840aa6b99d7">
         
         
           
-  <div id="collapse-0e67d4b0e351b00f4bea9840aa6b99d7" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-0e67d4b0e351b00f4bea9840aa6b99d7">
+  <div class="category-post-list">
     
     
       
@@ -575,12 +571,11 @@
         <i class="iconfont icon-articles"></i>
         <span>9</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-a4e8418ea998f46ddeefbe0137282c71" role="tabpanel" aria-labelledby="heading-a4e8418ea998f46ddeefbe0137282c71">
         
         
           
-  <div id="collapse-a4e8418ea998f46ddeefbe0137282c71" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-a4e8418ea998f46ddeefbe0137282c71">
+  <div class="category-post-list">
     
     
       
@@ -667,12 +662,11 @@
         <i class="iconfont icon-articles"></i>
         <span>7</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-588d2d4fc8187960de414a0588bf5b5a" role="tabpanel" aria-labelledby="heading-588d2d4fc8187960de414a0588bf5b5a">
         
         
           
-  <div id="collapse-588d2d4fc8187960de414a0588bf5b5a" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-588d2d4fc8187960de414a0588bf5b5a">
+  <div class="category-post-list">
     
     
       
@@ -745,12 +739,11 @@
         <i class="iconfont icon-articles"></i>
         <span>5</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-777cc60e866fff12295e870743c02771" role="tabpanel" aria-labelledby="heading-777cc60e866fff12295e870743c02771">
         
         
           
-  <div id="collapse-777cc60e866fff12295e870743c02771" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-777cc60e866fff12295e870743c02771">
+  <div class="category-post-list">
     
     
       
@@ -809,12 +802,11 @@
         <i class="iconfont icon-articles"></i>
         <span>1</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-70a5e3376595f078d7d2cbd844842eac" role="tabpanel" aria-labelledby="heading-70a5e3376595f078d7d2cbd844842eac">
         
         
           
-  <div id="collapse-70a5e3376595f078d7d2cbd844842eac" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-70a5e3376595f078d7d2cbd844842eac">
+  <div class="category-post-list">
     
     
       
@@ -830,8 +822,6 @@
       </div>
     </div>
   
-  </div>
-
         
       </div>
     </div>
@@ -851,21 +841,17 @@
         <i class="iconfont icon-articles"></i>
         <span>31</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-368cf862597698b51fc763fb64656241" role="tabpanel" aria-labelledby="heading-368cf862597698b51fc763fb64656241">
         
         
           
           
-  <div id="collapse-368cf862597698b51fc763fb64656241" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-368cf862597698b51fc763fb64656241">
+  <div class="category-post-list">
     
     
   </div>
 
           
-  <div id="collapse-368cf862597698b51fc763fb64656241" class="collapse in " role="tabpanel"
-       aria-labelledby="heading-368cf862597698b51fc763fb64656241">
-    
   
   
     
@@ -883,12 +869,11 @@
         <i class="iconfont icon-articles"></i>
         <span>11</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-0e67d4b0e351b00f4bea9840aa6b99d7" role="tabpanel" aria-labelledby="heading-0e67d4b0e351b00f4bea9840aa6b99d7">
         
         
           
-  <div id="collapse-0e67d4b0e351b00f4bea9840aa6b99d7" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-0e67d4b0e351b00f4bea9840aa6b99d7">
+  <div class="category-post-list">
     
     
       
@@ -988,12 +973,11 @@
         <i class="iconfont icon-articles"></i>
         <span>8</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-cc4dd1da7e1a754534215f02fb9ba85d" role="tabpanel" aria-labelledby="heading-cc4dd1da7e1a754534215f02fb9ba85d">
         
         
           
-  <div id="collapse-cc4dd1da7e1a754534215f02fb9ba85d" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-cc4dd1da7e1a754534215f02fb9ba85d">
+  <div class="category-post-list">
     
     
       
@@ -1073,12 +1057,11 @@
         <i class="iconfont icon-articles"></i>
         <span>6</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-777cc60e866fff12295e870743c02771" role="tabpanel" aria-labelledby="heading-777cc60e866fff12295e870743c02771">
         
         
           
-  <div id="collapse-777cc60e866fff12295e870743c02771" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-777cc60e866fff12295e870743c02771">
+  <div class="category-post-list">
     
     
       
@@ -1144,12 +1127,11 @@
         <i class="iconfont icon-articles"></i>
         <span>5</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-302f276a934f5b3debc891512c311e91" role="tabpanel" aria-labelledby="heading-302f276a934f5b3debc891512c311e91">
         
         
           
-  <div id="collapse-302f276a934f5b3debc891512c311e91" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-302f276a934f5b3debc891512c311e91">
+  <div class="category-post-list">
     
     
       
@@ -1208,12 +1190,11 @@
         <i class="iconfont icon-articles"></i>
         <span>1</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-76d27fec595b89a45a3ae4538e4b3a21" role="tabpanel" aria-labelledby="heading-76d27fec595b89a45a3ae4538e4b3a21">
         
         
           
-  <div id="collapse-76d27fec595b89a45a3ae4538e4b3a21" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-76d27fec595b89a45a3ae4538e4b3a21">
+  <div class="category-post-list">
     
     
       
@@ -1229,8 +1210,6 @@
       </div>
     </div>
   
-  </div>
-
         
       </div>
     </div>
@@ -1250,12 +1229,11 @@
         <i class="iconfont icon-articles"></i>
         <span>12</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-9e196af818287ac7458d9cf8a0a9bb76" role="tabpanel" aria-labelledby="heading-9e196af818287ac7458d9cf8a0a9bb76">
         
         
           
-  <div id="collapse-9e196af818287ac7458d9cf8a0a9bb76" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-9e196af818287ac7458d9cf8a0a9bb76">
+  <div class="category-post-list">
     
     
       
@@ -1340,8 +1318,6 @@
       </div>
     </div>
   
-  </div>
-
         
       </div>
     </div>
@@ -1361,12 +1337,11 @@
         <i class="iconfont icon-articles"></i>
         <span>6</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-8936f53b23e9dfe2965d9e2ec23a4779" role="tabpanel" aria-labelledby="heading-8936f53b23e9dfe2965d9e2ec23a4779">
         
         
           
-  <div id="collapse-8936f53b23e9dfe2965d9e2ec23a4779" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-8936f53b23e9dfe2965d9e2ec23a4779">
+  <div class="category-post-list">
     
     
       
@@ -1432,21 +1407,17 @@
         <i class="iconfont icon-articles"></i>
         <span>6</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-3bf8a523aea21a3a0f6c53b0f43429bb" role="tabpanel" aria-labelledby="heading-3bf8a523aea21a3a0f6c53b0f43429bb">
         
         
           
           
-  <div id="collapse-3bf8a523aea21a3a0f6c53b0f43429bb" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-3bf8a523aea21a3a0f6c53b0f43429bb">
+  <div class="category-post-list">
     
     
   </div>
 
           
-  <div id="collapse-3bf8a523aea21a3a0f6c53b0f43429bb" class="collapse in " role="tabpanel"
-       aria-labelledby="heading-3bf8a523aea21a3a0f6c53b0f43429bb">
-    
   
   
     
@@ -1464,12 +1435,11 @@
         <i class="iconfont icon-articles"></i>
         <span>4</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-5f075ae3e1f9d0382bb8c4632991f96f" role="tabpanel" aria-labelledby="heading-5f075ae3e1f9d0382bb8c4632991f96f">
         
         
           
-  <div id="collapse-5f075ae3e1f9d0382bb8c4632991f96f" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-5f075ae3e1f9d0382bb8c4632991f96f">
+  <div class="category-post-list">
     
     
       
@@ -1521,12 +1491,11 @@
         <i class="iconfont icon-articles"></i>
         <span>2</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-f6f87c9fdcf8b3c3f07f93f1ee8712c9" role="tabpanel" aria-labelledby="heading-f6f87c9fdcf8b3c3f07f93f1ee8712c9">
         
         
           
-  <div id="collapse-f6f87c9fdcf8b3c3f07f93f1ee8712c9" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-f6f87c9fdcf8b3c3f07f93f1ee8712c9">
+  <div class="category-post-list">
     
     
       
@@ -1549,8 +1518,6 @@
       </div>
     </div>
   
-  </div>
-
         
       </div>
     </div>
@@ -1570,12 +1537,11 @@
         <i class="iconfont icon-articles"></i>
         <span>3</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-2bd3ad4f5cb752ef52ac0ddd4304fb01" role="tabpanel" aria-labelledby="heading-2bd3ad4f5cb752ef52ac0ddd4304fb01">
         
         
           
-  <div id="collapse-2bd3ad4f5cb752ef52ac0ddd4304fb01" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-2bd3ad4f5cb752ef52ac0ddd4304fb01">
+  <div class="category-post-list">
     
     
       
@@ -1620,21 +1586,17 @@
         <i class="iconfont icon-articles"></i>
         <span>2</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-85587c49afa2ea2adacd4bbcdb57d064" role="tabpanel" aria-labelledby="heading-85587c49afa2ea2adacd4bbcdb57d064">
         
         
           
           
-  <div id="collapse-85587c49afa2ea2adacd4bbcdb57d064" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-85587c49afa2ea2adacd4bbcdb57d064">
+  <div class="category-post-list">
     
     
   </div>
 
           
-  <div id="collapse-85587c49afa2ea2adacd4bbcdb57d064" class="collapse in " role="tabpanel"
-       aria-labelledby="heading-85587c49afa2ea2adacd4bbcdb57d064">
-    
   
   
     
@@ -1652,12 +1614,11 @@
         <i class="iconfont icon-articles"></i>
         <span>2</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-48efbb839d43a1c18f895f73030eb309" role="tabpanel" aria-labelledby="heading-48efbb839d43a1c18f895f73030eb309">
         
         
           
-  <div id="collapse-48efbb839d43a1c18f895f73030eb309" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-48efbb839d43a1c18f895f73030eb309">
+  <div class="category-post-list">
     
     
       
@@ -1680,8 +1641,6 @@
       </div>
     </div>
   
-  </div>
-
         
       </div>
     </div>
@@ -1701,12 +1660,11 @@
         <i class="iconfont icon-articles"></i>
         <span>1</span>
       </a>
-      <div class="category-collapse">
+      <div class="category-collapse collapse" id="collapse-206e3718af092fd1d12f80cae771ccac" role="tabpanel" aria-labelledby="heading-206e3718af092fd1d12f80cae771ccac">
         
         
           
-  <div id="collapse-206e3718af092fd1d12f80cae771ccac" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-206e3718af092fd1d12f80cae771ccac">
+  <div class="category-post-list">
     
     
       
@@ -1732,7 +1690,7 @@
     
 
     
-      <a id="scroll-top-button" href="#" role="button">
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
@@ -1822,6 +1780,10 @@
 <!-- Plugins -->
 
 
+  <script  src="/js/local-search.js" ></script>
+
+
+
   
     <script  src="/js/img-lazyload.js" ></script>
   
@@ -1831,18 +1793,6 @@
   
 
 
-
-
-
-
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
 
 
 
@@ -1857,7 +1807,7 @@
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-      typing(title)
+        typing(title);
       
     })(window, document);
   </script>
