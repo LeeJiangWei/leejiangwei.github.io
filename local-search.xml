@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指 Offer 56. 数组中数字出现的次数</title>
+    <link href="/leetcode/jian-zhi-offer/56/"/>
+    <url>/leetcode/jian-zhi-offer/56/</url>
+    
+    <content type="html"><![CDATA[<h1 id="剑指-Offer-56-数组中数字出现的次数"><a href="#剑指-Offer-56-数组中数字出现的次数" class="headerlink" title="剑指 Offer 56. 数组中数字出现的次数"></a>剑指 Offer 56. 数组中数字出现的次数</h1><h2 id="剑指-Offer-56-I-数组中数字出现的次数"><a href="#剑指-Offer-56-I-数组中数字出现的次数" class="headerlink" title="剑指 Offer 56 - I. 数组中数字出现的次数"></a>剑指 Offer 56 - I. 数组中数字出现的次数</h2><p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/">https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/</a></p><p>用异或运算可以找出 1 个只出现一次的数字。而如果这样的数字有 2 个，异或运算的结果就是它们俩异或的结果。</p><p>根据他们俩异或的结果，从右开始找到第一位不相同的数字，用这一位数字为 0 或 1 就能将整个数组分成两半，同时这两个只出现了一次的数也被分开了。</p><p>再次循环判断数组，这一位为 1 的组成一组异或，为 0 的组成另一组异或，得到的结果就是这两个只出现了一次的数。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">singleNumbers</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> []<span class="hljs-title">int</span></span> &#123;<br>    res, index := <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> _, n := <span class="hljs-keyword">range</span> nums &#123;<br>        res ^= n<br>    &#125;<br><br>    <span class="hljs-comment">//  检查这两个只出现一次的数从哪一位开始不同</span><br>    <span class="hljs-keyword">for</span> res &amp; <span class="hljs-number">1</span> == <span class="hljs-number">0</span> &#123;<br>        index ++<br>        res &gt;&gt;= <span class="hljs-number">1</span><br>    &#125;<br><br>    <span class="hljs-comment">// 用这不同的一位分割数组，从而分开两个只出现一次的数</span><br>    r1, r2 := <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> _, n := <span class="hljs-keyword">range</span> nums &#123;<br>        <span class="hljs-keyword">if</span> n &gt;&gt; index &amp; <span class="hljs-number">1</span> == <span class="hljs-number">0</span> &#123;<br>            r1 ^= n<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            r2 ^= n<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> []<span class="hljs-keyword">int</span>&#123;r1, r2&#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="剑指-Offer-56-II-数组中数字出现的次数-II"><a href="#剑指-Offer-56-II-数组中数字出现的次数-II" class="headerlink" title="剑指 Offer 56 - II. 数组中数字出现的次数 II"></a>剑指 Offer 56 - II. 数组中数字出现的次数 II</h2><p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/">https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/</a></p><p>如果一个数字出现 3 次，它的二进制每一位也出现的 3 次。</p><p>如果把所有的出现 3 次的数字的二进制表示的每一位都分别加起来，那么每一位都能被 3 整除。 </p><p>我们把数组中所有的数字的二进制表示的<strong>每一位都分别加起来</strong>。</p><ul><li>如果某一位能被 3 整除，那么这一位对只出现一次的那个数的这一肯定为 0。</li><li>如果某一位不能被3整除，那么只出现一次的那个数字的该位置一定为 1。</li></ul><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">singleNumber</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    digitsSum := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">32</span>) <span class="hljs-comment">// 题目限制最多 32 位</span><br><br>    <span class="hljs-comment">// 统计每一位的出现次数</span><br>    <span class="hljs-keyword">for</span> _, n := <span class="hljs-keyword">range</span> nums &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-keyword">range</span> digitsSum &#123;<br>            digitsSum[j] += (n &gt;&gt; j) &amp; <span class="hljs-number">1</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 每一位的和都整除 3，哪一位不能整除，则说明只出现一次的数字这一位为 1</span><br>    res := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">31</span>; i &gt;= <span class="hljs-number">0</span>; i-- &#123;<br>        res = res &lt;&lt; <span class="hljs-number">1</span><br>        <span class="hljs-keyword">if</span> digitsSum[i] % <span class="hljs-number">3</span> == <span class="hljs-number">1</span> &#123;<br>            res |= <span class="hljs-number">1</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>剑指 Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 51. 数组中的逆序对</title>
     <link href="/leetcode/jian-zhi-offer/51/"/>
     <url>/leetcode/jian-zhi-offer/51/</url>
