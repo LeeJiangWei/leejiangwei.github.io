@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>剑指 Offer 59 - II. 滑动窗口的最大值</title>
+    <link href="/leetcode/jian-zhi-offer/59ii/"/>
+    <url>/leetcode/jian-zhi-offer/59ii/</url>
+    
+    <content type="html"><![CDATA[<h1 id="剑指-Offer-59-II-队列的最大值"><a href="#剑指-Offer-59-II-队列的最大值" class="headerlink" title="剑指 Offer 59 - II. 队列的最大值"></a>剑指 Offer 59 - II. 队列的最大值</h1><p><a href="https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/">https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/</a></p><p>类似与最小栈，首先为了实现队列的功能要维护一个普通的队列，而在最大元素出队时需要知道第二大的元素，因此还需要维护一个 <strong>非严格递减</strong> 的单调队列。</p><p>如果进来了一个较大的元素，由于先进队的元素会先出队，则前面所有比它小的元素都不可能是最大值，可以直接将它们删除而不影响结果。</p><figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> MaxQueue <span class="hljs-keyword">struct</span> &#123;<br>    queue []<span class="hljs-keyword">int</span><br>    descQ []<span class="hljs-keyword">int</span>  <span class="hljs-comment">// 非严格递减队列</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">MaxQueue</span></span> &#123;<br>    <span class="hljs-keyword">return</span> MaxQueue&#123;<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>), <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)&#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MaxQueue)</span> <span class="hljs-title">Max_value</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(this.descQ)<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> this.descQ[<span class="hljs-number">0</span>]<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MaxQueue)</span> <span class="hljs-title">Push_back</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>    this.queue = <span class="hljs-built_in">append</span>(this.queue, value)<br><br>    <span class="hljs-comment">// 将单调队列中比新值大的元素都踢出</span><br>    <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(this.descQ) &gt; <span class="hljs-number">0</span> &amp;&amp; this.descQ[<span class="hljs-built_in">len</span>(this.descQ)<span class="hljs-number">-1</span>] &lt; value &#123;<br>            this.descQ = this.descQ[:<span class="hljs-built_in">len</span>(this.descQ)<span class="hljs-number">-1</span>]<br>    &#125;<br>    this.descQ = <span class="hljs-built_in">append</span>(this.descQ, value)<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MaxQueue)</span> <span class="hljs-title">Pop_front</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(this.queue) == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>    &#125;<br><br>    res := this.queue[<span class="hljs-number">0</span>]<br>    this.queue = this.queue[<span class="hljs-number">1</span>:]<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(this.descQ) &gt; <span class="hljs-number">0</span> &amp;&amp; res == this.descQ[<span class="hljs-number">0</span>] &#123;<br>        this.descQ = this.descQ[<span class="hljs-number">1</span>:]<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>剑指 Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 59 - I. 滑动窗口的最大值</title>
     <link href="/leetcode/jian-zhi-offer/59i/"/>
     <url>/leetcode/jian-zhi-offer/59i/</url>

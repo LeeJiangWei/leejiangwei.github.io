@@ -16,24 +16,23 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-    <meta name="description" content="完全二叉树的节点个数https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;count-complete-tree-nodes&#x2F; 完全二叉树有个重要的特点：一棵完全二叉树的两棵子树，至少有一棵是满二叉树  计算满二叉树的节点个数并不需要遍历所有节点，只需要得知它的深度，直接计算即可。 这段代码先把左右子树都当作满树计算，如果不满足条件再递归到左右子树。 12345678910111213">
+    <meta name="description" content="剑指 Offer 59 - II. 队列的最大值https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;dui-lie-de-zui-da-zhi-lcof&#x2F; 类似与最小栈，首先为了实现队列的功能要维护一个普通的队列，而在最大元素出队时需要知道第二大的元素，因此还需要维护一个 非严格递减 的单调队列。 如果进来了一个较大的元素，由于先进队的元素会先出队，则前面所有比它小的元素都不可能是最">
 <meta property="og:type" content="article">
-<meta property="og:title" content="完全二叉树的节点个数">
-<meta property="og:url" content="http://example.com/leetcode/fucking-algorithm/count-complete-tree-nodes/index.html">
+<meta property="og:title" content="剑指 Offer 59 - II. 滑动窗口的最大值">
+<meta property="og:url" content="http://example.com/leetcode/jian-zhi-offer/59ii/index.html">
 <meta property="og:site_name" content="Be Happy">
-<meta property="og:description" content="完全二叉树的节点个数https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;count-complete-tree-nodes&#x2F; 完全二叉树有个重要的特点：一棵完全二叉树的两棵子树，至少有一棵是满二叉树  计算满二叉树的节点个数并不需要遍历所有节点，只需要得知它的深度，直接计算即可。 这段代码先把左右子树都当作满树计算，如果不满足条件再递归到左右子树。 12345678910111213">
+<meta property="og:description" content="剑指 Offer 59 - II. 队列的最大值https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;dui-lie-de-zui-da-zhi-lcof&#x2F; 类似与最小栈，首先为了实现队列的功能要维护一个普通的队列，而在最大元素出队时需要知道第二大的元素，因此还需要维护一个 非严格递减 的单调队列。 如果进来了一个较大的元素，由于先进队的元素会先出队，则前面所有比它小的元素都不可能是最">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/code.jpg">
-<meta property="article:published_time" content="2022-02-21T02:44:09.000Z">
-<meta property="article:modified_time" content="2022-03-11T10:46:27.672Z">
+<meta property="article:published_time" content="2022-03-11T10:40:29.000Z">
+<meta property="article:modified_time" content="2022-03-11T10:46:27.676Z">
 <meta property="article:author" content="LJW">
 <meta property="article:tag" content="Go">
-<meta property="article:tag" content="二叉树">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/img/code.jpg">
   
   
-  <title>完全二叉树的节点个数 - Be Happy</title>
+  <title>剑指 Offer 59 - II. 滑动窗口的最大值 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -191,7 +190,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="完全二叉树的节点个数">
+            <span class="h2" id="subtitle" title="剑指 Offer 59 - II. 滑动窗口的最大值">
               
             </span>
 
@@ -201,8 +200,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-21 10:44" pubdate>
-        2022年2月21日 上午
+      <time datetime="2022-03-11 18:40" pubdate>
+        2022年3月11日 晚上
       </time>
     </span>
   
@@ -212,7 +211,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      548 字
+      1k 字
     </span>
   
 
@@ -221,7 +220,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5 分钟
+      9 分钟
     </span>
   
 
@@ -258,18 +257,13 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">完全二叉树的节点个数</h1>
+            <h1 style="display: none">剑指 Offer 59 - II. 滑动窗口的最大值</h1>
             
             <div class="markdown-body">
-              <h1 id="完全二叉树的节点个数"><a href="#完全二叉树的节点个数" class="headerlink" title="完全二叉树的节点个数"></a>完全二叉树的节点个数</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/count-complete-tree-nodes/">https://leetcode-cn.com/problems/count-complete-tree-nodes/</a></p>
-<p>完全二叉树有个重要的特点：<strong>一棵完全二叉树的两棵子树，至少有一棵是满二叉树</strong></p>
-<p><img src="https://labuladong.gitee.io/algo/images/complete_tree/1.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>计算满二叉树的节点个数并不需要遍历所有节点，只需要得知它的深度，直接计算即可。</p>
-<p>这段代码先把左右子树都当作满树计算，如果不满足条件再递归到左右子树。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">countNodes</span><span class="hljs-params">(root *TreeNode)</span> <span class="hljs-title">int</span></span> &#123;<br>    l, r := root, root<br>    hl, hr := <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> l != <span class="hljs-literal">nil</span> &#123;<br>        l = l.Left<br>        hl += <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">for</span> r != <span class="hljs-literal">nil</span> &#123;<br>        r = r.Right<br>        hr += <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> hl == hr &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">int</span>(math.Pow(<span class="hljs-number">2.0</span>, <span class="hljs-keyword">float64</span>(hr))) - <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> + countNodes(root.Left) + countNodes(root.Right)<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>算法的递归深度就是树的高度 O(logN)，每次递归所花费的时间就是 while 循环，需要 O(logN)，所以总体的时间复杂度是 O(logN*logN)。</p>
-<p>如果是普通二叉树，遍历一遍的时间复杂度是 O(N)。</p>
+              <h1 id="剑指-Offer-59-II-队列的最大值"><a href="#剑指-Offer-59-II-队列的最大值" class="headerlink" title="剑指 Offer 59 - II. 队列的最大值"></a>剑指 Offer 59 - II. 队列的最大值</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/">https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/</a></p>
+<p>类似与最小栈，首先为了实现队列的功能要维护一个普通的队列，而在最大元素出队时需要知道第二大的元素，因此还需要维护一个 <strong>非严格递减</strong> 的单调队列。</p>
+<p>如果进来了一个较大的元素，由于先进队的元素会先出队，则前面所有比它小的元素都不可能是最大值，可以直接将它们删除而不影响结果。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> MaxQueue <span class="hljs-keyword">struct</span> &#123;<br>    queue []<span class="hljs-keyword">int</span><br>    descQ []<span class="hljs-keyword">int</span>  <span class="hljs-comment">// 非严格递减队列</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">()</span> <span class="hljs-title">MaxQueue</span></span> &#123;<br>    <span class="hljs-keyword">return</span> MaxQueue&#123;<span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>), <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)&#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MaxQueue)</span> <span class="hljs-title">Max_value</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(this.descQ)<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> this.descQ[<span class="hljs-number">0</span>]<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MaxQueue)</span> <span class="hljs-title">Push_back</span><span class="hljs-params">(value <span class="hljs-keyword">int</span>)</span></span>  &#123;<br>    this.queue = <span class="hljs-built_in">append</span>(this.queue, value)<br><br>    <span class="hljs-comment">// 将单调队列中比新值大的元素都踢出</span><br>    <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(this.descQ) &gt; <span class="hljs-number">0</span> &amp;&amp; this.descQ[<span class="hljs-built_in">len</span>(this.descQ)<span class="hljs-number">-1</span>] &lt; value &#123;<br>            this.descQ = this.descQ[:<span class="hljs-built_in">len</span>(this.descQ)<span class="hljs-number">-1</span>]<br>    &#125;<br>    this.descQ = <span class="hljs-built_in">append</span>(this.descQ, value)<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *MaxQueue)</span> <span class="hljs-title">Pop_front</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(this.queue) == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>    &#125;<br><br>    res := this.queue[<span class="hljs-number">0</span>]<br>    this.queue = this.queue[<span class="hljs-number">1</span>:]<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(this.descQ) &gt; <span class="hljs-number">0</span> &amp;&amp; res == this.descQ[<span class="hljs-number">0</span>] &#123;<br>        this.descQ = this.descQ[<span class="hljs-number">1</span>:]<br>    &#125;<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -281,9 +275,7 @@
                     
                       <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/">Fucking</a>
-                    
-                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/%E6%A0%91/">树</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%89%91%E6%8C%87-Offer/">剑指 Offer</a>
                     
                   </div>
                 
@@ -292,8 +284,6 @@
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/Go/">Go</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
                     
                   </div>
                 
@@ -304,18 +294,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/array-prefix-sum/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">小而美的算法技巧：前缀和数组</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/lowest-common-ancestor-of-a-binary-tree/">
-                        <span class="hidden-mobile">二叉树的最近公共祖先</span>
+                      <a href="/leetcode/jian-zhi-offer/59i/">
+                        <span class="hidden-mobile">剑指 Offer 59 - I. 滑动窗口的最大值</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
