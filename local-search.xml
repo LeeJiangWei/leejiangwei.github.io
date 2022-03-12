@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>剑指 Offer 60. n个骰子的点数</title>
+    <link href="/leetcode/jian-zhi-offer/60/"/>
+    <url>/leetcode/jian-zhi-offer/60/</url>
+    
+    <content type="html"><![CDATA[<h1 id="剑指-Offer-60-n个骰子的点数"><a href="#剑指-Offer-60-n个骰子的点数" class="headerlink" title="剑指 Offer 60. n个骰子的点数"></a>剑指 Offer 60. n个骰子的点数</h1><p><a href="https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof/">https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof/</a></p><p>动态规划：由于每个骰子是独立的，且扔第 N 个骰子得到的点数和与 N-1 个有关，可以考虑用动态规划完成。</p><blockquote><p>假设已知 <code>n - 1</code> 个骰子的解 <code>f(n - 1)</code>，此时添加一枚骰子，求 <code>n</code> 个骰子的点数和为 <code>x</code> 的概率 <code>f(n, x)</code>。</p></blockquote><p>当添加的第 <code>n</code> 个骰子点数为 1，为了凑成 <code>x</code>，前面 <code>n - 1</code> 个的点数和就要是 <code>x - 1</code>。同理，当此骰子为 2 时，前 <code>n - 1</code> 个骰子应为 <code>x - 2 </code>。</p><p>因此，第 <code>n</code> 个骰子点数和就是第投出它本身的点数的概率（都是 1&#x2F;6）乘以第 <code>n - 1</code> 个骰子的概率。即：</p><p>$ f(n, x) &#x3D; ∑_i^6 1&#x2F;6 * f(n - 1, x - i) $</p><p>得到递推公式即可写出 DP，从底向上构建比较方便。遍历每个 <code>f(n - 1, j)</code>，统计它对 <code>f(n, j + i)</code>（i&#x3D;1..6）的贡献。</p><figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">dicesProbability</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> []<span class="hljs-title">float64</span></span> &#123;<br>    dp := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">float64</span>, <span class="hljs-number">6</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-number">1.0</span> / <span class="hljs-number">6</span><br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">2</span>; i &lt;= n; i++ &#123;<br>        tmp := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">float64</span>, <span class="hljs-number">5</span>*i+<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-keyword">range</span> dp &#123;<br>            <span class="hljs-keyword">for</span> k := <span class="hljs-number">0</span>; k &lt; <span class="hljs-number">6</span>; k++ &#123;<br>                tmp[j+k] += dp[j] / <span class="hljs-number">6</span><br>            &#125;<br>        &#125;<br>        dp = tmp<br>    &#125;<br>    <span class="hljs-keyword">return</span> dp<br>&#125;<br></code></pre></td></tr></table></figure><p>由于数组是有偏移量的，所以 k 的索引是从 0 开始的。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>剑指 Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 59 - II. 滑动窗口的最大值</title>
     <link href="/leetcode/jian-zhi-offer/59ii/"/>
     <url>/leetcode/jian-zhi-offer/59ii/</url>
