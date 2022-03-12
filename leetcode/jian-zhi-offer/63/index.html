@@ -16,16 +16,16 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-    <meta name="description" content="零钱兑换https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;coin-change&#x2F; 带备忘录的递归1234567891011121314151617181920212223242526272829303132333435363738394041424344func coinChange(coins []int, amount int) int &amp;#123;    dict :&#x3D; m">
+    <meta name="description" content="剑指 Offer 63. 股票的最大利润https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;gu-piao-de-zui-da-li-run-lcof&#x2F; 类似与 最大子数组和，不需要关心买入状态。由于只能买卖一次，只需要知道当前第 n 天，是今天卖出利润高，或是前 n - 1 天的利润高。如果是今天卖出，就要知道前 n - 1 天中的最小价格，用一个变量记录即可。 123456789">
 <meta property="og:type" content="article">
-<meta property="og:title" content="零钱兑换">
-<meta property="og:url" content="http://example.com/leetcode/fucking-algorithm/coin-change/index.html">
+<meta property="og:title" content="剑指 Offer 63. 股票的最大利润">
+<meta property="og:url" content="http://example.com/leetcode/jian-zhi-offer/63/index.html">
 <meta property="og:site_name" content="Be Happy">
-<meta property="og:description" content="零钱兑换https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;coin-change&#x2F; 带备忘录的递归1234567891011121314151617181920212223242526272829303132333435363738394041424344func coinChange(coins []int, amount int) int &amp;#123;    dict :&#x3D; m">
+<meta property="og:description" content="剑指 Offer 63. 股票的最大利润https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;gu-piao-de-zui-da-li-run-lcof&#x2F; 类似与 最大子数组和，不需要关心买入状态。由于只能买卖一次，只需要知道当前第 n 天，是今天卖出利润高，或是前 n - 1 天的利润高。如果是今天卖出，就要知道前 n - 1 天中的最小价格，用一个变量记录即可。 123456789">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/code.jpg">
-<meta property="article:published_time" content="2022-02-09T09:45:35.000Z">
-<meta property="article:modified_time" content="2022-03-12T07:13:52.903Z">
+<meta property="article:published_time" content="2022-03-12T07:09:37.000Z">
+<meta property="article:modified_time" content="2022-03-12T07:13:52.907Z">
 <meta property="article:author" content="LJW">
 <meta property="article:tag" content="Go">
 <meta property="article:tag" content="动态规划">
@@ -33,7 +33,7 @@
 <meta name="twitter:image" content="http://example.com/img/code.jpg">
   
   
-  <title>零钱兑换 - Be Happy</title>
+  <title>剑指 Offer 63. 股票的最大利润 - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -191,7 +191,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="零钱兑换">
+            <span class="h2" id="subtitle" title="剑指 Offer 63. 股票的最大利润">
               
             </span>
 
@@ -201,8 +201,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-09 17:45" pubdate>
-        2022年2月9日 下午
+      <time datetime="2022-03-12 15:09" pubdate>
+        2022年3月12日 下午
       </time>
     </span>
   
@@ -212,7 +212,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      502 字
     </span>
   
 
@@ -221,7 +221,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11 分钟
+      5 分钟
     </span>
   
 
@@ -258,15 +258,12 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">零钱兑换</h1>
+            <h1 style="display: none">剑指 Offer 63. 股票的最大利润</h1>
             
             <div class="markdown-body">
-              <h1 id="零钱兑换"><a href="#零钱兑换" class="headerlink" title="零钱兑换"></a>零钱兑换</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/coin-change/">https://leetcode-cn.com/problems/coin-change/</a></p>
-<h2 id="带备忘录的递归"><a href="#带备忘录的递归" class="headerlink" title="带备忘录的递归"></a>带备忘录的递归</h2><figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">coinChange</span><span class="hljs-params">(coins []<span class="hljs-keyword">int</span>, amount <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    dict := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>)<br>    <span class="hljs-keyword">return</span> dp(dict, coins, amount)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">dp</span><span class="hljs-params">(memo <span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>, coins[]<span class="hljs-keyword">int</span>, amount <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// base case</span><br>    <span class="hljs-keyword">if</span> amount &lt; <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>    &#125;<br>    <span class="hljs-keyword">if</span> amount == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br><br>    <span class="hljs-comment">// check memory if exists</span><br>    <span class="hljs-keyword">if</span> val, ok := memo[amount]; ok &#123;<br>        <span class="hljs-keyword">return</span> val<br>    &#125;<br><br>    res := math.MaxInt16<br><br>    <span class="hljs-keyword">for</span> _, coin := <span class="hljs-keyword">range</span> coins &#123;<br>        subproblem := dp(memo, coins, amount - coin)<br>        <span class="hljs-keyword">if</span> subproblem == <span class="hljs-number">-1</span> &#123;<br>            <span class="hljs-keyword">continue</span><br>        &#125;<br>        res = min(res, <span class="hljs-number">1</span> + subproblem)<br>    &#125;<br>    <br>    <span class="hljs-keyword">if</span> res == math.MaxInt16 &#123;<br>        res = <span class="hljs-number">-1</span><br>    &#125;<br><br>    memo[amount] = res<br>    <span class="hljs-keyword">return</span> res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(a <span class="hljs-keyword">int</span>, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &lt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> b<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>直接构建 DP 数组：<br><code>dp[i]</code> 表示数额为 i 时要的最少硬币个数。数组的索引就是变量，储存的值是需要计算的值。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">coinChange</span><span class="hljs-params">(coins []<span class="hljs-keyword">int</span>, amount <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// init</span><br>    dp := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, amount + <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i, _ := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = math.MaxInt16<br>    &#125;<br><br>    <span class="hljs-comment">// base case</span><br>    dp[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">for</span> i, _ := <span class="hljs-keyword">range</span> dp &#123;<br>        <span class="hljs-keyword">for</span> _, coin := <span class="hljs-keyword">range</span> coins &#123;<br>            <span class="hljs-comment">// no solution</span><br>            <span class="hljs-keyword">if</span> i - coin &lt; <span class="hljs-number">0</span> &#123;<br>                <span class="hljs-keyword">continue</span><br>            &#125;<br>            dp[i] = min(dp[i], <span class="hljs-number">1</span> + dp[i - coin])<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> dp[amount] == math.MaxInt16 &#123;<br>        <span class="hljs-keyword">return</span> - <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> dp[amount]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(a <span class="hljs-keyword">int</span>, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &lt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> b<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+              <h1 id="剑指-Offer-63-股票的最大利润"><a href="#剑指-Offer-63-股票的最大利润" class="headerlink" title="剑指 Offer 63. 股票的最大利润"></a>剑指 Offer 63. 股票的最大利润</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/">https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/</a></p>
+<p>类似与 <a target="_blank" rel="noopener" href="https://blog.gentlecomet.com/leetcode/fucking-algorithm/maximum-subarray/">最大子数组和</a>，不需要关心买入状态。由于只能买卖一次，只需要知道当前第 n 天，是今天卖出利润高，或是前 n - 1 天的利润高。如果是今天卖出，就要知道前 n - 1 天中的最小价格，用一个变量记录即可。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(prices []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(prices)<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br>    pastMax := <span class="hljs-number">0</span><br>    min := prices[<span class="hljs-number">0</span>]<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; n; i++ &#123;<br>        pastMax = max(pastMax, prices[i] - min)<br>        <span class="hljs-keyword">if</span> prices[i] &lt; min &#123;<br>            min = prices[i]<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> pastMax<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &gt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -277,9 +274,7 @@
                     
                       <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/">Fucking</a>
-                    
-                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%89%91%E6%8C%87-Offer/">剑指 Offer</a>
                     
                   </div>
                 
@@ -300,18 +295,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/longest-increasing-subsequence/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">最长递增子序列</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/fucking-algorithm/fibonacci-number/">
-                        <span class="hidden-mobile">斐波那契数列</span>
+                      <a href="/leetcode/jian-zhi-offer/62/">
+                        <span class="hidden-mobile">剑指 Offer 62. 圆圈中最后剩下的数字</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

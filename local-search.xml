@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>剑指 Offer 63. 股票的最大利润</title>
+    <link href="/leetcode/jian-zhi-offer/63/"/>
+    <url>/leetcode/jian-zhi-offer/63/</url>
+    
+    <content type="html"><![CDATA[<h1 id="剑指-Offer-63-股票的最大利润"><a href="#剑指-Offer-63-股票的最大利润" class="headerlink" title="剑指 Offer 63. 股票的最大利润"></a>剑指 Offer 63. 股票的最大利润</h1><p><a href="https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/">https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/</a></p><p>类似与 <a href="https://blog.gentlecomet.com/leetcode/fucking-algorithm/maximum-subarray/">最大子数组和</a>，不需要关心买入状态。由于只能买卖一次，只需要知道当前第 n 天，是今天卖出利润高，或是前 n - 1 天的利润高。如果是今天卖出，就要知道前 n - 1 天中的最小价格，用一个变量记录即可。</p><figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(prices []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    n := <span class="hljs-built_in">len</span>(prices)<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    &#125;<br>    pastMax := <span class="hljs-number">0</span><br>    min := prices[<span class="hljs-number">0</span>]<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; n; i++ &#123;<br>        pastMax = max(pastMax, prices[i] - min)<br>        <span class="hljs-keyword">if</span> prices[i] &lt; min &#123;<br>            min = prices[i]<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> pastMax<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">max</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> a &gt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>剑指 Offer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>动态规划</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>剑指 Offer 62. 圆圈中最后剩下的数字</title>
     <link href="/leetcode/jian-zhi-offer/62/"/>
     <url>/leetcode/jian-zhi-offer/62/</url>
