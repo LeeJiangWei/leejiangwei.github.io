@@ -76,9 +76,10 @@ func main() {
 		maxSum_i2right[i] = max(maxSum_i2right[i+1], maxSumEndWith_i)
 	}
 
+	// 遍历所有可能的 i 找出最大值
 	res := 0
 	for i := 0; i < n; i++ {
-		res = max(res, maxSum_left2i[i]+maxSum_i2right[i])
+		res = max(res, maxSum_left2i[i] + maxSum_i2right[i])
 	}
 
 	fmt.Println(res)
