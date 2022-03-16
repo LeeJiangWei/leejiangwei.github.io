@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/code.jpg">
 <meta property="article:published_time" content="2022-03-12T06:33:06.000Z">
-<meta property="article:modified_time" content="2022-03-15T11:45:58.732Z">
+<meta property="article:modified_time" content="2022-03-16T06:15:36.326Z">
 <meta property="article:author" content="LJW">
 <meta property="article:tag" content="Go">
 <meta property="article:tag" content="动态规划">
@@ -267,10 +267,10 @@
 <p>递推公式定义：</p>
 <p><code>f(n, m)</code> 表示环长度为 <code>n</code>，每次杀掉第 <code>m</code> 人，<strong>最后生下来的人</strong> 在 <strong>当前序列</strong> 中的 index。由于这个人是活到最后的，所以他在任何子问题 <code>f(n-i, m)</code> 中都是活着的，只不过可能因为其他人被杀掉所以他 index 变了，且在 <code>f(0, m)</code> 中他的序号是 0（唯一活着的人）。</p>
 <p>问题就是怎么找出他在不同序列中序号的变化。看图：</p>
-<p><img src="https://pic.leetcode-cn.com/d7768194055df1c3d3f6b503468704606134231de62b4ea4b9bdeda7c58232f4-%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://s2.loli.net/2022/03/16/n6esXPzqUHgoDhv.png" srcset="/img/loading.gif" lazyload></p>
 <p>观察 N &#x3D; 8 和 N &#x3D; 7 的变化，N &#x3D; 8 时，这个人的序号是 6，而 N &#x3D; 7 时变成了 3。</p>
 <p>首先考虑怎么将 N &#x3D; 7 时的序列复原回 N &#x3D; 8 时的样子。观察发现，将被杀掉 C 加回末尾，然后令数组顺时针旋转 3 格，就得到了原来的序列。如何表示这个变化呢？看图：</p>
-<p><img src="https://pic.leetcode-cn.com/68509352d82d4a19678ed67a5bde338f86c7d0da730e3a69546f6fa61fb0063c-%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://s2.loli.net/2022/03/16/Wwk5czPgnSa9LtF.png" srcset="/img/loading.gif" lazyload></p>
 <p>至此，递归公式已被找出，可以直接从 0 开始推起。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">lastRemaining</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>, m <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    pos := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">2</span>; i &lt;= n; i++ &#123;<br>        pos = (pos + m) % i<br>    &#125;<br>    <span class="hljs-keyword">return</span> pos<br>&#125;<br></code></pre></td></tr></table></figure>
 
