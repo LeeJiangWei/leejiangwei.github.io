@@ -1,5 +1,5 @@
 ---
-title: 小而美的算法技巧：差分数组
+title: 目标和
 categories:
   - LeetCode
   - Fucking
