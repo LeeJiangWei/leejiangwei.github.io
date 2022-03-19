@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>分治法</title>
+    <link href="/leetcode/fucking-algorithm/divide-and-conquer/"/>
+    <url>/leetcode/fucking-algorithm/divide-and-conquer/</url>
+    
+    <content type="html"><![CDATA[<h1 id="分治法"><a href="#分治法" class="headerlink" title="分治法"></a>分治法</h1><p><a href="https://labuladong.gitee.io/algo/4/32/127/">https://labuladong.gitee.io/algo/4/32/127/</a></p><h2 id="为运算表达式设计优先级"><a href="#为运算表达式设计优先级" class="headerlink" title="为运算表达式设计优先级"></a>为运算表达式设计优先级</h2><p><a href="https://leetcode-cn.com/problems/different-ways-to-add-parentheses/">https://leetcode-cn.com/problems/different-ways-to-add-parentheses/</a></p><figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">diffWaysToCompute</span><span class="hljs-params">(expression <span class="hljs-keyword">string</span>)</span> []<span class="hljs-title">int</span></span> &#123;<br>    res := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)<br><br>    <span class="hljs-comment">// 遍历字符串，如果是运算符就【分】</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(expression); i++ &#123;<br>        c := expression[i]<br>        <span class="hljs-keyword">if</span> c == <span class="hljs-string">&#x27;+&#x27;</span> || c == <span class="hljs-string">&#x27;-&#x27;</span> || c == <span class="hljs-string">&#x27;*&#x27;</span> &#123;<br>            <span class="hljs-comment">// 【分】成左右两边计算可能出现的结果</span><br>            left := diffWaysToCompute(expression[:i])<br>            right := diffWaysToCompute(expression[i+<span class="hljs-number">1</span>:])<br><br>            <span class="hljs-comment">// 【治】根据返回的结果，暴力计算出所有可能的值</span><br>            <span class="hljs-keyword">for</span> _, a := <span class="hljs-keyword">range</span> left &#123;<br>                <span class="hljs-keyword">for</span> _, b := <span class="hljs-keyword">range</span> right &#123;<br>                    <span class="hljs-keyword">switch</span> c &#123;<br>                        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;+&#x27;</span>:<br>                            res = <span class="hljs-built_in">append</span>(res, a + b)<br>                        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;-&#x27;</span>:<br>                            res = <span class="hljs-built_in">append</span>(res, a - b)<br>                        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;*&#x27;</span>:<br>                            res = <span class="hljs-built_in">append</span>(res, a * b)<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// base case: expression 不包含运算符，它只是一个数字</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(res) == <span class="hljs-number">0</span> &#123;<br>        n, _ := strconv.Atoi(expression)<br>        res = <span class="hljs-built_in">append</span>(res, n)<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>动态规划</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>分治法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>目标和</title>
     <link href="/leetcode/fucking-algorithm/target-sum/"/>
     <url>/leetcode/fucking-algorithm/target-sum/</url>
