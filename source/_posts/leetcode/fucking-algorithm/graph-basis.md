@@ -21,8 +21,8 @@ https://labuladong.gitee.io/algo/2/20/38/
 需要在函数内将自己当前节点加入 `path`，否则根节点不会被记录。
 
 ```go
-visited []int
-path    []int
+visited []bool
+path    []bool
 
 func traverse(graph [][]int, curr int) {
     if visited[curr] {
