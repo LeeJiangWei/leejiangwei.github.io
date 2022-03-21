@@ -1,0 +1,574 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LJW">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="并查集（union-find）https:&#x2F;&#x2F;labuladong.gitee.io&#x2F;algo&#x2F;2&#x2F;20&#x2F;41&#x2F; 基本实现用一个类 UF 来实现并查集。初始化时，将每个节点的父节点设为自己。 union 操作将 p 的根节点接到 q 的根节点下面。 find 操作查找节点 x 的根节点，且在查找的路上将路径压缩，将 x 直接接到它的爷爷节点（父节点的父节点）下面，这样下来最终树的高度不会超过 3。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并查集">
+<meta property="og:url" content="http://example.com/leetcode/fucking-algorithm/union-find/index.html">
+<meta property="og:site_name" content="Be Happy">
+<meta property="og:description" content="并查集（union-find）https:&#x2F;&#x2F;labuladong.gitee.io&#x2F;algo&#x2F;2&#x2F;20&#x2F;41&#x2F; 基本实现用一个类 UF 来实现并查集。初始化时，将每个节点的父节点设为自己。 union 操作将 p 的根节点接到 q 的根节点下面。 find 操作查找节点 x 的根节点，且在查找的路上将路径压缩，将 x 直接接到它的爷爷节点（父节点的父节点）下面，这样下来最终树的高度不会超过 3。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/code.jpg">
+<meta property="article:published_time" content="2022-03-21T10:48:00.000Z">
+<meta property="article:modified_time" content="2022-03-21T12:40:39.039Z">
+<meta property="article:author" content="LJW">
+<meta property="article:tag" content="Go">
+<meta property="article:tag" content="图">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/code.jpg">
+  
+  
+  <title>并查集 - Be Happy</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":"UA-199094373-1","gtag":"G-8SWWDR0FQC","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Be Happy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="并查集">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-21 18:48" pubdate>
+        2022年3月21日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">并查集</h1>
+            
+            <div class="markdown-body">
+              <h1 id="并查集（union-find）"><a href="#并查集（union-find）" class="headerlink" title="并查集（union-find）"></a>并查集（union-find）</h1><p><a target="_blank" rel="noopener" href="https://labuladong.gitee.io/algo/2/20/41/">https://labuladong.gitee.io/algo/2/20/41/</a></p>
+<h2 id="基本实现"><a href="#基本实现" class="headerlink" title="基本实现"></a>基本实现</h2><p>用一个类 UF 来实现并查集。初始化时，将每个节点的父节点设为自己。</p>
+<p><code>union</code> 操作将 p 的根节点接到 q 的根节点下面。</p>
+<p><code>find</code> 操作查找节点 x 的根节点，且在查找的路上将路径压缩，将 x 直接接到它的爷爷节点（父节点的父节点）下面，这样下来最终树的高度不会超过 3。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> UF <span class="hljs-keyword">struct</span> &#123;<br>	count   <span class="hljs-keyword">int</span>    <span class="hljs-comment">// 连通分量数</span><br>	parents []<span class="hljs-keyword">int</span>  <span class="hljs-comment">// 记录每个节点的父节点</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewUF</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">UF</span></span> &#123;<br>	parents := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, n)<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>		parents[i] = i<br>	&#125;<br>	<span class="hljs-keyword">return</span> UF&#123;n, parents&#125;<br>&#125;<br><br><span class="hljs-comment">// Union 将节点 p 和 q 联通</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(u *UF)</span> <span class="hljs-title">Union</span><span class="hljs-params">(p, q <span class="hljs-keyword">int</span>)</span></span> &#123;<br>	rootP, rootQ := u.Find(p), u.Find(q)<br>	<span class="hljs-keyword">if</span> rootP == rootQ &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br><br>	u.parents[rootP] = rootQ<br>	u.count -= <span class="hljs-number">1</span><br>&#125;<br><br><span class="hljs-comment">// Find 查找节点 x 的根节点</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(u *UF)</span> <span class="hljs-title">Find</span><span class="hljs-params">(x <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>	<span class="hljs-keyword">for</span> u.parents[x] != x &#123;<br>		u.parents[x] = u.parents[u.parents[x]] <span class="hljs-comment">// 路径压缩</span><br>		x = u.parents[x]<br>	&#125;<br>	<span class="hljs-keyword">return</span> x<br>&#125;<br><br><span class="hljs-comment">// Connected 判断两个节点是否连通</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(u *UF)</span> <span class="hljs-title">Connected</span><span class="hljs-params">(p, q <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>	rootP, rootQ := u.Find(p), u.Find(q)<br>	<span class="hljs-keyword">return</span> rootP == rootQ<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="被围绕的区域"><a href="#被围绕的区域" class="headerlink" title="被围绕的区域"></a>被围绕的区域</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/surrounded-regions/">https://leetcode-cn.com/problems/surrounded-regions/</a></p>
+<p>这个问题有个重要的性质：和**边界上的 0 **连通的 0 不会被替换，而其他的 0 要被替换。</p>
+<p>因此，利用并查集，我们将边界上的所有 0 和图一个 <code>dummy</code> 根节点相连，然后遍历棋盘内部，将所有的 0 来跟周围的 0 连接。最后判断一个 0 是否要被替换，就看它的根节点是否为 <code>dummy</code>，如果是就不用替换。</p>
+<p>实现要点：</p>
+<ol>
+<li>为 <code>dummy</code> 根节点预留位置</li>
+<li>将二维数组转为一维的技巧：<code>(x, y) =&gt; x*n + y</code> （n 为列数）</li>
+<li>为了不破坏上面这个映射结构，<code>dummy</code> 的位置为数组最末尾</li>
+<li>用 <code>directions</code> 数组技巧来遍历上下左右四个位置</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">solve</span><span class="hljs-params">(board [][]<span class="hljs-keyword">byte</span>)</span></span>  &#123;<br>    m, n := <span class="hljs-built_in">len</span>(board), <span class="hljs-built_in">len</span>(board[<span class="hljs-number">0</span>])<br>    uf := NewUF(m * n + <span class="hljs-number">1</span>)<br><br>    dummy := m * n<br><br>    <span class="hljs-keyword">for</span> row := <span class="hljs-number">0</span>; row &lt; m; row++ &#123;<br>        <span class="hljs-keyword">if</span> board[row][<span class="hljs-number">0</span>] == <span class="hljs-string">&#x27;O&#x27;</span> &#123;<br>            uf.Union(row * n, dummy)<br>        &#125;<br>        <span class="hljs-keyword">if</span> board[row][n<span class="hljs-number">-1</span>] == <span class="hljs-string">&#x27;O&#x27;</span> &#123;<br>            uf.Union(row * n + n - <span class="hljs-number">1</span>, dummy)<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> col := <span class="hljs-number">0</span>; col &lt; n; col++ &#123;<br>        <span class="hljs-keyword">if</span> board[<span class="hljs-number">0</span>][col] == <span class="hljs-string">&#x27;O&#x27;</span> &#123;<br>            uf.Union(col, dummy)<br>        &#125;<br>        <span class="hljs-keyword">if</span> board[m<span class="hljs-number">-1</span>][col] == <span class="hljs-string">&#x27;O&#x27;</span> &#123;<br>            uf.Union((m<span class="hljs-number">-1</span>) * n + col, dummy)<br>        &#125;<br>    &#125;<br><br>    directions := [][]<span class="hljs-keyword">int</span>&#123;<br>        &#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;,<br>        &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;,<br>        &#123;<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>&#125;,<br>        &#123;<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>&#125;,<br>    &#125;<br>    <br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; m<span class="hljs-number">-1</span>; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt; n<span class="hljs-number">-1</span>; j++ &#123;<br>            <span class="hljs-keyword">if</span> board[i][j] == <span class="hljs-string">&#x27;O&#x27;</span> &#123;<br>                <span class="hljs-keyword">for</span> _, d := <span class="hljs-keyword">range</span> directions &#123;<br>                    x := i + d[<span class="hljs-number">0</span>]<br>                    y := j + d[<span class="hljs-number">1</span>]<br>                    <span class="hljs-keyword">if</span> board[x][y] == <span class="hljs-string">&#x27;O&#x27;</span> &#123;<br>                        uf.Union(i * n + j, x * n + y)<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt; m<span class="hljs-number">-1</span>; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt; n<span class="hljs-number">-1</span>; j++ &#123;<br>            <span class="hljs-keyword">if</span> !uf.Connected(dummy, i * n + j) &#123;<br>                board[i][j] = <span class="hljs-string">&#x27;X&#x27;</span><br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// UF 实现见上文</span><br></code></pre></td></tr></table></figure>
+
+<p>注：这题更好的解法是遍历边界上的 0，用 DFS 或 BFS 将与它们连接的 0 替换成别的一个特殊字符 #，然后替换掉其他所有的 0，再将 # 替换回来。</p>
+<h2 id="等式方程的可满足性"><a href="#等式方程的可满足性" class="headerlink" title="等式方程的可满足性"></a>等式方程的可满足性</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/satisfiability-of-equality-equations/">https://leetcode-cn.com/problems/satisfiability-of-equality-equations/</a></p>
+<p>用 <code>==</code> 连接的变量，就是互相连通的关系，可以自然地用并查集解决。具体来说，先处理 <code>==</code> 连接的变量，构造连通图，然后处理 <code>!=</code> 的变量，检查是否破坏了连通关系。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">equationsPossible</span><span class="hljs-params">(equations []<span class="hljs-keyword">string</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    uf := NewUF(<span class="hljs-number">26</span>)<br>    <span class="hljs-keyword">for</span> _, eq := <span class="hljs-keyword">range</span> equations &#123;<br>        <span class="hljs-keyword">if</span> eq[<span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;=&#x27;</span> &#123;<br>            uf.Union(<span class="hljs-keyword">int</span>(eq[<span class="hljs-number">0</span>] - <span class="hljs-string">&#x27;a&#x27;</span>), <span class="hljs-keyword">int</span>(eq[<span class="hljs-number">3</span>] - <span class="hljs-string">&#x27;a&#x27;</span>))<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> _, eq := <span class="hljs-keyword">range</span> equations &#123;<br>        <span class="hljs-keyword">if</span> eq[<span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;!&#x27;</span> &#123;<br>            <span class="hljs-comment">// 检查是否违反了已有的连通关系</span><br>            <span class="hljs-keyword">if</span> uf.Connected(<span class="hljs-keyword">int</span>(eq[<span class="hljs-number">0</span>] - <span class="hljs-string">&#x27;a&#x27;</span>), <span class="hljs-keyword">int</span>(eq[<span class="hljs-number">3</span>] - <span class="hljs-string">&#x27;a&#x27;</span>)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br><br><span class="hljs-comment">// UF 实现见上文</span><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/">Fucking</a>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/Fucking/%E5%9B%BE/">图</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Go/">Go</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9B%BE/">图</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/leetcode/fucking-algorithm/bipartite-graph/">
+                        <span class="hidden-mobile">二分图</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script>
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          Fluid.utils.createCssLink('https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css');
+          Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js', function() {
+            new DisqusJS({
+              shortname: 'leejw',
+              apikey: 'uwgYI8benoAzCV2xA5QFYUv30LJ13QrrQghMfixeBhBnK0XEph0iW7DSTRkHI4Lm'
+            });
+          });
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'UA-199094373-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8SWWDR0FQC"></script>
+    <script defer>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8SWWDR0FQC');
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
