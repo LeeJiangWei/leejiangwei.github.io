@@ -4,6 +4,37 @@
   
   
   <entry>
+    <title>寻找名人</title>
+    <link href="/leetcode/fucking-algorithm/find-the-celebrity/"/>
+    <url>/leetcode/fucking-algorithm/find-the-celebrity/</url>
+    
+    <content type="html"><![CDATA[<h1 id="寻找名人"><a href="#寻找名人" class="headerlink" title="寻找名人"></a>寻找名人</h1><p><a href="https://labuladong.gitee.io/algo/2/20/44/">https://labuladong.gitee.io/algo/2/20/44/</a></p><p>寻找名人问题：在 n 人中有一个人是名人，其他人都认识名人，而名人不认识任何人。题目提供了 <code>knows(a, b)</code> 这样一个函数来判断一个人是否认识另一个。</p><p>这个题有个有趣的性质：观察两人是否认识，至少可以排除一个人一定不是名人。设一个人为名人候选 <code>candidate</code>，另一个人记为 <code>other</code> 。两个人之间的关系只可能有 4 种：</p><ul><li><code>candidate</code> 认识 <code>other</code>：因为名人不认识其他人，所以 <code>candidate</code> 肯定不是名人，排除 <code>candidate</code>。</li><li><code>other</code> 认识 <code>candidate</code>：同理，排除 <code>other</code>。</li><li>两个人互相认识，则他俩都不是名人，因为名人不认识其他人。</li><li>两个人互不认识，则他俩也都不是名人，因为所有人都认识名人。</li></ul><p>开始时，将所有人放进队列，然后每次取出 2 个人观察他们的关系，根据上面的关系排除掉一个人（如果是两个人都不是名人的情况，随便排除一个，方便写代码），将另一人归回队列中，直到只剩下一个人。然后再遍历一次其他人来检查这个人是否是名人。</p><figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findCelebrity</span><span class="hljs-params">(n <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br><span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span> &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>&#125;<br><br>queue := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)<br><span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>queue = <span class="hljs-built_in">append</span>(queue, i)<br>&#125;<br><br><span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(queue) &gt;= <span class="hljs-number">2</span> &#123;<br>candidate := queue[<span class="hljs-number">0</span>]<br>other := queue[<span class="hljs-number">1</span>]<br>queue = queue[<span class="hljs-number">2</span>:]<br><br><span class="hljs-keyword">if</span> knows(candidate, other) || !knows(other, candidate) &#123;<br>queue = <span class="hljs-built_in">append</span>(queue, other)  <span class="hljs-comment">// 排除 candidate</span><br>&#125; <span class="hljs-keyword">else</span> &#123;<br>queue = <span class="hljs-built_in">append</span>(queue, candidate)  <span class="hljs-comment">// 排除 other</span><br>&#125;<br>&#125;<br><br>candidate := queue[<span class="hljs-number">0</span>]<br><span class="hljs-keyword">for</span> other := <span class="hljs-number">0</span>; other &lt; n; other++ &#123;<br><span class="hljs-keyword">if</span> other == candidate &#123;<br><span class="hljs-keyword">continue</span><br>&#125;<br><span class="hljs-keyword">if</span> !knows(other, candidate) || knows(candidate, other) &#123;<br><span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>&#125;<br>&#125;<br><br><span class="hljs-keyword">return</span> candidate<br>&#125;<br><br><span class="hljs-comment">// 模拟 leetcode API，此处名人是 2</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">knows</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>adjacentMatrix := [][]<span class="hljs-keyword">int</span>&#123;<br>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;,<br>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>&#125;,<br>&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;,<br>&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>&#125;,<br>&#125;<br><span class="hljs-keyword">return</span> adjacentMatrix[a][b] == <span class="hljs-number">1</span><br>&#125;<br></code></pre></td></tr></table></figure><p>也可以再简化，把队列去掉，每次只维护一个候选人变量即可，排除掉一个人时就让另一个成为候选。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>Fucking</category>
+      
+      <category>图</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>图</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>KRUSKAL 最小生成树算法</title>
     <link href="/leetcode/fucking-algorithm/kruskal-algorithm/"/>
     <url>/leetcode/fucking-algorithm/kruskal-algorithm/</url>
