@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>阿里暑期实习后端面试记录</title>
+    <link href="/essay/ali-interview-review/"/>
+    <url>/essay/ali-interview-review/</url>
+    
+    <content type="html"><![CDATA[<h1 id="阿里暑期实习后端面试记录"><a href="#阿里暑期实习后端面试记录" class="headerlink" title="阿里暑期实习后端面试记录"></a>阿里暑期实习后端面试记录</h1><h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><ul><li>项目相关，难点，如何解决</li></ul><h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><ul><li>进程和线程是什么，区别</li><li>为什么操作系统要用用户态和内核态</li></ul><h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><ul><li>三次握手过程，两次握手可以吗</li><li>HTTP 和 HTTPS 的区别</li></ul><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ul><li>介绍 B 树，B+ 树，B* 树</li><li>对区分度不高的值可以建立索引吗，怎么建立索引</li></ul><h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><ul><li>五种数据类型及底层的实现有了解吗</li><li>为什么 ZSET 用跳跃表不用红黑树</li><li>内存淘汰策略</li></ul><h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><ul><li>单例模式等</li></ul><h2 id="场景题"><a href="#场景题" class="headerlink" title="场景题"></a>场景题</h2><ul><li>几十亿个无序正整数互不重复，储存在磁盘中，电脑内存不够大没有办法一次都进来，现在要查找几个数是否在这之中，有什么方法做到，复杂度 O(logn)<ul><li>利用二进制位建立类似二叉树结构（文件储存）</li><li>布隆过滤器</li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>随笔</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>美团暑期实习后端面试记录</title>
     <link href="/essay/meituan-interview-review/"/>
     <url>/essay/meituan-interview-review/</url>
