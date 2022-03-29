@@ -32,6 +32,7 @@ sticky: -1
 ## Go
 
 + 读写一个 nil 的 channel 会发送什么
++ new 和 make 的区别
 + select 语句和 switch 语句有什么区别
 + 如果在 select 语句中套一个 for 循环，在里面 break，请问 break 的是循环还是 select
 + 有用过 Go 的锁吗
