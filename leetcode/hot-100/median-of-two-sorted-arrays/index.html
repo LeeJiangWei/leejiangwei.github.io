@@ -1,0 +1,538 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LJW">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="寻找两个正序数组的中位数https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;median-of-two-sorted-arrays&#x2F; 最简单的方法是合并数组，需要 O(m+n) 的复杂度。 二分查找利用二分查找，可以将复杂度降为 O(log(m+n))。 https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;median-of-two-sorted-arrays&#x2F;solu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="寻找两个正序数组的中位数">
+<meta property="og:url" content="http://example.com/leetcode/hot-100/median-of-two-sorted-arrays/index.html">
+<meta property="og:site_name" content="Be Happy">
+<meta property="og:description" content="寻找两个正序数组的中位数https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;median-of-two-sorted-arrays&#x2F; 最简单的方法是合并数组，需要 O(m+n) 的复杂度。 二分查找利用二分查找，可以将复杂度降为 O(log(m+n))。 https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;median-of-two-sorted-arrays&#x2F;solu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/code.jpg">
+<meta property="article:published_time" content="2022-04-15T03:40:00.000Z">
+<meta property="article:modified_time" content="2022-04-15T04:15:43.479Z">
+<meta property="article:author" content="LJW">
+<meta property="article:tag" content="Go">
+<meta property="article:tag" content="数组">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/code.jpg">
+  
+  
+  <title>寻找两个正序数组的中位数 - Be Happy</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":"UA-199094373-1","gtag":"G-8SWWDR0FQC","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Be Happy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="寻找两个正序数组的中位数">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-15 11:40" pubdate>
+        2022年4月15日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">寻找两个正序数组的中位数</h1>
+            
+            <div class="markdown-body">
+              <h1 id="寻找两个正序数组的中位数"><a href="#寻找两个正序数组的中位数" class="headerlink" title="寻找两个正序数组的中位数"></a>寻找两个正序数组的中位数</h1><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/">https://leetcode-cn.com/problems/median-of-two-sorted-arrays/</a></p>
+<p>最简单的方法是合并数组，需要 O(m+n) 的复杂度。</p>
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>利用二分查找，可以将复杂度降为 O(log(m+n))。</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-s-114/">https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-s-114/</a></p>
+<p>根据中位数定义，假设将数组合并了，则：</p>
+<ul>
+<li><code>m + n</code> 为奇数时，中位数在数组中的位置为 <code>(m + n)/2</code></li>
+<li><code>m + n</code> 为偶数时，中位数是位置为 <code>(m + n)/2</code> 和 <code>(m + n)/2 + 1</code> 的两个数的平均数</li>
+</ul>
+<p>这个位置实际上表明了有多少个元素比中位数小。利用这一点，我们不用合并数组，只需要在两个数组中找出第 <code>k</code> 小的元素即可，其中 <code>k = (m+n)/2</code> 或 <code>k = (m+n)/2 + 1</code>。（如果 <code>m + n</code>是奇数，就只用找 <code>k = (m+n)/2</code> 的情况，如果是偶数，则两个都要找，然后求平均）</p>
+<p>所以只要实现在两个数组中找到第 k 小的元素，这道题就可以解决了。</p>
+<p>每次检查 A B 两个数组的 <code>k/2 - 1</code> 这个位置。如果 <code>A[k/2 -1] &lt; B[k/2 - 1]</code>，则因为数组有序，比 <code>A[k/2 - 1]</code> 这个数还小的数最多只有 A 中它前面的 <code>k/2 - 1</code> 个数以及 B 前面的最多 <code>k/2 - 1</code> 个数，最多也只有 <code>k-2</code> 个数比它小，那它肯定不是中位数，这个数以及它前面的全部排除。</p>
+<p>假设这一步排除掉了 <code>x</code> 个数，且在数组中把这些数删掉。则新的问题变为在剩下的数组中寻找第 <code>k - x</code> 小的数了，是一模一样的子问题。更新 <code>k</code> 值，然后利用上面的逻辑一直迭代下去，直到最后 <code>k == 1</code>，就只用比较两个剩余数组最小的元素哪个更小就好了。有可能会出现将其中一个数组全部排除的情况，此时直接返回另一个数组第 <code>k</code> 个数即可。需要注意 <code>k</code> 的更新必须减去实际上排除掉的数字数目。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findMedianSortedArrays</span><span class="hljs-params">(nums1 []<span class="hljs-keyword">int</span>, nums2 []<span class="hljs-keyword">int</span>)</span> <span class="hljs-title">float64</span></span> &#123;<br>    totalLength := <span class="hljs-built_in">len</span>(nums1) + <span class="hljs-built_in">len</span>(nums2)<br>    <span class="hljs-keyword">if</span> totalLength%<span class="hljs-number">2</span> == <span class="hljs-number">1</span> &#123;<br>        midIndex := totalLength/<span class="hljs-number">2</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">float64</span>(getKthElement(nums1, nums2, midIndex + <span class="hljs-number">1</span>))<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        midIndex1, midIndex2 := totalLength/<span class="hljs-number">2</span> - <span class="hljs-number">1</span>, totalLength/<span class="hljs-number">2</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">float64</span>(getKthElement(nums1, nums2, midIndex1 + <span class="hljs-number">1</span>) + getKthElement(nums1, nums2, midIndex2 + <span class="hljs-number">1</span>)) / <span class="hljs-number">2.0</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getKthElement</span><span class="hljs-params">(nums1, nums2 []<span class="hljs-keyword">int</span>, k <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// 记录两个数组的起始点，在它们之前的数已经被排除</span><br>    index1, index2 := <span class="hljs-number">0</span>, <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> &#123;<br>        <span class="hljs-comment">// 数组 1 已经全部排除</span><br>        <span class="hljs-keyword">if</span> index1 == <span class="hljs-built_in">len</span>(nums1) &#123;<br>            <span class="hljs-keyword">return</span> nums2[index2 + k - <span class="hljs-number">1</span>]<br>        &#125;<br>        <span class="hljs-comment">// 数组 2 已经全部排除</span><br>        <span class="hljs-keyword">if</span> index2 == <span class="hljs-built_in">len</span>(nums2) &#123;<br>            <span class="hljs-keyword">return</span> nums1[index1 + k - <span class="hljs-number">1</span>]<br>        &#125;<br>        <span class="hljs-keyword">if</span> k == <span class="hljs-number">1</span> &#123;<br>            <span class="hljs-keyword">return</span> min(nums1[index1], nums2[index2])<br>        &#125;<br><br>        <span class="hljs-comment">// 检查 k/2 - 1 这个位置，注意越界</span><br>        half := k/<span class="hljs-number">2</span><br>        newIndex1 := min(index1 + half, <span class="hljs-built_in">len</span>(nums1)) - <span class="hljs-number">1</span><br>        newIndex2 := min(index2 + half, <span class="hljs-built_in">len</span>(nums2)) - <span class="hljs-number">1</span><br><br>        pivot1, pivot2 := nums1[newIndex1], nums2[newIndex2]<br>        <span class="hljs-keyword">if</span> pivot1 &lt;= pivot2 &#123;<br>            <span class="hljs-comment">// 排除数组 1 中的数，更新 k 以及数组起始点</span><br>            k -= (newIndex1 - index1 + <span class="hljs-number">1</span>)<br>            index1 = newIndex1 + <span class="hljs-number">1</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 排除数组 1 中的数，更新 k 以及数组起始点</span><br>            k -= (newIndex2 - index2 + <span class="hljs-number">1</span>)<br>            index2 = newIndex2 + <span class="hljs-number">1</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(x, y <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-keyword">if</span> x &lt; y &#123;<br>        <span class="hljs-keyword">return</span> x<br>    &#125;<br>    <span class="hljs-keyword">return</span> y<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/HOT-100/">HOT 100</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Go/">Go</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/leetcode/hot-100/longest-palindromic-substring/">
+                        <span class="hidden-mobile">最长回文子串</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'UA-199094373-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8SWWDR0FQC"></script>
+    <script defer>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8SWWDR0FQC');
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
