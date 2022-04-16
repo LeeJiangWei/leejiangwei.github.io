@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>三数之和</title>
+    <link href="/leetcode/hot-100/3sum/"/>
+    <url>/leetcode/hot-100/3sum/</url>
+    
+    <content type="html"><![CDATA[<h1 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h1><p><a href="https://leetcode-cn.com/problems/3sum/">https://leetcode-cn.com/problems/3sum/</a></p><h2 id="排序-双指针"><a href="#排序-双指针" class="headerlink" title="排序 + 双指针"></a>排序 + 双指针</h2><p>首先要求 a b c 都不能重复，为了方便处理，可以先将数组排序，然后从小到大开始选 a b c，这样只要在选的时候不选重复的值，就能保证最终的序列也不重复。</p><p>假定先选定一个 a，此时目标变为选择一个 b 跟 c 使得 a b c 加起来是 0。由于 a 已经固定了，只要选择一个 b，c 的值也相应地确定了，且随着 b 增大，c 的取值只可能会减小，因此可以使用双指针一左一右来找出，减少一层循环。</p><figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">threeSum</span><span class="hljs-params">(nums []<span class="hljs-keyword">int</span>)</span> [][]<span class="hljs-title">int</span></span> &#123;<br>    <span class="hljs-comment">// 先对数组排序</span><br>    sort.Ints(nums)<br>    n := <span class="hljs-built_in">len</span>(nums)<br>    res := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>)<br><br>    <span class="hljs-keyword">for</span> first := <span class="hljs-number">0</span>; first &lt; n - <span class="hljs-number">2</span>; first++ &#123;<br>        <span class="hljs-comment">// 跳过重复的 a</span><br>        <span class="hljs-keyword">if</span> first &gt; <span class="hljs-number">0</span> &amp;&amp; nums[first] == nums[first<span class="hljs-number">-1</span>] &#123;<br>            <span class="hljs-keyword">continue</span><br>        &#125;<br><br>        <span class="hljs-comment">// c 作为右指针</span><br>        third := n - <span class="hljs-number">1</span><br><br>        <span class="hljs-comment">// b 作为左指针</span><br>        <span class="hljs-keyword">for</span> second := first + <span class="hljs-number">1</span>; second &lt; n - <span class="hljs-number">1</span>; second++ &#123;<br>            <span class="hljs-comment">// 跳过重复的 b</span><br>            <span class="hljs-keyword">if</span> second - <span class="hljs-number">1</span> &gt; first &amp;&amp; nums[second] == nums[second<span class="hljs-number">-1</span>] &#123;<br>                <span class="hljs-keyword">continue</span><br>            &#125;<br><br>            <span class="hljs-comment">// 收缩右指针</span><br>            <span class="hljs-keyword">for</span> second &lt; third &amp;&amp; nums[first] + nums[second] + nums[third] &gt; <span class="hljs-number">0</span> &#123;<br>                third--<br>            &#125;<br><br>            <span class="hljs-comment">// 排除左右指针相遇的情况</span><br>            <span class="hljs-keyword">if</span> second == third &#123;<br>                <span class="hljs-keyword">break</span><br>            &#125;<br><br>            <span class="hljs-keyword">if</span> nums[first] + nums[second] + nums[third] == <span class="hljs-number">0</span> &#123;<br>                res = <span class="hljs-built_in">append</span>(res, []<span class="hljs-keyword">int</span>&#123;nums[first], nums[second], nums[third]&#125;)<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> res<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>HOT 100</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>数组</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>寻找两个正序数组的中位数</title>
     <link href="/leetcode/hot-100/median-of-two-sorted-arrays/"/>
     <url>/leetcode/hot-100/median-of-two-sorted-arrays/</url>
