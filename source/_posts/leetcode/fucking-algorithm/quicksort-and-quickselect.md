@@ -82,7 +82,7 @@ func partition(arr []int, left, right int) int {
 
 执行 `partition` 后，`nums[p]` 左边的元素都以及比它小，而右边都比它大。将 `p` 和 `k` 比较，如果 `p < k`，说明第 `k` 大的元素在 `p` 的右边，只需要对 `nums[p+1..right]` 执行 `partition`，反之亦然。
 
-注意：`partition` 函数返回的是 `j`。当传入 `partition` 函数的 `left > right` 时，返回 `i` 会导致越界（如果传入正常的 `left < right` 值，在 for 循环退出时 i 总是等于 j）。所以在快速排序中，由于 `quicksort` 函数进入后会判断 `left` 和 `right` 的大小，所以返回 `i` 和 `j` 都是一样的。
+注意：`partition` 函数返回的是 `j`。当传入 `partition` 函数的 `left > right` 时，返回 `i` 会导致越界（如果传入正常的 `left < right` 值，在 for 循环退出时 `i` 总是等于 `j`）。所以在快速排序中，由于 `quicksort` 函数进入后会判断 `left` 和 `right` 的大小，所以返回 `i` 和 `j` 都是一样的。
 
 ```go
 func findKthLargest(nums []int, k int) int {
