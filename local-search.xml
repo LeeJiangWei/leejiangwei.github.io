@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>字母异位词分组</title>
+    <link href="/leetcode/hot-100/group-anagrams/"/>
+    <url>/leetcode/hot-100/group-anagrams/</url>
+    
+    <content type="html"><![CDATA[<h1 id="字母异位词分组"><a href="#字母异位词分组" class="headerlink" title="字母异位词分组"></a>字母异位词分组</h1><p><a href="https://leetcode.cn/problems/group-anagrams/">https://leetcode.cn/problems/group-anagrams/</a></p><h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><h3 id="排序字符串作为-key"><a href="#排序字符串作为-key" class="headerlink" title="排序字符串作为 key"></a>排序字符串作为 key</h3><p>排序单词，异位词的排序结果相同。</p><p>排序长度为 k 的单词会用去 klogk 的复杂度，对 n 个单词排序，则总时间复杂度为 O(nklogk)，空间复杂度为哈希表储存所有字符串的 O(nk)。</p><figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">groupAnagrams</span><span class="hljs-params">(strs []<span class="hljs-keyword">string</span>)</span> [][]<span class="hljs-title">string</span></span> &#123;<br>    groups := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>)<br><br>    <span class="hljs-keyword">for</span> _, word := <span class="hljs-keyword">range</span> strs &#123;<br>        chars := []<span class="hljs-keyword">byte</span>(word)<br>        sort.Slice(chars, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>            <span class="hljs-keyword">return</span> chars[i] &lt; chars[j]<br>        &#125;)<br>        key := <span class="hljs-keyword">string</span>(chars)<br><br>        groups[key] = <span class="hljs-built_in">append</span>(groups[key], word)<br>    &#125;<br><br>    <span class="hljs-keyword">var</span> results [][]<span class="hljs-keyword">string</span><br>    <span class="hljs-keyword">for</span> _, words := <span class="hljs-keyword">range</span> groups &#123;<br>        <span class="hljs-keyword">var</span> sames []<span class="hljs-keyword">string</span><br>        <span class="hljs-keyword">for</span> _, word := <span class="hljs-keyword">range</span> words &#123;<br>            sames = <span class="hljs-built_in">append</span>(sames, word)<br>        &#125;<br>        results = <span class="hljs-built_in">append</span>(results, sames)<br>    &#125;<br>    <span class="hljs-keyword">return</span> results<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="统计字母出现次数作为-key"><a href="#统计字母出现次数作为-key" class="headerlink" title="统计字母出现次数作为 key"></a>统计字母出现次数作为 key</h3><p>实际上直接统计单词字母出现速度会更快，因为不需要排序，时间复杂度为 O(nk)，空间复杂度为 O(n(k+|V|))</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">groupAnagrams</span><span class="hljs-params">(strs []<span class="hljs-keyword">string</span>)</span> [][]<span class="hljs-title">string</span></span> &#123;<br>    groups := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[[<span class="hljs-number">26</span>]<span class="hljs-keyword">int</span>][]<span class="hljs-keyword">string</span>)<br><br>    <span class="hljs-keyword">for</span> _, word := <span class="hljs-keyword">range</span> strs &#123;<br>        <span class="hljs-keyword">var</span> key [<span class="hljs-number">26</span>]<span class="hljs-keyword">int</span><br>        <span class="hljs-keyword">for</span> _, char := <span class="hljs-keyword">range</span> word &#123;<br>            key[<span class="hljs-keyword">int</span>(char - <span class="hljs-string">&#x27;a&#x27;</span>)] += <span class="hljs-number">1</span><br>        &#125;<br><br>        groups[key] = <span class="hljs-built_in">append</span>(groups[key], word)<br>    &#125;<br><br>    <span class="hljs-keyword">var</span> results [][]<span class="hljs-keyword">string</span><br>    <span class="hljs-keyword">for</span> _, words := <span class="hljs-keyword">range</span> groups &#123;<br>        <span class="hljs-keyword">var</span> sames []<span class="hljs-keyword">string</span><br>        <span class="hljs-keyword">for</span> _, word := <span class="hljs-keyword">range</span> words &#123;<br>            sames = <span class="hljs-built_in">append</span>(sames, word)<br>        &#125;<br>        results = <span class="hljs-built_in">append</span>(results, sames)<br>    &#125;<br>    <span class="hljs-keyword">return</span> results<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>HOT 100</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>字符串</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>搜索旋转排序数组</title>
     <link href="/leetcode/hot-100/search-in-rotated-sorted-array/"/>
     <url>/leetcode/hot-100/search-in-rotated-sorted-array/</url>
