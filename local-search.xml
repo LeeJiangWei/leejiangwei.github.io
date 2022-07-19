@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>单词搜索</title>
+    <link href="/leetcode/hot-100/word-search/"/>
+    <url>/leetcode/hot-100/word-search/</url>
+    
+    <content type="html"><![CDATA[<h1 id="单词搜索"><a href="#单词搜索" class="headerlink" title="单词搜索"></a>单词搜索</h1><p><a href="https://leetcode.cn/problems/word-search/">https://leetcode.cn/problems/word-search/</a></p><h2 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h2><figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> directions = [][]<span class="hljs-keyword">int</span>&#123;<br>    &#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;,<br>    &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;,<br>    &#123;<span class="hljs-number">-1</span>, <span class="hljs-number">0</span>&#125;,<br>    &#123;<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>&#125;,<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">exist</span><span class="hljs-params">(board [][]<span class="hljs-keyword">byte</span>, word <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>    m, n := <span class="hljs-built_in">len</span>(board), <span class="hljs-built_in">len</span>(board[<span class="hljs-number">0</span>])<br>    visited := <span class="hljs-built_in">make</span>([][]<span class="hljs-keyword">bool</span>, m)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> visited &#123;<br>        visited[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">bool</span>, n)<br>    &#125;<br><br>    <span class="hljs-comment">// 回溯函数定义</span><br>    <span class="hljs-keyword">var</span> backtrack <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j, curr <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span><br>    backtrack = <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j, curr <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>        <span class="hljs-keyword">if</span> board[i][j] != word[curr] &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>        <span class="hljs-keyword">if</span> curr == <span class="hljs-built_in">len</span>(word)<span class="hljs-number">-1</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>        &#125;<br><br>        <span class="hljs-comment">// 设置当前位置为已访问，并在函数返回之前回溯状态</span><br>        visited[i][j] = <span class="hljs-literal">true</span><br>        <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>&#123;<br>            visited[i][j] = <span class="hljs-literal">false</span><br>        &#125;()<br><br>        <span class="hljs-comment">// 访问四个方向的下个位置</span><br>        <span class="hljs-keyword">for</span> _, d := <span class="hljs-keyword">range</span> directions &#123;<br>            nextI, nextJ := i+d[<span class="hljs-number">0</span>], j+d[<span class="hljs-number">1</span>]<br>            <span class="hljs-keyword">if</span> nextI &gt;= <span class="hljs-number">0</span> &amp;&amp; nextI &lt; m &amp;&amp; nextJ &gt;= <span class="hljs-number">0</span> &amp;&amp; nextJ &lt; n &amp;&amp; !visited[nextI][nextJ] &#123;<br>                <span class="hljs-keyword">if</span> backtrack(nextI, nextJ, curr+<span class="hljs-number">1</span>) &#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>                &#125;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    &#125;<br><br>    <span class="hljs-comment">// 以棋盘每个格子为起点都试一次</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> visited &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-keyword">range</span> visited[i] &#123;<br>            <span class="hljs-keyword">if</span> backtrack(i, j, <span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>LeetCode</category>
+      
+      <category>HOT 100</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Go</tag>
+      
+      <tag>回溯法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>颜色分类</title>
     <link href="/leetcode/hot-100/sort-colors/"/>
     <url>/leetcode/hot-100/sort-colors/</url>
@@ -25,6 +54,8 @@
       <tag>Go</tag>
       
       <tag>数组</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
