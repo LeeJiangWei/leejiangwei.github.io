@@ -16,25 +16,22 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-    <meta name="description" content="环形链表哈希表使用哈希数据类型来记录节点是否存在过，key 可以是节点的地址。 1234567891011121314func hasCycle(head *ListNode) bool &amp;#123;    var m &#x3D; make(map[*ListNode]bool)    curr :&#x3D; head    for curr !&#x3D; nil &amp;#123;        if m[curr] &#x3D;&#x3D;">
+    <meta name="description" content="Query DSLQuery DSL (Domain Specific Language) 是 ES 提供的基于 JSON 的查询语言。 推荐参考：官方文档 Query 和 Filter 上下文Query Context用于解答文档是否存在，并且告知返回文档与查询条件的匹配度，返回_score 评分供用户选择。 Filter Context 只用于返回文档是否与查询匹配，但是不会告诉你匹配度，即不">
 <meta property="og:type" content="article">
-<meta property="og:title" content="环形链表">
-<meta property="og:url" content="http://example.com/leetcode/top-interview-questions-easy/linked-list-cycle/index.html">
+<meta property="og:title" content="Query DSL">
+<meta property="og:url" content="http://example.com/es/query-dsl/index.html">
 <meta property="og:site_name" content="Be Happy">
-<meta property="og:description" content="环形链表哈希表使用哈希数据类型来记录节点是否存在过，key 可以是节点的地址。 1234567891011121314func hasCycle(head *ListNode) bool &amp;#123;    var m &#x3D; make(map[*ListNode]bool)    curr :&#x3D; head    for curr !&#x3D; nil &amp;#123;        if m[curr] &#x3D;&#x3D;">
+<meta property="og:description" content="Query DSLQuery DSL (Domain Specific Language) 是 ES 提供的基于 JSON 的查询语言。 推荐参考：官方文档 Query 和 Filter 上下文Query Context用于解答文档是否存在，并且告知返回文档与查询条件的匹配度，返回_score 评分供用户选择。 Filter Context 只用于返回文档是否与查询匹配，但是不会告诉你匹配度，即不">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/code.jpg">
-<meta property="article:published_time" content="2022-01-06T09:29:44.000Z">
-<meta property="article:modified_time" content="2022-08-13T12:19:06.385Z">
+<meta property="og:image" content="http://example.com/img/es.png">
+<meta property="article:published_time" content="2022-08-13T11:56:00.000Z">
+<meta property="article:modified_time" content="2022-08-13T12:19:06.377Z">
 <meta property="article:author" content="LJW">
-<meta property="article:tag" content="Go">
-<meta property="article:tag" content="链表">
-<meta property="article:tag" content="哈希表">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/code.jpg">
+<meta name="twitter:image" content="http://example.com/img/es.png">
   
   
-  <title>环形链表 - Be Happy</title>
+  <title>Query DSL - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -192,7 +189,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="环形链表">
+            <span class="h2" id="subtitle" title="Query DSL">
               
             </span>
 
@@ -202,8 +199,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-06 17:29" pubdate>
-        2022年1月6日 下午
+      <time datetime="2022-08-13 19:56" pubdate>
+        2022年8月13日 晚上
       </time>
     </span>
   
@@ -213,7 +210,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      608 字
+      1.5k 字
     </span>
   
 
@@ -222,7 +219,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6 分钟
+      13 分钟
     </span>
   
 
@@ -259,19 +256,55 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">环形链表</h1>
+            <h1 style="display: none">Query DSL</h1>
             
             <div class="markdown-body">
-              <h1 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h1><h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>使用哈希数据类型来记录节点是否存在过，key 可以是节点的地址。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(head *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    <span class="hljs-keyword">var</span> m = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[*ListNode]<span class="hljs-keyword">bool</span>)<br><br>    curr := head<br><br>    <span class="hljs-keyword">for</span> curr != <span class="hljs-literal">nil</span> &#123;<br>        <span class="hljs-keyword">if</span> m[curr] == <span class="hljs-literal">true</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>        &#125;<br>        m[curr] = <span class="hljs-literal">true</span><br>        curr = curr.Next<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li><code>map</code> 类型要用 make 来初始化，如果不初始化它的值就是 <code>nil</code></li>
-<li>函数参数中，<code>a &amp;int</code> 是按引用传递，<code>a *int</code> 是传递了一个指针，这个 <code>a</code> 的类型就是 <code>*int</code> （int 指针），指针类型可以用作 <code>map</code> 的 key。</li>
-<li>因此在这个代码中，key 是 <code>*ListNode</code> 类型的，直接用变量 <code>curr</code> 就可以索引这个 map。</li>
+              <h1 id="Query-DSL"><a href="#Query-DSL" class="headerlink" title="Query DSL"></a>Query DSL</h1><p>Query DSL (Domain Specific Language) 是 ES 提供的基于 JSON 的查询语言。</p>
+<p>推荐参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html">官方文档</a></p>
+<h2 id="Query-和-Filter-上下文"><a href="#Query-和-Filter-上下文" class="headerlink" title="Query 和 Filter 上下文"></a>Query 和 Filter 上下文</h2><h3 id="Query-Context"><a href="#Query-Context" class="headerlink" title="Query Context"></a>Query Context</h3><p>用于解答文档是否存在，并且告知返回文档与查询条件的匹配度，返回_score 评分供用户选择。</p>
+<h3 id="Filter-Context"><a href="#Filter-Context" class="headerlink" title="Filter Context"></a>Filter Context</h3><ul>
+<li>只用于返回文档是否与查询匹配，但是不会告诉你匹配度，即不进行评分。</li>
+<li>在做聚合查询时，filter 经常发挥更大的作用，因为没有评分 Elasticsearch 的处理速度就会提高，提升了整体响应时间</li>
+<li>filter 可以缓存查询结果，而 Query 则不能缓存</li>
 </ul>
-<h2 id="快慢指针"><a href="#快慢指针" class="headerlink" title="快慢指针"></a>快慢指针</h2><p>如果链表有环，快慢指针最终会相遇。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">hasCycle</span><span class="hljs-params">(head *ListNode)</span> <span class="hljs-title">bool</span></span> &#123;<br>    fast, slow := head, head<br>    <span class="hljs-keyword">for</span> fast != <span class="hljs-literal">nil</span> &amp;&amp; fast.Next != <span class="hljs-literal">nil</span> &#123;<br>        fast = fast.Next.Next<br>        slow = slow.Next<br>        <span class="hljs-keyword">if</span> fast == slow &#123;<br>           <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span> <br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>如果涉及到全文检索以及评分相关业务使用 Query，其他场景推荐使用 Filter 查询。</p>
+<h2 id="组合查询"><a href="#组合查询" class="headerlink" title="组合查询"></a>组合查询</h2><h3 id="bool-查询"><a href="#bool-查询" class="headerlink" title="bool 查询"></a>bool 查询</h3><p>bool 查询包括四种: must, should, must_not, filter 子句。其中 must 和 should 属于 query context，换言之会返回评分；而 must_not 和 filter 属于 filter context，它们将不符合条件的文档直接过滤掉，因此不影响评分。</p>
+<p>bool 查询根据 must 和 should 子句匹配的越多，分数越高。</p>
+<h4 id="must"><a href="#must" class="headerlink" title="must"></a>must</h4><p>子句中的值一定会出现在匹配文档，且会返回评分。</p>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h4><p>子句中的值一定会出现在匹配文档，但不返回评分。</p>
+<h4 id="should"><a href="#should" class="headerlink" title="should"></a>should</h4><p>子句的值应当出现在文档中，类似于关系型数据库中的 or。</p>
+<p>如果一个 bool 查询中只有 should 子句，则至少需要满足其中一个（可以通过 <code>minimum_should_match</code> 参数修改这个值，默认为 1）。</p>
+<h4 id="must-not"><a href="#must-not" class="headerlink" title="must_not"></a>must_not</h4><p>子句中的值一定不会出现在匹配文档中。</p>
+<h3 id="boosting-查询"><a href="#boosting-查询" class="headerlink" title="boosting 查询"></a>boosting 查询</h3><p>匹配到 positive 子句的文档分数会更高，而匹配了 negative 子句的文档分数会降低。</p>
+<h3 id="constant-score-查询"><a href="#constant-score-查询" class="headerlink" title="constant_score 查询"></a>constant_score 查询</h3><p>对匹配的文档返回完全一样的分数。（即无视词频，有匹配即可）</p>
+<h3 id="dis-max-查询"><a href="#dis-max-查询" class="headerlink" title="dis_max 查询"></a>dis_max 查询</h3><p>Disjunction max query 查询也被理解为分离最大化查询，指的是将任何与任一查询匹配的文档，作为结果返回，但只将<strong>最佳匹配的评分</strong>作为查询的评分。</p>
+<h3 id="function-score-查询"><a href="#function-score-查询" class="headerlink" title="function_score 查询"></a>function_score 查询</h3><p>Function score 允许你控制查询评分，是用来控制评分过程的终极武器。</p>
+<h2 id="全文查询"><a href="#全文查询" class="headerlink" title="全文查询"></a>全文查询</h2><p>此处略过，详见<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html">官方文档</a>。</p>
+<h2 id="Term-Level-查询"><a href="#Term-Level-查询" class="headerlink" title="Term - Level 查询"></a>Term - Level 查询</h2><p>可以使用 Term - level 查询结构化数据，结构化数据如日期范围、IP 地址、价格等。Term - level 查询不分析查询项的内容，需要精确匹配字段。</p>
+<h3 id="exists-查询"><a href="#exists-查询" class="headerlink" title="exists 查询"></a>exists 查询</h3><p>返回存在某个<strong>字段</strong>的文档。</p>
+<p>下面几种情况下的文档不会被返回：</p>
+<ul>
+<li>原始 JSON 结构中字段值为 <code>null</code> 或 <code>[]</code></li>
+<li>在 mapping 中设置了 <code>&quot;index&quot; : false</code> 的字段</li>
+<li>字段值的长度超过了 mapping 中 <code>ignore_above</code> 设定的值</li>
+<li>字段值是畸形的，且 mapping 中设置了 <code>ignore_malformed</code></li>
+</ul>
+<h3 id="fuzzy-查询"><a href="#fuzzy-查询" class="headerlink" title="fuzzy 查询"></a>fuzzy 查询</h3><p>返回包含与搜索字词相似的字词的文档，可以用于查询纠错功能。基于词的最小编辑距离。</p>
+<h3 id="ids-查询"><a href="#ids-查询" class="headerlink" title="ids 查询"></a>ids 查询</h3><p>范围查询包含 ID 的文档。</p>
+<h3 id="prefix-查询"><a href="#prefix-查询" class="headerlink" title="prefix 查询"></a>prefix 查询</h3><p>返回在提供的字段中包含特定前缀的文档。</p>
+<h3 id="range-查询"><a href="#range-查询" class="headerlink" title="range 查询"></a>range 查询</h3><p>查询类似数据库中的大于、小于范围查询。可以对数值字段、日期字段生效。</p>
+<ul>
+<li>gt：大于</li>
+<li>gte：大于等于</li>
+<li>lt：小于</li>
+<li>lte：小于等于</li>
+</ul>
+<h3 id="regexp-查询"><a href="#regexp-查询" class="headerlink" title="regexp 查询"></a>regexp 查询</h3><p>正则表达式查询。</p>
+<h3 id="term-查询"><a href="#term-查询" class="headerlink" title="term 查询"></a>term 查询</h3><p>返回确切的文档内容。避免对 text 字段类型使用 term。</p>
+<h3 id="terms-查询"><a href="#terms-查询" class="headerlink" title="terms 查询"></a>terms 查询</h3><p>返回一个或多个包含精确查询条件的文档信息。</p>
+<h3 id="terms-set-查询"><a href="#terms-set-查询" class="headerlink" title="terms_set 查询"></a>terms_set 查询</h3><p>返回最小精确匹配成功的文档信息，terms_set 类似 terms 查询，只不过terms_set 多定义了返回最小匹配的数量。</p>
+<h3 id="wildcard-查询"><a href="#wildcard-查询" class="headerlink" title="wildcard 查询"></a>wildcard 查询</h3><p>通配符（wildcard）查询，返回包含与通配符模式匹配的术语的文档。</p>
+
             </div>
             <hr>
             <div>
@@ -280,25 +313,10 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
-                    
-                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/">初级算法</a>
-                    
-                      <a class="hover-with-bg" href="/categories/LeetCode/%E5%88%9D%E7%BA%A7%E7%AE%97%E6%B3%95/%E9%93%BE%E8%A1%A8/">链表</a>
+                      <a class="hover-with-bg" href="/categories/Elasticsearch/">Elasticsearch</a>
                     
                   </div>
                 
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Go/">Go</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E9%93%BE%E8%A1%A8/">链表</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">哈希表</a>
-                    
-                  </div>
                 
               </div>
               
@@ -307,18 +325,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/leetcode/top-interview-questions-easy/maximum-depth-of-binary-tree/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">二叉树的最大深度</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/leetcode/top-interview-questions-easy/palindrome-linked-list/">
-                        <span class="hidden-mobile">回文链表</span>
+                      <a href="/es/mapping/">
+                        <span class="hidden-mobile">理解 mapping</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
