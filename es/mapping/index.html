@@ -16,22 +16,22 @@
   <meta name="author" content="LJW">
   <meta name="keywords" content="">
   
-    <meta name="description" content="���� mappingӳ�䣨mapping���������ݿ��е� Schema ���������ĵ����ܾ��е��ֶλ����ԡ�ÿ���ֶε��������ͣ����� Text��Keyword��Integer �� Date ���Լ� Lucene ����������ʹ洢��Щ�ֶεġ� ���ļ��ֶ�����Elasticsearch ֧�����¼��ֶ����ͣ�">
+    <meta name="description" content="理解 mapping映射（mapping）就像数据库中的 Schema ，描述了文档可能具有的字段或属性、每个字段的数据类型，比如 Text，Keyword，Integer 或 Date ，以及 Lucene 是如何索引和存储这些字段的。 核心简单字段类型Elasticsearch 支持如下简单字段类型：  字符串： text，keyword 整数：byte，short，integer，long">
 <meta property="og:type" content="article">
-<meta property="og:title" content="���� mapping">
+<meta property="og:title" content="理解 mapping">
 <meta property="og:url" content="http://example.com/es/mapping/index.html">
 <meta property="og:site_name" content="Be Happy">
-<meta property="og:description" content="���� mappingӳ�䣨mapping���������ݿ��е� Schema ���������ĵ����ܾ��е��ֶλ����ԡ�ÿ���ֶε��������ͣ����� Text��Keyword��Integer �� Date ���Լ� Lucene ����������ʹ洢��Щ�ֶεġ� ���ļ��ֶ�����Elasticsearch ֧�����¼��ֶ����ͣ�">
+<meta property="og:description" content="理解 mapping映射（mapping）就像数据库中的 Schema ，描述了文档可能具有的字段或属性、每个字段的数据类型，比如 Text，Keyword，Integer 或 Date ，以及 Lucene 是如何索引和存储这些字段的。 核心简单字段类型Elasticsearch 支持如下简单字段类型：  字符串： text，keyword 整数：byte，short，integer，long">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/es.png">
 <meta property="article:published_time" content="2022-08-13T09:56:00.000Z">
-<meta property="article:modified_time" content="2022-08-13T09:59:17.236Z">
+<meta property="article:modified_time" content="2022-08-13T10:02:50.729Z">
 <meta property="article:author" content="LJW">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/img/es.png">
   
   
-  <title>���� mapping - Be Happy</title>
+  <title>理解 mapping - Be Happy</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -189,7 +189,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="���� mapping">
+            <span class="h2" id="subtitle" title="理解 mapping">
               
             </span>
 
@@ -210,7 +210,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      2k 字
     </span>
   
 
@@ -219,7 +219,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      21 分钟
+      17 分钟
     </span>
   
 
@@ -256,57 +256,57 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">���� mapping</h1>
+            <h1 style="display: none">理解 mapping</h1>
             
             <div class="markdown-body">
-              <h1 id="����-mapping"><a href="#����-mapping" class="headerlink" title="���� mapping"></a>���� mapping</h1><p>ӳ�䣨mapping���������ݿ��е� Schema ���������ĵ����ܾ��е��ֶλ����ԡ�ÿ���ֶε��������ͣ����� Text��Keyword��Integer �� Date ���Լ� Lucene ����������ʹ洢��Щ�ֶεġ�</p>
-<h2 id="���l��ֶ�����"><a href="#���l��ֶ�����" class="headerlink" title="���ļ��ֶ�����"></a>���ļ��ֶ�����</h2><p>Elasticsearch ֧�����¼��ֶ����ͣ�</p>
+              <h1 id="理解-mapping"><a href="#理解-mapping" class="headerlink" title="理解 mapping"></a>理解 mapping</h1><p>映射（mapping）就像数据库中的 Schema ，描述了文档可能具有的字段或属性、每个字段的数据类型，比如 Text，Keyword，Integer 或 Date ，以及 Lucene 是如何索引和存储这些字段的。</p>
+<h2 id="核心简单字段类型"><a href="#核心简单字段类型" class="headerlink" title="核心简单字段类型"></a>核心简单字段类型</h2><p>Elasticsearch 支持如下简单字段类型：</p>
 <ul>
-<li>�ַ����� text��keyword</li>
-<li>������byte��short��integer��long</li>
-<li>�������� float��double</li>
-<li>�����ͣ� boolean</li>
-<li>���ڣ� date</li>
+<li>字符串： text，keyword</li>
+<li>整数：byte，short，integer，long</li>
+<li>浮点数： float，double</li>
+<li>布尔型： boolean</li>
+<li>日期： date</li>
 </ul>
-<p>������ֶ����ͱ��� geo_point��ip��nested �ȿ��������Ӵ��鿴��<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html</a></p>
-<p>�鿴������ӳ�䣺<code>GET twitter/_mapping</code></p>
-<h2 id="��������"><a href="#��������" class="headerlink" title="��������"></a>��������</h2><ul>
-<li>�����ڿ��ٵ�ȫ�ļ���</li>
-<li>Elasticsearch �ĵ�ÿ���ֶζ��ᱻ���������ĳЩ�ֶβ���Ҫ֧�ֲ�ѯ��������ӳ�������� “index”: false �����ٴ洢�ռ�ռ�ã���������д���ٶ�</li>
+<p>更多的字段类型比如 geo_point，ip，nested 等可以在链接处查看：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html</a></p>
+<p>查看索引的映射：<code>GET twitter/_mapping</code></p>
+<h2 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h2><ul>
+<li>适用于快速的全文检索</li>
+<li>Elasticsearch 文档每个字段都会被索引。如果某些字段不需要支持查询，可以在映射中配置 “index”: false ，减少存储空间占用，并且提升写入速度</li>
 </ul>
-<p>���磺���µı�����Ҫ������������ url �ֶβ���Ҫ����������������ӳ��ʱ���԰����·�ʽ��������</p>
+<p>例如：文章的标题需要创建索引，而 url 字段不需要被索引。创建索引映射时可以按以下方式禁用它：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><pre><code class="hljs json">PUT news<br>&#123;<br>    <span class="hljs-attr">&quot;settings&quot;</span>: &#123; <br>        <span class="hljs-attr">&quot;number_of_shards&quot;</span>: <span class="hljs-number">5</span>, <br>        <span class="hljs-attr">&quot;number_of_replicas&quot;</span>: <span class="hljs-number">1</span><br>    &#125;,<br>    <span class="hljs-attr">&quot;mappings&quot;</span>: &#123; <br>        <span class="hljs-attr">&quot;properties&quot;</span>: &#123; <br>            <span class="hljs-attr">&quot;title&quot;</span>: &#123; <br>                <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;text&quot;</span>, <br>                <span class="hljs-attr">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;ik_max_word&quot;</span><br>            &#125;,<br>            <span class="hljs-attr">&quot;url&quot;</span>: &#123;<br>                <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;keyword&quot;</span>, <br>                <span class="hljs-attr">&quot;index&quot;</span>: <span class="hljs-literal">false</span><br>            &#125;   <br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="�j�ֵ"><a href="#�j�ֵ" class="headerlink" title="�ĵ�ֵ"></a>�ĵ�ֵ</h2><p>�� Elasticsearch �У�Doc Values ��һ����ʽ�洢�ṹ��</p>
+<h2 id="文档值"><a href="#文档值" class="headerlink" title="文档值"></a>文档值</h2><p>在 Elasticsearch 中，Doc Values 是一种列式存储结构。</p>
 <ul>
-<li>Doc Values Ĭ�϶������ֶ����ã����� text �� annotated_text �����ֶ�</li>
-<li>Doc Values ��������ʱ�����ģ����ֶ�����ʱ��Elasticsearch Ϊ���ܹ����ټ���������ֶε�ֵ���뵹�������У�ͬʱ��Ҳ��洢���ֶε� Doc Values</li>
+<li>Doc Values 默认对所有字段启用，除了 text 和 annotated_text 类型字段</li>
+<li>Doc Values 是在索引时创建的，当字段索引时，Elasticsearch 为了能够快速检索，会把字段的值加入倒排索引中，同时它也会存储该字段的 Doc Values</li>
 </ul>
-<p>Elasticsearch �е� Doc Values ����Ӧ�õ����³�����</p>
+<p>Elasticsearch 中的 Doc Values 常被应用到以下场景：</p>
 <ul>
-<li>��һ���ֶν�������</li>
-<li>��һ���ֶν��оۺ�</li>
-<li>ĳЩ���ˣ��������λ�ù���</li>
-<li>ĳЩ���ֶ���صĽű�����</li>
-<li>ʹ�� docvalue_fields ����������������ֶ�ֵ</li>
+<li>对一个字段进行排序</li>
+<li>对一个字段进行聚合</li>
+<li>某些过滤，比如地理位置过滤</li>
+<li>某些与字段相关的脚本计算</li>
+<li>使用 docvalue_fields 返回搜索结果部分字段值</li>
 </ul>
-<p>ע����������������Ϊ ES Ϊ�˼��ٲ�ѯ������Ȳ��������ⴢ�淽ʽ��ͬ���͵��ֶο��Ա���Ч��ѹ�����档�������Ǵ��� JSON ԭ�ģ�</p>
+<p>注：笔者这里理解它为 ES 为了加速查询和排序等操作的特殊储存方式，同类型的字段可以被高效地压缩储存。（而不是储存 JSON 原文）</p>
 <ul>
-<li>�����֪������ԶҲ�����ĳЩ�ֶν��оۺϡ��������ʹ�ýű������������ͨ�������ض��ֶε� Doc Values������������ʡ���̿ռ䣬Ҳ�������������ٶȡ�</li>
-<li>Ҫ���� Doc Values�����ֶε�ӳ������ doc_values: false</li>
+<li>如果你知道你永远也不会对某些字段进行聚合、排序或是使用脚本操作，你可以通过禁用特定字段的 Doc Values。这样不仅节省磁盘空间，也会提升索引的速度。</li>
+<li>要禁用 Doc Values，在字段的映射设置 doc_values: false</li>
 </ul>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs json">PUT my_index<br>&#123; <br>    <span class="hljs-attr">&quot;mappings&quot;</span>: &#123; <br>        <span class="hljs-attr">&quot;properties&quot;</span>: &#123; <br>            <span class="hljs-attr">&quot;session_id&quot;</span>: &#123; <br>                <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;keyword&quot;</span>, <br>                <span class="hljs-attr">&quot;doc_values&quot;</span>: <span class="hljs-literal">false</span><br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="����"><a href="#����" class="headerlink" title="����"></a>����</h2><p>Ĭ������£��ֶ�ԭʼֵ�ᱻ�������ڲ�ѯ�����ǲ��ᱻ�洢��</p>
+<h2 id="储存"><a href="#储存" class="headerlink" title="储存"></a>储存</h2><p>默认情况下，字段原始值会被索引用于查询，但是不会被存储。</p>
 <ul>
-<li>���ֶε�ӳ�� (mapping) ���� “store”: true������ʹ����������������ֶΡ�</li>
-<li>ͨ������£�����ĵ�����ʮ���Ӵ󣬶�һЩ�ֶ��ֻᾭ������ʹ�ã���ô�������ֶΣ��Ϳ�������Ϊ�����洢��Ȼ�����ʹ�� stored_fields ����������Щ�ֶΡ�</li>
-<li>���磬�������ĵ��������⡢ʱ���һ���ܴ�������ֶΣ������ֻ��Ҫ�������⡢ʱ���ֶΣ�û��Ҫ�Ӻܴ�� _source ԭ���н�������Щ�ֶΡ�</li>
+<li>在字段的映射 (mapping) 设置 “store”: true，可以使索引单独保存这个字段。</li>
+<li>通常情况下，如果文档本身十分庞大，而一些字段又会经常单独使用，那么这样的字段，就可以设置为单独存储，然后可以使用 stored_fields 单独检索这些字段。</li>
+<li>例如，如果你的文档包含标题、时间和一个很大的正文字段，你可能只需要检索标题、时间字段，没必要从很大的 _source 原文中解析出这些字段。</li>
 </ul>
-<h2 id="ԭ��"><a href="#ԭ��" class="headerlink" title="ԭ��"></a>ԭ��</h2><ul>
-<li>_source �ֶΰ�������ʱ���͵�ԭʼ JSON �ĵ�������ͨ�����ã�����ԭ���ֶΣ�����ֻ�洢�ض��ֶΡ�</li>
-<li>_source �ֶλᵼ��ռ�ø���Ĵ洢�ռ䡣���ҵ���ϲ���Ҫ�洢ԭʼ�ĵ������԰����·�ʽ��������</li>
-<li>���� _source �ᵼ�¸��¡��ؽ�������ժҪ���ܲ����ã������������á����ǽ�ʡ�洢�ռ䣬����ͨ���޸��������� index.codec ���ѹ��Ч�ʡ�</li>
+<h2 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h2><ul>
+<li>_source 字段包含索引时发送的原始 JSON 文档。可以通过设置，禁用原文字段，或者只存储特定字段。</li>
+<li>_source 字段会导致占用更多的存储空间。如果业务上不需要存储原始文档，可以按以下方式禁用它。</li>
+<li>禁用 _source 会导致更新、重建索引、摘要功能不可用，生产环境慎用。考虑节省存储空间，可以通过修改索引设置 index.codec 提高压缩效率。</li>
 </ul>
 
             </div>
@@ -334,7 +334,7 @@
                     
                     
                       <a href="/es/basis/">
-                        <span class="hidden-mobile">Elasticsearch (ES) ����</span>
+                        <span class="hidden-mobile">Elasticsearch (ES) 基础</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
